@@ -1,0 +1,64 @@
+package com.eeit147.groupfive.users.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="follow")
+public class Follow {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="follow_id")
+	private Integer followId;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_follow_users")
+	private Users users;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_follow_track")
+	private Users track;
+	
+	public Follow() {
+	}
+
+	public Follow(Integer followId, Users users, Users track) {
+		super();
+		this.followId = followId;
+		this.users = users;
+		this.track = track;
+	}
+
+	public Integer getFollowId() {
+		return followId;
+	}
+
+	public void setFollowId(Integer followId) {
+		this.followId = followId;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	public Users getTrack() {
+		return track;
+	}
+
+	public void setTrack(Users track) {
+		this.track = track;
+	}
+	
+}
