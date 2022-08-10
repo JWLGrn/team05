@@ -20,9 +20,9 @@ public class PageController {
 		return "Usersindex";
 	}
 	//查詢使用者
-	@GetMapping("/FindAllUsers")
+	@GetMapping("/setGmail")
 	public String FindAllUsersById() {
-		return "FindAll";
+		return "email/sendmail";
 	}
 	
 	//新增食譜(測試用)

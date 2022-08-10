@@ -38,7 +38,7 @@ public class UsersController {
 		m.addAttribute("login", u);
 		return "test/login";
 	}
-	//執行登入 判斷帳號密碼 
+	//會員執行登入 判斷帳號密碼 
 	@PostMapping("/user/login.controller")
 	public String checkLogin(HttpSession session,@ModelAttribute("login")Users user,Model m) {
 		HashMap<String, String> msg = new HashMap<String,String>();	
@@ -54,7 +54,7 @@ public class UsersController {
 		m.addAttribute("msg" , msg);
 		return "test/login";
 	}
-	//登出
+	//會員登出
 	@GetMapping("/users/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

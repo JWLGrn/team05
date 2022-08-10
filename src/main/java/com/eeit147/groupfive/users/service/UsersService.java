@@ -57,9 +57,5 @@ public class UsersService {
 		}
 		return null;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> team05/master
 
 }
