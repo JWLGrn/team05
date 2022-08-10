@@ -37,9 +37,6 @@ public class UsersService {
 		return uDao.findAll();
 	}
 	
-	//利用ID刪除會員資料
-	public void deleteById(Integer id) {
-		uDao.deleteById(id);
-	}
+
 
 }
