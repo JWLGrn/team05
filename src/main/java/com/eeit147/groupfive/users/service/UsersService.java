@@ -57,12 +57,5 @@ public class UsersService {
 		}
 		return null;
 	}
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
-//=======
-//
-//>>>>>>> team05/master
->>>>>>> b1cdfd335f7e2e92366556ee4a4a9d8491dfa739
 
 }
