@@ -100,7 +100,7 @@ public class TestController {
 
 		// 做關聯+新增總卡路里到食譜
 		newRecipe.setRecipeFoods(set);
-		newRecipe.setTotalCal(totalCal);
+		newRecipe.setTotalcal(totalCal);
 		rDao.save(newRecipe);
 
 		return "test/added";
@@ -186,7 +186,7 @@ public class TestController {
 
 		//設定食材表+總卡路里
 		recipe.setRecipeFoods(set);
-		recipe.setTotalCal(totalCal);
+		recipe.setTotalcal(totalCal);
 		rDao.save(recipe);
 
 		return "test/added";
