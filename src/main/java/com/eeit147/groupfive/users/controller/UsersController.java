@@ -78,7 +78,7 @@ public class UsersController {
 		user.setUserPhoto(userId + ".jpeg");
 		Users result = UService.insertUser(user);
 		try {
-		file.transferTo(new File("C:\\Git\\Project\\SoTired\\src\\main\\webapp\\image\\users\\" + userId+ ".jpeg"));
+		file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId+ ".jpeg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
