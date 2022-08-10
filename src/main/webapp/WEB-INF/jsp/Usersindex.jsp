@@ -12,11 +12,11 @@
 <title>會員註冊</title>
 </head>
 <body>
-	<form action="${contextRoot}/insertUser" method="post">
-		會員名稱:<input type="text" name="user_name"><br /> 信箱:<input
-			type="email" name="email"><br /> 密碼:<input type="password"
-			name="password"><br /> 會員照片:<input type="file"
-			name="user_photo"><br /> <input type="hidden" name="user_id"><br />
+	<form action="${contextRoot}/insertUser" method="post" enctype="multipart/form-data">
+		會員名稱:<input type="text" name="user_name"><br /> 
+		信箱:<input type="email" name="email"><br /> 
+		密碼:<input type="password" name="password"><br /> 
+		會員照片:<input type="file" name="user_photo"><br /> <input type="hidden" name="user_id"><br />
 		<input type=hidden name="permission" value="1" placeholder="1"><br />
 		<input type="submit" value="註冊">
 	</form>
