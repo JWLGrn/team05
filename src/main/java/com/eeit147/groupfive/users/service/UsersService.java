@@ -44,6 +44,7 @@ public class UsersService {
 		return UDao.findAll();
 	}
 	
+<<<<<<< HEAD
 	//利用ID刪除會員資料
 	public void deleteById(Integer id) {
 		UDao.deleteById(id);
@@ -57,5 +58,8 @@ public class UsersService {
 		}
 		return null;
 	}
+=======
+
+>>>>>>> 20220810
 
 }
