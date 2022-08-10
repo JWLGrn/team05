@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<c:set var="Root" value="${pageContext.request.contextPath }" />    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-${result.userName}
-<img  src="users/${result.userPhoto}">
+${loginUser.getUser_name() }
 
-註冊成功
+<a href="${pageContext.request.contextPath }/users/logout"><input type="button" value="登出" ></a>
 
 </body>
 </html>

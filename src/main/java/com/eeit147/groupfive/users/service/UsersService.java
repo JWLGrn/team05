@@ -15,30 +15,47 @@ import com.eeit147.groupfive.users.model.UsersDao;
 public class UsersService {
 	
 	@Autowired
-	private UsersDao uDao;
+	private UsersDao UDao;
 	
 	
 	//新增一位會員
 	public Users insertUser(Users user) {
 		
-		return uDao.save(user);
+		return UDao.save(user);
 	}
 	
 	//利用ID查詢會員資料
 	public List<Users> findUsersById(Integer id){
-		Optional<Users> Optional = uDao.findById(id);
+		Optional<Users> Optional = UDao.findById(id);
 		if(Optional !=null) {
 			Optional.get();
 		}
 		return null;
 	}
+	public Users findByIdOneUsers(Integer id) {
+		Optional<Users> optional = UDao.findById(id);
+		if(optional != null) {
+			optional.get();
+		}
+		return null;
+	}
 	//查詢所有會員
 	public List<Users> findAllUsers(){
-		return uDao.findAll();
+		return UDao.findAll();
 	}
 	
-sdidhaisdhfaifhafijiashs
-
-123252652652
+	//利用ID刪除會員資料
+	public void deleteById(Integer id) {
+		UDao.deleteById(id);
+	}
+	//登入
+	public Users findUsersByEmailandPassword(String email,String password){
+		Optional<Users> optional = UDao.findUsersByEmailandPassWord(email, password);
+		
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
 
 }
