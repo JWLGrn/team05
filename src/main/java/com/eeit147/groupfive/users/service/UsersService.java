@@ -37,8 +37,6 @@ public class UsersService {
 		return uDao.findAll();
 	}
 	
-sdidhaisdhfaifhafijiashs
-
-123252652652
+112
 
 }
