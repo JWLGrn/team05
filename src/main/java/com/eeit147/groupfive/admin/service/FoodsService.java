@@ -1,5 +1,7 @@
 package com.eeit147.groupfive.admin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +16,26 @@ public class FoodsService {
 	@Autowired
 	private FoodsDao fDao;
 	
-	public void insertFood(Foods fd) {
-		fDao.save(fd);
+	
+		//存入食材
+		public Foods insertFoods(Foods foods) {
+			Foods f = fDao.save(foods);
+			return f;
+		}
+
+	public boolean checkFoodsNameExist(String foodsname) {
+		List<Foods> check = fDao.checkFoodsNameExist(foodsname);
+		if(check.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
+		
+
 	
 //	public Foods lastestFood() {
-//		return fDao.findFirstByOrderByAddedDesc();
-//	}
+//	return fDao.findFirstByOrderByAddedDesc();
+//}
+	
 
 }

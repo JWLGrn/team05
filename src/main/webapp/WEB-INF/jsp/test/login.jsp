@@ -13,7 +13,7 @@
 </header>
 <main>
 	<form:form action="login.controller" method="Post" modelAttribute="login">
-		<form:label path="email" type="email">會員帳號:</form:label>
+		<form:label path="email" type="text">會員帳號:</form:label>
 		<form:input path="email" placeholder="請輸入Email" />
 		<form:label path="password" >會員密碼:</form:label>
 		<form:input path="password" placeholder="請輸入密碼"/>

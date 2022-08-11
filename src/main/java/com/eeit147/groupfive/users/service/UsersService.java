@@ -19,7 +19,7 @@ public class UsersService {
 	
 	
 	//新增一位會員
-	public Users insertUser(Users user) {
+	public Users insertUser(Users user) {  
 		
 		return UDao.save(user);
 	}
