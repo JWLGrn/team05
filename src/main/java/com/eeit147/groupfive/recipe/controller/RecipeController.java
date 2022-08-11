@@ -50,7 +50,7 @@ public class RecipeController {
 								  @RequestParam(value="cook_serve") Integer cookserve,Model m){
 	 String cookphotopath="recipe"+recipeid+".jpg";
 	 Date date=new Date();
-	 Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
+	 //Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
 //新增食譜	 測試step先隱藏
 	// rService.insertrecipe(recipe);	
 //	try {

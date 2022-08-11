@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "recipekeyword")
 public class RecipeKeyword {
@@ -19,10 +21,12 @@ public class RecipeKeyword {
 	@Column(name = "recipekeyword_id")
 	private Integer recipekeywordId;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipekeyword_recipe")
 	private Recipe recipe;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipekeyword_keyword")
 	private Keyword keyword;
