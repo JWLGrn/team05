@@ -14,9 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="reply")
@@ -33,8 +39,19 @@ public class Reply {
 	@Column(name="finally_photo")
 	private String finallyPhoto;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Taipei") //for JSON  需加timezone時區
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") //for SpringMVC
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="upload_time")
 	private Date uploadTime;
+	
+	@PrePersist //物件轉換成 Persistent(永續) 狀態前要執行的方法
+	public void onCreate() {
+		//若added為空則放入當下時間
+		if(uploadTime == null) {
+			uploadTime = new Date();
+		}
+	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_reply_users")

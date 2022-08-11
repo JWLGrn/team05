@@ -10,7 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="report")
@@ -24,8 +31,19 @@ public class Report {
 	@Column(name="report_context")
 	private String reportContext;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Taipei") //for JSON  需加timezone時區
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") //for SpringMVC
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="report_time")
 	private Date reportTime;
+	
+	@PrePersist //物件轉換成 Persistent(永續) 狀態前要執行的方法
+	public void onCreate() {
+		//若added為空則放入當下時間
+		if(reportTime == null) {
+			reportTime = new Date();
+		}
+	}
 	
 	@Column(name="report_type")
 	private String reportType;

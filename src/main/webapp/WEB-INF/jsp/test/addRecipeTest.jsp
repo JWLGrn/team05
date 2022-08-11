@@ -75,6 +75,24 @@
     <td>克數：</td>
     <td><input type="number" name="gram" step="0.01"></td>
 </tr>
+<tr>
+    <td>標籤1：</td>
+    <td><input type="text" name="tags"></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>標籤2：</td>
+    <td><input type="text" name="tags"></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>標籤3：</td>
+    <td><input type="text" name="tags"></td>
+    <td></td>
+    <td></td>
+</tr>
 
 </table>
 <button type="submit">送出</button>

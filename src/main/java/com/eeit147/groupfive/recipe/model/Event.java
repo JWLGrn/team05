@@ -13,6 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="event")
@@ -29,9 +35,15 @@ public class Event {
 	@Column(name="event_context")
 	private String eventContext;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd",timezone = "Asia/Taipei") //for JSON  需加timezone時區
+	@DateTimeFormat(pattern = "yyyy/MM/dd") //for SpringMVC
+	@Temporal(TemporalType.DATE)
 	@Column(name="time_start")
 	private Date timeStart;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd",timezone = "Asia/Taipei") //for JSON  需加timezone時區
+	@DateTimeFormat(pattern = "yyyy/MM/dd") //for SpringMVC
+	@Temporal(TemporalType.DATE)
 	@Column(name="time_end")
 	private Date timeEnd;
 	
