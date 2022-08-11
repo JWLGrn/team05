@@ -57,5 +57,12 @@ public class UsersService {
 		}
 		return null;
 	}
-
+	//判斷是否有相同的email
+	public boolean findByEmailCheckIsNotRepeat(String email) {
+		List<Users> check = UDao.findByemail(email);
+		if(check.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 }
