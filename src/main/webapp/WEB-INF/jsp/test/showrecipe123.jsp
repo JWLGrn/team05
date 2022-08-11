@@ -23,6 +23,9 @@
 <c:forEach items="${recipe.recipeFoods}" var="rf">
 <tr><td>食材：</td><td>${rf.foods.foodsName}</td><td>${rf.gram}克</td></tr>
 </c:forEach>
+<c:forEach items="${recipe.recipeKeyword}" var="rk">
+<tr><td>標籤：</td><td>${rk.keyword.keyword}</td><td></td></tr>
+</c:forEach>
 </table>
 <a href="${contextRoot}/updatePageTest?id=${recipe.recipeId}"><button>修改</button></a>
 </body>

@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "recipefoods")
 public class RecipeFoods {
@@ -22,10 +24,12 @@ public class RecipeFoods {
 	@Column(name = "gram")
 	private Double gram;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipefoods_recipe")
 	private Recipe recipe;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipefoods_foods")
 	private Foods foods;
