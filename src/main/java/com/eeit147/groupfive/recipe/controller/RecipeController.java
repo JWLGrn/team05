@@ -51,10 +51,14 @@ public class RecipeController {
 	 String cookphotopath="recipe"+recipeid+".jpg";
 	 Date date=new Date();
 <<<<<<< HEAD
+<<<<<<< HEAD
 //	 Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
 =======
 	 //Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
 >>>>>>> 381e123d683963693e9bc7e97dd2962fc0cffdbb
+=======
+//	 Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
+>>>>>>> 23958b69c47feb7a5d4355caeac593f251332a8b
 //新增食譜	 測試step先隱藏
 	// rService.insertrecipe(recipe);	
 //	try {

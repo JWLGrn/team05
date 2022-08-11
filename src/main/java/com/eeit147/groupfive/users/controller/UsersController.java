@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,6 +99,7 @@ public class UsersController {
 		
 		return null;
 	}
+<<<<<<< HEAD
 	@GetMapping("/heart")
 	public String favorite(Favorite favorite) {
 		Recipe recipe = new Recipe();
@@ -106,6 +108,18 @@ public class UsersController {
 		
 		return "SuccessUser";
 		
+=======
+	//判斷是否有重複的email
+	@PostMapping("/users/checkmail")
+	public @ResponseBody String checkEmailIsNotRepeat(@RequestParam("email")String email) {
+		System.out.println(email + "email");
+		boolean checkMail = UService.findByEmailCheckIsNotRepeat(email);	
+		//判斷 如為true 表示資料庫沒有重複的帳號
+		if(checkMail) {
+			return "0";
+		}
+		return "1";
+>>>>>>> 23958b69c47feb7a5d4355caeac593f251332a8b
 	}
 
 }
