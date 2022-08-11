@@ -67,6 +67,7 @@ public class UsersController {
 			Model model) {
 		String photoName = file.getOriginalFilename();
 		String photopath= "";
+		//註冊會員的email.密碼
 		Users newuser = new Users();
 		newuser.setUserName(user_name);
 		newuser.setEmail(email);
@@ -74,6 +75,7 @@ public class UsersController {
 		newuser.setPermission(permission);
 		newuser.setUserPhoto(photopath);
 		Users user = UService.insertUser(newuser);
+		//取得註冊User的id 將User上傳的圖片命名成
 		Integer userId = user.getUserId();
 		user.setUserPhoto(userId + ".jpeg");
 		Users result = UService.insertUser(user);
