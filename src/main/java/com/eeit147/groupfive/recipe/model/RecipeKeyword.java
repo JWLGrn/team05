@@ -37,6 +37,12 @@ public class RecipeKeyword {
 		this.keyword = keyword;
 	}
 
+	public RecipeKeyword(Recipe recipe, Keyword keyword) {
+		super();
+		this.recipe = recipe;
+		this.keyword = keyword;
+	}
+
 	public Integer getRecipekeywordId() {
 		return recipekeywordId;
 	}

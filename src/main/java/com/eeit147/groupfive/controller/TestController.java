@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
+import com.eeit147.groupfive.recipe.model.Keyword;
+import com.eeit147.groupfive.recipe.model.KeywordDao;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.recipe.model.RecipeFoods;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
+import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -33,6 +36,9 @@ public class TestController {
 
 	@Autowired
 	private UsersDao uDao;
+	
+	@Autowired
+	private KeywordDao kDao;
 	
 	@Autowired
 	private RecipeFoodsDao rfDao;
@@ -63,7 +69,8 @@ public class TestController {
 			@RequestParam("time") Integer time, 
 			@RequestParam("photo") String photo,
 			@RequestParam("foods") String[] foods, 
-			@RequestParam("gram") Double[] gram) {
+			@RequestParam("gram") Double[] gram,
+			@RequestParam("tags") String[] tags) {
 
 		// 取得user
 		Optional<Users> optional = uDao.findById(userId);
@@ -79,8 +86,8 @@ public class TestController {
 		r.setCookPhoto(photo); // 圖片標題，待寫io存圖片
 		Recipe newRecipe = rDao.save(r);
 
-		
-		Set<RecipeFoods> set = new LinkedHashSet<RecipeFoods>();
+		//-------------------食材關聯-------------------------
+		Set<RecipeFoods> recipeFoodsSet = new LinkedHashSet<RecipeFoods>();
 		Integer totalCal = 0;
 		Foods food = new Foods();
 		
@@ -88,24 +95,26 @@ public class TestController {
 			// 取得食材庫裡的食材
 			food = fDao.findByFoodsName(foods[i]);
 			// 新增進食材表(克數、食材、對應食譜)
-			set.add(new RecipeFoods(gram[i], food, newRecipe));
+			recipeFoodsSet.add(new RecipeFoods(gram[i], food, newRecipe));
 			// 計算卡路里
 			totalCal += (int) (gram[i] * (double) food.getCalorie() / 100);
 		}
+		//---------------------------------------------------
 
-
-		// 食材表(克數、食材、對應食譜)
-//		Set<RecipeFoods> set = new LinkedHashSet<RecipeFoods>();
-//		set.add(new RecipeFoods(200D, fDao.findByFoodsName("DHA豆奶"), newRecipe));
-//		set.add(new RecipeFoods(100D, fDao.findByFoodsName("七味唐辛子"), newRecipe));
-
-		// 計算卡路里
-//		Integer totalCal = (int) (200D * (double) fDao.findByFoodsName("DHA豆奶").getCalorie() / 100);
-//		totalCal += (int) (100D * (double) fDao.findByFoodsName("七味唐辛子").getCalorie() / 100);
-
+		//-------------------關鍵字關聯-------------------------
+		Set<RecipeKeyword> keywordSet = new LinkedHashSet<RecipeKeyword>();
+		
+		for (int i = 0; i < tags.length; i++) {
+			// 新增關鍵字至tag表
+			keywordSet.add(new RecipeKeyword(newRecipe,kDao.findByKeyword(tags[i])));
+		}
+		
+		//---------------------------------------------------
+		
 		// 做關聯+新增總卡路里到食譜
-		newRecipe.setRecipeFoods(set);
-		newRecipe.setTotalcal(totalCal);
+		newRecipe.setRecipeFoods(recipeFoodsSet);
+		newRecipe.setTotalCal(totalCal);
+		newRecipe.setRecipeKeyword(keywordSet);
 		rDao.save(newRecipe);
 
 		return "test/added";
@@ -191,7 +200,7 @@ public class TestController {
 
 		//設定食材表+總卡路里
 		recipe.setRecipeFoods(set);
-		recipe.setTotalcal(totalCal);
+		recipe.setTotalCal(totalCal);
 		rDao.save(recipe);
 
 		return "test/added";
