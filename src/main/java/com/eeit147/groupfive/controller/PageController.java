@@ -2,7 +2,11 @@ package com.eeit147.groupfive.controller;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.eeit147.groupfive.recipe.model.Foods;
 
 
 @Controller
@@ -30,6 +34,14 @@ public class PageController {
 	public String goAddRecipe() {
 		return "test/addRecipeTest";
 	}
+	
+	//新增食材
+		@GetMapping("/addfoods")
+		public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
+			Foods food = new Foods();
+			model.addAttribute("addfoods", food);
+			return "test/addfoods";
+		}
 	
 
 	@GetMapping("/testt")
