@@ -30,7 +30,7 @@ private JavaMailSender  mailSender;
 	        SimpleMailMessage message = new SimpleMailMessage();
 	        message.setFrom("stu60406666@gmail.com");
 	        message.setTo(email);
-	        message.setSubject("主旨：I Cook 歡迎您");
+	        message.setSubject("主旨：I-Cook 歡迎您");
 	        message.setText("很高興歡迎您，這是您的驗證碼"+verificationCode);
 	        mailSender.send(message);
 	        model.addAttribute("message", message);
@@ -39,7 +39,7 @@ private JavaMailSender  mailSender;
 	    }
     //確認驗證碼是否相同
     @PostMapping("/users/confirm/email")
-    public String confirm (@RequestParam("code") String code,Model model) {
+    public String confirm(@RequestParam("code") String code,Model model) {
     	
     	StringBuilder verificationCode =(StringBuilder) model.getAttribute("verificationCode");
     	String vCode = verificationCode.toString();

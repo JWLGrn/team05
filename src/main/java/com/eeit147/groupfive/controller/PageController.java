@@ -19,7 +19,7 @@ public class PageController {
 	public String UsersIndex() {
 		return "Usersindex";
 	}
-	//查詢使用者
+	//驗證信
 	@GetMapping("/setGmail")
 	public String FindAllUsersById() {
 		return "email/sendmail";
@@ -32,4 +32,9 @@ public class PageController {
 	}
 	
 
+	@GetMapping("/testt")
+	public String test() {
+		return  "test";
+		
+	}
 }

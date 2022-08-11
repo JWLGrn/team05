@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eeit147.groupfive.recipe.model.Recipe;
+import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.service.UsersService;
 
@@ -95,6 +97,15 @@ public class UsersController {
 		List<Users> FindUser = UService.findUsersById(user_id);
 		
 		return null;
+	}
+	@GetMapping("/heart")
+	public String favorite(Favorite favorite) {
+		Recipe recipe = new Recipe();
+		
+//		favorite.setUsers(recipe.getFavorite());
+		
+		return "SuccessUser";
+		
 	}
 
 }
