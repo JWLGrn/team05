@@ -99,7 +99,6 @@ public class UsersController {
 		
 		return null;
 	}
-<<<<<<< HEAD
 	@GetMapping("/heart")
 	public String favorite(Favorite favorite) {
 		Recipe recipe = new Recipe();
@@ -107,8 +106,8 @@ public class UsersController {
 //		favorite.setUsers(recipe.getFavorite());
 		
 		return "SuccessUser";
+	}
 		
-=======
 	//判斷是否有重複的email
 	@PostMapping("/users/checkmail")
 	public @ResponseBody String checkEmailIsNotRepeat(@RequestParam("email")String email) {
@@ -119,7 +118,6 @@ public class UsersController {
 			return "0";
 		}
 		return "1";
->>>>>>> 23958b69c47feb7a5d4355caeac593f251332a8b
 	}
 
 }
