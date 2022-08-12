@@ -49,4 +49,17 @@ public class PageController {
 		return  "test";
 		
 	}
+	
+	//測試查詢頁面
+	@GetMapping("/searchpage")
+	public String searchpage() {
+		return  "test/searchTest";
+		
+	}
+	
+	//測試查詢頁面
+	@GetMapping("/favorpage")
+	public String favorpage() {
+		return "test/favorTest";
+	}
 }

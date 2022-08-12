@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "campaign")
 public class Campaign {
@@ -19,10 +21,12 @@ public class Campaign {
 	@Column(name="campaign_id")
 	private Integer campaignId;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_campaign_event")
 	private Event event;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_campaign_recipe")
 	private Recipe recipe;

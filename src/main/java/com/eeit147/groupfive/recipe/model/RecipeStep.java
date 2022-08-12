@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "recipestep")
 public class RecipeStep {
@@ -28,6 +30,7 @@ public class RecipeStep {
 	@Column(name="step_photo")
 	private String stepPhoto;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipestep_recipe")
 	private Recipe recipe;

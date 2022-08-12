@@ -26,6 +26,7 @@ import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.Reply;
 import com.eeit147.groupfive.users.model.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="recipe")
@@ -68,6 +69,7 @@ public class Recipe {
 	@Column(name="total_cal")
 	private Integer totalCal;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_recipe_users")
 	private Users users;
