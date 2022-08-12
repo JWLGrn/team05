@@ -52,7 +52,7 @@ public class UsersController {
 		}
 		if(msg.isEmpty()) {
 			session.setAttribute("loginUser", loginUser);
-			return "loginSuccess";
+			return "test/loginSuccess";
 		}
 		m.addAttribute("msg" , msg);
 		return "test/login";
@@ -65,9 +65,12 @@ public class UsersController {
 	}
 	//會員註冊
 	@PostMapping("/insertUser")
-	public String InsertUser(@RequestParam("user_name") String user_name, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("permission") Integer permission,@RequestParam("user_photo")MultipartFile file,
-			Model model) {
+	public String InsertUser(@RequestParam("user_name") String user_name, 
+							@RequestParam("email") String email,
+							@RequestParam("password") String password, 
+							@RequestParam("permission") Integer permission,
+							@RequestParam("user_photo")MultipartFile file,
+							Model model) {
 		String photoName = file.getOriginalFilename();
 		String photopath= "";
 		//註冊會員的email.密碼

@@ -12,7 +12,11 @@
 </head>
 <body>
 ${result.userName}
-<img  src="users/${result.userPhoto}" width="100"><br>
+<img  src="users/${result.userPhoto}" width="300"><br>
+
+${loginUser.getUserName() }
+
+<a href="${pageContext.request.contextPath }/users/logout"><input type="button" value="登出" ></a>
 註冊成功<br>
 
 <%--  <div id="love"><a href="${contextRoot}/heart"><img src="break.jpg" onclick="heart()"></a></div>  --%>

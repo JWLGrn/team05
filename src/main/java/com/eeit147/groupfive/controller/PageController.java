@@ -49,4 +49,9 @@ public class PageController {
 		return  "test";
 		
 	}
+	
+	@GetMapping("/loginpage")
+	public String login() {
+		return "redirect:/user/login";
+	}
 }
