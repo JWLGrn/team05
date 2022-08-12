@@ -36,11 +36,17 @@ public class PageController {
 	}
 	
 	//新增食材
-		@GetMapping("/addfoods")
-		public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
-			Foods food = new Foods();
-			model.addAttribute("addfoods", food);
-			return "test/addfoods";
+	@GetMapping("/addfoods")
+	public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
+		Foods food = new Foods();
+		model.addAttribute("addfoods", food);
+		return "test/addfoods";
+		}
+	
+	//顯示食材
+		@GetMapping("/showAllFoods123")
+		public String showAllFoods() {
+			return "test/showAllFoods123";
 		}
 	
 

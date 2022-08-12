@@ -20,8 +20,8 @@ public class FoodsController {
 	@Autowired
 	private FoodsService fService;
 	
-	@PostMapping("/insertFoods")
-	public String InsertFoods(@RequestParam("foods_name") String foods_name, @RequestParam("foods_type") String foods_type,
+	@PostMapping("/addfoods")
+	public String InsertFoods(@RequestParam("foodsName") String foods_name, @RequestParam("foodsType") String foods_type,
 		@RequestParam("calorie") Integer calorie,Model model){
 		Foods ifd = new Foods();
 		ifd.setFoodsName(foods_name);
@@ -30,18 +30,18 @@ public class FoodsController {
 		
 		Foods f = fService.insertFoods(ifd);
 		model.addAttribute("newFoods", f);
-		return "insertFoods";
+		return "test/addfoods";
 	}
-	
-//	@PostMapping("/foodname/checkFoodsByName")
-//	public @ResponseBody String checkFoodsNameExist(@RequestParam("foodname")String foodname) {
-//		System.out.println(foodname + "foodname");
-//		boolean checkFoodsName = fService.checkFoodsNameExist(foodname);
-//		if(checkFoodsName) {
-//			return "0";
-//		}
-//		return "1";
-//	}
+	//驗證食材是否已存在
+	@PostMapping("/foodname/checkFoodsByName")
+	public @ResponseBody String checkFoodsNameExist(@RequestParam("foodname")String foodname) {
+		System.out.println("foodname:" + foodname);
+		boolean checkFoodsName = fService.checkFoodsNameExist(foodname);
+		if(checkFoodsName) {
+			return "0";
+		}
+		return "1";
+	}
 	
 
 }
