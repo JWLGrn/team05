@@ -1,27 +1,21 @@
 package com.eeit147.groupfive.recipe.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Set;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eeit147.groupfive.recipe.model.Campaign;
 import com.eeit147.groupfive.recipe.model.Recipe;
-import com.eeit147.groupfive.recipe.model.RecipeFoods;
-import com.eeit147.groupfive.recipe.model.RecipeStep;
 import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.recipe.service.RecipeSteptService;
 import com.eeit147.groupfive.users.model.Users;
+import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.service.UsersService;
 
 
 @Controller
@@ -30,53 +24,57 @@ public class RecipeController {
 	private RecipeSteptService rsService;
 	@Autowired
 	private RecipeService rService;
+	@Autowired
+	private UsersDao uDao;
 	
 //測試
-	Integer users=1;
-	Integer recipeid=1;
+	Integer userId=3;
+	Integer recipeId=25;
 //食譜	
 	@GetMapping("/recipe/insert")
 	public String recipepage(Model m) {
-		m.addAttribute("users", users);
-		m.addAttribute("recipe", recipeid);
+		m.addAttribute("userId", userId);
+		m.addAttribute("recipeId", recipeId);
 		return "recipe";
 	}
-//步驟
+//新增食譜
 	@RequestMapping("/recipe/insertRecipe")
-	public String uploadNewPhoto2(@RequestParam(value="cook_photo") MultipartFile cookphoto,
-			                      @RequestParam(value="cook_title") String cooktitle,
-			                      @RequestParam(value="cook_description") String cookdescription,
-								  @RequestParam(value="cook_time") Integer cooktime,
-								  @RequestParam(value="cook_serve") Integer cookserve,Model m){
-	 String cookphotopath="recipe"+recipeid+".jpg";
-	 Date date=new Date();
-//	 Recipe recipe=new Recipe(cooktitle, cookdescription,cookphotopath,cooktime,cookserve,date,0,null,null,null,null);
-
-//新增食譜	 測試step先隱藏
-	// rService.insertrecipe(recipe);	
-//	try {
-//		cookphoto.transferTo(new File("C:\\Springboot\\workspace\\groupfive\\src\\main\\webapp\\image\\recipe\\recipe"+recipeid+".jpg"));
-//		
-//		return "recipeStep";
-//	} catch (IOException e) {
-//		e.printStackTrace();
-//	}
+	public String uploadNewPhoto2(@RequestParam(value="rfile") MultipartFile rfile,
+			                      @RequestParam(value="rtitle") String rtitle,
+			                      @RequestParam(value="rdescript") String rdescript,
+								  @RequestParam(value="rtime") Integer rtime,
+								  @RequestParam(value="rpeople") Integer rpeople,Model m){
+	 String rphotopath="recipe"+recipeId+".jpg";	
+	 Recipe recipe=new Recipe();
+	 Optional<Users> optional = uDao.findById(userId);
+	 Users user = optional.get();
+	 
+	 
+	 recipe.setCookPhoto(rphotopath);
+	 recipe.setCookTitle(rtitle);
+	 recipe.setCookDescription(rdescript);
+	 recipe.setCookServe(rpeople);
+	 recipe.setCookTime(rtime);
+	 recipe.setUsers(user); 
+	//傳值給下一頁
+//新增食譜	 測試先隱藏
+	//Recipe recipeview = rService.insertrecipe(recipe);
+	//m.addAttribute("recipe",recipeview);
 	
-//新增食譜		 
-
-//傳值給下一頁
-	 m.addAttribute("recipeid", recipeid);
-	 m.addAttribute("users", users);
-	 m.addAttribute("cookphoto", cookphotopath);
-	 m.addAttribute("cooktitle", cooktitle);
-	 m.addAttribute("cookdescription", cookdescription);
-	 m.addAttribute("cooktime", cooktime);
-	 m.addAttribute("cookserve", cookserve);
-	 
-	 
-	 
-	 
-	return "recipeStep";
+	
+    /*測試*/m.addAttribute("recipe",recipe);
+    /*測試*/m.addAttribute("userId",user.getUserId());
+//存圖片	 
+/*	try {
+		rfile.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe"+recipeview.getRecipeId()+".jpg"));		
+		return "recipeStep";
+	} catch (IOException e) {
+		e.printStackTrace();
 	}
-	 
+*/	
+//新增食譜		 
+	return "recipeStep";
+}
+	
+
 }
