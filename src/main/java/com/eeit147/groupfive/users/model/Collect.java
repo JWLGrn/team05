@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="collect")
@@ -21,10 +22,12 @@ public class Collect {
 	@Column(name="collect_id")
 	private Integer collectId;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_collect_recipe")
 	private Recipe recipe;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_collect_users")
 	private Users users;

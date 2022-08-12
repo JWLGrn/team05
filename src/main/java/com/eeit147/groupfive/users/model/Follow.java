@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="follow")
 public class Follow {
@@ -19,10 +21,12 @@ public class Follow {
 	@Column(name="follow_id")
 	private Integer followId;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_follow_users")
 	private Users users;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_follow_track")
 	private Users track;

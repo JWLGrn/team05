@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="favorite")
@@ -21,10 +22,12 @@ public class Favorite {
 	@Column(name="favorite_id")
 	private Integer favoriteId;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_favorite_recipe")
 	private Recipe recipe;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_favorite_users")
 	private Users users;
