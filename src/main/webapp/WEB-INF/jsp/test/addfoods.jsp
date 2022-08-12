@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,12 +13,11 @@
 <script src="bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<header>
 <h3>新增食材</h3>
-</header>
+
 <main>
 
-	<form:form action="foods.controller" method="Post" modelAttribute="foods">
+	<form:form action="addfoods" method="Post" modelAttribute="foods">
 		<form:label path="foodsName" >食材名稱:</form:label>
 		<form:input path="foodsName" placeholder="請輸入食材名稱" />
 		<form:label path="foodsType" >食材類別:</form:label>
@@ -31,15 +32,16 @@
 
 </main>
 <script>
-$("#foodsname").blur(function(){
-	let foodsnameValue = $('#foodname').val();
+$("#foodsName").blur(function(){
+	let foodsnameValue = $('#foodsName').val();
 	let urlStr = "${contextRoot}/foodname/checkFoodsByName?foodname=" + foodsnameValue;
 	$.ajax({
 		url: urlStr ,
-		type : 'text',
-		sucess:function(data){
+		type : 'post',
+		datatype: 'text',
+		success:function(data){
 			if(data == 1){
-				alter("食材已存在，請重新輸入");
+				alert("食材已存在，請重新輸入");
 			}
 		}
 	});

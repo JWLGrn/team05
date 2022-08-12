@@ -22,14 +22,14 @@ public class FoodsService {
 			Foods f = fDao.save(foods);
 			return f;
 		}
-
-//	public boolean checkFoodsNameExist(String foodsname) {
-//		List<Foods> check = fDao.checkFoodsNameExist(foodsname);
-//		if(check.isEmpty()) {
-//			return true;
-//		}
-//		return false;
-//	}
+		//驗證食材是否已存在
+		public boolean checkFoodsNameExist(String foodsname) {
+			List<Foods> check = fDao.findByFoodsNameLike(foodsname);
+			if(check.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 		
 
 	

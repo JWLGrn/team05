@@ -33,6 +33,7 @@ public class PageController {
 	public String goAddRecipe() {
 		return "test/addRecipeTest";
 	}
+<<<<<<< HEAD
 
 	// 新增食材
 	@GetMapping("/addfoods")
@@ -41,6 +42,23 @@ public class PageController {
 		model.addAttribute("addfoods", food);
 		return "test/addfoods";
 	}
+=======
+	
+	//新增食材
+	@GetMapping("/addfoods")
+	public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
+		Foods food = new Foods();
+		model.addAttribute("addfoods", food);
+		return "test/addfoods";
+		}
+	
+	//顯示食材
+		@GetMapping("/showAllFoods123")
+		public String showAllFoods() {
+			return "test/showAllFoods123";
+		}
+	
+>>>>>>> f47ff9209afb2f3897078f7df9e623edca5dca38
 
 	@GetMapping("/testt")
 	public String test() {
