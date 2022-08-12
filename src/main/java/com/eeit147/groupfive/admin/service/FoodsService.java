@@ -23,13 +23,13 @@ public class FoodsService {
 			return f;
 		}
 
-	public boolean checkFoodsNameExist(String foodsname) {
-		List<Foods> check = fDao.checkFoodsNameExist(foodsname);
-		if(check.isEmpty()) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean checkFoodsNameExist(String foodsname) {
+//		List<Foods> check = fDao.checkFoodsNameExist(foodsname);
+//		if(check.isEmpty()) {
+//			return true;
+//		}
+//		return false;
+//	}
 		
 
 	

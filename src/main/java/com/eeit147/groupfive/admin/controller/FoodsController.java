@@ -33,15 +33,15 @@ public class FoodsController {
 		return "insertFoods";
 	}
 	
-	@PostMapping("/foodname/checkFoodsByName")
-	public @ResponseBody String checkFoodsNameExist(@RequestParam("foodname")String foodname) {
-		System.out.println(foodname + "foodname");
-		boolean checkFoodsName = fService.checkFoodsNameExist(foodname);
-		if(checkFoodsName) {
-			return "0";
-		}
-		return "1";
-	}
+//	@PostMapping("/foodname/checkFoodsByName")
+//	public @ResponseBody String checkFoodsNameExist(@RequestParam("foodname")String foodname) {
+//		System.out.println(foodname + "foodname");
+//		boolean checkFoodsName = fService.checkFoodsNameExist(foodname);
+//		if(checkFoodsName) {
+//			return "0";
+//		}
+//		return "1";
+//	}
 	
 
 }
