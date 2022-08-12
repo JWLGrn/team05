@@ -73,15 +73,13 @@ public class PageController {
 		
 	}
 	
-<<<<<<< HEAD
 	//測試查詢頁面
 	@GetMapping("/favorpage")
 	public String favorpage() {
 		return "test/favorTest";
-=======
+	}
 	@GetMapping("/loginpage")
 	public String login() {
 		return "redirect:/user/login";
->>>>>>> c7a2fc2d412d2188caa3217f2b000c1e50a5e5ff
 	}
 }
