@@ -3,20 +3,14 @@ package com.eeit147.groupfive.users.controller;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +23,7 @@ import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser","result"})
 public class UsersController {
 	@Autowired
 	private UsersService UService;
@@ -52,7 +46,7 @@ public class UsersController {
 		}
 		if(msg.isEmpty()) {
 			session.setAttribute("loginUser", loginUser);
-			return "loginSuccess";
+			return "test/loginSuccess";
 		}
 		m.addAttribute("msg" , msg);
 		return "test/login";
@@ -92,21 +86,6 @@ public class UsersController {
 		model.addAttribute("result", result);
 		return "SuccessUser";
 	}
-	
-	@PostMapping("/FindAll")
-	public String FindAllUsers(Integer user_id) {
-		List<Users> FindUser = UService.findUsersById(user_id);
-		
-		return null;
-	}
-	@GetMapping("/heart")
-	public String favorite(Favorite favorite) {
-		Recipe recipe = new Recipe();
-		
-//		favorite.setUsers(recipe.getFavorite());
-		
-		return "SuccessUser";
-	}
 		
 	//判斷是否有重複的email
 	@PostMapping("/users/checkmail")
@@ -119,5 +98,59 @@ public class UsersController {
 		}
 		return "1";
 	}
+	
+	//抓取資料會員資料
+	@GetMapping("/users/updatemember")
+	public String updateMemberDetail( @RequestParam("user_id") Integer user_id,Model model) {
+		Users GetOneUser = (Users)model.getAttribute("result");
+		model.getAttribute("loginUser");
+		model.addAttribute("GetOneUser", GetOneUser);
+		return "updatemember";
+		
+		
+	}
+	//更改會員資料
+	@PostMapping("/users/updateMember02")
+	public String UpdateUser( @RequestParam("user_id") Integer user_id,@RequestParam("user_name") String user_name, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("permission") Integer permission,@RequestParam("user_photo")MultipartFile file,
+			Model model) {
+		String photoName = file.getOriginalFilename();
+		String photopath= "";
+		//註冊會員的email.密碼
+		Users updateUser = new Users();
+		updateUser.setUserId(user_id);
+		updateUser.setUserName(user_name);
+		updateUser.setEmail(email);
+		updateUser.setPassword(password);
+		updateUser.setPermission(permission);
+		updateUser.setUserPhoto(photopath);
+		Users user = UService.insertUser(updateUser);
+		//取得註冊User的id 將User上傳的圖片命名成
+		Integer userId = user.getUserId();
+		user.setUserPhoto(userId + ".jpeg");
+		Users updateUserResult = UService.insertUser(user);
+		try {
+		file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId+ ".jpeg"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(updateUser);
+
+		model.addAttribute("updateUserResult", updateUserResult);
+		return "updatesuccess";
+	}
+	
+	//測試Ajax
+		@GetMapping("/heart")
+		public String favorite(Favorite favorite) {
+			Recipe recipe = new Recipe();
+			
+//			favorite.setUsers(recipe.getFavorite());
+			
+			return "SuccessUser";
+		}
+	
+	
+	
 
 }

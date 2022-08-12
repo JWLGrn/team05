@@ -16,4 +16,6 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	public Optional<Users> findUsersByEmailandPassWord(@Param("email")String email,@Param("password")String password);
 	
 	List<Users> findByemail(String email);
+
+
 }

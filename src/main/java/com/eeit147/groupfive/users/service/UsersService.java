@@ -32,7 +32,7 @@ public class UsersService {
 		}
 		return null;
 	}
-	public Users findByIdOneUsers(Integer id) {
+	public Users findOneUserById(Integer id) {
 		Optional<Users> optional = UDao.findById(id);
 		if(optional != null) {
 			optional.get();
@@ -48,6 +48,8 @@ public class UsersService {
 	public void deleteById(Integer id) {
 		UDao.deleteById(id);
 	}
+	
+	
 	//登入
 	public Users findUsersByEmailandPassword(String email,String password){
 		Optional<Users> optional = UDao.findUsersByEmailandPassWord(email, password);

@@ -17,8 +17,10 @@ ${result.userName}
 
 <%--  <div id="love"><a href="${contextRoot}/heart"><img src="break.jpg" onclick="heart()"></a></div>  --%>
  <div id="love"><img src="break.jpg" onclick="heart()"></div> 
-<!-- /groupfive/src/main/webapp/image/break.jpg -->
-<!-- http://localhost:8090/webapp/image/break.jpg -->
+ 
+${result }
+ 
+ <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a>
 <script>
 function heart()
 {
