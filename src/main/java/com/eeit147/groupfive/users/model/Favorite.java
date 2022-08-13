@@ -65,5 +65,12 @@ public class Favorite {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
+
+	@Override
+	public String toString() {
+		return "Favorite [favoriteId=" + favoriteId + ", recipe=" + recipe + ", users=" + users + "]";
+	}
+	
+	
 	
 }

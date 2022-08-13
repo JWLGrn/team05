@@ -32,6 +32,14 @@ public class UsersService {
 		}
 		return null;
 	}
+	
+	public Optional<Users> findUsersById02(Integer id){
+		Optional<Users> Optional = UDao.findById(id);
+		if(Optional !=null) {
+			Optional.get();
+		}
+		return null;
+	}
 	public Users findOneUserById(Integer id) {
 		Optional<Users> optional = UDao.findById(id);
 		if(optional != null) {
@@ -67,4 +75,5 @@ public class UsersService {
 		}
 		return false;
 	}
+	
 }

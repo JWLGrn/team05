@@ -3,6 +3,8 @@ package com.eeit147.groupfive.users.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
+import com.eeit147.groupfive.recipe.model.RecipeDao;
+import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.Follow;
 import com.eeit147.groupfive.users.model.Users;
+import com.eeit147.groupfive.users.model.UsersDao;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
@@ -27,6 +33,12 @@ import com.eeit147.groupfive.users.service.UsersService;
 public class UsersController {
 	@Autowired
 	private UsersService UService;
+	
+	@Autowired
+	private RecipeDao rDao;
+	
+	@Autowired
+	private UsersDao uDao;
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -143,14 +155,30 @@ public class UsersController {
 		return "updatesuccess";
 	}
 	
-	//測試Ajax
-		@GetMapping("/heart")
-		public String favorite(Favorite favorite) {
-			Recipe recipe = new Recipe();
+	// 還沒寫完
+		@GetMapping("/favorite")
+		public String favorite(@RequestParam("recipe_id") Integer recipe_id,@RequestParam("user_id") Integer user_id,Model model) {
+			Optional<Recipe> optional = rDao.findById(recipe_id);
+			Recipe recipe = optional.get();
+			Optional<Users> optional02 = uDao.findById(user_id);
+			 Users usering = optional02.get();			
+			Favorite favorite = new Favorite();
+			Follow follow = new Follow();
+			follow.setTrack(usering);
+			favorite.setFavoriteId(user_id);
+			favorite.setUsers(usering);
+			favorite.setRecipe(recipe);
+			model.addAttribute("favorite", favorite);
 			
-//			favorite.setUsers(recipe.getFavorite());
-			
+			System.out.println("favorite:==========================================================="+favorite);
 			return "SuccessUser";
+		}
+		//Ajax抓取全部recipe
+		@GetMapping("/finder")
+		public @ResponseBody  List<Recipe>  findRecipe( Model model) {
+			List<Recipe> rList = rDao.findAll();
+			return rList;
+			
 		}
 	
 	
