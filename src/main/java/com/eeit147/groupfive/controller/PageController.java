@@ -82,4 +82,5 @@ public class PageController {
 	public String login() {
 		return "redirect:/user/login";
 	}
+
 }

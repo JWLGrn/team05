@@ -35,9 +35,8 @@ public class Favorite {
 	public Favorite() {
 	}
 
-	public Favorite(Integer favoriteId, Recipe recipe, Users users) {
+	public Favorite(Users users, Recipe recipe) {
 		super();
-		this.favoriteId = favoriteId;
 		this.recipe = recipe;
 		this.users = users;
 	}
