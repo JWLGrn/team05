@@ -1,11 +1,18 @@
 package com.eeit147.groupfive.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +31,8 @@ import com.eeit147.groupfive.recipe.model.RecipeFoods;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
+import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -47,6 +56,9 @@ public class TestController {
 
 	@Autowired
 	private RecipeKeywordDao rkDao;
+	
+	@Autowired
+	private FavoriteDao frDao;
 
 	// 測試新增食譜 傳值
 //	@PostMapping("/add")
@@ -257,4 +269,76 @@ public class TestController {
 		}
 
 	}
+	
+	//符號顯示(確認是否有關聯 → 顯示不同圖片)
+		@GetMapping("checkfavor/{usersid}/{recipeid}")
+		public @ResponseBody ResponseEntity<byte[]> checkFavor(
+				@PathVariable("usersid")Integer userid,
+				@PathVariable("recipeid")Integer recipeid) throws IOException {
+			
+			//取得user bean
+			Optional<Users> op = uDao.findById(userid);
+			Users user = op.get();
+			
+			//取得recipe bean
+			Optional<Recipe> rop = rDao.findById(recipeid);
+			Recipe recipe = rop.get();
+			
+			//確認關聯是否存在
+			boolean isExisits = frDao.existsByUsersAndRecipe(user, recipe);
+			System.out.println(isExisits);
+			
+			//設定標頭
+			HttpHeaders header = new HttpHeaders();
+			header.setContentType(MediaType.IMAGE_PNG);
+			
+			//判斷有無關聯 → 顯示不同圖片
+			if(isExisits) {
+					FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\heart-red.png"));
+					byte[] bytes = input.readAllBytes();
+					input.close();
+					return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+				}else {
+					FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\heart-white.png"));
+					byte[] bytes = input.readAllBytes();
+					input.close();
+					return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+				}
+			
+		}
+		
+		//按讚 + 收回讚
+		@PostMapping("pressfavor/{usersid}/{recipeid}")
+		@ResponseBody
+		public void pressFavor(
+				@PathVariable("usersid")Integer userid,
+				@PathVariable("recipeid")Integer recipeid) {
+			
+			//取得user bean
+			Optional<Users> op = uDao.findById(userid);
+			Users user = op.get();
+			
+			//取得recipe bean
+			Optional<Recipe> rop = rDao.findById(recipeid);
+			Recipe recipe = rop.get();
+			
+			//確認關聯是否存在
+			boolean isExisits = frDao.existsByUsersAndRecipe(user, recipe);
+			System.out.println(isExisits);
+			
+			//----------------------------------------------
+
+			//判斷有無關聯 → 顯示不同圖片
+			if(isExisits) {
+					
+				frDao.deleteByUsersAndRecipe(user, recipe);
+				
+			}else {
+				
+				Favorite favor = new Favorite(user, recipe);
+				frDao.save(favor);	
+					
+			}
+			
+		}
 }
