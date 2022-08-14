@@ -20,7 +20,7 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findByCookTitleLike(String cookTitle);
 	
-<<<<<<< HEAD
+
 	public Set<Recipe> findByUsersIn(List<Users> users);
 	
 	public Set<Recipe> findByRecipeFoodsInOrRecipeKeywordIn(List<RecipeFoods> recipeFoods,List<RecipeKeyword> recipeKeyword);
@@ -29,9 +29,3 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
 }
-=======
-	public List<Recipe> findByUsersIn(List<Users> users);
-	
-	
-} 
->>>>>>> 27dff8e267202ed740d5491f9d849449adbf0678
