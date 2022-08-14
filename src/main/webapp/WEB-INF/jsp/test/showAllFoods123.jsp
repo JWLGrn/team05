@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,25 @@
 <title>顯示所有食材</title>
 </head>
 <body>
+<select>
+<c:forEach items="${option}" var="f">
+ <option>${f}</option>
+</c:forEach>
+</select>
 <table>
 <c:forEach items="${allFoods}" var="f">
-<tr><td>ID：</td><td>${f.foodsId}</td></tr>
-<tr><td>食材名稱：</td><td>${f.foodsName}</td></tr>
-<tr><td>食材類別：</td><td>${f.foodsType}</td></tr>
-<tr><td>卡路里：</td><td>${f.calorie}</td></tr>
+<div>
+<form class="form" method="post" action="${contextRoot}/editFoods">
+<input  type="hidden" name="foodsId" value="${f.foodsId}"/>
+<input  name="foodsName" value="${f.foodsName}" />
+<input  name="foodsType" value="${f.foodsType}" />
+<input  name="calorie" value="${f.calorie}" />
+<button type="submit" class="btn btn-primary">送出</button>
+</form>
+</div>
 </c:forEach>
 </table>
+
 </body>
+<script>console.log(${allFoods})</script>
 </html>

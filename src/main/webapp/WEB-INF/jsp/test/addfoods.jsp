@@ -17,7 +17,7 @@
 
 <main>
 
-	<form:form action="addfoods" method="Post" modelAttribute="foods">
+	<form:form action="addfoods" method="Post" modelAttribute="addfoodsAttribute">
 		<form:label path="foodsName" >食材名稱:</form:label>
 		<form:input path="foodsName" placeholder="請輸入食材名稱" />
 		<form:label path="foodsType" >食材類別:</form:label>
@@ -26,8 +26,7 @@
 		<form:input path="calorie" placeholder="請輸入卡路里"/>
 			<div style="color:red">${msg.loginfail}</div>	
 		<form:button type="submit">加入</form:button>
-		<form:button type="button">取消</form:button>
-			
+		<form:button type="button">取消</form:button>		
 	</form:form>
 
 </main>
@@ -42,6 +41,7 @@ $("#foodsName").blur(function(){
 		success:function(data){
 			if(data == 1){
 				alert("食材已存在，請重新輸入");
+				$("#foodsName").val("");
 			}
 		}
 	});
