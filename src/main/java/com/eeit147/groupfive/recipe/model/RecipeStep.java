@@ -47,6 +47,10 @@ public class RecipeStep {
 		this.recipe = recipe;
 	}
 
+	public RecipeStep(Integer integer, String string, String stepphotopath, Recipe recipe2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getRecipeStepId() {
 		return recipeStepId;
 	}
