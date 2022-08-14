@@ -1,11 +1,18 @@
 package com.eeit147.groupfive.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +31,8 @@ import com.eeit147.groupfive.recipe.model.RecipeFoods;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
+import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -38,18 +47,18 @@ public class TestController {
 
 	@Autowired
 	private UsersDao uDao;
-	
+
 	@Autowired
 	private KeywordDao kDao;
-	
+
 	@Autowired
 	private RecipeFoodsDao rfDao;
-	
+
 	@Autowired
 	private RecipeKeywordDao rkDao;
 	
-	
-	
+	@Autowired
+	private FavoriteDao frDao;
 
 	// 測試新增食譜 傳值
 //	@PostMapping("/add")
@@ -66,15 +75,10 @@ public class TestController {
 
 	// 新增食譜+食材表做關聯
 	@PostMapping("/add")
-	public String addRecipe(
-			@RequestParam("userId") Integer userId, 
-			@RequestParam("title") String title,
-			@RequestParam("descript") String descript, 
-			@RequestParam("people") Integer people,
-			@RequestParam("time") Integer time, 
-			@RequestParam("photo") String photo,
-			@RequestParam("foods") String[] foods, 
-			@RequestParam("gram") Double[] gram,
+	public String addRecipe(@RequestParam("userId") Integer userId, @RequestParam("title") String title,
+			@RequestParam("descript") String descript, @RequestParam("people") Integer people,
+			@RequestParam("time") Integer time, @RequestParam("photo") String photo,
+			@RequestParam("foods") String[] foods, @RequestParam("gram") Double[] gram,
 			@RequestParam("tags") String[] tags) {
 
 		// 取得user
@@ -91,11 +95,11 @@ public class TestController {
 		r.setCookPhoto(photo); // 圖片標題，待寫io存圖片
 		Recipe newRecipe = rDao.save(r);
 
-		//-------------------食材關聯-------------------------
+		// -------------------食材關聯-------------------------
 		Set<RecipeFoods> recipeFoodsSet = new LinkedHashSet<RecipeFoods>();
 		Integer totalCal = 0;
 		Foods food = new Foods();
-		
+
 		for (int i = 0; i < foods.length; i++) {
 			// 取得食材庫裡的食材
 			food = fDao.findByFoodsName(foods[i]);
@@ -104,17 +108,17 @@ public class TestController {
 			// 計算卡路里
 			totalCal += (int) (gram[i] * (double) food.getCalorie() / 100);
 		}
-		//---------------------------------------------------
+		// ---------------------------------------------------
 
-		//-------------------關鍵字關聯-------------------------
+		// -------------------關鍵字關聯-------------------------
 		Set<RecipeKeyword> keywordSet = new LinkedHashSet<RecipeKeyword>();
-		
+
 		for (int i = 0; i < tags.length; i++) {
 			// 新增關鍵字至tag表
-			keywordSet.add(new RecipeKeyword(newRecipe,kDao.findByKeyword(tags[i])));
+			keywordSet.add(new RecipeKeyword(newRecipe, kDao.findByKeyword(tags[i])));
 		}
-		//---------------------------------------------------
-		
+		// ---------------------------------------------------
+
 		// 做關聯+新增總卡路里到食譜
 		newRecipe.setRecipeFoods(recipeFoodsSet);
 		newRecipe.setTotalCal(totalCal);
@@ -136,63 +140,55 @@ public class TestController {
 		return "test/showrecipe123";
 
 	}
-	
-	//測試刪除食譜
+
+	// 測試刪除食譜
 	@GetMapping("/deleteTest")
 	public void deleteTest() {
-		if(rDao.existsById(15)) {
+		if (rDao.existsById(15)) {
 			rDao.deleteById(15);
-			//return 刪除成功
+			// return 刪除成功
 		}
-		//return 查無資料無法刪除
+		// return 查無資料無法刪除
 	}
 
-	//前往測試頁面
+	// 前往測試頁面
 	@GetMapping("/updatePageTest")
-	public String goUpdatePageTest(@RequestParam("id")Integer id,Model m) {
+	public String goUpdatePageTest(@RequestParam("id") Integer id, Model m) {
 		Optional<Recipe> op = rDao.findById(id);
-		if(op!=null) {
+		if (op != null) {
 			Recipe r = op.get();
 			m.addAttribute("recipe", r);
 			return "test/updateRecipeTest";
 		}
-		
-		//404網頁之類的
+
+		// 404網頁之類的
 		return "查不到資料的網頁";
 	}
-	
-	//修改測試
+
+	// 修改測試
 	@PostMapping("/updateTest")
-	public String updateTest(
-			@RequestParam("userId") Integer userId, 
-			@RequestParam("recipeId") Integer recipeId, 
-			@RequestParam("title") String title,
-			@RequestParam("descript") String descript, 
-			@RequestParam("people") Integer people,
-			@RequestParam("time") Integer time, 
-			@RequestParam("photo") String photo,
-			@RequestParam("foods") String[] foods, 
-			@RequestParam("gram") Double[] gram,
-			@RequestParam("tags") String[] tags) {
-		
-		//取得recipe資料
+	public String updateTest(@RequestParam("userId") Integer userId, @RequestParam("recipeId") Integer recipeId,
+			@RequestParam("title") String title, @RequestParam("descript") String descript,
+			@RequestParam("people") Integer people, @RequestParam("time") Integer time,
+			@RequestParam("photo") String photo, @RequestParam("foods") String[] foods,
+			@RequestParam("gram") Double[] gram, @RequestParam("tags") String[] tags) {
+
+		// 取得recipe資料
 		Optional<Recipe> op = rDao.findById(recipeId);
 		Recipe recipe = op.get();
-		
-		
-		
-		//刪掉原關聯的食材表&關鍵字表
+
+		// 刪掉原關聯的食材表&關鍵字表
 		rfDao.deleteByRecipe(recipe);
 		rkDao.deleteByRecipe(recipe);
-		
-		//設定修改的值
+
+		// 設定修改的值
 		recipe.setCookTitle(title);
 		recipe.setCookDescription(descript);
 		recipe.setCookServe(people);
 		recipe.setCookTime(time);
 		recipe.setCookPhoto(photo);
-		
-		//設定食材表的Set
+
+		// 設定食材表的Set
 		Set<RecipeFoods> set = new LinkedHashSet<RecipeFoods>();
 		Integer totalCal = 0;
 		Foods food = new Foods();
@@ -204,16 +200,15 @@ public class TestController {
 			// 計算卡路里
 			totalCal += (int) (gram[i] * (double) food.getCalorie() / 100);
 		}
-		
-		//設定tag表的Set
+
+		// 設定tag表的Set
 		Set<RecipeKeyword> keywordSet = new LinkedHashSet<RecipeKeyword>();
 		for (int i = 0; i < tags.length; i++) {
 			// 新增關鍵字至tag表
-			keywordSet.add(new RecipeKeyword(recipe,kDao.findByKeyword(tags[i])));
+			keywordSet.add(new RecipeKeyword(recipe, kDao.findByKeyword(tags[i])));
 		}
 
-		
-		//設定食材表+總卡路里
+		// 設定食材表+總卡路里
 		recipe.setRecipeFoods(set);
 		recipe.setTotalCal(totalCal);
 		recipe.setRecipeKeyword(keywordSet);
@@ -221,20 +216,129 @@ public class TestController {
 
 		return "test/added";
 	}
-	
-	//關鍵字模糊搜尋
+
+	// 關鍵字模糊搜尋
 	@GetMapping("/find/keyword/{word}")
-	public @ResponseBody List<Keyword> findKeyword(@PathVariable("word")String word){
+	public @ResponseBody List<Keyword> findKeyword(@PathVariable("word") String word) {
 		System.out.println(word);
-		List<Keyword> kList = kDao.findByKeywordLike("%"+word+"%");
+		List<Keyword> kList = kDao.findByKeywordLike("%" + word + "%");
 		return kList;
 	}
-	
-	//食材模糊搜尋
+
+	// 食材模糊搜尋
 	@GetMapping("/find/foods/{word}")
-	public @ResponseBody List<Foods> findFood(@PathVariable("word")String word){
+	public @ResponseBody List<Foods> findFood(@PathVariable("word") String word) {
 		System.out.println(word);
-		List<Foods> fList = fDao.findByFoodsNameLike("%"+word+"%");
+		List<Foods> fList = fDao.findByFoodsNameLike("%" + word + "%");
 		return fList;
 	}
+
+	// 搜尋全部食材
+	@GetMapping("/find/foods/all")
+	public @ResponseBody List<Foods> findAllFoods() {
+		List<Foods> fList = fDao.findAll();
+		return fList;
+	}
+
+	// 搜尋全部關鍵字
+	@GetMapping("/find/keyword/all")
+	public @ResponseBody List<Keyword> findAllKeyword() {
+		List<Keyword> kList = kDao.findAll();
+		return kList;
+	}
+
+	//食譜模糊查詢(食譜+作者)
+	@GetMapping("/find/user/username")
+	public @ResponseBody List<Recipe> findUsersByKeyword(
+			@RequestParam("classify") String classify,
+			@RequestParam("keywords") String keywords) {
+
+		// 找食譜
+		if (classify.equals("1")) {
+			System.out.println("找食譜"+"classify="+classify+" keywords="+keywords);
+			List<Recipe> recipe = rDao.findByCookTitleLike("%"+keywords+"%");
+			return recipe;
+			
+		}
+		// 找作者
+		else{
+			System.out.println("找作者"+"classify="+classify+" keywords="+keywords);
+			List<Users> users = uDao.findByUserNameLike("%"+keywords+"%");
+			List<Recipe> recipe = rDao.findByUsersIn(users);
+			return recipe;
+		}
+
+	}
+	
+	//符號顯示(確認是否有關聯 → 顯示不同圖片)
+		@GetMapping("checkfavor/{usersid}/{recipeid}")
+		public @ResponseBody ResponseEntity<byte[]> checkFavor(
+				@PathVariable("usersid")Integer userid,
+				@PathVariable("recipeid")Integer recipeid) throws IOException {
+			
+			//取得user bean
+			Optional<Users> op = uDao.findById(userid);
+			Users user = op.get();
+			
+			//取得recipe bean
+			Optional<Recipe> rop = rDao.findById(recipeid);
+			Recipe recipe = rop.get();
+			
+			//確認關聯是否存在
+			boolean isExisits = frDao.existsByUsersAndRecipe(user, recipe);
+			System.out.println(isExisits);
+			
+			//設定標頭
+			HttpHeaders header = new HttpHeaders();
+			header.setContentType(MediaType.IMAGE_PNG);
+			
+			//判斷有無關聯 → 顯示不同圖片
+			if(isExisits) {
+					FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\heart-red.png"));
+					byte[] bytes = input.readAllBytes();
+					input.close();
+					return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+				}else {
+					FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\heart-white.png"));
+					byte[] bytes = input.readAllBytes();
+					input.close();
+					return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+				}
+			
+		}
+		
+		//按讚 + 收回讚
+		@PostMapping("pressfavor/{usersid}/{recipeid}")
+		@ResponseBody
+		public void pressFavor(
+				@PathVariable("usersid")Integer userid,
+				@PathVariable("recipeid")Integer recipeid) {
+			
+			//取得user bean
+			Optional<Users> op = uDao.findById(userid);
+			Users user = op.get();
+			
+			//取得recipe bean
+			Optional<Recipe> rop = rDao.findById(recipeid);
+			Recipe recipe = rop.get();
+			
+			//確認關聯是否存在
+			boolean isExisits = frDao.existsByUsersAndRecipe(user, recipe);
+			System.out.println(isExisits);
+			
+			//----------------------------------------------
+
+			//判斷有無關聯 → 顯示不同圖片
+			if(isExisits) {
+					
+				frDao.deleteByUsersAndRecipe(user, recipe);
+				
+			}else {
+				
+				Favorite favor = new Favorite(user, recipe);
+				frDao.save(favor);	
+					
+			}
+			
+		}
 }

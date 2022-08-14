@@ -23,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="reply")
@@ -53,14 +54,17 @@ public class Reply {
 		}
 	}
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_reply_users")
 	private Users users;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_reply_recipe")
 	private Recipe recipe;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_reply_posts")
 	private Posts posts;
