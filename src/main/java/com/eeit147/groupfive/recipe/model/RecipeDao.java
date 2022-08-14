@@ -1,6 +1,7 @@
 package com.eeit147.groupfive.recipe.model;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,11 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findByCookTitleLike(String cookTitle);
 	
-	public List<Recipe> findByUsersIn(List<Users> users);
+	public Set<Recipe> findByUsersIn(List<Users> users);
+	
+	public Set<Recipe> findByRecipeFoodsInOrRecipeKeywordIn(List<RecipeFoods> recipeFoods,List<RecipeKeyword> recipeKeyword);
+	
+	public Set<Recipe> findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(List<RecipeFoods> recipeFoods,String cookTitle1,List<RecipeKeyword> recipeKeyword,String cookTitle2);
+	
+	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
 }

@@ -36,6 +36,8 @@ import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
+import net.bytebuddy.implementation.bind.annotation.BindingPriority;
+
 @Controller
 public class TestController {
 
@@ -249,13 +251,12 @@ public class TestController {
 
 	//食譜模糊查詢(食譜+作者)
 	@GetMapping("/find/user/username")
-	public @ResponseBody List<Recipe> findUsersByKeyword(
+	public @ResponseBody Iterable<Recipe> findUsersByKeyword(
 			@RequestParam("classify") String classify,
 			@RequestParam("keywords") String keywords) {
 
 		// 找食譜
 		if (classify.equals("1")) {
-			System.out.println("找食譜"+"classify="+classify+" keywords="+keywords);
 			List<Recipe> recipe = rDao.findByCookTitleLike("%"+keywords+"%");
 			return recipe;
 			
@@ -264,14 +265,26 @@ public class TestController {
 		else{
 			System.out.println("找作者"+"classify="+classify+" keywords="+keywords);
 			List<Users> users = uDao.findByUserNameLike("%"+keywords+"%");
-			List<Recipe> recipe = rDao.findByUsersIn(users);
+			Set<Recipe> recipe = rDao.findByUsersIn(users);
 			return recipe;
 		}
 
 	}
 	
-	//符號顯示(確認是否有關聯 → 顯示不同圖片)
-		@GetMapping("checkfavor/{usersid}/{recipeid}")
+	//查詢user by食譜
+//	@PostMapping("find/users/{recipeId}")
+//	public @ResponseBody Users findByRecipe(@PathVariable("recipeId")Integer recipeId) {
+//		
+//		Optional<Recipe> op = rDao.findById(recipeId);
+//		Recipe recipe = op.get();
+//		
+//		Users user = uDao.findByRecipe(recipe);
+//		return user;
+//		
+//	}
+	
+		//符號顯示(確認是否有關聯 → 顯示不同圖片)
+		@GetMapping("/checkfavor/{usersid}/{recipeid}")
 		public @ResponseBody ResponseEntity<byte[]> checkFavor(
 				@PathVariable("usersid")Integer userid,
 				@PathVariable("recipeid")Integer recipeid) throws IOException {
@@ -308,7 +321,7 @@ public class TestController {
 		}
 		
 		//按讚 + 收回讚
-		@PostMapping("pressfavor/{usersid}/{recipeid}")
+		@PostMapping("/pressfavor/{usersid}/{recipeid}")
 		@ResponseBody
 		public void pressFavor(
 				@PathVariable("usersid")Integer userid,
@@ -328,7 +341,7 @@ public class TestController {
 			
 			//----------------------------------------------
 
-			//判斷有無關聯 → 顯示不同圖片
+			//判斷有無關聯 → 無關聯則新增，有關聯則刪除
 			if(isExisits) {
 					
 				frDao.deleteByUsersAndRecipe(user, recipe);
@@ -340,5 +353,60 @@ public class TestController {
 					
 			}
 			
+		}
+		
+		//查詢全部食譜
+		@GetMapping("/allRecipe")
+		public String findAllRecipe(Model m) {
+			List<Recipe> rList = rDao.findAll();
+			m.addAttribute("rList", rList);
+			return "test/templateTest";
+		}
+		
+		@GetMapping("find/recipe/food")
+		public @ResponseBody Iterable<Recipe> findUsersByFoodOrKeyword(
+				@RequestParam("classify") String classify,
+				@RequestParam("searchWord") String searchWord,
+				@RequestParam(value = "foods", defaultValue = "")String[] foods,
+				@RequestParam(value = "country", defaultValue = "")String[] country
+				){
+			
+			//未選擇checkbox的情況
+			if(foods.length == 0 && country.length == 0) {
+				System.out.println(foods.length);
+				System.out.println(country.length);
+				
+				// 找食譜
+				if (classify.equals("1")) {
+					List<Recipe> recipe = rDao.findByCookTitleLike("%"+searchWord+"%");
+					return recipe;
+				}
+				// 找作者
+				else{
+					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
+					Set<Recipe> recipe = rDao.findByUsersIn(users);
+					return recipe;
+				}
+			}
+			//有選擇checkbox的情況
+			else{
+				
+				List<Foods> food = fDao.findByFoodsTypeIn(foods);
+				List<Keyword> keyword = kDao.findByKeywordIn(country);
+				List<RecipeFoods> rFood = rfDao.findByFoodsIn(food);
+				List<RecipeKeyword> rKeyword = rkDao.findByKeywordIn(keyword);
+				
+				// 找食譜
+				if (classify.equals("1")) {
+					Set<Recipe> recipeList = rDao.findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(rFood,"%"+searchWord+"%", rKeyword,"%"+searchWord+"%");
+					return recipeList;
+				}
+				// 找作者
+				else{
+					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
+					Set<Recipe> recipeList = rDao.findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(rFood, users, rKeyword, users);
+					return recipeList;
+				}
+			}
 		}
 }
