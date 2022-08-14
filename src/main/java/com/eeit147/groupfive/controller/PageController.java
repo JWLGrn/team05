@@ -67,8 +67,7 @@ FoodsDao fDao;
 			return "test/showAllFoods123";
 		}
 	
-=======
-//<<<<<<< HEAD
+
 //
 //	// 新增食材
 //	@GetMapping("/addfoods")
@@ -93,8 +92,7 @@ FoodsDao fDao;
 //			return "test/showAllFoods123";
 //		}
 //	
-//>>>>>>> f47ff9209afb2f3897078f7df9e623edca5dca38
->>>>>>> master
+
 
 	@GetMapping("/testt")
 	public String test() {
