@@ -1,16 +1,24 @@
 package com.eeit147.groupfive.controller;
 
 
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.eeit147.groupfive.recipe.model.Foods;
+import com.eeit147.groupfive.recipe.model.FoodsDao;
 
 
 @Controller
 public class PageController {
+@Autowired
+FoodsDao fDao;
 
 	//首頁
 	@GetMapping("/")
@@ -32,20 +40,27 @@ public class PageController {
 	//新增食譜(測試用)
 	@GetMapping("/addpage")
 	public String goAddRecipe() {
-		return "test/addRecipeTest";
+		return "test/addfoods";
 	}
 	
 	//新增食材
 	@GetMapping("/addfoods")
-	public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
-		Foods food = new Foods();
-		model.addAttribute("addfoods", food);
+	public String addFoods(Model model) {
+		Foods food = new Foods(); 
+		model.addAttribute("addfoodsAttribute", food);
 		return "test/addfoods";
 		}
 	
 	//顯示食材
 		@GetMapping("/showAllFoods123")
-		public String showAllFoods() {
+		public String showAllFoods(Model model) {
+			Set<String> data = new LinkedHashSet<String>(); 
+			 List<Foods> foods=fDao.findAll();
+			for(Foods food : foods ) { 
+			 data.add(food.getFoodsType()); 
+			}
+			model.addAttribute("allFoods",fDao.findAll() );
+			model.addAttribute("option", data);
 			return "test/showAllFoods123";
 		}
 	

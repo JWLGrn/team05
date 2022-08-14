@@ -94,4 +94,12 @@ public class Foods {
 		this.recipeFoods = recipeFoods;
 	}
 
+	@Override
+	public String toString() {
+		return "Foods [foodsId=" + foodsId + ", foodsName=" + foodsName + ", foodsType=" + foodsType + ", calorie="
+				+ calorie + ", recipeFoods=" + recipeFoods + "]";
+	}
+
+
+
 }
