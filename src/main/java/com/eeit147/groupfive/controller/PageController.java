@@ -11,15 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
+import com.eeit147.groupfive.users.model.Users;
+import com.eeit147.groupfive.users.model.UsersDao;
 
 @Controller
 public class PageController {
 @Autowired
 FoodsDao fDao;
+@Autowired
+UsersDao uDao;
 
 	// 首頁
 	@GetMapping("/")
@@ -66,33 +70,14 @@ FoodsDao fDao;
 			model.addAttribute("option", data);
 			return "test/showAllFoods123";
 		}
+		
+		@GetMapping("/showAllUsers")
+		public String showAllUsers(Model model) {
+			List<Users> users=uDao.findAll();
+			model.addAttribute("allUsers",uDao.findAll() );
+			return "test/showAllUsers";
+		}
 	
-
-//
-//	// 新增食材
-//	@GetMapping("/addfoods")
-//	public String addFoods(@ModelAttribute("foods") Foods fd, Model model) {
-//		Foods food = new Foods();
-//		model.addAttribute("addfoods", food);
-//		return "test/addfoods";
-//	}
-//=======
-//	
-//	//新增食材
-//	@GetMapping("/addfoods")
-//	public String addFoods(@ModelAttribute("foods")Foods fd,Model model) {
-//		Foods food = new Foods();
-//		model.addAttribute("addfoods", food);
-//		return "test/addfoods";
-//		}
-//	
-//	//顯示食材
-//		@GetMapping("/showAllFoods123")
-//		public String showAllFoods() {
-//			return "test/showAllFoods123";
-//		}
-//	
-
 
 	@GetMapping("/testt")
 	public String test() {
