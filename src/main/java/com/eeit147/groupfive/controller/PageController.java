@@ -97,10 +97,14 @@ UsersDao uDao;
 	public String favorpage() {
 		return "test/favorTest";
 	}
-	
+	//測試登入頁面
 	@GetMapping("/loginpage")
 	public String login() {
 		return "redirect:/user/login";
 	}
-
+	//測試追蹤頁面
+	@GetMapping("followpage")
+	public String follow() {
+		return "test/followTest";
+	}
 }
