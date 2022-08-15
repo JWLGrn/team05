@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.eeit147.groupfive.admin.service.FoodsService;
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
 import com.eeit147.groupfive.recipe.model.Keyword;
@@ -22,12 +23,21 @@ import com.eeit147.groupfive.users.model.UsersDao;
 
 @Controller
 public class PageController {
+<<<<<<< HEAD
 	@Autowired
 	private FoodsDao fDao;
 	@Autowired
 	private UsersDao uDao;
 	@Autowired
 	private KeywordDao kDao;
+=======
+@Autowired
+FoodsDao fDao;
+@Autowired
+UsersDao uDao;
+@Autowired
+private FoodsService fService;
+>>>>>>> 3e480c6f91c69e21f4fb18fdd18e1f88561403a5
 
 	// 首頁
 	@GetMapping("/")
@@ -75,11 +85,22 @@ public class PageController {
 			return "test/showAllFoods123";
 		}
 		
+		//顯示使用者
 		@GetMapping("/showAllUsers")
 		public String showAllUsers(Model model) {
 			List<Users> users=uDao.findAll();
 			model.addAttribute("allUsers",uDao.findAll() );
 			return "test/showAllUsers";
+		}
+		
+		//食材列表分頁
+		@GetMapping("/page")
+		public String viewFoodsPage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber, Model model) {
+			Page<Foods> page = fService.findByPage(pageNumber);
+			System.out.println(page+"================================================");
+	
+			model.addAttribute("page", page);
+			return "test/showAllFoods123";
 		}
 	
 
@@ -107,6 +128,7 @@ public class PageController {
 		return "redirect:/user/login";
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//測試追蹤頁面
 	@GetMapping("followpage")
 	public String follow() {
@@ -126,6 +148,11 @@ public class PageController {
 	public String goPostPage() {
 		return "test/blogTest";
 	}
+=======
+	
+	
+	
+>>>>>>> 3e480c6f91c69e21f4fb18fdd18e1f88561403a5
 
 >>>>>>> 4e8609f0037832cd9e857ad4231c75c4f6e28d45
 }

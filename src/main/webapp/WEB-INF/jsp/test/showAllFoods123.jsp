@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -15,8 +17,8 @@
  <option>${f}</option>
 </c:forEach>
 </select>
-<table>
-<c:forEach items="${allFoods}" var="f">
+
+<c:forEach items="${page.content}" var="f">
 <div>
 <form class="form" method="post" action="${contextRoot}/editFoods">
 <input  type="hidden" name="foodsId" value="${f.foodsId}"/>
@@ -27,8 +29,23 @@
 </form>
 </div>
 </c:forEach>
-</table>
+
+
+<div class="row justify-content-center">
+			<div class="col-8">
+				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+				<c:choose>
+					<c:when  test="${page.number != pageNumber -1}">
+					<a href="${contextRoot}/page?p=${pageNumber}">
+							${pageNumber} </a>
+					</c:when>
+					<c:otherwise>
+				       ${pageNumber}
+				    </c:otherwise>
+				</c:choose>
+				</c:forEach>
+			</div>
+		</div>
 
 </body>
-<script>console.log(${allFoods})</script>
 </html>

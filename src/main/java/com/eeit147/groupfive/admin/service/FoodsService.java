@@ -3,6 +3,10 @@ package com.eeit147.groupfive.admin.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,13 +33,21 @@ public class FoodsService {
 			return true;
 		}
 		return false;
+		}
+		
+		//食材列表分頁
+		public Page<Foods> findByPage(Integer pageNumber){
+			Pageable pgb = PageRequest.of(pageNumber-1, 20, Sort.Direction.DESC, "foodsId");
+			Page<Foods> page = fDao.findAll(pgb);
+			return page;
+		}
 	}
 		
 
-	
-//	public Foods lastestFood() {
-//	return fDao.findFirstByOrderByAddedDesc();
-//}
+		
+
 	
 
-}
+	
+
+
