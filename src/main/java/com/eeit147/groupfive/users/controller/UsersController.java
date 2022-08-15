@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,7 @@ import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
+import com.eeit147.groupfive.users.model.FollowDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 import com.eeit147.groupfive.users.service.UsersService;
@@ -42,7 +44,11 @@ public class UsersController {
 	private UsersDao uDao;
 	
 	@Autowired
+<<<<<<< HEAD
 	private FavoriteDao fDao;
+=======
+	private FollowDao flDao;
+>>>>>>> 79c4db2a94b6c8f05fbe1edd3b8d1bb4b72b77ec
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -189,7 +195,22 @@ public class UsersController {
 			return rList;
 			
 		}
-	
+		@PostMapping("/association/{userid}/{trackid}")
+		public void followAssociation(@PathVariable("userid")Integer userid,
+						   @PathVariable("trackid")Integer trackid) {
+				Users user = UService.findUsersById(userid);
+				Users track = UService.findUsersById(trackid);
+				//確認關聯是否存在
+				Boolean isAssociation = flDao.existsByUsersAndTrack(user, track);
+				if(isAssociation) {
+					//如果存在關聯 那刪除 = 取消追蹤
+					flDao.deleteByUsersAndTrack(user, track);
+				}else {
+					//如果不存在 那新增 = 我要追蹤
+					Follow follow = new Follow(user, track);
+					flDao.save(follow);
+				}
+		}
 	
 	
 

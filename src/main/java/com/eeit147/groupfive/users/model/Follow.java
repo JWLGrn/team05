@@ -41,6 +41,12 @@ public class Follow {
 		this.track = track;
 	}
 
+	public Follow(Users users, Users track) {
+		super();
+		this.users = users;
+		this.track = track;
+	}
+
 	public Integer getFollowId() {
 		return followId;
 	}
@@ -64,5 +70,11 @@ public class Follow {
 	public void setTrack(Users track) {
 		this.track = track;
 	}
+
+	@Override
+	public String toString() {
+		return "Follow [followId=" + followId + ", users=" + users + ", track=" + track + "]";
+	}
+
 	
 }

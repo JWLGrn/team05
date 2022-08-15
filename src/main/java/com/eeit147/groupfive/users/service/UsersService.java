@@ -26,10 +26,10 @@ public class UsersService {
 	}
 	
 	//利用ID查詢會員資料
-	public List<Users> findUsersById(Integer id){
+	public Users findUsersById(Integer id){
 		Optional<Users> Optional = UDao.findById(id);
 		if(Optional !=null) {
-			Optional.get();
+			return Optional.get();
 		}
 		return null;
 	}
@@ -76,5 +76,5 @@ public class UsersService {
 		}
 		return false;
 	}
-	
+
 }
