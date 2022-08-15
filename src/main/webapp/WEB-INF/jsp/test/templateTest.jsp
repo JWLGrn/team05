@@ -435,7 +435,7 @@
                                 <button type="button" id="adv-serch" class="btn-adv-serch">
                                     <i class="icon-plus flaticon-add-plus-button"></i>
                                     <i class="icon-minus fas fa-minus"></i>
-                                    Advanced Search
+                                    分類
                                 </button>
                             </div>
                             <div class="input-group-btn">
@@ -651,27 +651,37 @@
                     checkedToController += checkedList[i]
                 }
             }
-            var url = "http://localhost:8090/cookblog/find/recipe/food?classify="+$("#classify").val()+"&searchWord="+$("#searchWord").val()+checkedToController;
-            console.log(url)
+
             var settings = {
-                "url": "http://localhost:8090/cookblog/find/recipe/food?classify="+$("#classify").val()+"&searchWord="+$("#searchWord").val()+checkedToController,
+                "url": "http://localhost:8090/cookblog/find/recipe/food?classify=" + $("#classify").val() + "&searchWord=" + $("#searchWord").val() + checkedToController,
                 "method": "GET",
                 "timeout": 0,
             };
 
             $.ajax(settings).done(function (response) {
                 let recipes = '';
-                for(index in response){
+                for(let index in response){
+                    let r = response[index].recipeKeyword;
+                    var classifytitle = "";
+                    if(r != null){
+                        for(let i in r){
+                            classifytitle += r[i].keyword + " "
+                            
+                        }
+                        classifytitle.trim();
+                    }
+                    
+
                     recipes += '<div class="col-lg-4 col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
                             +'<figure class="item-figure"><a href="single-recipe1.html"><img src="'+response[index].cookPhoto+'" alt="Product"></a></figure>'
                             +'<div class="item-content">'
-                            +'<span class="sub-title">CHICKEN</span>'
+                            +'<span class="sub-title">' + classifytitle + '</span>'
                             +'<h3 class="item-title"><a href="single-recipe1.html">'+response[index].cookTitle+'</a></h3>'
                             +'<p>'+response[index].cookDescription+'</p>'
                             +'<ul class="entry-meta">'
                             +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+' Mins</a></li>'
-                            +'<li><a href="#"><i class="fas fa-user"></i>by <span></span></a></li>'
+                            +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>'
                             +'</ul></div></div></div>'
                 }

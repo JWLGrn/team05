@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
+import com.eeit147.groupfive.recipe.model.Keyword;
+import com.eeit147.groupfive.recipe.model.KeywordDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
 @Controller
 public class PageController {
-@Autowired
-FoodsDao fDao;
-@Autowired
-UsersDao uDao;
+	@Autowired
+	private FoodsDao fDao;
+	@Autowired
+	private UsersDao uDao;
+	@Autowired
+	private KeywordDao kDao;
 
 	// 首頁
 	@GetMapping("/")
@@ -102,9 +106,26 @@ UsersDao uDao;
 	public String login() {
 		return "redirect:/user/login";
 	}
+<<<<<<< HEAD
 	//測試追蹤頁面
 	@GetMapping("followpage")
 	public String follow() {
 		return "test/followTest";
 	}
+=======
+	
+	//前往分類頁面
+	@GetMapping("/categorypage")
+	public String goToCategory(Model m) {
+		List<Keyword> category = kDao.findAll();
+		m.addAttribute(category);
+		return "test/categoryPageTest";
+	}
+	
+	@GetMapping("/posts")
+	public String goPostPage() {
+		return "test/blogTest";
+	}
+
+>>>>>>> 4e8609f0037832cd9e857ad4231c75c4f6e28d45
 }
