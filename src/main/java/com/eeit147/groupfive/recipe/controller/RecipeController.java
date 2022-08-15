@@ -12,9 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
@@ -42,17 +46,20 @@ public class RecipeController {
 	
 //測試
 	Integer userId=3;
-	Integer recipeId=10;
-//食譜	
+	Integer recipeId;
+//新增食譜	
 	@GetMapping("/recipe/insert")
 	public String recipepage(Model m) {
 		m.addAttribute("userId", userId);
-		m.addAttribute("recipeId", recipeId);
+		//顯示食譜
+		List<Recipe> allRecipe=rService.findRecipeByUser(userId);
+		m.addAttribute("allrecipe", allRecipe);	
+		
 		return "recipe";
 	}
-//新增食譜,修改食譜
+//存食譜
 	@RequestMapping("/recipe/insertRecipe")
-	public String insertRecipe(  //測試期間不新增 @RequestParam(value="recipeid") Integer recipeId,
+	public String insertRecipe(   @RequestParam(value="recipeid") Integer recipeId,
 								  @RequestParam(value="rfile") MultipartFile rfile,
 			                      @RequestParam(value="rtitle") String rtitle,
 			                      @RequestParam(value="rdescript") String rdescript,
@@ -94,19 +101,24 @@ public class RecipeController {
 	 } 
 	//傳值給下一頁
 	m.addAttribute("recipe",recipeview);	 
-	return "recipe";	
+	return "redirect:/recipe/insert";	
 }
 //步驟--------------------------------------------------------	
-	@GetMapping("/step/insert")
-		public String stepPage(Model m) {
-			m.addAttribute("userId", userId);
-			m.addAttribute("recipeId", recipeId);
+	   @PostMapping("/step/insert")
+		public String stepPage(@RequestBody Integer putrecipeId,Model m) {
+			recipeId=putrecipeId;
+			return "redirect:/step/add";	
+	   }
+	   @GetMapping("/step/add")
+		public String stepadd(Model m) {
 			//顯示
 			List<RecipeStep> allStep=rsService.findAllStepById(recipeId);
 			m.addAttribute("allStep", allStep);	
-			return "recipeStep";
-			
-	}
+			System.out.println(recipeId+"_3");  //--------------------------測試傳值3
+			return "recipeStep";	
+	   }
+	   
+	  
 //步驟新增修改
 	@RequestMapping("/step/addStep")
 	public String insertStep(@RequestParam(value="recipeId") Integer recipeId,
@@ -151,12 +163,5 @@ public class RecipeController {
 		return "redirect:/step/insert";
 	}
 	
-//測試用
-	@RequestMapping("/step/test")
-	public String test(Model m) {
-		List<RecipeStep> allStep=rsService.findAllStepById(recipeId);
-		m.addAttribute("allStep", allStep);	
-		return "recipeStep";
-	}
 	
 }

@@ -13,7 +13,7 @@
 <script src="${contextRoot}/js/jquery-3.6.0.min.js" ></script>
 <script type="text/javascript"></script>
 <style type="text/css">
-h1 {
+h3 {
     color: purple;
      }
 textarea {
@@ -42,8 +42,12 @@ img{
 </style>
 </head>
 <body>
+<h3>顯示單筆食譜</h3>
+<div id="onedata"></div>
 
-<h1>Step</h1>
+
+<div id="editstep">
+<h3>Step</h3>
 <button onclick="addStep()">新增步驟</button>
 <form action="addStep" method="post" enctype="multipart/form-data">
 食譜Id:<input name="recipeId" type="hidden" value="${recipeId}" /><br/>
@@ -55,8 +59,10 @@ img{
 <div id="step"></div>
 <button>送出</button>
 </form>
+</div>
 
-<h1>顯示步驟</h1>
+<div id="showstep">
+<h3>顯示步驟</h3>
 <button id="stepupdate">修改</button>
 <% int count=0; %>
 <form action="addStep" method="post" enctype="multipart/form-data">
@@ -71,7 +77,7 @@ img{
 </c:forEach>
 <button id="stepsubmit">送出</button>
 </form>
-
+</div>
 
 
 
@@ -105,8 +111,12 @@ function removestep(step){
 	count--;
 }
 //網頁載入
-$(document).ready(function(){	
-	$("#stepsubmit").hide();
+$(document).ready(function(){
+	if(<%=count%>==0){
+		$("#editstep").show();
+	}else{
+		$("#editstep").hide();
+	}		
 });
 //修改
 $("#stepupdate").click(function(){

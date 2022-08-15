@@ -28,4 +28,7 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	public Set<Recipe> findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(List<RecipeFoods> recipeFoods,String cookTitle1,List<RecipeKeyword> recipeKeyword,String cookTitle2);
 	
 	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
+
+	@Query(value="select * from recipe where fk_recipe_users = :userId ORDER BY date DESC", nativeQuery = true)
+	public List<Recipe> findAllRecipeByUser(@Param("userId") Integer userId);
 }
