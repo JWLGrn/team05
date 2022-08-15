@@ -12,7 +12,7 @@
 <script src="${contextRoot}/js/jquery-3.6.0.min.js" ></script>
 <script type="text/javascript"></script>
 <style type="text/css">
-h1 {
+h3 {
     color: purple;
      }
  textarea {
@@ -23,7 +23,7 @@ h1 {
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
     width: 300px;
-    height: 150px;
+    height: 50px;
 }
 input {
   margin:3pt;
@@ -39,52 +39,58 @@ img{
 </head>
 <body>
 <!--                新增食譜                          -->
-<button onclick="insertshow()">新增食譜</button>
+<h3>新增食譜</h3>
 <div class="container" id="insertform">	
 <form action="insertRecipe" method="post" enctype="multipart/form-data" >
  發文者:${userId}<br/>
  <!-- 新增用假Id --><input type="hidden" name="recipeid" id="recipeid" value="1"/>
- 食譜圖:<img id="recipt"/>
-      <input type="file" id="rfile" name="rfile" onchange="photochange(event,recipt)" accept=".png, .jpg, .jpeg"/><br/>
+ 食譜圖:<label><img id="recipt" src="${contextRoot}/image/step/file.jpg"/>
+      <input type="file" id="rfile" name="rfile" onchange="photochange(event,recipt)" accept=".png, .jpg, .jpeg" style="display:none;"/></label><br/>
  食譜名稱:<input type="text" name="rtitle" id="rtitle"/><span id="titlecheck" 	class="check"></span><br/>
  介紹:<textarea name='rdescript' id="rdescript"></textarea><span id="rdescriptcheck" 	class="check"></span><br/>
  烹調時間:<input type="Number" name="rtime" id="rtime" min="0"/>分鐘<span id="rtimecheck" 	class="check"></span><br/><br/>
  幾人份:<input type="Number" name="rpeople" id="rpeople" min="0"/>人<span id="rpeoplecheck" 	class="check"></span><br/>
 <button id="submit"  onclick="submitBtn()">送出</button>
+<span onclick="recipetest()">快捷鍵</span>
 </form>
-<button onclick="recipetest()">快捷鍵</button>
 </div>
-
 <br/>
+<a href="${contextRoot}/step/insert"><div>新增步驟</div></a>
+<!--                檢視食譜                          -->
+<h3>檢視食譜</h3>
+<% int count=0; %>
+<c:forEach var="r" items="${allrecipe}">
+<% count++; %>
+<button name="btn" onclick="updateRecipt(<%=count%>)">修改食譜</button>
+<button id="likstep" onclick="update(<%=count%>)">編輯步驟</button>
+<span id="a<%=count%>">${r.recipeId}</span>
+<span id="b<%=count%>">${r.cookTitle}</span>
+<span id="c<%=count%>">${r.cookDescription}</span>
+<img id="d<%=count%>" src="${contextRoot}/image/recipe/${r.cookPhoto}"/>
+<span id="e<%=count%>">${r.cookTime}</span>
+<span id="f<%=count%>">${r.cookServe}</span>
+<br/>
+</c:forEach>
 <!--                修改食譜                          -->
-
-<button onclick="updateshow()">修改食譜</button>
+<h3>修改食譜</h3>
 <div class="container" id="updateform">	
 <form action="insertRecipe" method="post" enctype="multipart/form-data" id="insertform">
-食譜編號:<span id="s0">${recipe.recipeId}</span><br/>
-發文者: <span>${userId}</span><br/>
-食譜圖:<img id="recipt" src="<c:url value='/image/recipe/${recipe.cookPhoto}'/>"/><br/>
-食譜名稱:<span id="s1">${recipe.cookTitle}</span><br/>
-介紹:<span id="s2">${recipe.cookDescription}</span><br/>
-烹調時間:<span id="s3">${recipe.cookTime}</span>分鐘<br/>
-幾人份:<span id="s4">${recipe.cookServe}</span>人<br/>
-<button id="updateSubmitBtn" onclick="updateRecipt(this)" hidden="hidden">送出</button>
+食譜編號:<span id="a"></span><br/>
+食譜名稱:<span id="b"></span><br/>
+介紹:<span id="c"></span><br/>
+食譜圖:<label><img id="d"></img></label><br/>
+烹調時間:<span id="e"></span>分鐘<br/>
+幾人份:<span id="f">人</span><br/>
+<button id="submitbtn" hidden>送出</button>
 </form>
-<button id="updateBtn" onclick="updateRecipt(this)">修改</button>
-</div>
 
+</div>
+<%-- <label><img id="recipe" src="<c:url value='/image/recipe/${recipe.cookPhoto}'/>"/></label><br/> --%>
 <script type="text/javascript">
 //網頁載入時
 $(document).ready(function(){
-	$("#insertform").hide();	
-	$("#updateform").hide();
+
 });
-function insertshow(){
-	$("#insertform").show();
-}
-function updateshow(){
-	$("#updateform").show();
-}
 //測試
 function recipetest(){
 	rtitle.value="牛肉麵";
@@ -141,16 +147,18 @@ $("#rpeople").blur(function(){
 	}	
 });
 //--------------食譜用------------------------------
-function updateRecipt() {
-	$("#s0").before('<input type="text" value='+$("#s0").text()+' name="recipeid">');
-	$("#s1").before('<input type="text" value='+$("#s1").text()+' name="rtitle">');	
-	$("#s2").before('<textarea name="rdescript">'+$("#s2").text()+'</textarea>');
-	$("#s3").before('<input type="text" value='+$("#s3").text()+' name="rtime">');
-	$("#s4").before('<input type="text" value='+$("#s4").text()+' name="rpeople">');	
-	$("img").before('<input type="file" id="rfile" name="rfile" onchange="stepchange(event,recipt)" accept=".png, .jpg, .jpeg"/>');
-	$("span").remove();
-	$("#updateBtn").hide();
-	$("#updateSubmitBtn").show();
+function updateRecipt(num) {
+	console.log($("#a1").text())
+	$("#a").before('<input type="text" value="'+$("#a"+num).text()+'" name="recipeid">');
+	$("#b").before('<input type="text" value="'+$("#b"+num).text()+'" name="rtitle">');	
+	$("#c").before('<textarea name="rdescript">'+$("#c"+num).text()+'</textarea>');
+	$("#d").attr('src',$("#d"+num).attr('src'));
+	$("#d").before('<input type="file"  id="rfile" name="rfile" onchange="photochange(event,d)" accept=".png, .jpg, .jpeg" style="display:none;"/>');
+	//$("#d").before('<input type="file" id="rfile" name="rfile" onchange="photochange(event,recipe)" accept=".png, .jpg, .jpeg" style="display:none;"/>');
+	$("#e").before('<input type="text" value='+$("#e"+num).text()+' name="rpeople">');	
+	$("#f").before('<input type="text" value='+$("#f"+num).text()+' name="rtime">');
+	$("button[name='btn']").remove();
+	$("#submitbtn").show();
 }
 //食譜圖片預覽
 function photochange(event,imgid){
@@ -160,6 +168,22 @@ function photochange(event,imgid){
 	img.onload = function() {
       URL.revokeObjectURL(img.src) // free memory
     }
+}
+function update(num){
+	let recipeId=$("#a"+num).text();
+	console.log(recipeId);
+	let recipeIdjson=JSON.stringify(recipeId);
+	$.ajax({
+		url:"${contextRoot}/step/insert",
+		contentType:'application/json',
+		data:recipeId,
+		method:'post',
+		success:function(result){
+			window.location.href="${contextRoot}/step/add";
+		},error:function(err){
+			console.log(err);
+		}
+	});
 }
 </script>
 </body>
