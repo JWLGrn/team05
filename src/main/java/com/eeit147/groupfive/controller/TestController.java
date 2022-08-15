@@ -3,6 +3,7 @@ package com.eeit147.groupfive.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -27,16 +28,17 @@ import com.eeit147.groupfive.recipe.model.Keyword;
 import com.eeit147.groupfive.recipe.model.KeywordDao;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
+import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.recipe.model.RecipeFoods;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
+import com.eeit147.groupfive.recipe.model.RecipeKeywordDto;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
-import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 
 @Controller
 public class TestController {
@@ -363,8 +365,39 @@ public class TestController {
 			return "test/templateTest";
 		}
 		
+		// Recipe List 轉 Dto List
+		public List<RecipeDto> changeRecipeToDto(Iterable<Recipe> recipes){
+			List<RecipeDto> dtoList=new ArrayList<RecipeDto>();
+			for(Recipe r:recipes) {
+				RecipeDto dto = new RecipeDto();
+				dto.setRecipeId(r.getRecipeId());
+				dto.setCookTitle(r.getCookTitle());
+				dto.setCookDescription(r.getCookDescription());
+				dto.setCookPhoto(r.getCookPhoto());
+				dto.setCookTime(r.getCookTime());
+				dto.setUserId(r.getUsers().getUserId());
+				dto.setUserName(r.getUsers().getUserName());
+				dto.setRecipeKeyword(changeKeywordToDto(r.getRecipeKeyword()));
+				dtoList.add(dto);
+			}
+			return dtoList;
+		}
+		
+		// Keyword List 轉 Dto List
+		public List<RecipeKeywordDto> changeKeywordToDto(Iterable<RecipeKeyword> recipekeywords){
+			List<RecipeKeywordDto> dtoList=new ArrayList<RecipeKeywordDto>();
+			for(RecipeKeyword rk : recipekeywords) {
+				RecipeKeywordDto dto = new RecipeKeywordDto();
+				dto.setRecipekeywordId(rk.getRecipekeywordId());
+				dto.setKeyword(rk.getKeyword().getKeyword());
+				dtoList.add(dto);
+			}
+			return dtoList;
+		}
+		
+		//模糊查詢(找食譜 or 找作者 + 關鍵字&食材分類)
 		@GetMapping("find/recipe/food")
-		public @ResponseBody Iterable<Recipe> findUsersByFoodOrKeyword(
+		public @ResponseBody Iterable<RecipeDto> findUsersByFoodOrKeyword(
 				@RequestParam("classify") String classify,
 				@RequestParam("searchWord") String searchWord,
 				@RequestParam(value = "foods", defaultValue = "")String[] foods,
@@ -373,19 +406,18 @@ public class TestController {
 			
 			//未選擇checkbox的情況
 			if(foods.length == 0 && country.length == 0) {
-				System.out.println(foods.length);
-				System.out.println(country.length);
-				
 				// 找食譜
 				if (classify.equals("1")) {
-					List<Recipe> recipe = rDao.findByCookTitleLike("%"+searchWord+"%");
-					return recipe;
+					List<Recipe> recipes = rDao.findByCookTitleLike("%"+searchWord+"%");
+					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
+					return recipesDto;
 				}
 				// 找作者
 				else{
 					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
-					Set<Recipe> recipe = rDao.findByUsersIn(users);
-					return recipe;
+					Set<Recipe> recipes = rDao.findByUsersIn(users);
+					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
+					return recipesDto;
 				}
 			}
 			//有選擇checkbox的情況
@@ -398,14 +430,16 @@ public class TestController {
 				
 				// 找食譜
 				if (classify.equals("1")) {
-					Set<Recipe> recipeList = rDao.findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(rFood,"%"+searchWord+"%", rKeyword,"%"+searchWord+"%");
-					return recipeList;
+					Set<Recipe> recipes = rDao.findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(rFood,"%"+searchWord+"%", rKeyword,"%"+searchWord+"%");
+					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
+					return recipesDto;
 				}
 				// 找作者
 				else{
 					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
-					Set<Recipe> recipeList = rDao.findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(rFood, users, rKeyword, users);
-					return recipeList;
+					Set<Recipe> recipes = rDao.findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(rFood, users, rKeyword, users);
+					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
+					return recipesDto;
 				}
 			}
 		}

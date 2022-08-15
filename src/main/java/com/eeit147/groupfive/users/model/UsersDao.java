@@ -18,13 +18,16 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	@Query(value = "from Users where email = :email and password = :password ")
 	public Optional<Users> findUsersByEmailandPassWord(@Param("email")String email,@Param("password")String password);
 	
-
+	//找User By email
 	public List<Users> findByemail(String email);
 	
+	//模糊查詢User By 使用者名稱
 	public List<Users> findByUserNameLike(String userName);
 	
+	//查詢User By 食譜
 	public Users findByRecipe(Recipe recipe);
 	
+	//查詢User By 多筆食譜
 	public List<Users> findByRecipeIn(List<Recipe> recipes);
 
 }

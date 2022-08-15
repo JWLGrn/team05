@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,14 +17,18 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	@Query(value="select * from recipe ORDER BY recipe_id DESC", nativeQuery = true)
 	public List<Recipe> findAlldataorder();
 	
+	//查詢食譜By食譜標題
 	public List<Recipe> findByCookTitleLike(String cookTitle);
-	
 
+	//查詢食譜ByUsers
 	public Set<Recipe> findByUsersIn(List<Users> users);
 	
+	//模糊查詢By食材or關鍵字
 	public Set<Recipe> findByRecipeFoodsInOrRecipeKeywordIn(List<RecipeFoods> recipeFoods,List<RecipeKeyword> recipeKeyword);
 	
+	//模糊查詢By 食譜標題&食材 or 食譜標題&關鍵字
 	public Set<Recipe> findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(List<RecipeFoods> recipeFoods,String cookTitle1,List<RecipeKeyword> recipeKeyword,String cookTitle2);
 	
+	//模糊查詢By 作者&食材 or 作者&關鍵字
 	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
 }
