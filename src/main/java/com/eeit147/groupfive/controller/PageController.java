@@ -92,11 +92,12 @@ UsersDao uDao;
 		
 	}
 	
-	//測試查詢頁面
+	//測試按讚頁面
 	@GetMapping("/favorpage")
 	public String favorpage() {
 		return "test/favorTest";
 	}
+	
 	@GetMapping("/loginpage")
 	public String login() {
 		return "redirect:/user/login";

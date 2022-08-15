@@ -15,4 +15,7 @@ public interface KeywordDao extends JpaRepository<Keyword, Integer> {
 	
 	//關鍵字模糊查詢
 	public List<Keyword> findByKeywordLike(String keyword);
+	
+	//透過多種關鍵字搜尋
+	public List<Keyword> findByKeywordIn(String[] keyword);
 }

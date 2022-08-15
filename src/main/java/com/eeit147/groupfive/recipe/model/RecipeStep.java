@@ -46,6 +46,15 @@ public class RecipeStep {
 		this.stepPhoto = stepPhoto;
 		this.recipe = recipe;
 	}
+	
+	public RecipeStep(Integer step, String stepDescription, String stepPhoto, Recipe recipe) {
+		super();
+		this.step = step;
+		this.stepDescription = stepDescription;
+		this.stepPhoto = stepPhoto;
+		this.recipe = recipe;
+	}
+
 
 	public Integer getRecipeStepId() {
 		return recipeStepId;

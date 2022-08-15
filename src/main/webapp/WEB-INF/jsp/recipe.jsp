@@ -38,11 +38,12 @@ img{
   </style>
 </head>
 <body>
-	<div class="container">
-	
-<h1>新增食譜</h1>
-<form action="insertRecipe" method="post" enctype="multipart/form-data" id="insertform">
+<!--                新增食譜                          -->
+<button onclick="insertshow()">新增食譜</button>
+<div class="container" id="insertform">	
+<form action="insertRecipe" method="post" enctype="multipart/form-data" >
  發文者:${userId}<br/>
+ <!-- 新增用假Id --><input type="hidden" name="recipeid" id="recipeid" value="1"/>
  食譜圖:<img id="recipt"/>
       <input type="file" id="rfile" name="rfile" onchange="photochange(event,recipt)" accept=".png, .jpg, .jpeg"/><br/>
  食譜名稱:<input type="text" name="rtitle" id="rtitle"/><span id="titlecheck" 	class="check"></span><br/>
@@ -53,14 +54,37 @@ img{
 </form>
 <button onclick="recipetest()">快捷鍵</button>
 </div>
- <script type="text/javascript">
-//網頁載入時
 
+<br/>
+<!--                修改食譜                          -->
+
+<button onclick="updateshow()">修改食譜</button>
+<div class="container" id="updateform">	
+<form action="insertRecipe" method="post" enctype="multipart/form-data" id="insertform">
+食譜編號:<span id="s0">${recipe.recipeId}</span><br/>
+發文者: <span>${userId}</span><br/>
+食譜圖:<img id="recipt" src="<c:url value='/image/recipe/${recipe.cookPhoto}'/>"/><br/>
+食譜名稱:<span id="s1">${recipe.cookTitle}</span><br/>
+介紹:<span id="s2">${recipe.cookDescription}</span><br/>
+烹調時間:<span id="s3">${recipe.cookTime}</span>分鐘<br/>
+幾人份:<span id="s4">${recipe.cookServe}</span>人<br/>
+<button id="updateSubmitBtn" onclick="updateRecipt(this)" hidden="hidden">送出</button>
+</form>
+<button id="updateBtn" onclick="updateRecipt(this)">修改</button>
+</div>
+
+<script type="text/javascript">
+//網頁載入時
 $(document).ready(function(){
-//	$("#submit").hide();
-	
-	
+	$("#insertform").hide();	
+	$("#updateform").hide();
 });
+function insertshow(){
+	$("#insertform").show();
+}
+function updateshow(){
+	$("#updateform").show();
+}
 //測試
 function recipetest(){
 	rtitle.value="牛肉麵";
@@ -92,7 +116,7 @@ $("#rdescript").blur(function(){
 	var str=rdescript.value;
 	if(str.length>160 || str.length<1){
 		document.getElementById("rdescriptcheck").innerText="字數超過150個,也不可為空值";
-		rtitle.value="";
+		rdescriptcheck.value="";
 	}else{
 		document.getElementById("rdescriptcheck").innerText="";
 	}
@@ -116,6 +140,27 @@ $("#rpeople").blur(function(){
 		document.getElementById("rpeoplecheck").innerText="";
 	}	
 });
+//--------------食譜用------------------------------
+function updateRecipt() {
+	$("#s0").before('<input type="text" value='+$("#s0").text()+' name="recipeid">');
+	$("#s1").before('<input type="text" value='+$("#s1").text()+' name="rtitle">');	
+	$("#s2").before('<textarea name="rdescript">'+$("#s2").text()+'</textarea>');
+	$("#s3").before('<input type="text" value='+$("#s3").text()+' name="rtime">');
+	$("#s4").before('<input type="text" value='+$("#s4").text()+' name="rpeople">');	
+	$("img").before('<input type="file" id="rfile" name="rfile" onchange="stepchange(event,recipt)" accept=".png, .jpg, .jpeg"/>');
+	$("span").remove();
+	$("#updateBtn").hide();
+	$("#updateSubmitBtn").show();
+}
+//食譜圖片預覽
+function photochange(event,imgid){
+	var img=document.getElementById(imgid.id);
+	var reader = new FileReader();
+	img.src = URL.createObjectURL(event.target.files[0]);
+	img.onload = function() {
+      URL.revokeObjectURL(img.src) // free memory
+    }
+}
 </script>
 </body>
 </html>

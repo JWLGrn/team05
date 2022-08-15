@@ -155,7 +155,7 @@ public class UsersController {
 		return "updatesuccess";
 	}
 	
-	// 還沒寫完
+	// 抓取recipe and userid 案讚關聯
 		@GetMapping("/favorite")
 		public String favorite(@RequestParam("recipe_id") Integer recipe_id,@RequestParam("user_id") Integer user_id,Model model) {
 			Optional<Recipe> optional = rDao.findById(recipe_id);
@@ -163,8 +163,6 @@ public class UsersController {
 			Optional<Users> optional02 = uDao.findById(user_id);
 			 Users usering = optional02.get();			
 			Favorite favorite = new Favorite();
-			Follow follow = new Follow();
-			follow.setTrack(usering);
 			favorite.setFavoriteId(user_id);
 			favorite.setUsers(usering);
 			favorite.setRecipe(recipe);
