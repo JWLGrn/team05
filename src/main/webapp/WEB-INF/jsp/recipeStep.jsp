@@ -24,7 +24,7 @@ textarea {
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
     width: 300px;
-    height: 50px;
+    height: 100px;
 }
 input {
   margin:3pt;
@@ -48,9 +48,10 @@ img{
 <form action="addStep" method="post" enctype="multipart/form-data">
 食譜Id:<input name="recipeId" type="hidden" value="${recipeId}" /><br/>
 步驟:<input name="step" type="hidden" value="1"/>1
-照片:<label id="a"><img id="stepImg" src="${contextRoot}/image/step/file.jpg"/>
+照片:<label ><img id="stepImg" src="${contextRoot}/image/step/file.jpg"/>
     <input name="stepPhoto" type="file" onchange="stepchange(event,stepImg)" accept=".png, .jpg, .jpeg" style="display:none;"/></label> 
-敘述<textarea name="stepDescript">敘述</textarea><br/>
+敘述<textarea name="stepDescript" id="stepp" onblur="check(this)">敘述步驟</textarea>
+<span id="a"></span>
 <div id="step"></div>
 <button>送出</button>
 </form>
@@ -62,10 +63,11 @@ img{
 <input name="recipeId" type="hidden" value="${recipeId}" />
 <c:forEach var="stepdata" items="${allStep}">
 <% count++; %>
+<div>
 步驟:<span id="a<%=count%>">${stepdata.step}</span>
-圖片:<span id="b<%=count%>"><img src="${contextRoot}/image/step/${stepdata.stepPhoto}"></span>
+圖片:<label><span id="b<%=count%>"><img id="show<%=count%>" src="${contextRoot}/image/step/${stepdata.stepPhoto}" ></span></label>
 敘述:<span id="c<%=count%>">${stepdata.stepDescription}</span>
-<br/>
+</div>
 </c:forEach>
 <button id="stepsubmit">送出</button>
 </form>
@@ -79,7 +81,7 @@ function addStep(){
 var addsteps='<div id="step'+count+'">步驟:<input name="step" type="hidden" value="'+count+'"/>'+count
  +'照片:<label><img id="stepImg'+count+'" src="${contextRoot}/image/step/file.jpg"/>'
  +'<input name="stepPhoto" type="file" onchange="stepchange(event,stepImg'+count+')" accept=".png, .jpg, .jpeg" style="display:none;"/></label>'
- +'敘述<textarea name="stepDescript">敘述</textarea><br/>'
+ +'敘述<textarea name="stepDescript" ">敘述</textarea><br/>'
  +'<span class="btn" onclick="removestep('+count+')">移除</span><div>';
  $("#step").append(addsteps);
  count++;
@@ -113,16 +115,25 @@ $("#stepupdate").click(function(){
   let stepcount="<%=count%>";
   for(let i=1;i<=stepcount;i++){
     $("#a"+i).before('<input type="hidden" value=" '+$("#a"+i).text()+' " name="step">');
-    $("#b"+i).before('<input type="file" name="stepPhoto">');
-    $("#c"+i).before('<textarea name="stepDescript">'+$("#c"+i).text()+'</textarea>');
-    $("#c"+i).remove();
+    $("#b"+i).before('<input type="file" name="stepPhoto" style="display:none;" onchange="stepchange(event,show'+i+')">');
+    $("#c"+i).before('<textarea name="stepDescript">'+$("#c"+i).text()+'</textarea></span>');
+    $("#c"+i).text("不可超過200字");
   }
- // console.log("<%=count%>");
-  
 });
 //修改後送出
 $("#stepsubmit").click(function(){
 });
+function check(ele){	
+	let str=$("#stepp").text();
+ 	if(str.length>200 || str.length<1){
+ 		console.log(str.length);
+ 		$("#a").text("字數不可超過200");
+  	}else{
+  		$("#a").text("");
+  	}
+}
+
+
 </script>	
 </body>
 </html>

@@ -19,6 +19,6 @@ public interface RecipeStepDao extends JpaRepository<RecipeStep, Integer>{
 	@Query(value="select * from recipestep where fk_recipestep_recipe = :recipeId and step = :step", nativeQuery = true)
 	public Optional<RecipeStep> findByRecipeStepId(@Param("recipeId") Integer recipeId,@Param("step") Integer step);
 	
-	@Query(value="select * from recipestep where fk_recipestep_recipe = :recipeId ORDER BY recipestep_id ASC", nativeQuery = true)
+	@Query(value="select * from recipestep where fk_recipestep_recipe = :recipeId ORDER BY step ASC", nativeQuery = true)
 	public List<RecipeStep> findAllRecipeStepId(@Param("recipeId") Integer recipeId);
 }

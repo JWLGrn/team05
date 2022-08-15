@@ -43,9 +43,9 @@ img{
 <div class="container" id="insertform">	
 <form action="insertRecipe" method="post" enctype="multipart/form-data" >
  發文者:${userId}<br/>
- <!-- 新增用假Id --><input type="hidden" name="recipeid" id="recipeid" value="1"/>
- 食譜圖:<img id="recipt"/>
-      <input type="file" id="rfile" name="rfile" onchange="photochange(event,recipt)" accept=".png, .jpg, .jpeg"/><br/>
+ <!-- 新增用假Id --><input type="text" name="recipeid" id="recipeid" value="${recipeId}"/>
+ 食譜圖:<label><img id="recipt" src="${contextRoot}/image/step/file.jpg"/>
+      <input type="file" id="rfile" name="rfile" onchange="photochange(event,recipt)" accept=".png, .jpg, .jpeg" style="display:none;"/></label><br/>
  食譜名稱:<input type="text" name="rtitle" id="rtitle"/><span id="titlecheck" 	class="check"></span><br/>
  介紹:<textarea name='rdescript' id="rdescript"></textarea><span id="rdescriptcheck" 	class="check"></span><br/>
  烹調時間:<input type="Number" name="rtime" id="rtime" min="0"/>分鐘<span id="rtimecheck" 	class="check"></span><br/><br/>
@@ -54,7 +54,6 @@ img{
 </form>
 <button onclick="recipetest()">快捷鍵</button>
 </div>
-
 <br/>
 <!--                修改食譜                          -->
 
@@ -63,7 +62,7 @@ img{
 <form action="insertRecipe" method="post" enctype="multipart/form-data" id="insertform">
 食譜編號:<span id="s0">${recipe.recipeId}</span><br/>
 發文者: <span>${userId}</span><br/>
-食譜圖:<img id="recipt" src="<c:url value='/image/recipe/${recipe.cookPhoto}'/>"/><br/>
+食譜圖:<label><img id="recipe" src="<c:url value='/image/recipe/${recipe.cookPhoto}'/>"/></label><br/>
 食譜名稱:<span id="s1">${recipe.cookTitle}</span><br/>
 介紹:<span id="s2">${recipe.cookDescription}</span><br/>
 烹調時間:<span id="s3">${recipe.cookTime}</span>分鐘<br/>
@@ -71,6 +70,7 @@ img{
 <button id="updateSubmitBtn" onclick="updateRecipt(this)" hidden="hidden">送出</button>
 </form>
 <button id="updateBtn" onclick="updateRecipt(this)">修改</button>
+<a href="${contextRoot}/step/insert"><div>新增步驟</div></a>
 </div>
 
 <script type="text/javascript">
@@ -147,7 +147,7 @@ function updateRecipt() {
 	$("#s2").before('<textarea name="rdescript">'+$("#s2").text()+'</textarea>');
 	$("#s3").before('<input type="text" value='+$("#s3").text()+' name="rtime">');
 	$("#s4").before('<input type="text" value='+$("#s4").text()+' name="rpeople">');	
-	$("img").before('<input type="file" id="rfile" name="rfile" onchange="stepchange(event,recipt)" accept=".png, .jpg, .jpeg"/>');
+	$("img").before('<input type="file" id="rfile" name="rfile" onchange="photochange(event,recipe)" accept=".png, .jpg, .jpeg" style="display:none;"/>');
 	$("span").remove();
 	$("#updateBtn").hide();
 	$("#updateSubmitBtn").show();
