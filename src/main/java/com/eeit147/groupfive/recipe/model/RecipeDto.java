@@ -19,6 +19,8 @@ public class RecipeDto {
 	
 	private String userName;
 	
+	private Integer count;
+	
 	private List<RecipeKeywordDto> recipeKeyword = new ArrayList<RecipeKeywordDto>();
 
 	public RecipeDto() {
@@ -86,6 +88,14 @@ public class RecipeDto {
 
 	public void setRecipeKeyword(List<RecipeKeywordDto> recipeKeyword) {
 		this.recipeKeyword = recipeKeyword;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 }

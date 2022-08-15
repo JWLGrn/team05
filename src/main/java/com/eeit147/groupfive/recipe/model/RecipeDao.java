@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +32,14 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	//模糊查詢By 作者&食材 or 作者&關鍵字
 	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
+	
+	//查詢收藏排行榜
+	@Query(nativeQuery = true, value="SELECT top(:number) c.fk_collect_recipe as recipeId FROM collect AS c GROUP BY c.fk_collect_recipe order by COUNT(c.fk_collect_recipe) DESC")
+	public List<Object[]> findCollectRank(@Param("number")Integer number);
+	
+	//查詢按讚排行榜
+	@Query(nativeQuery = true, value="SELECT top(:number) f.fk_favorite_recipe as recipeId FROM favorite AS f GROUP BY f.fk_favorite_recipe order by COUNT(f.fk_favorite_recipe) DESC")
+	public List<Object[]> findFavoriteRank(@Param("number")Integer number);
+	
+
 }

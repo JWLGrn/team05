@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -443,4 +446,65 @@ public class TestController {
 				}
 			}
 		}
+		
+		// 查詢收藏數前幾名
+		@GetMapping("find/collectrank")
+		public String collectRank(Model m){
+			 //總名次
+			 Integer rank = 5;
+			 // 取得前五名收藏的食譜id + 收藏數
+			 List<Object[]> list = rDao.findCollectRank(rank);
+			 
+			 // 取得食譜ID的List
+			 List<Integer> ids = new LinkedList<Integer>();
+			 for(Object[] id : list) {
+				 ids.add((Integer)id[0]);
+			 }
+			 
+			 // 取得食譜
+			 List<Recipe> cRecipes = rDao.findAllById(ids);
+			 
+			 // 對食譜做排序
+			 Collections.sort(cRecipes, new Comparator<Recipe>() {
+		            @Override
+		            public int compare(Recipe o1, Recipe o2) {
+		                return o2.getCollect().size() - o1.getCollect().size();
+		            }
+		        });
+			 
+			 m.addAttribute("collectRecipes",cRecipes);
+
+			return "test/collectRankTest";
+		}
+		
+		// 查詢按讚數前幾名
+		@GetMapping("find/favorrank")
+		public String favorRank(Model m){
+			 //總名次
+			 Integer rank = 5;
+			 // 取得前五名收藏的食譜id + 收藏數
+			 List<Object[]> list = rDao.findFavoriteRank(rank);
+			 
+			 // 取得食譜ID的List
+			 List<Integer> ids = new LinkedList<Integer>();
+			 for(Object[] id : list) {
+				 ids.add((Integer)id[0]);
+			 }
+			 
+			 // 取得食譜
+			 List<Recipe> fRecipes = rDao.findAllById(ids);
+			 
+			 // 對食譜做排序
+			 Collections.sort(fRecipes, new Comparator<Recipe>() {
+		            @Override
+		            public int compare(Recipe o1, Recipe o2) {
+		                return o2.getFavorite().size() - o1.getFavorite().size();
+		            }
+		        });
+			 
+			m.addAttribute("favoriteRecipes",fRecipes);
+			return "test/favoriteRankTest";
+		}
+
+		
 }
