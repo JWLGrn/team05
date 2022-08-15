@@ -6,10 +6,12 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,14 +57,14 @@ public class FoodsController {
 			return "0";
 		}
 		return "1";
+		
 	}
-	
+
 	//編輯食材
 	@PostMapping("/editFoods")
 	public String editFoods(
-			@RequestParam("foodsId") Integer foods_id, @RequestParam("foodsName") String foods_name, @RequestParam("foodsType") String foods_type,
-		@RequestParam("calorie") Integer calorie,
-		Model model){
+			 @RequestParam("foodsId") Integer foods_id, @RequestParam("foodsName") String foods_name, @RequestParam("foodsType") String foods_type,
+		@RequestParam("calorie") Integer calorie, Model model){
 		Foods ifd = new Foods();
 		ifd.setFoodsId(foods_id);
 		ifd.setFoodsName(foods_name);
@@ -77,9 +79,13 @@ public class FoodsController {
 		}
 		model.addAttribute("allFoods",fDao.findAll() );
 		model.addAttribute("option", data);
+		
+
 		return "test/showAllFoods123";
+		
 	}
-	
+		
+
 }
 
 

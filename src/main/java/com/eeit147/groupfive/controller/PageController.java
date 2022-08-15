@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.eeit147.groupfive.admin.service.FoodsService;
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -24,6 +25,8 @@ public class PageController {
 FoodsDao fDao;
 @Autowired
 UsersDao uDao;
+@Autowired
+private FoodsService fService;
 
 	// 首頁
 	@GetMapping("/")
@@ -71,11 +74,22 @@ UsersDao uDao;
 			return "test/showAllFoods123";
 		}
 		
+		//顯示使用者
 		@GetMapping("/showAllUsers")
 		public String showAllUsers(Model model) {
 			List<Users> users=uDao.findAll();
 			model.addAttribute("allUsers",uDao.findAll() );
 			return "test/showAllUsers";
+		}
+		
+		//食材列表分頁
+		@GetMapping("/page")
+		public String viewFoodsPage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber, Model model) {
+			Page<Foods> page = fService.findByPage(pageNumber);
+			System.out.println(page+"================================================");
+	
+			model.addAttribute("page", page);
+			return "test/showAllFoods123";
 		}
 	
 
@@ -102,5 +116,8 @@ UsersDao uDao;
 	public String login() {
 		return "redirect:/user/login";
 	}
+	
+	
+	
 
 }
