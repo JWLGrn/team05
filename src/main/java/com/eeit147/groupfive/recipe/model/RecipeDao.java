@@ -32,7 +32,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	//模糊查詢By 作者&食材 or 作者&關鍵字
 	public Set<Recipe> findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(List<RecipeFoods> recipeFoods,List<Users> user1,List<RecipeKeyword> recipeKeyword,List<Users> user2);
-<<<<<<< HEAD
 	
 	//查詢收藏排行榜
 	@Query(nativeQuery = true, value="SELECT top(:number) c.fk_collect_recipe as recipeId FROM collect AS c GROUP BY c.fk_collect_recipe order by COUNT(c.fk_collect_recipe) DESC")
@@ -43,9 +42,7 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	public List<Object[]> findFavoriteRank(@Param("number")Integer number);
 	
 
-=======
 
 	@Query(value="select * from recipe where fk_recipe_users = :userId ORDER BY date DESC", nativeQuery = true)
 	public List<Recipe> findAllRecipeByUser(@Param("userId") Integer userId);
->>>>>>> 6a11fbedd3d8afcb3f2690c9d1972286a026cf48
 }

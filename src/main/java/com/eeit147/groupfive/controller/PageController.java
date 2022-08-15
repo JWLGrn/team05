@@ -23,21 +23,16 @@ import com.eeit147.groupfive.users.model.UsersDao;
 
 @Controller
 public class PageController {
-<<<<<<< HEAD
 	@Autowired
 	private FoodsDao fDao;
 	@Autowired
 	private UsersDao uDao;
 	@Autowired
 	private KeywordDao kDao;
-=======
-@Autowired
-FoodsDao fDao;
-@Autowired
-UsersDao uDao;
+	
+
 @Autowired
 private FoodsService fService;
->>>>>>> 3e480c6f91c69e21f4fb18fdd18e1f88561403a5
 
 	// 首頁
 	@GetMapping("/")
@@ -127,14 +122,11 @@ private FoodsService fService;
 	public String login() {
 		return "redirect:/user/login";
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//測試追蹤頁面
 	@GetMapping("followpage")
 	public String follow() {
 		return "test/followTest";
 	}
-=======
 	
 	//前往分類頁面
 	@GetMapping("/categorypage")
@@ -148,11 +140,7 @@ private FoodsService fService;
 	public String goPostPage() {
 		return "test/blogTest";
 	}
-=======
 	
 	
 	
->>>>>>> 3e480c6f91c69e21f4fb18fdd18e1f88561403a5
-
->>>>>>> 4e8609f0037832cd9e857ad4231c75c4f6e28d45
 }

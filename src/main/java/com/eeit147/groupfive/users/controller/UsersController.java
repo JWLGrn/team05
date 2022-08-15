@@ -44,11 +44,9 @@ public class UsersController {
 	private UsersDao uDao;
 	
 	@Autowired
-<<<<<<< HEAD
 	private FavoriteDao fDao;
-=======
+	
 	private FollowDao flDao;
->>>>>>> 79c4db2a94b6c8f05fbe1edd3b8d1bb4b72b77ec
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
