@@ -12,17 +12,17 @@
 <body>
 	<form action="${contextRoot}/users/updateMember02" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" value="${GetOneUser.userId }" name="user_id" > 
-		會員名稱:<input	type="text" value="${GetOneUser.userName }" name="user_name"><br />
-		信箱:<input type="email" value="${GetOneUser.email }" name="email"
+		<input type="hidden" value="${getUser.userId }" name="user_id" > 
+		會員名稱:<input	type="text" value="${getUser.userName }" name="user_name"><br />
+		信箱:<input type="email" value="${getUser.email }" name="email"
 			id="email"><br /> 密碼:<input type="password"
-			value="${GetOneUser.password }" name="password"><br /> 會員照片:<input
+			value="${getUser.password }" name="password"><br /> 會員照片:<input
 			type="file" name="user_photo"><br /> <input type=hidden
 			name="permission" value="1" placeholder="1"><br /> <input
 			type="submit" value="修改">
 	</form>
 
-	${GetOneUser }
+	${getUser }
 	<br>
 </body>
 </html>

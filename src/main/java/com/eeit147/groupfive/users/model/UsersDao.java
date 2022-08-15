@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 
@@ -26,5 +27,8 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	public Users findByRecipe(Recipe recipe);
 	
 	public List<Users> findByRecipeIn(List<Recipe> recipes);
+	
+	
+	
 
 }

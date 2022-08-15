@@ -23,6 +23,7 @@ import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
@@ -39,6 +40,9 @@ public class UsersController {
 	
 	@Autowired
 	private UsersDao uDao;
+	
+	@Autowired
+	private FavoriteDao fDao;
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -117,9 +121,10 @@ public class UsersController {
 	//抓取資料會員資料
 	@GetMapping("/users/updatemember")
 	public String updateMemberDetail( @RequestParam("user_id") Integer user_id,Model model) {
-		Users GetOneUser = (Users)model.getAttribute("result");
-		model.getAttribute("loginUser");
-		model.addAttribute("GetOneUser", GetOneUser);
+		Optional<Users> Optional = uDao.findById(user_id);
+		Users getUser = Optional.get();
+		System.out.println(getUser);
+		model.addAttribute("getUser", getUser);
 		return "updatemember";
 		
 		
@@ -157,21 +162,27 @@ public class UsersController {
 	
 	// 抓取recipe and userid 案讚關聯
 		@GetMapping("/favorite")
-		public String favorite(@RequestParam("recipe_id") Integer recipe_id,@RequestParam("user_id") Integer user_id,Model model) {
+		public  String  favorite(@RequestParam("recipe_id") Integer recipe_id,@RequestParam("user_id") Integer user_id,Model model) {
 			Optional<Recipe> optional = rDao.findById(recipe_id);
 			Recipe recipe = optional.get();
 			Optional<Users> optional02 = uDao.findById(user_id);
-			 Users usering = optional02.get();			
-			Favorite favorite = new Favorite();
-			favorite.setFavoriteId(user_id);
-			favorite.setUsers(usering);
-			favorite.setRecipe(recipe);
-			model.addAttribute("favorite", favorite);
-			
-			System.out.println("favorite:==========================================================="+favorite);
-			return "SuccessUser";
-		}
-		//Ajax抓取全部recipe
+			 Users usering = optional02.get();	
+                  boolean exist = fDao.existsByUsersAndRecipe(usering, recipe);
+                  Favorite favorite = new Favorite(usering, recipe);
+                  String url ="";
+		
+                  if(exist) {			
+                	  fDao.deleteByUsersAndRecipe(usering, recipe);
+                	  model.addAttribute("exist", exist);
+                	  System.out.println(favorite+"===============================test=====================================");  				
+      			}else {    				
+      				fDao.save(favorite);
+      				model.addAttribute("exist", exist);
+      				 System.out.println(favorite+"==============================test======================================");     					
+      			}
+                  return "SuccessUser";
+                  }
+		//Ajax抓取全部recipe資料
 		@GetMapping("/finder")
 		public @ResponseBody  List<Recipe>  findRecipe( Model model) {
 			List<Recipe> rList = rDao.findAll();
