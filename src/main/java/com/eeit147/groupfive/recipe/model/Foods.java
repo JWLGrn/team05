@@ -31,8 +31,8 @@ public class Foods {
 	@Column(name="calorie")
 	private Integer calorie;
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "foods",cascade = CascadeType.REFRESH)
-	private Set<RecipeFoods> recipeFoods= new LinkedHashSet<RecipeFoods>();
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "foods",cascade = CascadeType.REFRESH)
+//	private Set<RecipeFoods> recipeFoods= new LinkedHashSet<RecipeFoods>();
 
 	public Foods() {
 	}
@@ -77,28 +77,28 @@ public class Foods {
 		this.calorie = calorie;
 	}
 
-	public Set<RecipeFoods> getRecipeFoods() {
-		return recipeFoods;
-	}
+//	public Set<RecipeFoods> getRecipeFoods() {
+//		return recipeFoods;
+//	}
+//
+//	public void setRecipeFoods(Set<RecipeFoods> recipeFoods) {
+//		this.recipeFoods = recipeFoods;
+//	}
 
-	public void setRecipeFoods(Set<RecipeFoods> recipeFoods) {
-		this.recipeFoods = recipeFoods;
-	}
+//	public Foods(Integer foodsId, String foodsName, String foodsType, Integer calorie, Set<RecipeFoods> recipeFoods) {
+//		super();
+//		this.foodsId = foodsId;
+//		this.foodsName = foodsName;
+//		this.foodsType = foodsType;
+//		this.calorie = calorie;
+//		this.recipeFoods = recipeFoods;
+//	}
 
-	public Foods(Integer foodsId, String foodsName, String foodsType, Integer calorie, Set<RecipeFoods> recipeFoods) {
-		super();
-		this.foodsId = foodsId;
-		this.foodsName = foodsName;
-		this.foodsType = foodsType;
-		this.calorie = calorie;
-		this.recipeFoods = recipeFoods;
-	}
-
-	@Override
-	public String toString() {
-		return "Foods [foodsId=" + foodsId + ", foodsName=" + foodsName + ", foodsType=" + foodsType + ", calorie="
-				+ calorie + ", recipeFoods=" + recipeFoods + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Foods [foodsId=" + foodsId + ", foodsName=" + foodsName + ", foodsType=" + foodsType + ", calorie="
+//				+ calorie + ", recipeFoods=" + recipeFoods + "]";
+//	}
 
 
 
