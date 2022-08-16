@@ -15,27 +15,21 @@
 <script src="chosen.jquery.min.js"></script>
 <script src="bootstrap.bundle.min.js"></script>
 </head>
-<body onload="Favorite()" >
-
-
-測試:::<div onload="Favorite02()" id="d"></div>
+<body onload="Favorite();report()" >
 會員名稱: ${result.userName}
 <img  src="users/${result.userPhoto}" width="300"><br>
-
 ${loginUser.getUserName() }
 <div ></div>
-<a href="${pageContext.request.contextPath }/users/logout"><input type="button" value="登出" ></a><br>
 <!-- <button type="button" onclick="Favorite()" >食譜ID</button> -->
 案讚測試功能:<div  id="myDiv"></div>
+檢舉測試功能:<div id="findUser"></div>
  
-查看資料:${result }<br>
-查看資料:${result.recipe }<br>
-查看資料:${result.favorite }<br>
+查看User資料測試:${result }<br>
+查看資料測試怎麼看不到?:${result.recipe }<br>
+查看資料測試怎麼看不到02?:${result.favorite }<br>
  
- <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a>
- 
-<!--  <img src="heart.jpg" width="40"> -->
-<!--  目前沒有recipeid -->
+<a href="users/updatemember?user_id=${result.userId }">修改會員資料</a>
+<a href="${pageContext.request.contextPath }/users/logout"><input type="button" value="登出" ></a><br>
 <script>
 function Favorite()
 {
@@ -60,32 +54,32 @@ xhr.open("GET", "http://localhost:8090/cookblog/finder",true);
 
 xhr.send();
 }
-///////////////////////////
-function Favorite02()
-{
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
 
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-var content ='';
-             var recipe=JSON.parse(xhr.responseText);
-             for(var i =0;i<recipe.length;i++){
-            	 content+= '<a href="' + "${contextRoot}/favorite?recipe_id="+recipe[i].recipeId+"&&user_id=${result.userId }" + '">'
-            	 +'<img src="heart.jpg" width="40">'+ 
-            	 recipe[i].cookTitle + '</a>';
-            	 console.log(recipe[i].recipeId);
-             }
-             document.getElementById("d").innerHTML=content;
-  }
-});
+function report(){
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
 
-xhr.open("GET", "http://localhost:8090/cookblog/finder",true);
+	xhr.addEventListener("readystatechange", function() {
+	  if(this.readyState === 4) {
+		  var content ='';
+		  var report=JSON.parse(xhr.responseText);
+		  for(var i =0;i<9;i++){
+		  content+= '<a href="' + "${contextRoot}/users/report?user_id="+report[i].userId+"&&user_id=${result.userId }" + '">'
+     	 +'<img src="report.jpg" width="40">'+ 
+     	report[i].userName + '</a>';
+	    console.log(this.responseText);
+	    content+='<a>'
+	    document.getElementById("findUser").innerHTML=content;
+		  }
+	  }
+	});
 
-xhr.send();
+	xhr.open("GET", "http://localhost:8090/cookblog/findUsers");
+
+	xhr.send();
 }
-
 </script>
+
 
 </body>
 </html>

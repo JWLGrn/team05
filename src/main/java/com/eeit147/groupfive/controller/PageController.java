@@ -96,15 +96,7 @@ private FoodsService fService;
 	
 			model.addAttribute("page", page);
 			return "test/showAllFoods123";
-		}
-	
-
-	@GetMapping("/testt")
-	public String test() {
-		return "test";
-
-	}
-	
+		}	
 	//測試查詢頁面
 	@GetMapping("/searchpage")
 	public String searchpage() {
@@ -139,6 +131,10 @@ private FoodsService fService;
 	@GetMapping("/posts")
 	public String goPostPage() {
 		return "test/blogTest";
+	}
+	@GetMapping("/testt")
+	public String testa() {
+		return "testchartjs";
 	}
 	
 	

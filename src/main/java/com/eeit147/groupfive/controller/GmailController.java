@@ -21,6 +21,7 @@ private JavaMailSender  mailSender;
     //接收使用者信箱，發送信件和驗證碼
     @PostMapping("/users/send/email")
 	public String sendSimpleMail(@RequestParam("email") String email,Model model) throws Exception {
+    	//亂數碼
     	StringBuilder verificationCode= new StringBuilder();
     	Random randomNumber = new Random();
     	 for (int i = 0; i < 6; i++) {

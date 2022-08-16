@@ -2,6 +2,7 @@ package com.eeit147.groupfive.users.controller;
 
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,8 @@ import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
 import com.eeit147.groupfive.users.model.FollowDao;
+import com.eeit147.groupfive.users.model.Report;
+import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 import com.eeit147.groupfive.users.service.UsersService;
@@ -46,7 +49,10 @@ public class UsersController {
 	@Autowired
 	private FavoriteDao fDao;
 	
+	@Autowired
 	private FollowDao flDao;
+	@Autowired
+	private ReportDao rpDao;
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -135,8 +141,12 @@ public class UsersController {
 	}
 	//更改會員資料
 	@PostMapping("/users/updateMember02")
-	public String UpdateUser( @RequestParam("user_id") Integer user_id,@RequestParam("user_name") String user_name, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("permission") Integer permission,@RequestParam("user_photo")MultipartFile file,
+	public String UpdateUser( @RequestParam("user_id") Integer user_id,
+							  @RequestParam("user_name") String user_name, 	
+							  @RequestParam("email") String email,
+							  @RequestParam("password") String password, 
+							  @RequestParam("permission") Integer permission,
+							  @RequestParam("user_photo")MultipartFile file,
 			Model model) {
 		String photoName = file.getOriginalFilename();
 		String photopath= "";
@@ -208,6 +218,64 @@ public class UsersController {
 					Follow follow = new Follow(user, track);
 					flDao.save(follow);
 				}
+		}
+		//Ajax找到所有使用者
+		@GetMapping("/findUsers")
+		public  @ResponseBody List<Users> findUsers(){
+			List<Users> uList = uDao.findAll();
+			return uList;
+		}
+		//抓取檢舉者ID和被檢舉者ID，導入檢舉表單，填寫資料。
+		@GetMapping("/users/report")
+		public String usersReport(@RequestParam("user_id") Integer user_id,Model model ) {
+			Users usering = (Users)model.getAttribute("result");
+			Optional<Users> authorUser = uDao.findById(user_id);
+			Users getAuthorUser = authorUser.get();
+			model.addAttribute("getAuthorUser", getAuthorUser);
+			model.addAttribute("usering", usering);
+			
+			Date date = new Date();
+			model.addAttribute("date", date);
+			
+			return "test/usersreport";
+		}
+		@PostMapping("/users/reportSuccess")
+		public String userReportSuccess(@RequestParam("getAuthorUser") Integer getAuthorUser ,
+				                        @RequestParam("usering") Integer usering ,
+				                        @RequestParam("reportTime") Date reportTime ,
+				                        @RequestParam("reportType") String reportType,
+				                        @RequestParam("reportContext") String reportContext,
+				                        Model model
+		) {
+			//使用者查詢
+			Users user = (Users)model.getAttribute("result");
+			Integer getUserId = user.getUserId();
+			//被檢舉者查詢
+			Optional<Users> Optional = uDao.findById(getAuthorUser);
+			Users reportUser = Optional.get();
+			Integer reportUserId = reportUser.getUserId();
+			Report report = new Report();
+			if((getUserId  !=0 && reportUserId !=0) ) {
+				
+				report.setUsers(reportUser);
+				report.setReportContext(reportContext);
+				report.setReportType(reportType);
+				rpDao.save(report);
+				System.out.println(getAuthorUser+"被檢舉者");
+				System.out.println(usering+"檢舉者");
+				
+				
+			
+			}
+			else {
+				return null;
+			}
+			model.addAttribute("report",report);
+			return "SuccessUser";
+			
+			
+			
+			
 		}
 	
 	

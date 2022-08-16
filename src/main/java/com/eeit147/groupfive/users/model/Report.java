@@ -27,7 +27,7 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="report_id")
-	private int reportId;
+	private Integer reportId;
 	
 	@Column(name="report_context")
 	private String reportContext;
@@ -67,7 +67,7 @@ public class Report {
 	public Report() {
 	}
 	
-	public Report(int reportId, String reportContext, Date reportTime, String reportType, Users users, Reply reply,
+	public Report(Integer reportId, String reportContext, Date reportTime, String reportType, Users users, Reply reply,
 			Posts posts) {
 		super();
 		this.reportId = reportId;
@@ -102,6 +102,46 @@ public class Report {
 	public void setPosts(Posts posts) {
 		this.posts = posts;
 	}
+
+	public Integer getReportId() {
+		return reportId;
+	}
+
+	public void setReportId(Integer reportId) {
+		this.reportId = reportId;
+	}
+
+	public String getReportContext() {
+		return reportContext;
+	}
+
+	public void setReportContext(String reportContext) {
+		this.reportContext = reportContext;
+	}
+
+	public Date getReportTime() {
+		return reportTime;
+	}
+
+	public void setReportTime(Date reportTime) {
+		this.reportTime = reportTime;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
+	@Override
+	public String toString() {
+		return "Report [reportId=" + reportId + ", reportContext=" + reportContext + ", reportTime=" + reportTime
+				+ ", reportType=" + reportType + ", users=" + users + ", reply=" + reply + ", posts=" + posts + "]";
+	}
+	
+	
 	
 	
 
