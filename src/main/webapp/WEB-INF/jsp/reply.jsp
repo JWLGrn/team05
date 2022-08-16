@@ -41,21 +41,11 @@ img{
 <body>
 
 <h3>留言</h3>
-<%-- <form action="insert" method="post" enctype="multipart/form-data" > --%>
-<!--   <input type="hidden" value="1" name="replytype">訊息類型 1為recipe           自行設定 -->
-<!--   <input type="hidden" value="2" name="replytypeId">訊息id replytypeId= recipeId或postsId      自行設定 -->
-<!--   <input type="hidden" value="3" name="replyId">假id設1為新增 -->
-<%--   留言者:${usersId}<input type="text" value="${usersId}" name="usersId"/> --%>
-<%--   圖片:<label><img src="${contextRoot}/image/step/file.jpg" id="imgView"/> --%>
-<!--       <input type="file" name="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label> -->
-<!--   留言:<textarea name="message" id="message">留言內容</textarea> -->
-<!--   <button>送出</button> -->
-<%-- </form> --%>
 
-  <input type="hidden" value="1" id="replytype"><!-- 訊息類型 1為recipe           自行設定-->
+  <input type="hidden" value="1" id="rtype"><!-- 訊息類型 1為recipe           自行設定-->
   <input type="hidden" value="2" id="replytypeId"><!-- 訊息id replytypeId= recipeId或postsId      自行設定-->
-  <input type="hidden" value="3" id="replyId"><!-- 假id設1為新增 -->
-  留言者:${usersId}<input type="text" value="${usersId}" id="usersId"/>
+ <!-- 測試 -->id<input type="text" value="5" id="replyId"><!-- 假id設1為新增 -->
+  留言者:${usersId}<input type="hidden" value="${usersId}" id="usersId"/>
   圖片:<label><img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
       <input type="file" name="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label>
   留言:<textarea name="message" id="message">留言內容</textarea>
@@ -64,46 +54,73 @@ img{
 
 
 <h3>顯示留言</h3>
-留言者:
-圖片:
-留言:
+<div id="showmsg">
+</div>
 
 
 <!-- js                                          -->
 <script type="text/javascript">
+//網頁載入時顯示
+$(document).ready(function(){
+	var settings = {
+        "url": "http://localhost:8090/cookblog/reply/show",
+    	"method": "GET",
+   		"timeout": 0,
+    };
+	$.ajax(settings).done(function (response) {
+		var replydata="";
+		$.each(response,function(index,value){
+			replydata+=
+				"留言編號:"+value.replyId+"<br/>"
+			    +"留言內容:"+value.message+"<br/>"
+			  //  +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
+			    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
+		})
+		$("#showmsg").html(replydata);
+	});
+});
 $("#btn1").click(function(){
-	console.log($("#replytype").val());
-	console.log($("#replytypeId").val());
-	console.log($("#replyId").val());
-	console.log($("#usersId").val());
-	console.log($("#message").text());
-	
+	var rtype=$("#rtype").val();
+	var replytypeId=$("#replytypeId").val();
+	var replyId=$("#replyId").val();
+	var usersId=$("#usersId").val();
+	var message=$("#message").val();
 	
 	var reply={
-			"replytype":$("#replytype").text(),
-			"replytypeId":$("#replytypeId").text(),
-			"replyId":$("#replyId").text(),
-			"usersId":$("#usersId").text(),
-			//"finallyPhoto":$("#replytype").text(),
-			"message":$("#message").text()		
+			other:rtype,
+			rtype: rtype,
+			replytypeId:replytypeId,
+			replyId:replyId,
+			usersId:usersId,
+			//"finallyPhoto":null,
+			message:message		
 	}
-	var replyjson=JSON.stringify(reply);
 	
+	var replyjson=JSON.stringify(reply);
+	console.log(rtype+" "+replytypeId+" "+replyId+" "+usersId+" "+message);	
 	$.ajax({
-		url:"${contextRoot}/reply/ajaxinsert",
+		url:"${contextRoot}/reply/insert",
 		contentType:'application/json',//送出資料型態
 		dataType:'json',//回傳資料型態
 		method:'post',
 		data:replyjson,
-		success:function(result){
-			console.log("00");
+		success:function(result){	
+			var replydata="";
+			$.each(result,function(index,value){
+				replydata+=
+					"留言編號:"+value.replyId+"<br/>"
+				    +"留言內容:"+value.message+"<br/>"
+				  //  +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
+				    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
+			})
+			$("#showmsg").html(replydata);
 		},
 		error:function(err){
 			console.log(err);
 		}
 	});
 });
-	
+
 
 
 
