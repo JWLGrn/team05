@@ -2,9 +2,7 @@ package com.eeit147.groupfive.controller;
 
 
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -132,18 +130,15 @@ private FoodsService fService;
 	public String goPostPage() {
 		return "test/blogTest";
 	}
-<<<<<<< HEAD
 	@GetMapping("/testt")
 	public String testa() {
 		return "testchartjs";
 	}
 	
-=======
 	@GetMapping("/collectpage")
 	public String collectPage() {
 		return "test/collectTest";
 	}
->>>>>>> 133072057d36ba65fc0b364a0225e416d0b9620c
 	
 	
 }

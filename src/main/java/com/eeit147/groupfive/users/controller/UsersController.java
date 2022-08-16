@@ -2,12 +2,9 @@ package com.eeit147.groupfive.users.controller;
 
 
 import java.io.File;
-<<<<<<< HEAD
 import java.util.Date;
-=======
 import java.io.FileInputStream;
 import java.io.IOException;
->>>>>>> 133072057d36ba65fc0b364a0225e416d0b9620c
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -35,12 +32,9 @@ import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
-<<<<<<< HEAD
 import com.eeit147.groupfive.users.model.FollowDao;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
-=======
->>>>>>> 133072057d36ba65fc0b364a0225e416d0b9620c
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 import com.eeit147.groupfive.users.service.FollowService;
@@ -62,13 +56,11 @@ public class UsersController {
 	private FavoriteDao fDao;
 	
 	@Autowired
-<<<<<<< HEAD
 	private FollowDao flDao;
 	@Autowired
 	private ReportDao rpDao;
-=======
+	@Autowired
 	private FollowService flService;
->>>>>>> 133072057d36ba65fc0b364a0225e416d0b9620c
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -237,7 +229,6 @@ public class UsersController {
 					flService.saveUserandTrack(follow);
 				}
 		}
-<<<<<<< HEAD
 		//Ajax找到所有使用者
 		@GetMapping("/findUsers")
 		public  @ResponseBody List<Users> findUsers(){
@@ -297,7 +288,6 @@ public class UsersController {
 			
 		}
 	
-=======
 		//追蹤功能的圖片顯示(確認是否有關聯 → 顯示不同圖片)
 				@GetMapping("/imagefollow/{usersid}/{trackid}")
 				public @ResponseBody ResponseEntity<byte[]> imageFollow(
@@ -327,7 +317,6 @@ public class UsersController {
 						}
 					
 				}
->>>>>>> 133072057d36ba65fc0b364a0225e416d0b9620c
 	
 
 }
