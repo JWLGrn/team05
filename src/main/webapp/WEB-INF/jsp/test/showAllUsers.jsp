@@ -21,6 +21,8 @@
 <input  name="userPhoto" value="${u.userPhoto}" />
 <input  name="permission" value="${u.permission}" />
 <button type="submit" class="btn btn-primary">送出</button>
+<a href="${contextRoot}/deleteUser/${u.userId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a>
+
 </form>
 </div>
 </c:forEach>

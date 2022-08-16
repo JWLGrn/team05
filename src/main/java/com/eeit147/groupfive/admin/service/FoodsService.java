@@ -37,9 +37,14 @@ public class FoodsService {
 		
 		//食材列表分頁
 		public Page<Foods> findByPage(Integer pageNumber){
-			Pageable pgb = PageRequest.of(pageNumber-1, 20, Sort.Direction.DESC, "foodsId");
+			Pageable pgb = PageRequest.of(pageNumber-1, 60, Sort.Direction.ASC, "foodsId");
 			Page<Foods> page = fDao.findAll(pgb);
 			return page;
+		}
+		
+		//刪除食材
+		public void deleteFood(Integer FoodsId) {
+			fDao.deleteById(FoodsId);
 		}
 	}
 		

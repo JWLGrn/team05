@@ -25,7 +25,6 @@ import com.eeit147.groupfive.recipe.model.FoodsDao;
 public class FoodsController {
 	
 	
-	
 	//呼叫service存入食材方法
 	@Autowired
 	private FoodsService fService;
@@ -63,7 +62,7 @@ public class FoodsController {
 	//編輯食材
 	@PostMapping("/editFoods")
 	public String editFoods(
-			 @RequestParam("foodsId") Integer foods_id, @RequestParam("foodsName") String foods_name, @RequestParam("foodsType") String foods_type,
+		@RequestParam("foodsId") Integer foods_id, @RequestParam("foodsName") String foods_name, @RequestParam("foodsType") String foods_type,
 		@RequestParam("calorie") Integer calorie, Model model){
 		Foods ifd = new Foods();
 		ifd.setFoodsId(foods_id);
@@ -71,7 +70,6 @@ public class FoodsController {
 		ifd.setFoodsType(foods_type);
 		ifd.setCalorie(calorie);
 
-		Foods f = fService.insertFoods(ifd);
 		Set<String> data = new LinkedHashSet<String>(); 
 		 List<Foods> foods=fDao.findAll();
 		for(Foods food : foods ) { 
@@ -81,8 +79,15 @@ public class FoodsController {
 		model.addAttribute("option", data);
 		
 
-		return "test/showAllFoods123";
+		return "redirect:/showAllFoods123";
 		
+	}
+	
+	//刪除食材
+	@GetMapping("/deleteFood/{foodsId}")
+	public String deleteFood(@PathVariable Integer foodsId) {
+		fService.deleteFood(foodsId);
+		return "redirect:/showAllFoods123";
 	}
 		
 

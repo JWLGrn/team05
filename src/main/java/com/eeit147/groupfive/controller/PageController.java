@@ -68,17 +68,17 @@ private FoodsService fService;
 		}
 	
 	//顯示食材
-		@GetMapping("/showAllFoods123")
-		public String showAllFoods(Model model) {
-			Set<String> data = new LinkedHashSet<String>(); 
-			 List<Foods> foods=fDao.findAll();
-			for(Foods food : foods ) { 
-			 data.add(food.getFoodsType()); 
-			}
-			model.addAttribute("allFoods",fDao.findAll() );
-			model.addAttribute("option", data);
-			return "test/showAllFoods123";
-		}
+//		@GetMapping("/showAllFoods123")
+//		public String showAllFoods(Model model) {
+//			Set<String> data = new LinkedHashSet<String>(); 
+//			 List<Foods> foods=fDao.findAll();
+//			for(Foods food : foods ) { 
+//			 data.add(food.getFoodsType()); 
+//			}
+//			model.addAttribute("allFoods",fDao.findAll() );
+//			model.addAttribute("option", data);
+//			return "test/showAllFoods123";
+//		}
 		
 		//顯示使用者
 		@GetMapping("/showAllUsers")
@@ -89,12 +89,12 @@ private FoodsService fService;
 		}
 		
 		//食材列表分頁
-		@GetMapping("/page")
+		@GetMapping("/showAllFoods123")
 		public String viewFoodsPage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber, Model model) {
 			Page<Foods> page = fService.findByPage(pageNumber);
-			System.out.println(page+"================================================");
-	
 			model.addAttribute("page", page);
+			
+			
 			return "test/showAllFoods123";
 		}
 	

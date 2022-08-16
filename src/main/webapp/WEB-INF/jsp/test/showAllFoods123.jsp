@@ -12,6 +12,7 @@
 <title>顯示所有食材</title>
 </head>
 <body>
+
 <select>
 <c:forEach items="${option}" var="f">
  <option>${f}</option>
@@ -26,6 +27,8 @@
 <input  name="foodsType" value="${f.foodsType}" />
 <input  name="calorie" value="${f.calorie}" />
 <button type="submit" class="btn btn-primary">送出</button>
+<a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a>
+						
 </form>
 </div>
 </c:forEach>
@@ -36,7 +39,7 @@
 				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
 				<c:choose>
 					<c:when  test="${page.number != pageNumber -1}">
-					<a href="${contextRoot}/page?p=${pageNumber}">
+					<a href="${contextRoot}/showAllFoods123?p=${pageNumber}">
 							${pageNumber} </a>
 					</c:when>
 					<c:otherwise>
