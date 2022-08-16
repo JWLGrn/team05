@@ -123,7 +123,7 @@ private FoodsService fService;
 		return "redirect:/user/login";
 	}
 	//測試追蹤頁面
-	@GetMapping("followpage")
+	@GetMapping("/followpage")
 	public String follow() {
 		return "test/followTest";
 	}
@@ -140,7 +140,10 @@ private FoodsService fService;
 	public String goPostPage() {
 		return "test/blogTest";
 	}
-	
+	@GetMapping("/collectpage")
+	public String collectPage() {
+		return "test/collectTest";
+	}
 	
 	
 }

@@ -2,6 +2,8 @@ package com.eeit147.groupfive.users.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,10 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +28,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
-import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
-import com.eeit147.groupfive.users.model.FollowDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.service.FollowService;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
@@ -46,7 +51,8 @@ public class UsersController {
 	@Autowired
 	private FavoriteDao fDao;
 	
-	private FollowDao flDao;
+	@Autowired
+	private FollowService flService;
 	
 	//載入登入頁面
 	@GetMapping("/user/login")
@@ -193,23 +199,53 @@ public class UsersController {
 			return rList;
 			
 		}
-		@PostMapping("/association/{userid}/{trackid}")
+		//追蹤 + 取消追蹤
+		@PostMapping("/associationfollow/{userid}/{trackid}")
+		@ResponseBody
 		public void followAssociation(@PathVariable("userid")Integer userid,
-						   @PathVariable("trackid")Integer trackid) {
+									  @PathVariable("trackid")Integer trackid) {
 				Users user = UService.findUsersById(userid);
 				Users track = UService.findUsersById(trackid);
 				//確認關聯是否存在
-				Boolean isAssociation = flDao.existsByUsersAndTrack(user, track);
+				boolean isAssociation = flService.existsByUsersAndTrack(user, track);
 				if(isAssociation) {
 					//如果存在關聯 那刪除 = 取消追蹤
-					flDao.deleteByUsersAndTrack(user, track);
+					flService.deleteByUsersAndTrack(user, track);
 				}else {
-					//如果不存在 那新增 = 我要追蹤
+					//如果不存在 那新增 = 追蹤
 					Follow follow = new Follow(user, track);
-					flDao.save(follow);
+					flService.saveUserandTrack(follow);
 				}
 		}
-	
+		//追蹤功能的圖片顯示(確認是否有關聯 → 顯示不同圖片)
+				@GetMapping("/imagefollow/{usersid}/{trackid}")
+				public @ResponseBody ResponseEntity<byte[]> imageFollow(
+						@PathVariable("usersid")Integer userid,
+						@PathVariable("trackid")Integer trackid) throws IOException {					
+					//取得user bean 拿到user and track 
+					Users user = UService.findUsersById(userid);
+					Users track = UService.findUsersById(trackid);					
+					//確認關聯是否存在
+					boolean isAssociation = flService.existsByUsersAndTrack(user, track);
+					
+					//設定標頭
+					HttpHeaders header = new HttpHeaders();
+					header.setContentType(MediaType.IMAGE_PNG);
+					
+					//判斷有無關聯 → 顯示不同圖片
+					if(isAssociation) {
+							FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\follow.png"));
+							byte[] bytes = input.readAllBytes();
+							input.close();
+							return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+						}else {
+							FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\nofollow.png"));
+							byte[] bytes = input.readAllBytes();
+							input.close();
+							return new ResponseEntity<byte[]>(bytes,header,HttpStatus.OK);
+						}
+					
+				}
 	
 
 }
