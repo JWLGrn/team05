@@ -44,6 +44,12 @@ img{
 <body>
 <h3>顯示單筆食譜</h3>
 <div id="onedata"></div>
+${recipe.recipeId}
+${recipe.cookTitle}
+${recipe.cookDescription}
+<img src="${contextRoot}/image/recipe/${recipe.cookPhoto}"/>
+${recipe.cookTime}
+${recipe.cookServe}
 
 
 <div id="editstep">
@@ -66,7 +72,7 @@ img{
 <button id="stepupdate">修改</button>
 <% int count=0; %>
 <form action="addStep" method="post" enctype="multipart/form-data">
-<input name="recipeId" type="hidden" value="${recipeId}" />
+<input name="recipeId" type="text" value="${recipe.recipeId}" />
 <c:forEach var="stepdata" items="${allStep}">
 <% count++; %>
 <div>
@@ -117,6 +123,7 @@ $(document).ready(function(){
 	}else{
 		$("#editstep").hide();
 	}		
+	$("#stepsubmit").hide();
 });
 //修改
 $("#stepupdate").click(function(){
