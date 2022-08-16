@@ -29,4 +29,8 @@ public class RecipeService {
 	public List<Recipe> findRecipeByUser(@Param("userId") Integer userId){
 		return rDao.findAllRecipeByUser(userId);
 	}
+	
+	public List<Recipe> findRecipeByRecipeId(@Param("recipeId") Integer recipeId){
+		return rDao.findAllRecipeByRecipeId(recipeId);
+	}
 }

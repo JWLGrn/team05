@@ -45,4 +45,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 
 	@Query(value="select * from recipe where fk_recipe_users = :userId ORDER BY date DESC", nativeQuery = true)
 	public List<Recipe> findAllRecipeByUser(@Param("userId") Integer userId);
+
+	public List<Recipe> findAllRecipeByRecipeId(Integer recipeId);
 }

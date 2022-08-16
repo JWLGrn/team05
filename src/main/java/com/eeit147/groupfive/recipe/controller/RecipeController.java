@@ -66,7 +66,7 @@ public class RecipeController {
 								  @RequestParam(value="rtime") Integer rtime,
 								  @RequestParam(value="rpeople") Integer rpeople,Model m){
 	 Recipe recipe=new Recipe();
-	
+	 
 	 Optional<Users> optional = uDao.findById(userId);//抓usersbean
 	 Users user = optional.get();
 	 Date date=new Date();//產生時間(修改時用)
@@ -90,6 +90,11 @@ public class RecipeController {
 	
 //新增食譜	修改食譜
 	 Recipe recipeview = rService.insertrecipe(recipe);
+	 if(recipeId==1) {//圖片路徑名稱修改
+		 recipe.setCookPhoto("recipe"+recipeview.getRecipeId()+".jpg");
+		 recipeview = rService.insertrecipe(recipe);
+	 }
+	 
 //存圖片
 	 if(rfile.isEmpty()) {				 
 	 }else {
@@ -111,10 +116,14 @@ public class RecipeController {
 	   }
 	   @GetMapping("/step/add")
 		public String stepadd(Model m) {
-			//顯示
+			//顯示步驟
 			List<RecipeStep> allStep=rsService.findAllStepById(recipeId);
-			m.addAttribute("allStep", allStep);	
-			System.out.println(recipeId+"_3");  //--------------------------測試傳值3
+			m.addAttribute("allStep", allStep);
+			//顯示食譜
+			Optional<Recipe> optional = rDao.findById(recipeId);
+			Recipe recipe = optional.get();
+			m.addAttribute("recipe",recipe);
+
 			return "recipeStep";	
 	   }
 	   
@@ -159,8 +168,9 @@ public class RecipeController {
 			  }
 		  }
 	  }
-
-		return "redirect:/step/insert";
+		m.addAttribute("recipeId",recipeId);
+		System.out.println(recipeId);
+		return "redirect:/step/add";
 	}
 	
 	
