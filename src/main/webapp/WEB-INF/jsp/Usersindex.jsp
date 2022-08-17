@@ -58,39 +58,27 @@
 	<script src="${cpntextRoot}/cookblog/jquery-3.6.0.min.js"></script>
 	<script src="bootstrap.bundle.min.js"></script>
 	<script>
-		$("#email")
-				.blur(
-						function() {
+		$("#email").blur(function() {
 							//取得使用者輸入的mail
 							let emailValue = $('#email').val();
 							if (emailValue != "") {
-								let urlStr = "${contextRoot}/users/checkmail?email="
-										+ emailValue;
-								$
-										.ajax({
+								let urlStr = "${contextRoot}/users/checkmail?email="+ emailValue;
+								$.ajax({
 											url : urlStr,
 											type : 'POST',
 											dataType : 'text',
 											success : function(data) {
 												if (data == 1) {
-													$("#msg").text(
-															"用戶已存在,請輸入其他帳號");
-													$("#msg")
-															.prepend(
-																	"<img  src='users/woman.jpeg' width='300'> ")
-													$("#msg").attr("class",
-															"error");
+													$("#msg").text("用戶已存在,請輸入其他帳號");
+													$("#msg").prepend("<img  src='users/woman.jpeg' width='300'> ")
+													$("#msg").attr("class","error");
 													$("#email").val("");
-													console.log($("#email")
-															.val())
+													console.log($("#email").val())
 													// alert("用戶已存在,請輸入其他帳號");
 												} else {
 													$("#msg").text("帳號可以使用");
-													$("#msg")
-															.prepend(
-																	"<img  src='users/man.jpeg' width='300' > ")
-													$("#msg").attr("class",
-															"success");
+													$("#msg").prepend("<img  src='users/man.jpeg' width='300' > ")
+													$("#msg").attr("class","success");
 												}
 											}
 										});
@@ -99,7 +87,6 @@
 								$("#msg").attr("class", "error");
 							}
 						});
-
 		function focus() {
 			var account = document.getElementById("user_name");
 		}
