@@ -95,6 +95,13 @@ private FoodsService fService;
 			
 			return "test/showAllFoods123";
 		}	
+		
+		// 首頁
+		@GetMapping("/adminindex")
+		public String goAdminIndex() {
+			return "adminindex";
+		}
+		
 	//測試查詢頁面
 	@GetMapping("/searchpage")
 	public String searchpage() {
