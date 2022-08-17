@@ -35,9 +35,16 @@ public class Collect {
 	public Collect() {
 	}
 
+
 	public Collect(Integer collectId, Recipe recipe, Users users) {
 		super();
 		this.collectId = collectId;
+		this.recipe = recipe;
+		this.users = users;
+	}
+	
+	public Collect(Recipe recipe, Users users) {
+		super();
 		this.recipe = recipe;
 		this.users = users;
 	}
