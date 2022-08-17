@@ -53,7 +53,7 @@ private FoodsService fService;
 	// 新增食譜(測試用)
 	@GetMapping("/addpage")
 	public String goAddRecipe() {
-		return "test/addfoods";
+		return "test/addRecipeTest";
 	}
 
 	
@@ -140,5 +140,9 @@ private FoodsService fService;
 		return "test/collectTest";
 	}
 	
+	@GetMapping("/insertrecipe")
+	public String insertrecipe() {
+		return "insertrecipe";
+	}
 	
 }

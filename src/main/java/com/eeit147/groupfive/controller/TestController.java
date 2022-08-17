@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.recipe.model.FoodsDao;
@@ -37,6 +38,7 @@ import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDto;
+import com.eeit147.groupfive.recipe.model.RecipeStep;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -80,13 +82,19 @@ public class TestController {
 //
 //	}
 
-	// 新增食譜+食材表做關聯
+	// 新增食譜+做關聯
 	@PostMapping("/add")
-	public String addRecipe(@RequestParam("userId") Integer userId, @RequestParam("title") String title,
-			@RequestParam("descript") String descript, @RequestParam("people") Integer people,
-			@RequestParam("time") Integer time, @RequestParam("photo") String photo,
-			@RequestParam("foods") String[] foods, @RequestParam("gram") Double[] gram,
-			@RequestParam("tags") String[] tags) {
+	public String addRecipe(@RequestParam("userId") Integer userId,		//先給死的值
+							@RequestParam("title") String title,		//食譜標題
+							@RequestParam("descript") String descript,	//食譜描述
+							@RequestParam("people") Integer people,		//幾人份
+							@RequestParam("time") Integer time,			//製作時間
+							@RequestParam("photo") MultipartFile photo,	//食譜相片
+							@RequestParam("foods") String[] foods,		//食譜食材
+							@RequestParam("gram") Double[] gram,		//食材重量(克)
+							@RequestParam("tags") String[] tags,		//食材標籤
+			                @RequestParam("stepDescript") String[] stepDescript,  	//步驟描述
+			                @RequestParam("stepPhoto") MultipartFile[] stepPhoto) {	//步驟相片	
 
 		// 取得user
 		Optional<Users> optional = uDao.findById(userId);
@@ -99,8 +107,21 @@ public class TestController {
 		r.setCookDescription(descript);
 		r.setCookServe(people); // 份數(人)
 		r.setCookTime(time); // 製作時間
-		r.setCookPhoto(photo); // 圖片標題，待寫io存圖片
 		Recipe newRecipe = rDao.save(r);
+		
+		Integer recipeId = newRecipe.getRecipeId();
+		
+		// -------------------圖片處理-------------------------
+		
+		if(!photo.isEmpty()) {
+			try {
+				photo.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe"+recipeId+".jpeg"));		
+		    } catch (IOException e) {
+			  e.printStackTrace();
+		    }
+		 }
+		
+		// --------------------------------------------------
 
 		// -------------------食材關聯-------------------------
 		Set<RecipeFoods> recipeFoodsSet = new LinkedHashSet<RecipeFoods>();
@@ -125,11 +146,37 @@ public class TestController {
 			keywordSet.add(new RecipeKeyword(newRecipe, kDao.findByKeyword(tags[i])));
 		}
 		// ---------------------------------------------------
-
+		
+		// --------------------步驟關聯--------------------------
+		Set<RecipeStep> stepSet= new LinkedHashSet<RecipeStep>();
+		for (int i = 0; i < stepDescript.length; i++) {
+			//新增步驟至步驟表
+			RecipeStep rstep=new RecipeStep();
+			rstep.setStep(i+1);
+			rstep.setStepDescription(stepDescript[i]);
+			rstep.setStepPhoto("recipe"+recipeId+"_"+(i+1)+".jpeg");
+			rstep.setRecipe(newRecipe);
+			//存步驟圖片
+			//判斷傳入檔案是否為空值
+		 	if(!stepPhoto[i].isEmpty()) {
+		 		try {
+		 			stepPhoto[i].transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe"+recipeId+"_"+(i+1)+".jpeg"));		
+			    } catch (IOException e) {
+				  e.printStackTrace();
+			    }
+			}
+		 	//放入步驟Set
+		 	stepSet.add(rstep);
+		}
+		
+		// ---------------------------------------------------
+		
 		// 做關聯+新增總卡路里到食譜
+		newRecipe.setCookPhoto("recipe"+newRecipe.getRecipeId()+".jpeg");// 圖片標題
 		newRecipe.setRecipeFoods(recipeFoodsSet);
 		newRecipe.setTotalCal(totalCal);
 		newRecipe.setRecipeKeyword(keywordSet);
+		newRecipe.setRecipeStep(stepSet);
 		rDao.save(newRecipe);
 
 		return "test/added";
@@ -471,7 +518,7 @@ public class TestController {
 		                return o2.getCollect().size() - o1.getCollect().size();
 		            }
 		        });
-			 
+
 			 m.addAttribute("collectRecipes",cRecipes);
 
 			return "test/collectRankTest";
