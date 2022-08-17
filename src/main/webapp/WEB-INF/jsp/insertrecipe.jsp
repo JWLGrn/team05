@@ -126,69 +126,49 @@
                                 </div>
                             </div>
                             <div class="additional-input-wrap">
-                                <label>食材</label>
-                                <div class="row no-gutters foodstable">
+                                    <label>食材</label>
+                                    <div class="foodtable">
                                     <!-- ---------------------食材動態結構--------------------- -->
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-left">
-                                            <i class="fas fa-arrows-alt"></i>
-                                                <select class="select2 foods" name="filter-by">
-                                                </select>
+                                    <div class="row no-gutters singlefood">
+                                        <div class="col-6">
+                                            <div class="form-group additional-input-box icon-left">
+                                                <i class="fas fa-arrows-alt"></i>
+                                                <select class="select2 foods" name="filter-by"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group additional-input-box icon-right">
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="name">
+                                                <i class="fas fa-times removeFood"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="number" placeholder="請輸入份量（公克）" class="form-control"
-                                                name="name">
-                                            <i class="fas fa-times removeFood"></i>
-                                        </div>
-                                    </div>
                                     <!-- ---------------------食材動態結構--------------------- -->
-                                </div>
-                                <button type="button" class="btn-upload" id="addFood"><i class="flaticon-add-plus-button"></i>加入食材</button>
+                                    </div>
+                                    <button type="button" class="btn-upload" id="addFood"><i class="flaticon-add-plus-button"></i>加入食材</button>
                             </div>
                             <div class="additional-input-wrap">
-                                <label>Nutrition Facts:</label>
-                                <div class="row gutters-5">
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
+                                <label>步驟</label>
+                                <div class="steptable">
+                                    <!-- ---------------------步驟動態結構--------------------- -->
+                                    <div class="row no-gutters singlestep">
+                                        <div class="col-3">
+                                            <div class="form-group additional-input-box icon-left" style="height: 150px;">
+                                                <i class="fas fa-arrows-alt"></i>
+                                                <label><img id="recipeImageUpload" src="upload.png" height="150px"/>
+                                                <input type="file" name="rfile" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="form-group additional-input-box icon-right"  style="height: 150px;">
+                                                <textarea name="" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>
+                                                <i class="fas fa-times removeStep"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group additional-input-box icon-right">
-                                            <input type="text" placeholder="People Views: 00" class="form-control" name="name">
-                                            <i class="fas fa-times"></i>
-                                        </div>
-                                    </div>
+                                    <!-- ---------------------步驟動態結構--------------------- -->
                                 </div>
-                                <button type="submit" class="btn-upload"><i class="flaticon-add-plus-button"></i>ADD NEW
-                                    INGREDIENT</button>
+                                    <button type="button" class="btn-upload" id="addStep"><i class="flaticon-add-plus-button"></i>加入步驟</button>
                             </div>
                             <button type="submit" class="btn-submit">SUBMIT RECIPE</button>
                         </form>
@@ -462,43 +442,98 @@
     <!-- Custom Js -->
     <script src="main.js"></script>
     <script>
-        var foodSettings = {
-            "url": "http://localhost:8090/cookblog/find/foods/all",
-            "method": "GET",
-            "timeout": 0,
+
+        //載入食材庫
+            var foodSettings = {
+                "url": "http://localhost:8090/cookblog/find/foods/all",
+                "method": "GET",
+                "timeout": 0,
             };
 
-        var foodList = '';
-        $.ajax(foodSettings).done(function (response) {
-        for(i in response){
-            foodList += '<option value="'+ response[i].foodsName +'">'+ response[i].foodsName +'</option>';
-        }
-        $(".foods").append(foodList);
-        });
+            var foodList = '';
+                $.ajax(foodSettings).done(function (response) {
+                for(i in response){
+                    foodList += '<option value="'+ response[i].foodsName +'">'+ response[i].foodsName +'</option>';
+                }
+                $(".foods").append(foodList);
+                });
 
-        function selectRefresh() {
-            $('.select2').select2();
-        }
+            function selectRefresh() {
+                $('.select2').select2({
+                    theme: 'classic',
+                    dropdownAutoWidth: true,
+                    width: '100%'
+                });
+            }
 
-        //增加食材標籤
+            //增加食材標籤
             $("#addFood").click(function(){
-                var addfoods = '<div class="col-6">'
+                var addfoods = '<div class="row no-gutters singlefood">'
+                              +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-left">'
                               +'<i class="fas fa-arrows-alt"></i>'
                               +'<select class="select2 foods" name="filter-by">'+foodList+'</select>'
                               +'</div></div>'
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-right">'
-                              +'<input type="number" placeholder="請輸入份量（公克）" class="form-control" name="name">'
+                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="name">'
                               +'<i class="fas fa-times removeFood"></i>'
-                              +'</div></div>'
-                $(".foodstable").append(addfoods);
+                              +'</div></div></div>'
+                $(".foodtable").append(addfoods);
                 selectRefresh();
             })
 
-            $(".removeFood").click(function(){
-                $(this).parents("div.foodSingle").remove();
+            //移除食材
+            $(".foodtable").click(function(e){
+                let removeBTN = $(e.target)
+                if(removeBTN.hasClass("removeFood")){
+                    removeBTN.parents(".singlefood").remove();
+                }
             })
+
+
+            //增加步驟標籤
+            var count = 1;
+            $("#addStep").click(function(){
+                var addsteps = '<div class="row no-gutters singlestep">'
+                              +'<div class="col-3">'
+                              +'<div class="form-group additional-input-box icon-left" style="height: 150px;">'
+                              +'<i class="fas fa-arrows-alt"></i>'
+                              +'<label><img id="recipeImageUpload'+count+'" src="upload.png" height="150px"/>'
+                              +'<input type="file" name="rfile" onchange="photochange(event,recipeImageUpload'+count+')" accept=".png, .jpg, .jpeg" style="display:none;"/></label>'
+                              +'</div></div>'
+                              +'<div class="col-9">'
+                              +'<div class="form-group additional-input-box icon-right"  style="height: 150px;">'
+                              +'<textarea name="" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>'
+                              +'<i class="fas fa-times removeStep"></i>'
+                              +'</div></div></div>'
+
+                $(".steptable").append(addsteps);
+                count++;
+            })
+
+            //移除步驟
+            $(".steptable").click(function(e){
+                let removeBTN = $(e.target)
+                if(removeBTN.hasClass("removeStep")){
+                    removeBTN.parents(".singlestep").remove();
+                }
+            })
+
+            
+
+            //圖片預覽
+            //步驟圖片顯示用(跟步驟一樣)
+            
+            function photochange(event,imgid){   
+                //img預覽
+                let fr = new FileReader();
+                fr.onload = function (e) {
+                    $('#'+imgid.id+'').attr('src', e.target.result);
+                };
+                fr.readAsDataURL(event.target.files[0]);
+            }
+            
     </script>
 </body>
 
