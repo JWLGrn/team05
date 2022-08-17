@@ -12,19 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-=======
->>>>>>> 2f665413ec32427b1918a4ca77866cef450f9137
 
 import com.eeit147.groupfive.admin.service.adminUsersService;
-<<<<<<< HEAD
-import com.eeit147.groupfive.recipe.model.Foods;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
-=======
->>>>>>> 2f665413ec32427b1918a4ca77866cef450f9137
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
