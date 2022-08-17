@@ -41,17 +41,16 @@ img{
 <body>
 
 <h3>留言</h3>
-
+  
   <input type="hidden" value="1" id="rtype"><!-- 訊息類型 1為recipe           自行設定-->
   <input type="hidden" value="2" id="replytypeId"><!-- 訊息id replytypeId= recipeId或postsId      自行設定-->
  <!-- 測試 -->id<input type="text" value="5" id="replyId"><!-- 假id設1為新增 -->
   留言者:${usersId}<input type="hidden" value="${usersId}" id="usersId"/>
-  圖片:<label><img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
-      <input type="file" name="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label>
-  留言:<textarea name="message" id="message">留言內容</textarea>
-
-  <button id="btn1">送出</button>
-
+  圖片:<label id="fileload"><img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
+      <input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label>
+  留言:<textarea name="message" id="message">我是留言</textarea>
+  <button id="senddata">送出</button>
+ 
 
 <h3>顯示留言</h3>
 <div id="showmsg">
@@ -61,7 +60,9 @@ img{
 <!-- js                                          -->
 <script type="text/javascript">
 //網頁載入時顯示
+let fileDataURL = null;
 $(document).ready(function(){
+	console.log(${usersId});
 	var settings = {
         "url": "http://localhost:8090/cookblog/reply/show",
     	"method": "GET",
@@ -71,33 +72,39 @@ $(document).ready(function(){
 		var replydata="";
 		$.each(response,function(index,value){
 			replydata+=
-				"留言編號:"+value.replyId+"<br/>"
+				"留言者:"+value.userId+"<br/>"
 			    +"留言內容:"+value.message+"<br/>"
-			  //  +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
+			    +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
 			    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
+			    console.log(value.users);
+			    if(${usersId}==value.replyId){
+				 replydata+='<button>test</button>';
+			 }
 		})
 		$("#showmsg").html(replydata);
 	});
+	$("#senddata").hide();
+	
 });
-$("#btn1").click(function(){
+$("#senddata").click(function(){
 	var rtype=$("#rtype").val();
 	var replytypeId=$("#replytypeId").val();
 	var replyId=$("#replyId").val();
 	var usersId=$("#usersId").val();
 	var message=$("#message").val();
-	
-	var reply={
-			other:rtype,
-			rtype: rtype,
-			replytypeId:replytypeId,
-			replyId:replyId,
-			usersId:usersId,
-			//"finallyPhoto":null,
-			message:message		
+	if(fileDataURL==null){
+		//
 	}
-	
+	var reply={
+			   replytype:rtype,
+			   replytypeId:replytypeId,
+			   replyId:replyId,
+			   usersId:usersId,
+			   finallyPhoto:fileDataURL,
+			   message:message		
+	}
 	var replyjson=JSON.stringify(reply);
-	console.log(rtype+" "+replytypeId+" "+replyId+" "+usersId+" "+message);	
+	//console.log(rtype+" "+replytypeId+" "+replyId+" "+usersId+" "+message);	
 	$.ajax({
 		url:"${contextRoot}/reply/insert",
 		contentType:'application/json',//送出資料型態
@@ -110,7 +117,7 @@ $("#btn1").click(function(){
 				replydata+=
 					"留言編號:"+value.replyId+"<br/>"
 				    +"留言內容:"+value.message+"<br/>"
-				  //  +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
+				    +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
 				    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
 			})
 			$("#showmsg").html(replydata);
@@ -119,24 +126,38 @@ $("#btn1").click(function(){
 			console.log(err);
 		}
 	});
+	$("#senddata").hide();
+	document.getElementById("message").value="";
+	document.getElementById("finallyPhoto").remove();
+	document.getElementById("imgView").remove();
+	$("#fileload").append('<img src="${contextRoot}/image/step/file.jpg" id="imgView"/>');
+	$("#fileload").append('<input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">');
+    
+
 });
 
-
-
-
-
-
-
-//步驟圖片顯示用(跟步驟一樣)
+//步驟圖片顯示用(跟步驟一樣)+抓url
 function imgview(event,imgid){   
-   //img預覽
-  console.log(imgid.id);
   const fr = new FileReader();
-  fr.onload = function (e) {
-    $('#'+imgid.id+'').attr('src', e.target.result);
-  };
-  fr.readAsDataURL(event.target.files[0]);
+  //抓url
+  let fPhoto=document.getElementById("finallyPhoto").files;
+  if(fPhoto.length>0){//有圖
+	let fileToLoad=fPhoto[0];//取得檔案詳細資料
+    fr.onload = function (e) {
+    	fileDataURL=e.target.result
+		$('#'+imgid.id+'').attr('src', fileDataURL);//img預覽
+	};
+	console.log(fileToLoad);
+	fr.readAsDataURL(event.target.files[0]);//img預覽
+  }
 }
+$("#message").blur(function(){
+	if($("#message").val()==""){
+		$("#senddata").hide();
+	}else{
+		$("#senddata").show();
+	}
+});
 </script>
 </body>
 </html>
