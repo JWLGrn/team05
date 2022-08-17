@@ -12,7 +12,7 @@
 <script src="bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<form action="add" method="POST">
+<form action="add" method="POST" enctype="multipart/form-data">
 <table>
 <tr>
     <td>使用者ID：</td>
@@ -51,7 +51,35 @@
 </tr>
 <tr>
     <td>圖片：</td>
-    <td><input type="text" name="photo"></td>
+    <td><input type="file" name="photo"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>步驟：</td>
+    <td><input type="text" name="stepDescript"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>圖片：</td>
+    <td><input type="file" name="stepPhoto"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>步驟：</td>
+    <td><input type="text" name="stepDescript"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>圖片：</td>
+    <td><input type="file" name="stepPhoto"></td>
     <td></td>
     <td></td>
     <td></td>

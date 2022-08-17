@@ -53,7 +53,7 @@ private FoodsService fService;
 	// 新增食譜(測試用)
 	@GetMapping("/addpage")
 	public String goAddRecipe() {
-		return "test/addfoods";
+		return "test/addRecipeTest";
 	}
 
 	
@@ -140,6 +140,7 @@ private FoodsService fService;
 	public String collectPage() {
 		return "test/collectTest";
 	}
+<<<<<<< HEAD
 	//chart.js報表分析02版本
 	@GetMapping("/testchart02")
 	public String chartJs02() {
@@ -148,6 +149,12 @@ private FoodsService fService;
 	@GetMapping("/adminReport")
 	public String adminReport() {
 		return "test/adminreport";
+=======
+	
+	@GetMapping("/insertrecipe")
+	public String insertrecipe() {
+		return "insertrecipe";
+>>>>>>> 298c3d5c44afc052cd5a199b2ef6789064b67192
 	}
 	
 }
