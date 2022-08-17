@@ -130,8 +130,9 @@ private FoodsService fService;
 	public String goPostPage() {
 		return "test/blogTest";
 	}
-	@GetMapping("/testt")
-	public String testa() {
+	//chart.js報表分析
+	@GetMapping("/testchart")
+	public String chartJs() {
 		return "testchartjs";
 	}
 	
@@ -139,6 +140,14 @@ private FoodsService fService;
 	public String collectPage() {
 		return "test/collectTest";
 	}
-	
+	//chart.js報表分析02版本
+	@GetMapping("/testchart02")
+	public String chartJs02() {
+		return "testchartjss";
+	}
+	@GetMapping("/adminReport")
+	public String adminReport() {
+		return "test/adminreport";
+	}
 	
 }

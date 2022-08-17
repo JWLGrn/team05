@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="//cdn.bootcss.com/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+<title>測試報表圖</title>
  <!-- Chart.js v2.4.0 要加入這段 才可以使用 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
