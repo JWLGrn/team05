@@ -26,12 +26,19 @@ public class CollectService {
 	//取得Users 的id
 	public Users findByUserId(Integer id){
 		Optional<Users> optional = uDao.findById(id);
-		return optional.get();
+		if(optional.isPresent()) {
+			return optional.get();			
+		}
+		return null;
 	}
 	//取得Recipe 的id
 	public Recipe findByRecipeId(Integer id) {
 		Optional<Recipe> optional = rDao.findById(id);
-		return optional.get();
+		if(optional.isPresent()) {
+			System.out.println(optional+"++++++++++++++++++++++++++++++++++++++++++++++++");
+			return optional.get();			
+		}
+		return null;
 	}	
 	//取消收藏
 	public void deleteByUserAndRecipe(Users users, Recipe recipe) {
