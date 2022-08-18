@@ -28,9 +28,15 @@ h3 {
 input {
   margin:3pt;
   width: 10pt;
+
 }
 img{
-	width: 100px;
+	width: 100px; 
+}
+.userimg{
+	width: 50px; 
+	height: 50px; 
+	border-radius: 10px
 }
 .check{
 	color:red;
@@ -42,15 +48,14 @@ img{
 
 <h3>留言</h3>
   
-  <input type="hidden" value="1" id="rtype"><!-- 訊息類型 1為recipe           自行設定-->
-  <input type="hidden" value="2" id="replytypeId"><!-- 訊息id replytypeId= recipeId或postsId      自行設定-->
- <!-- 測試 -->id<input type="text" value="5" id="replyId"><!-- 假id設1為新增 -->
-  留言者:${usersId}<input type="hidden" value="${usersId}" id="usersId"/>
+  回應類型:<span id="a"></span><input type="hidden" value="${replytype}" id="rtype"><!-- 訊息類型 1為recipe           自行設定-->
+  食譜Id:<span id="b"></span><input type="hidden" value="2" id="replytypeId"><!-- 訊息id replytypeId= recipeId或postsId      自行設定-->
+  留言Id<span id="c"></span><input type="hidden" value="1" id="replyId"><!-- 假id設1為新增 -->
+  留言者:<input type="hidden" value="${usersId}" id="usersId"/>
   圖片:<label id="fileload"><img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
       <input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label>
   留言:<textarea name="message" id="message">我是留言</textarea>
   <button id="senddata">送出</button>
- 
 
 <h3>顯示留言</h3>
 <div id="showmsg">
@@ -62,39 +67,40 @@ img{
 //網頁載入時顯示
 let fileDataURL = null;
 $(document).ready(function(){
-	console.log(${usersId});
+	$("#senddata").hide();
+	show();
+});
+		
+function show(){	
 	var settings = {
-        "url": "http://localhost:8090/cookblog/reply/show",
+        "url":"${contextRoot}/event/showrecipe",
     	"method": "GET",
    		"timeout": 0,
     };
+	
 	$.ajax(settings).done(function (response) {
 		var replydata="";
 		$.each(response,function(index,value){
 			replydata+=
-				"留言者:"+value.userId+"<br/>"
-			    +"留言內容:"+value.message+"<br/>"
-			    +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
-			    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
-			    console.log(value.users);
-			    if(${usersId}==value.replyId){
-				 replydata+='<button>test</button>';
-			 }
+				"留言Id:"+value.replyId+"<br/>"
+				+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg'/>"
+				+"留言者Id:"+value.userId+"_"
+				+"留言者:"+value.userName+"<br/>"
+			    +"留言圖片:<img src='"+value.finallyPhoto+"'/>"
+				+"留言內容:"+value.message+"<br/>"			    
+			    +"留言時間:"+value.uploadTime; 
+			replydata+="<br/>-----------------------------------------<br/></div>";
 		})
 		$("#showmsg").html(replydata);
-	});
-	$("#senddata").hide();
-	
-});
+	});	
+}
 $("#senddata").click(function(){
 	var rtype=$("#rtype").val();
 	var replytypeId=$("#replytypeId").val();
 	var replyId=$("#replyId").val();
 	var usersId=$("#usersId").val();
 	var message=$("#message").val();
-	if(fileDataURL==null){
-		//
-	}
+
 	var reply={
 			   replytype:rtype,
 			   replytypeId:replytypeId,
@@ -115,10 +121,18 @@ $("#senddata").click(function(){
 			var replydata="";
 			$.each(result,function(index,value){
 				replydata+=
-					"留言編號:"+value.replyId+"<br/>"
-				    +"留言內容:"+value.message+"<br/>"
-				    +"留言圖片:<img src='"+value.finallyPhoto+"'/><br/>"
-				    +"留言時間:"+value.uploadTime+"<br/>-------<br/>";
+					"留言Id:"+value.replyId+"<br/>"
+					+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg'/>"
+					+"留言者Id:"+value.userId+"_"
+					+"留言者:"+value.userName+"<br/>"
+				    +"留言圖片:<img src='"+value.finallyPhoto+"'/>"
+					+"留言內容:"+value.message+"<br/>"			    
+				    +"留言時間:"+value.uploadTime;
+				if(value.userId==${usersId}){
+					replydata+="<button onclick='update("+value.replyId+")'>修改</button>";
+					replydata+="<button onclick='del("+value.replyId+")'>刪除</button>";
+				}
+				replydata+="<br/>-----------------------------------------<br/></div>";
 			})
 			$("#showmsg").html(replydata);
 		},
@@ -129,10 +143,11 @@ $("#senddata").click(function(){
 	$("#senddata").hide();
 	document.getElementById("message").value="";
 	document.getElementById("finallyPhoto").remove();
-	document.getElementById("imgView").remove();
-	$("#fileload").append('<img src="${contextRoot}/image/step/file.jpg" id="imgView"/>');
+	$("#imgView").attr('src','${contextRoot}/image/step/file.jpg');
+	$("#replyId").val(1);
+	$("#userId").val(${usersId});
+	//$("#fileload").append('<img src="${contextRoot}/image/step/file.jpg" id="imgView"/>');
 	$("#fileload").append('<input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">');
-    
 
 });
 
@@ -151,13 +166,60 @@ function imgview(event,imgid){
 	fr.readAsDataURL(event.target.files[0]);//img預覽
   }
 }
-$("#message").blur(function(){
+$("#message").blur(function(){//避免送出空白留言
 	if($("#message").val()==""){
 		$("#senddata").hide();
 	}else{
 		$("#senddata").show();
 	}
 });
+//修改
+function update(replyId){
+	var replyjson=JSON.stringify(replyId);
+	$.ajax({
+		url:"${contextRoot}/reply/update",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){			
+			$("#replyId").val(result.replyId);
+			$("#userId").val(result.userId);
+			$("#imgView").attr("src","${contextRoot}/image/reply/"+result.finallyPhoto);
+			$("#message").val(result.message);
+			//測試
+			$("#a").text(result.reply);
+			$("#b").text(result.replyTypeId);
+			$("#c").text(result.replyId);
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+//刪除
+function del(replyId){
+	var r = confirm("您確定要刪除嗎?");
+	if (r == true) {
+		console.log("del");
+		alert('刪除成功');
+	var replyjson=JSON.stringify(replyId);
+ 	$.ajax({
+ 		url:"${contextRoot}/reply/delete",
+ 		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){			
+			alert('刪除成功');
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+  }
+	 $(location).prop("href", "http://localhost:8090/cookblog/reply/page");
+}
 </script>
 </body>
 </html>
