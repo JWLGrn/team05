@@ -74,7 +74,7 @@ function report(){
 	  }
 	});
 
-	xhr.open("GET", "http://localhost:8090/cookblog/findUsers");
+	xhr.open("GET", "http://localhost:8090/cookblog/findUsers",true);
 
 	xhr.send();
 }
