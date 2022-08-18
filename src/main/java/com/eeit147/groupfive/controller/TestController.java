@@ -96,6 +96,8 @@ public class TestController {
 			                @RequestParam("stepDescript") String[] stepDescript,  	//步驟描述
 			                @RequestParam("stepPhoto") MultipartFile[] stepPhoto) {	//步驟相片	
 
+		userId = 1;
+		
 		// 取得user
 		Optional<Users> optional = uDao.findById(userId);
 		Users user = optional.get();
