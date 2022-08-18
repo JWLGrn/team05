@@ -17,6 +17,11 @@
 	<img src="${contextRoot}/imagefollow/4/6" id="follow" data-user="4"
 		data-track="6" width="200">
 	<div id="aaa"></div>
+	<div>收藏者</div>
+	<div>白色 未點讚</div>
+	<div >黃色 已點讚</div>	
+	<img src="${contextRoot}/imagecollect/4/7" id="collect" data-user="4" data-recipe="7" width="200">
+
 
 
 
@@ -32,23 +37,35 @@
 	            "method": "POST",
 	            "timeout": 0,
 	        };
-
 	        	$.ajax(settings).done(function(response){
 	    		var imgUrl = "${contextRoot}/imagefollow/"+userid+"/"+trackid+"?time="+Math.random()
 	        	console.log(imgUrl)
-	        	$(e.target).attr("src",imgUrl);
-	        	
+	        	$(e.target).attr("src",imgUrl);      	
 	        })
 	})
 	$("#follow").mouseover(function(){
 		$("#aaa").html("hello")
 	})
 	
-	
-	
-	
+	$("#collect").click(function(e){
+		let userid =$(this).data("user");
+		console.log(userid);
+		let recipeid =$(this).data("recipe");
+		console.log(recipeid);
+		
+	    let settings = {
+	            "url": "${contextRoot}/collectaction/"+userid+"/"+recipeid,
+	            "method": "POST",
+	            "timeout": 0,
+	        };
+	        	$.ajax(settings).done(function(response){
+	    		var imgUrl = "${contextRoot}/imagecollect/"+userid+"/"+recipeid+"?time="+Math.random()
+	        	console.log(imgUrl)
+	        	console.log(recipeid)
+	        	$(e.target).attr("src",imgUrl);
+	        	
+	        })
+	})
 	</script>
-
-
 </body>
 </html>
