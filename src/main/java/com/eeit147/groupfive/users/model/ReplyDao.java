@@ -18,7 +18,5 @@ public interface ReplyDao extends JpaRepository<Reply, Integer> {
 	@Query(value="select * from reply Where fk_reply_posts = :postsId ORDER BY upload_time DESC", nativeQuery = true)
 	public List<Reply> findAllByPostsReplyById(@Param("postsId")Integer postsId);
 	
-//	@Query(value="SELECT * FROM  reply Inner join users  on user_id =fk_reply_users Where fk_reply_recipe = :recipeId ORDER BY upload_time DESC", nativeQuery = true)
-//	public List<ReplyDto> findAllByRecipeReplyByIdJoinUser(@Param("recipeId")Integer recipeId);
 	
 }
