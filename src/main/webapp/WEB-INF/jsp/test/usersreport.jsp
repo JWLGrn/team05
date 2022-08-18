@@ -13,7 +13,7 @@
 <body>
 
 
-<form action="${contextRoot}/users/reportSuccess" method="post">
+<form action="${contextRoot}/users/reportSuccess" method="get">
 被檢舉者ID:<input name="getAuthorUser" type="text" value="${getAuthorUser.userId }"><br>
 檢舉者ID:<input name="usering" type="text" value="${usering.userId }"><br>
 檢舉時間:<input name="reportTime" type="text" value=" ${date }"><br>

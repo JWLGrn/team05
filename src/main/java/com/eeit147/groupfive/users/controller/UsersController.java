@@ -233,20 +233,22 @@ public class UsersController {
 		Users getAuthorUser = authorUser.get();
 		model.addAttribute("getAuthorUser", getAuthorUser);
 		model.addAttribute("usering", usering);
-
+        
 		Date date = new Date();
 		model.addAttribute("date", date);
 
 		return "test/usersreport";
 	}
 
-	@PostMapping("/users/reportSuccess")
+	@GetMapping("/users/reportSuccess")
 	public String userReportSuccess(@RequestParam("getAuthorUser") Integer getAuthorUser,
 									@RequestParam("usering") Integer usering, 
 									@RequestParam("reportTime") Date reportTime,
 									@RequestParam("reportType") String reportType, 
 									@RequestParam("reportContext") String reportContext,
 									Model model) {
+		System.out.println(getAuthorUser + "被檢舉者1");
+		System.out.println(usering + "檢舉者1");
 		// 使用者查詢
 		Users user = (Users) model.getAttribute("result");
 		Integer getUserId = user.getUserId();

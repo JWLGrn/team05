@@ -69,12 +69,13 @@ public class adminUsersController {
 	@GetMapping("/adminReplyReportToSendMail")
 	public String reportToSendMail(@RequestParam("report_id") Integer  report_id ){
 		Optional<Users> user = uDao.findById(report_id);
-		user.get().getEmail();
-		user.get().getUserId();
-		rDao.findById(report_id);
+		System.out.println(report_id+"==+++++++++++++++++++++++++++++++++++++++++++++");
+//		user.get().getEmail();
+//		user.get().getUserId();
+//		rDao.findById(report_id);
 		
 		System.out.println("==========================----------------------------");
-		return "";
+		return "index";
 	}
 		
 }
