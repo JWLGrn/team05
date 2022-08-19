@@ -170,5 +170,34 @@ public class RecipeController {
 		return "redirect:/step/add";
 	}
 	
+	// 新增食譜+做關聯
+	@PostMapping("/add")
+	public String addRecipe(@RequestParam("title") String title,		//食譜標題
+							@RequestParam("descript") String descript,	//食譜描述
+							@RequestParam("people") Integer people,		//幾人份
+							@RequestParam("time") Integer time,			//製作時間
+							@RequestParam("photo") MultipartFile photo,	//食譜相片
+							@RequestParam("foods") String[] foods,		//食譜食材
+							@RequestParam("gram") Double[] gram,		//食材重量(克)
+							@RequestParam("tags") String[] tags,		//食材標籤
+			                @RequestParam("stepDescript") String[] stepDescript,  	//步驟描述
+			                @RequestParam("stepPhoto") MultipartFile[] stepPhoto,
+			                Model m) {	//步驟相片	
+
+		Integer userId = 1;
+
+		// 食譜
+		Recipe recipe = new Recipe();
+		recipe.setCookTitle(title);
+		recipe.setCookDescription(descript);
+		recipe.setCookServe(people); // 份數(人)
+		recipe.setCookTime(time); // 製作時間
+
+		Recipe newRecipe = rService.addRecipe(userId, recipe, photo, foods, gram, tags, stepDescript, stepPhoto);
+		m.addAttribute("newRecipe", newRecipe);
+		
+		return "test/added";
+	}
+	
 	
 }

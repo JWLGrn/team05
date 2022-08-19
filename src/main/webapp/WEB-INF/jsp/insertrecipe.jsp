@@ -82,6 +82,10 @@
                     <div class="col-lg-8">
                         <form class="submit-recipe-form" method="POST" action="add" enctype="multipart/form-data">
                             <div class="form-group">
+                                <label><img id="recipeImageUpload" src="upload.png" height="150px"/>
+                                <input type="file" name="photo" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                            </div>
+                            <div class="form-group">
                                 <label>食譜名稱</label>
                                 <input type="text" placeholder="請輸入食譜名稱..." class="form-control" name="title"
                                     data-error="Subject field is required" required>
@@ -146,8 +150,8 @@
                                         <div class="col-3">
                                             <div class="form-group additional-input-box icon-left" style="height: 150px;">
                                                 <i class="fas fa-arrows-alt"></i>
-                                                <label><img id="recipeImageUpload" src="upload.png" height="150px"/>
-                                                <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                                                <label><img id="recipeImageUpload1" src="upload.png" height="150px"/>
+                                                <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload1)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
                                             </div>
                                         </div>
                                         <div class="col-9">
@@ -463,11 +467,11 @@
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-left">'
                               +'<i class="fas fa-arrows-alt"></i>'
-                              +'<select class="select2 foods" name="filter-by">'+foodList+'</select>'
+                              +'<select class="select2 foods" name="foods">'+foodList+'</select>'
                               +'</div></div>'
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-right">'
-                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="name">'
+                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram">'
                               +'<i class="fas fa-times removeFood"></i>'
                               +'</div></div></div>'
                 $(".foodtable").append(addfoods);
@@ -484,18 +488,18 @@
 
 
             //增加步驟標籤
-            var count = 1;
+            var count = 2;
             $("#addStep").click(function(){
                 var addsteps = '<div class="row no-gutters singlestep">'
                               +'<div class="col-3">'
                               +'<div class="form-group additional-input-box icon-left" style="height: 150px;">'
                               +'<i class="fas fa-arrows-alt"></i>'
                               +'<label><img id="recipeImageUpload'+count+'" src="upload.png" height="150px"/>'
-                              +'<input type="file" name="rfile" onchange="photochange(event,recipeImageUpload'+count+')" accept=".png, .jpg, .jpeg" style="display:none;"/></label>'
+                              +'<input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload'+count+')" accept=".png, .jpg, .jpeg" style="display:none;"/></label>'
                               +'</div></div>'
                               +'<div class="col-9">'
                               +'<div class="form-group additional-input-box icon-right"  style="height: 150px;">'
-                              +'<textarea name="" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>'
+                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>'
                               +'<i class="fas fa-times removeStep"></i>'
                               +'</div></div></div>'
 
