@@ -63,7 +63,7 @@ function report(){
 	  if(this.readyState === 4) {
 		  var content ='';
 		  var report=JSON.parse(xhr.responseText);
-		  for(var i =0;i<9;i++){
+		  for(var i =0;i<report.length;i++){
 		  content+= '<a href="' + "${contextRoot}/users/report?user_id="+report[i].userId+"&&user_id=${result.userId }" + '">'
      	 +'<img src="report.jpg" width="40">'+ 
      	report[i].userName + '</a>';

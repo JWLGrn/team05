@@ -29,13 +29,14 @@ xhr.addEventListener("readystatechange", function() {
 		+ "<td>" + reportreply[i].reportContext + "</td>"
 		+ "<td>" + reportreply[i].reportTime + "</td>"
 		+ "<td align='right'>" + reportreply[i].reportType + "</td>" 
-		+ "<td align='center'>"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><button type='button'>"+'回覆檢舉'+"</button></a>"
+		+ "<td align='center'>"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
 		+ "</td>" + "<td></tr>";
 	  
-	  
+	    
 	  
 	  }
     console.log(this.responseText);
+    console.log(reportreply.length);
     document.getElementById("adminReport").innerHTML=content;
   }
 });
