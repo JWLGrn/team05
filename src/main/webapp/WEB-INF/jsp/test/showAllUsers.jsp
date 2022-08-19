@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,18 +17,22 @@ body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
-<title>顯示所有使用者</title>
+<title>管理使用者</title>
 </head>
 <body>
+<div class="w3-main" style="margin-right:220px;">
+<h3>管理使用者</h3>
+</div>
 <div class="w3-main" style="margin-left:220px;"> 
 <table  class="table table-striped">
 <thead>
     <tr>
-	<th></th>
+	  <th></th>
+	  <th></th>
+	  <th scope="col">使用者照片</th>
       <th scope="col">使用者帳號</th>
       <th scope="col">使用者密碼</th>
       <th scope="col">使用者名稱</th>
-      <th scope="col">使用者照片</th>
       <th scope="col">使用者權限</th>
 	</tr>
   </thead>
@@ -38,10 +43,10 @@ body {font-size:16px;}
 <form class="form" method="post" action="${contextRoot}/editAdminUsers">
 
 	<td><input type="hidden" name="userId" value="${u.userId}"/></td>
+	<td><img alt="" src="users/${u.userPhoto}" ></td>
 	<td><input name="email" value="${u.email}" /></td>
 	<td><input name="password" value="${u.password}" /></td>
 	<td><input name="userName" value="${u.userName}" /></td>
-	<td><input name="userPhoto" value="${u.userPhoto}" /></td>
 	<td><input name="permission" value="${u.permission}" /></td>
 	<td><button type="submit" class="btn btn-primary">送出</button></td>
 	<td><a href="${contextRoot}/deleteUser/${u.userId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>
