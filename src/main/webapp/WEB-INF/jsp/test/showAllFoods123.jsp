@@ -21,6 +21,15 @@ body {font-size:16px;}
 </head>
 <body>
 <div class="w3-main" style="margin-left:220px;"> 
+	<select>
+		<c:forEach items="${option}" var="f">
+        	<option>${f}</option>
+        </c:forEach>
+    </select>
+</div>
+
+
+<div class="w3-main" style="margin-left:220px;"> 
 <table  class="table table-striped">
 <thead>
     <tr>

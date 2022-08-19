@@ -28,6 +28,7 @@ public class FoodsController {
 	private FoodsService fService;
 	@Autowired
 	FoodsDao fDao;
+	
 	@PostMapping("/addfoods")
 	public String InsertFoods(
 
@@ -59,7 +60,8 @@ public class FoodsController {
 		ifd.setFoodsName(foods_name);
 		ifd.setFoodsType(foods_type);
 		ifd.setCalorie(calorie);
-
+		fDao.save(ifd);
+		
 		Set<String> data = new LinkedHashSet<String>(); 
 		 List<Foods> foods=fDao.findAll();
 		for(Foods food : foods ) { 
