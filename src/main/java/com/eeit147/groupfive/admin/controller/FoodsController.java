@@ -30,20 +30,12 @@ public class FoodsController {
 	FoodsDao fDao;
 	@PostMapping("/addfoods")
 	public String InsertFoods(
-//		@RequestParam("foodsName") String foodsName, 
-//		@RequestParam("foodsType") String foodsType,
-//		@RequestParam("calorie") Integer calorie,
+
 		@ModelAttribute("addfoodsAttribute")Foods fd,	
 		Model model){
-//		Foods ifd = new Foods();
-//		ifd.setFoodsName(foodsName);
-//		ifd.setFoodsType(foodsType);
-//		ifd.setCalorie(calorie);
-//		System.out.println("fd"+fd.toString());
-//		System.out.println("ifd"+ifd.toString());
 		Foods f = fService.insertFoods(fd);
 		model.addAttribute("newFoods", f);
-		return "test/addfoods";
+		return "redirect:/showAllFoods123";
 	}
 	//驗證食材是否已存在
 	@PostMapping("/foodname/checkFoodsByName")
