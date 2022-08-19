@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,9 @@ public class adminUsersController {
 	
 	@Autowired
 	private ReportDao rDao;
+	
+	@Autowired	
+	private JavaMailSender  mailSender;
 	
 	
 	//編輯使用者
@@ -58,23 +63,29 @@ public class adminUsersController {
 		aService.deleteUser(userId);
 		return "redirect:/showAllUsers";
 	}
-	//列出所有檢舉資料在網頁上面(Ajax-JSON)
+	//列出所有檢舉資料在網頁上面(非同步Ajax-JSON)
 	@GetMapping("/adminReplyReport")
 	public @ResponseBody  List<Report> reportList() {
 		List<Report> rList = rDao.findAll();
 		return rList ;
 		
 	}
-	//還沒寫完先睡覺 
+	//找到使用者，送出罐頭檢舉信且權限改為0，導回首頁，順帶model出去。
 	@GetMapping("/adminReplyReportToSendMail")
-	public String reportToSendMail(@RequestParam("report_id") Integer  report_id ){
-		Optional<Users> user = uDao.findById(report_id);
-		System.out.println(report_id+"==+++++++++++++++++++++++++++++++++++++++++++++");
-//		user.get().getEmail();
-//		user.get().getUserId();
-//		rDao.findById(report_id);
-		
-		System.out.println("==========================----------------------------");
+	public String reportToSendMail(@RequestParam("report_id") Integer  report_id, Model model ){
+		Optional<Report> Optional = rDao.findById(report_id);
+		Report user = Optional.get();
+		 Users userId = user.getUsers();
+		String userEmail = userId.getEmail();
+		System.out.println("userEmail"+userEmail);
+		userId.setPermission(0);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("stu60406666@gmail.com");
+        message.setTo(userEmail);
+        message.setSubject("主旨：I-Cook 通知");
+        message.setText("由於近期文章有接獲檢舉，會暫時停權三天，還請見諒。");
+        mailSender.send(message);
+        model.addAttribute("user",user);
 		return "index";
 	}
 		
