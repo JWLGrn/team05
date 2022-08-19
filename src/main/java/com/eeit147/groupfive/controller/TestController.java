@@ -35,10 +35,12 @@ import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.recipe.model.RecipeFoods;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
+import com.eeit147.groupfive.recipe.model.RecipeFoodsDto;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDto;
 import com.eeit147.groupfive.recipe.model.RecipeStep;
+import com.eeit147.groupfive.recipe.model.RecipeStepDao;
 import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
@@ -66,77 +68,51 @@ public class TestController {
 
 	@Autowired
 	private RecipeKeywordDao rkDao;
+
+	@Autowired
+	private RecipeStepDao rsDao;
 	
 	@Autowired
 	private FavoriteDao frDao;
 	
 	@Autowired
 	private RecipeService recipeService;
-
-	// 測試新增食譜 傳值
-//	@PostMapping("/add")
-//	public void testadd(@RequestParam("title") String title, @RequestParam("descript") String descript,
-//			@RequestParam("foods") String[] foods, @RequestParam("gram") Double[] gram) {
-//
-//		System.out.println("title: " + title);
-//		System.out.println("descript: " + descript);
-//		System.out.println(
-//				"foods: " + foods[0] + " & " + foods[1] + " & " + foods[2] + " & " + foods[3] + " & " + foods[4]);
-//		System.out.println("gram: " + gram[0] + " & " + gram[1] + " & " + gram[2] + " & " + gram[3] + " & " + gram[4]);
-//
+	
+	// 關鍵字模糊搜尋
+//	@GetMapping("/find/keyword/{word}")
+//	public @ResponseBody List<Keyword> findKeyword(@PathVariable("word") String word) {
+//		List<Keyword> kList = kDao.findByKeywordLike("%" + word + "%");
+//		return kList;
 //	}
 
-	// 關鍵字模糊搜尋
-	@GetMapping("/find/keyword/{word}")
-	public @ResponseBody List<Keyword> findKeyword(@PathVariable("word") String word) {
-		System.out.println(word);
-		List<Keyword> kList = kDao.findByKeywordLike("%" + word + "%");
-		return kList;
-	}
-
 	// 食材模糊搜尋
-	@GetMapping("/find/foods/{word}")
-	public @ResponseBody List<Foods> findFood(@PathVariable("word") String word) {
-		System.out.println(word);
-		List<Foods> fList = fDao.findByFoodsNameLike("%" + word + "%");
-		return fList;
-	}
-
-	// 搜尋全部食材
-	@GetMapping("/find/foods/all")
-	public @ResponseBody List<Foods> findAllFoods() {
-		List<Foods> fList = fDao.findAll();
-		return fList;
-	}
-
-	// 搜尋全部關鍵字
-	@GetMapping("/find/keyword/all")
-	public @ResponseBody List<Keyword> findAllKeyword() {
-		List<Keyword> kList = kDao.findAll();
-		return kList;
-	}
+//	@GetMapping("/find/foods/{food}")
+//	public @ResponseBody List<Foods> findFood(@PathVariable("food") String food) {
+//		List<Foods> fList = fDao.findByFoodsNameLike("%" + food + "%");
+//		return fList;
+//	}
 
 	//食譜模糊查詢(食譜+作者)
-	@GetMapping("/find/user/username")
-	public @ResponseBody Iterable<Recipe> findUsersByKeyword(
-			@RequestParam("classify") String classify,
-			@RequestParam("keywords") String keywords) {
-
-		// 找食譜
-		if (classify.equals("1")) {
-			List<Recipe> recipe = rDao.findByCookTitleLike("%"+keywords+"%");
-			return recipe;
-			
-		}
-		// 找作者
-		else{
-			System.out.println("找作者"+"classify="+classify+" keywords="+keywords);
-			List<Users> users = uDao.findByUserNameLike("%"+keywords+"%");
-			Set<Recipe> recipe = rDao.findByUsersIn(users);
-			return recipe;
-		}
-
-	}
+//	@GetMapping("/find/user/username")
+//	public @ResponseBody Iterable<Recipe> findUsersByKeyword(
+//			@RequestParam("classify") String classify,
+//			@RequestParam("keywords") String keywords) {
+//
+//		// 找食譜
+//		if (classify.equals("1")) {
+//			List<Recipe> recipe = rDao.findByCookTitleLike("%"+keywords+"%");
+//			return recipe;
+//			
+//		}
+//		// 找作者
+//		else{
+//			System.out.println("找作者"+"classify="+classify+" keywords="+keywords);
+//			List<Users> users = uDao.findByUserNameLike("%"+keywords+"%");
+//			Set<Recipe> recipe = rDao.findByUsersIn(users);
+//			return recipe;
+//		}
+//
+//	}
 	
 	//查詢user by食譜
 //	@PostMapping("find/users/{recipeId}")
@@ -222,151 +198,23 @@ public class TestController {
 			
 		}
 		
-		//查詢全部食譜
-		@GetMapping("/allRecipe")
-		public String findAllRecipe(Model m) {
-			List<Recipe> rList = rDao.findAll();
-			m.addAttribute("rList", rList);
-			return "test/templateTest";
-		}
-		
-		// Recipe List 轉 Dto List
-		public List<RecipeDto> changeRecipeToDto(Iterable<Recipe> recipes){
-			List<RecipeDto> dtoList=new ArrayList<RecipeDto>();
-			for(Recipe r:recipes) {
-				RecipeDto dto = new RecipeDto();
-				dto.setRecipeId(r.getRecipeId());
-				dto.setCookTitle(r.getCookTitle());
-				dto.setCookDescription(r.getCookDescription());
-				dto.setCookPhoto(r.getCookPhoto());
-				dto.setCookTime(r.getCookTime());
-				dto.setUserId(r.getUsers().getUserId());
-				dto.setUserName(r.getUsers().getUserName());
-				dto.setRecipeKeyword(changeKeywordToDto(r.getRecipeKeyword()));
+		// Foods List 轉 Dto List
+		public List<RecipeFoodsDto> changeFoodsToDto(Iterable<RecipeFoods> recipeFoods){
+			List<RecipeFoodsDto> dtoList=new ArrayList<RecipeFoodsDto>();
+			for(RecipeFoods rf : recipeFoods) {
+				RecipeFoodsDto dto = new RecipeFoodsDto();
+				dto.setFoodsId(rf.getRecipefoodsId());
+				dto.setFoodsName(rf.getFoods().getFoodsName());
 				dtoList.add(dto);
 			}
 			return dtoList;
 		}
 		
-		// Keyword List 轉 Dto List
-		public List<RecipeKeywordDto> changeKeywordToDto(Iterable<RecipeKeyword> recipekeywords){
-			List<RecipeKeywordDto> dtoList=new ArrayList<RecipeKeywordDto>();
-			for(RecipeKeyword rk : recipekeywords) {
-				RecipeKeywordDto dto = new RecipeKeywordDto();
-				dto.setRecipekeywordId(rk.getRecipekeywordId());
-				dto.setKeyword(rk.getKeyword().getKeyword());
-				dtoList.add(dto);
-			}
-			return dtoList;
-		}
-		
-		//模糊查詢(找食譜 or 找作者 + 關鍵字&食材分類)
-		@GetMapping("find/recipe/food")
-		public @ResponseBody Iterable<RecipeDto> findUsersByFoodOrKeyword(
-				@RequestParam("classify") String classify,
-				@RequestParam("searchWord") String searchWord,
-				@RequestParam(value = "foods", defaultValue = "")String[] foods,
-				@RequestParam(value = "country", defaultValue = "")String[] country
-				){
-			
-			//未選擇checkbox的情況
-			if(foods.length == 0 && country.length == 0) {
-				// 找食譜
-				if (classify.equals("1")) {
-					List<Recipe> recipes = rDao.findByCookTitleLike("%"+searchWord+"%");
-					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
-					return recipesDto;
-				}
-				// 找作者
-				else{
-					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
-					Set<Recipe> recipes = rDao.findByUsersIn(users);
-					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
-					return recipesDto;
-				}
-			}
-			//有選擇checkbox的情況
-			else{
-				
-				List<Foods> food = fDao.findByFoodsTypeIn(foods);
-				List<Keyword> keyword = kDao.findByKeywordIn(country);
-				List<RecipeFoods> rFood = rfDao.findByFoodsIn(food);
-				List<RecipeKeyword> rKeyword = rkDao.findByKeywordIn(keyword);
-				
-				// 找食譜
-				if (classify.equals("1")) {
-					Set<Recipe> recipes = rDao.findByRecipeFoodsInAndCookTitleLikeOrRecipeKeywordInAndCookTitleLike(rFood,"%"+searchWord+"%", rKeyword,"%"+searchWord+"%");
-					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
-					return recipesDto;
-				}
-				// 找作者
-				else{
-					List<Users> users = uDao.findByUserNameLike("%"+searchWord+"%");
-					Set<Recipe> recipes = rDao.findByRecipeFoodsInAndUsersInOrRecipeKeywordInAndUsersIn(rFood, users, rKeyword, users);
-					List<RecipeDto> recipesDto = changeRecipeToDto(recipes);
-					return recipesDto;
-				}
-			}
-		}
-		
-		// 查詢收藏數前幾名
-		@GetMapping("find/collectrank")
-		public String collectRank(Model m){
-			 //總名次
-			 Integer rank = 5;
-			 // 取得前五名收藏的食譜id + 收藏數
-			 List<Object[]> list = rDao.findCollectRank(rank);
-			 
-			 // 取得食譜ID的List
-			 List<Integer> ids = new LinkedList<Integer>();
-			 for(Object[] id : list) {
-				 ids.add((Integer)id[0]);
-			 }
-			 
-			 // 取得食譜
-			 List<Recipe> cRecipes = rDao.findAllById(ids);
-			 
-			 // 對食譜做排序
-			 Collections.sort(cRecipes, new Comparator<Recipe>() {
-		            @Override
-		            public int compare(Recipe o1, Recipe o2) {
-		                return o2.getCollect().size() - o1.getCollect().size();
-		            }
-		        });
 
-			 m.addAttribute("collectRecipes",cRecipes);
-
-			return "test/collectRankTest";
-		}
-		
-		// 查詢按讚數前幾名
-		@GetMapping("find/favorrank")
-		public String favorRank(Model m){
-			 //總名次
-			 Integer rank = 5;
-			 // 取得前五名收藏的食譜id + 收藏數
-			 List<Object[]> list = rDao.findFavoriteRank(rank);
-			 
-			 // 取得食譜ID的List
-			 List<Integer> ids = new LinkedList<Integer>();
-			 for(Object[] id : list) {
-				 ids.add((Integer)id[0]);
-			 }
-			 
-			 // 取得食譜
-			 List<Recipe> fRecipes = rDao.findAllById(ids);
-			 
-			 // 對食譜做排序
-			 Collections.sort(fRecipes, new Comparator<Recipe>() {
-		            @Override
-		            public int compare(Recipe o1, Recipe o2) {
-		                return o2.getFavorite().size() - o1.getFavorite().size();
-		            }
-		        });
-			 
-			m.addAttribute("favoriteRecipes",fRecipes);
-			return "test/favoriteRankTest";
-		}
-
-		
+		//查詢食譜食材by食譜id
+//		@GetMapping("recipe/find/foods/{recipeid}")
+//		@ResponseBody
+//		public List<RecipeFoodsDto> findFoodByRecipeId(@PathVariable("recipeid")Integer id) {
+//			return null;
+//		}
 }

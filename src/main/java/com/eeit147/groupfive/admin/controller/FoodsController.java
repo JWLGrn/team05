@@ -22,7 +22,7 @@ import com.eeit147.groupfive.recipe.model.FoodsDao;
 @Controller
 public class FoodsController {
 	
-	
+
 	//呼叫service存入食材方法
 	@Autowired
 	private FoodsService fService;
@@ -88,7 +88,12 @@ public class FoodsController {
 		return "redirect:/showAllFoods123";
 	}
 		
-
+	// 取得全部食材
+		@GetMapping("/find/foods/all")
+		public @ResponseBody List<Foods> findAllFoods() {
+			List<Foods> fList = fService.findAllFoods();
+			return fList;
+		}
 }
 
 

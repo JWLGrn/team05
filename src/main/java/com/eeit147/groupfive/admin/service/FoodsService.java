@@ -46,6 +46,12 @@ public class FoodsService {
 		public void deleteFood(Integer FoodsId) {
 			fDao.deleteById(FoodsId);
 		}
+		
+		// 取得全部食材
+		public List<Foods> findAllFoods() {
+			List<Foods> fList = fDao.findAll();
+			return fList;
+		}
 	}
 		
 

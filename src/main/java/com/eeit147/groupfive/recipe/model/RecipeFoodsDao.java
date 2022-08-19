@@ -15,4 +15,7 @@ public interface RecipeFoodsDao extends JpaRepository<RecipeFoods, Integer> {
 	
 	//找關聯By Foods
 	public List<RecipeFoods> findByFoodsIn(List<Foods> foods);
+	
+	//找食材by食譜
+	public List<RecipeFoods> findByRecipe(Recipe recipe);
 }

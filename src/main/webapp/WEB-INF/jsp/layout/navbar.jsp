@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <header class="header-one">
             <div id="header-main-menu" class="header-main-menu header-sticky">
                 <div class="container">                    
@@ -19,7 +23,7 @@
                                         <a href="category.html">Category</a>
                                     </li>
                                     <li>
-                                        <a href="#">Recipes</a>
+                                        <a href="${contextRoot}/recipe/find/all">Recipes</a>
                                         <ul class="dropdown-menu-col-1">
                                             <li>
                                                 <a href="recipe-with-sidebar.html">Recipes With Sidebar</a>
@@ -238,8 +242,7 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <a href="submit-recipe.html" class="fill-btn"><i class="flaticon-plus-1"></i>SUBMIT
-                                            RECIPE</a>
+                                        <a href="${contextRoot}/insertrecipe" class="fill-btn"><i class="flaticon-plus-1"></i>上傳食譜</a>
                                     </li>
                                 </ul>
                             </div>

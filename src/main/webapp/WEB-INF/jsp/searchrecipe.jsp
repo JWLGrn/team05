@@ -37,7 +37,7 @@
     <!-- ScrollUp End Here -->
     <div id="wrapper" class="wrapper">
         <!-- Header Area Start Here -->
-        <jsp:include page="../layout/navbar.jsp"/>
+        <jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- Inne Page Banner Area Start Here -->
         <section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg">
@@ -202,7 +202,7 @@
         </section>
         <!-- Recipe Without Sidebar Area End Here -->
         <!-- Footer Area Start Here -->
-        <jsp:include page="../layout/footer.jsp"/>
+        <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
     <!-- Search Box Start Here -->

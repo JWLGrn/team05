@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="${contextRoot}/favicon.png">
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->
@@ -38,9 +38,9 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-    <style>
-
-    </style>
+    <script>
+        
+    </script>
 </head>
 
 <body>
@@ -80,25 +80,31 @@
             <div class="container">
                 <div class="row gutters-60">
                     <div class="col-lg-8">
-                        <form class="submit-recipe-form" method="POST" action="recipe/insert" enctype="multipart/form-data">
+                        <form class="submit-recipe-form" method="POST" action="${contextRoot}/recipe/update" enctype="multipart/form-data">
+                        	<input type="hidden" value="${recipe.recipeId}" name="recipeId">
                             <div class="form-group">
-                                <label><img id="recipeImageUpload" src="${contextRoot}/recipe/upload.png" height="150px"/>
-                                <input type="file" name="photo" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                                <label>
+                                    <img id="recipeImageUpload" src="${contextRoot}/recipe/${recipe.cookPhoto}" height="150px"/>
+                                <input type="file" id="recipePhoto" name="photo" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display: none;"/>
+                            </label>
                             </div>
                             <div class="form-group">
                                 <label>食譜名稱</label>
                                 <input type="text" placeholder="請輸入食譜名稱..." class="form-control" name="title"
-                                    data-error="Subject field is required" required>
+                                    data-error="Subject field is required" value="${recipe.cookTitle}" required>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label>食譜標籤</label>
+                                <c:forEach items="${recipe.recipeKeyword}" var="rK" varStatus="rKs">
+                                <p class="tagsSelected" id="tags${rKs.index}" data-tags="${rK.keyword.keyword}" style="display: none;"></p>
+                                </c:forEach>
                                 <select class="select2 tags form-control" name="tags" multiple="multiple"></select>
                             </div>
                             <div class="form-group">
                                 <label>簡介</label>
                                 <textarea placeholder="請輸入食譜描述..." class="textarea form-control" name="descript" id="form-message"
-                                    rows="7" cols="20" data-error="Message field is required" required></textarea>
+                                    rows="7" cols="20" data-error="Message field is required" required>${recipe.cookDescription}</textarea>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="additional-input-wrap">
@@ -108,14 +114,14 @@
                                         <div class="form-group additional-input-box icon-left">
                                             <i class="far fa-clock"></i>
                                             <input type="number" placeholder="烹飪時間（分鐘）" class="form-control"
-                                                name="time">   
+                                                name="time" value="${recipe.cookTime}">   
                                         </div>
                                     </div>
                                     <div class="col-6">
                                        <div class="form-group additional-input-box icon-left">
                                             <i class="fas fa-utensils"></i>
                                             <input type="number" placeholder="份量（人份）" class="form-control"
-                                                name="people">
+                                                name="people" value="${recipe.cookServe}">
                                         </div>
                                     </div>
                                 </div>
@@ -124,20 +130,22 @@
                                     <label>食材</label>
                                     <div class="foodtable">
                                     <!-- ---------------------食材動態結構--------------------- -->
+                                    <c:forEach items="${recipe.recipeFoods}" var="rF" varStatus="rFs">
                                     <div class="row no-gutters singlefood">
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-left">
                                                 <i class="fas fa-arrows-alt"></i>
-                                                <select class="select2 foods" name="foods"></select>
+                                                <select class="select2 foods" name="foods" id="foods${rFs.index}" data-foods="${rF.foods.foodsName}"></select>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram">
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" value="${rF.gram}">
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
                                     </div>
+                                    </c:forEach> 
                                     <!-- ---------------------食材動態結構--------------------- -->
                                     </div>
                                     <button type="button" class="btn-upload" id="addFood"><i class="flaticon-add-plus-button"></i>加入食材</button>
@@ -146,21 +154,23 @@
                                 <label>步驟</label>
                                 <div class="steptable">
                                     <!-- ---------------------步驟動態結構--------------------- -->
+                                    <c:forEach items="${recipe.recipeStep}" var="rS" varStatus="rSs">
                                     <div class="row no-gutters singlestep">
                                         <div class="col-3">
                                             <div class="form-group additional-input-box icon-left" style="height: 150px;">
                                                 <i class="fas fa-arrows-alt"></i>
-                                                <label><img id="recipeImageUpload1" src="${contextRoot}/recipe/upload.png" height="150px"/>
-                                                <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload1)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                                                <label><img id="recipeImageUpload${rSs.index}" src="${contextRoot}/recipe/${rS.stepPhoto}" height="150px"/>
+                                                <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload${rSs.index})" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
                                             </div>
                                         </div>
                                         <div class="col-9">
                                             <div class="form-group additional-input-box icon-right"  style="height: 150px;">
-                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>
+                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto">${rS.stepDescription}</textarea>
                                                 <i class="fas fa-times removeStep"></i>
                                             </div>
                                         </div>
                                     </div>
+                                    </c:forEach>
                                     <!-- ---------------------步驟動態結構--------------------- -->
                                 </div>
                                     <button type="button" class="btn-upload" id="addStep"><i class="flaticon-add-plus-button"></i>加入步驟</button>
@@ -438,7 +448,7 @@
     <script src="${contextRoot}/js/main.js"></script>
     <script>
 
-        //載入食材庫
+            //載入食材庫
             var foodSettings = {
                 "url": "http://localhost:8090/cookblog/find/foods/all",
                 "method": "GET",
@@ -451,7 +461,13 @@
                     foodList += '<option value="'+ response[i].foodsName +'">'+ response[i].foodsName +'</option>';
                 }
                 $(".foods").append(foodList);
-                });
+
+                //載入已選擇食材
+                for(let i=0 ; i<$(".foods").length ; i++){
+                    $("#foods"+i).val($("#foods"+i).data("foods"));
+                    $("#foods"+i).trigger('change'); 
+                 }
+            });
 
             function selectRefresh() {
                 $('.foods').select2({
@@ -476,6 +492,7 @@
                               +'</div></div></div>'
                 $(".foodtable").append(addfoods);
                 selectRefresh();
+                
             })
 
             //移除食材
@@ -486,9 +503,11 @@
                 }
             })
 
+            
+
 
             //增加步驟標籤
-            var count = 2;
+            var count = 100;
             $("#addStep").click(function(){
                 var addsteps = '<div class="row no-gutters singlestep">'
                               +'<div class="col-3">'
@@ -546,8 +565,40 @@
                     dropdownAutoWidth: true,
                     width: '100%'
                 });
+
+                //載入已選擇標籤
+                var taglist = [];
+                for(let i=0;i<$(".tagsSelected").length;i++){
+                    taglist.push($("#tags"+i).data("tags"))
+                }
+                console.log(taglist)
+                $('.tags').val(taglist);
+                $('.tags').trigger('change');
             });
 
+            // //載入圖片到input file
+            // function loadURLToInputFiled(url){
+            //     getImgURL(url, (imgBlob)=>{
+            //     console.log(url);
+            //     let fileName = 'hasFilename.jpg'
+            //     let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
+            //     let container = new DataTransfer(); 
+            //     container.items.add(file);
+            //     document.querySelector('#recipePhoto').files = container.files;
+    
+            //     })
+            // }
+
+            // // 取得圖片
+            // function getImgURL(url, callback){
+            //     var xhr = new XMLHttpRequest();
+            //     xhr.onload = function() {
+            //         callback(xhr.response);
+            //     };
+            //     xhr.open('GET', url);
+            //     xhr.responseType = 'blob';
+            //     xhr.send();
+            // }
             
     </script>
 </body>
