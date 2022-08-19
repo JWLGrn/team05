@@ -21,4 +21,9 @@ public interface RecipeStepDao extends JpaRepository<RecipeStep, Integer>{
 	
 	@Query(value="select * from recipestep where fk_recipestep_recipe = :recipeId ORDER BY step ASC", nativeQuery = true)
 	public List<RecipeStep> findAllRecipeStepId(@Param("recipeId") Integer recipeId);
+	
+	public void deleteByRecipe(Recipe recipe);
+	
+	//計算步驟數
+	public Integer countByRecipe(Recipe recipe);
 }

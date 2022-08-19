@@ -2,6 +2,8 @@ package com.eeit147.groupfive.recipe.model;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -81,7 +83,7 @@ public class Recipe {
 	private Set<Campaign> campaign= new LinkedHashSet<Campaign>();
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "recipe",cascade = CascadeType.ALL)
-	private Set<RecipeStep> recipeStep= new LinkedHashSet<RecipeStep>();
+	private List<RecipeStep> recipeStep= new LinkedList<RecipeStep>();
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "recipe",cascade = CascadeType.ALL)
 	private Set<RecipeKeyword> recipeKeyword= new LinkedHashSet<RecipeKeyword>();
@@ -186,11 +188,12 @@ public class Recipe {
 		this.campaign = campaign;
 	}
 
-	public Set<RecipeStep> getRecipeStep() {
+
+	public List<RecipeStep> getRecipeStep() {
 		return recipeStep;
 	}
 
-	public void setRecipeStep(Set<RecipeStep> recipeStep) {
+	public void setRecipeStep(List<RecipeStep> recipeStep) {
 		this.recipeStep = recipeStep;
 	}
 

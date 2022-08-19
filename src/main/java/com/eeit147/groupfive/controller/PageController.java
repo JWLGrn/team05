@@ -121,7 +121,7 @@ private FoodsService fService;
 	
 	@GetMapping("/posts")
 	public String goPostPage() {
-		return "test/blogTest";
+		return "createpost";
 	}
 	//chart.js報表分析
 	@GetMapping("/testchart")

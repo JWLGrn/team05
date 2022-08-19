@@ -40,12 +40,13 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	//查詢按讚排行榜
 	@Query(nativeQuery = true, value="SELECT top(:number) f.fk_favorite_recipe as recipeId FROM favorite AS f GROUP BY f.fk_favorite_recipe order by COUNT(f.fk_favorite_recipe) DESC")
 	public List<Object[]> findFavoriteRank(@Param("number")Integer number);
-	
 
 	//查詢食譜 By userId 
 	@Query(value="select * from recipe where fk_recipe_users = :userId ORDER BY date DESC", nativeQuery = true)
 	public List<Recipe> findAllRecipeByUser(@Param("userId") Integer userId);
 	
 	public List<Recipe> findAllRecipeByRecipeId(Integer recipeId);
+	
+	
 	
 }
