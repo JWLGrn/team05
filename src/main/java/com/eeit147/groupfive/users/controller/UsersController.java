@@ -233,20 +233,22 @@ public class UsersController {
 		Users getAuthorUser = authorUser.get();
 		model.addAttribute("getAuthorUser", getAuthorUser);
 		model.addAttribute("usering", usering);
-
+        
 		Date date = new Date();
 		model.addAttribute("date", date);
 
 		return "test/usersreport";
 	}
 
-	@PostMapping("/users/reportSuccess")
+	@GetMapping("/users/reportSuccess")
 	public String userReportSuccess(@RequestParam("getAuthorUser") Integer getAuthorUser,
 									@RequestParam("usering") Integer usering, 
 									@RequestParam("reportTime") Date reportTime,
 									@RequestParam("reportType") String reportType, 
 									@RequestParam("reportContext") String reportContext,
 									Model model) {
+		System.out.println(getAuthorUser + "被檢舉者1");
+		System.out.println(usering + "檢舉者1");
 		// 使用者查詢
 		Users user = (Users) model.getAttribute("result");
 		Integer getUserId = user.getUserId();
@@ -275,7 +277,7 @@ public class UsersController {
 	@PostMapping("/associationfollow/{userid}/{trackid}")
 	@ResponseBody
 	public void followAssociation(@PathVariable("userid") Integer userid, 
-			@PathVariable("trackid") Integer trackid) {
+								  @PathVariable("trackid") Integer trackid) {
 		Users user = UService.findUsersById(userid);
 		Users track = UService.findUsersById(trackid);
 		// 確認關聯是否存在
@@ -292,7 +294,7 @@ public class UsersController {
 	// 追蹤功能的圖片顯示(確認是否有關聯 → 顯示不同圖片)
 	@GetMapping("/imagefollow/{usersid}/{trackid}")
 	public @ResponseBody ResponseEntity<byte[]> imageFollow(@PathVariable("usersid") Integer userid,
-			@PathVariable("trackid") Integer trackid) throws IOException {
+															@PathVariable("trackid") Integer trackid) throws IOException {
 		// 取得user bean 拿到user and track
 		Users user = UService.findUsersById(userid);
 		Users track = UService.findUsersById(trackid);
@@ -305,28 +307,29 @@ public class UsersController {
 		
 		// 判斷有無關聯 → 顯示不同圖片
 		if (isAssociation) {
-			FileInputStream input = new FileInputStream(
-					new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\follow.png"));
+			FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\follow.png"));
 			byte[] bytes = input.readAllBytes();
 			input.close();
 			return new ResponseEntity<byte[]>(bytes, header, HttpStatus.OK);
 		} else {
-			FileInputStream input = new FileInputStream(
-					new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\nofollow.png"));
+			FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\nofollow.png"));
 			byte[] bytes = input.readAllBytes();
 			input.close();
 			return new ResponseEntity<byte[]>(bytes, header, HttpStatus.OK);
 		}
 	}
 	//收藏 + 取消收藏	
-	@PostMapping("/collectAction/{userid}/{recipeid}")
+	@PostMapping("/collectaction/{userid}/{recipeid}")
 	@ResponseBody
 	public void collectAction(@PathVariable("userid")Integer userid,
-								@PathVariable("recipeid")Integer recipeid) {
+							  @PathVariable("recipeid")Integer recipeid) {
 		//取得Userid
 		Users user = cService.findByUserId(userid);
 		//取得recipeid
 		Recipe recipe = cService.findByRecipeId(recipeid);
+		System.out.println(user + "==================================================================================");
+		System.out.println(recipe + "==================================================================================");
+		
 		//判斷是否存在關聯
 		Boolean isExisit = cService.exisitByUsersAndRecipe(user, recipe);
 		
@@ -340,4 +343,32 @@ public class UsersController {
 		}
 	}
 	//收藏的圖示
+	@GetMapping("/imagecollect/{usersid}/{recipeid}")
+	public @ResponseBody ResponseEntity<byte[]> imageCollect(@PathVariable("usersid") Integer userid,
+															 @PathVariable("recipeid") Integer recipeid) throws IOException {
+		// 取得user bean 拿到user and track
+		Users user = cService.findByUserId(userid);
+		Recipe recipe = cService.findByRecipeId(recipeid);
+		
+		// 確認關聯是否存在
+		Boolean isExisit = cService.exisitByUsersAndRecipe(user, recipe);
+		// 設定標頭
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.IMAGE_PNG);
+		
+		// 判斷有無關聯 → 顯示不同圖片
+		if (isExisit) {
+			FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\collect.png"));
+			byte[] bytes = input.readAllBytes();
+			input.close();
+			ResponseEntity<byte[]> re = new ResponseEntity<byte[]>(bytes, header, HttpStatus.OK);
+			return re;
+		} else {
+			FileInputStream input = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\nocollect.png"));
+			byte[] bytes = input.readAllBytes();
+			input.close();
+			ResponseEntity<byte[]> re = new ResponseEntity<byte[]>(bytes, header, HttpStatus.OK);
+			return re;
+		}
+	}
 }

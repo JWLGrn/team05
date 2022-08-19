@@ -146,7 +146,18 @@ public class Reply {
 	public void setReport(Set<Report> report) {
 		this.report = report;
 	}
+//------------------------------------------------------------	
 	
 	
+	public String getUserName() {
+		return users.getUserName();
+	}
+	public String getUserPhoto() {
+		return users.getUserPhoto();
+	}
+
+	public Integer getUserId() {
+		return users.getUserId();
+	}
 	
 }

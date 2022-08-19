@@ -80,32 +80,23 @@
             <div class="container">
                 <div class="row gutters-60">
                     <div class="col-lg-8">
-                        <form class="submit-recipe-form">
+                        <form class="submit-recipe-form" method="POST" action="add" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>食譜名稱</label>
-                                <input type="text" placeholder="請輸入食譜名稱..." class="form-control" name="name"
+                                <input type="text" placeholder="請輸入食譜名稱..." class="form-control" name="title"
                                     data-error="Subject field is required" required>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
+                                <label>食譜標籤</label>
+                                <select class="select2 tags form-control" name="tags" multiple="multiple"></select>
+                            </div>
+                            <div class="form-group">
                                 <label>簡介</label>
-                                <textarea placeholder="請輸入食譜描述..." class="textarea form-control" name="message" id="form-message"
+                                <textarea placeholder="請輸入食譜描述..." class="textarea form-control" name="descript" id="form-message"
                                     rows="7" cols="20" data-error="Message field is required" required></textarea>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <!-- <div class="additional-input-wrap">
-                                <label>Upload your photos</label>
-                                <div class="form-group">
-                                    <ul class="upload-img">
-                                        <li><img src="img/figure/upload-banner1.jpg" alt="Upload Image"></li>
-                                        <li><img src="img/figure/upload-banner1.jpg" alt="Upload Image"></li>
-                                        <li><img src="img/figure/upload-banner1.jpg" alt="Upload Image"></li>
-                                        <li><img src="img/figure/upload-banner1.jpg" alt="Upload Image"></li>
-                                        <li><img src="img/figure/upload-banner1.jpg" alt="Upload Image"></li>
-                                    </ul>
-                                    <button type="submit" class="btn-upload"><i class="fas fa-cloud-upload-alt"></i>UPLOAD</button>
-                                </div>
-                            </div> -->
                             <div class="additional-input-wrap">
                                 <label>烹調資訊</label>
                                 <div class="row gutters-5">
@@ -113,14 +104,14 @@
                                         <div class="form-group additional-input-box icon-left">
                                             <i class="far fa-clock"></i>
                                             <input type="number" placeholder="烹飪時間（分鐘）" class="form-control"
-                                                name="name">   
+                                                name="time">   
                                         </div>
                                     </div>
                                     <div class="col-6">
                                        <div class="form-group additional-input-box icon-left">
                                             <i class="fas fa-utensils"></i>
                                             <input type="number" placeholder="份量（人份）" class="form-control"
-                                                name="name">
+                                                name="people">
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +129,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="name">
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram">
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
@@ -156,12 +147,12 @@
                                             <div class="form-group additional-input-box icon-left" style="height: 150px;">
                                                 <i class="fas fa-arrows-alt"></i>
                                                 <label><img id="recipeImageUpload" src="upload.png" height="150px"/>
-                                                <input type="file" name="rfile" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
+                                                <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
                                             </div>
                                         </div>
                                         <div class="col-9">
                                             <div class="form-group additional-input-box icon-right"  style="height: 150px;">
-                                                <textarea name="" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>
+                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>
                                                 <i class="fas fa-times removeStep"></i>
                                             </div>
                                         </div>
@@ -170,7 +161,7 @@
                                 </div>
                                     <button type="button" class="btn-upload" id="addStep"><i class="flaticon-add-plus-button"></i>加入步驟</button>
                             </div>
-                            <button type="submit" class="btn-submit">SUBMIT RECIPE</button>
+                            <button type="submit" class="btn-submit">發佈食譜</button>
                         </form>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -459,7 +450,7 @@
                 });
 
             function selectRefresh() {
-                $('.select2').select2({
+                $('.foods').select2({
                     theme: 'classic',
                     dropdownAutoWidth: true,
                     width: '100%'
@@ -533,6 +524,26 @@
                 };
                 fr.readAsDataURL(event.target.files[0]);
             }
+
+            //新增KeywordList
+            var keywordSettings = {
+                "url": "http://localhost:8090/cookblog/find/keyword/all",
+                "method": "GET",
+                "timeout": 0,
+            };
+            $.ajax(keywordSettings).done(function (response) {
+                var keywordList = '';
+                for(i in response){
+                    keywordList += '<option value="'+ response[i].keyword +'">'+ response[i].keyword +'</option>';
+                }
+                $(".tags").append(keywordList);
+                $(".tags").select2({
+                    theme: 'classic',
+                    dropdownAutoWidth: true,
+                    width: '100%'
+                });
+            });
+
             
     </script>
 </body>

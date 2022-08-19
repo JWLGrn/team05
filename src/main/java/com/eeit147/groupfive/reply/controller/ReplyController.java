@@ -42,41 +42,30 @@ public class ReplyController {
 	
 	
 	//測試
+	
 	Integer usersId=3;
-	Integer recipeId=2; //replytype=1
-	Integer postsId; //replytype=2
+	Integer replytype=1;//1為recipe,2為posts(有posts前端設定2)
+	Integer replytypeId=2; //recipeId或postsId
+	Integer replyId=9; //recipeId或postsId
+	
 	
 	@GetMapping("/reply/page")
 	public String replyPage(Model m) {
-		Integer replytype=1;
-		Integer replyTypeId=2;
-				
+		m.addAttribute("replytype", replytype);
+		m.addAttribute("replytypeId", replytypeId);
 		m.addAttribute("usersId",usersId);
+		m.addAttribute("replyId",replyId);
 		return "reply";
 	}
 	
 	@ResponseBody
 	@GetMapping("/reply/show")
-	public List<ReplyDto> replyShow() {
-		Integer replytype=1;
-		Integer replyTypeId=2;
-		List<Reply> allReply=rpDao.findAllByRecipeReplyById(replyTypeId);
-		System.out.println("@@"+allReply.size());
-		List<ReplyDto> datadto=changeReplyToDto(allReply,1,2,3);
-		
-		for(ReplyDto r:datadto) {
-				
-		System.out.println(r.getReplytype());
-		System.out.println(r.getReplytypeId());
-		System.out.println(r.getReplyId());
-		System.out.println(r.getFinallyPhoto());
-		System.out.println(r.getMessage());
-		System.out.println(r.getUsersId());
-		System.out.println(r.getUserName());
-		System.out.println(r.getUserPhoto());
+	public List<Reply> replyShow() {
+		List<Reply> allReply=rpDao.findAllByRecipeReplyById(replytypeId);
+		for(Reply r:allReply) {
+			System.out.println(r.getUsers().getUserName());
 		}
-		
-		return datadto;
+		return allReply;
 	}
 	public void hello() {
 		System.out.println("hello");
@@ -126,23 +115,16 @@ public class ReplyController {
 		List<Reply> allReply=rpDao.findAllByRecipeReplyById(replydto.getReplytypeId());
 		return allReply;
 	}
-	public List<ReplyDto> changeReplyToDto(Iterable<Reply> replys,Integer replytype,Integer replytypeId,Integer userId){
-		List<ReplyDto> dtolist=new ArrayList<ReplyDto>();
-		for(Reply r:replys) {
-			ReplyDto dto=new ReplyDto();
-			dto.setReplytype(replytype);
-			dto.setReplytypeId(replytypeId);
-			dto.setReplyId(r.getReplyId());
-			dto.setFinallyPhoto(r.getFinallyPhoto());
-			dto.setMessage(r.getMessage());
-			dto.setUsersId(userId);
-			Optional<Users> optional = uDao.findById(userId);
-			Users user = optional.get();
-			dto.setUserName(user.getUserName());
-			dto.setUserPhoto(user.getUserPhoto());	
-			
-		}
-		return dtolist;
-	} 
-	
+	@ResponseBody
+	@PostMapping(value="/reply/update", produces = { "application/json; charset=UTF-8" })
+	public Reply replyUpdate(@RequestBody Integer replyId, Model m){
+		Optional<Reply> r=rpDao.findById(replyId);
+		Reply reply=r.get();
+		return reply;
+	}
+	@ResponseBody	@PostMapping(value="/reply/delete", produces = { "application/json; charset=UTF-8" })
+	public void replyDelete(@RequestBody Integer replyId, Model m){
+		rpDao.deleteById(replyId);
+
+	}
 }
