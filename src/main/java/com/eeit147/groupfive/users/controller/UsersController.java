@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -71,7 +72,7 @@ public class UsersController {
 
 	// 會員執行登入 判斷帳號密碼
 	@PostMapping("/user/login.controller")
-	public String checkLogin(HttpSession session, @ModelAttribute("login") Users user, Model m) {
+	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
 		HashMap<String, String> msg = new HashMap<String, String>();
 		Users loginUser = UService.findUsersByEmailandPassword(user.getEmail(), user.getPassword());
 
@@ -370,5 +371,15 @@ public class UsersController {
 			ResponseEntity<byte[]> re = new ResponseEntity<byte[]>(bytes, header, HttpStatus.OK);
 			return re;
 		}
+	}
+	//查詢個人食譜
+	@GetMapping("/mydatabase")
+	public String findPersonalByRecipe(Integer id,Model m) {
+		Users session = (Users)m.getAttribute("loginUser");
+	
+		Users user = UService.findOneUserById(id);
+		Set<Recipe> recipe = user.getRecipe();
+		m.addAttribute("recipe", recipe);
+		return "test/selfRecipe" ;
 	}
 }
