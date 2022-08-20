@@ -78,14 +78,18 @@ public class ReplyController {
 		Integer replyId=replydto.getReplyId();//=recipeId or =postsId
 		Date date=new Date();//修改時用
 		reply.setUploadTime(date);
+		boolean updatejudge=true;
 		if(replyId==1) {   //新增時先存一次,取得id <新增時id設1>
 			rpService.insertReply(reply);
 		    replyId=reply.getReplyId();
+		    updatejudge=false;   
 		}
 		String imgPath="reply"+replyId+".jpg";//路徑儲存
 		//判斷是否有選擇圖片
 		if(replydto.getFinallyPhoto()==null) {
-			imgPath="noimg.jpg";//預設圖片
+			if(updatejudge==false) {
+				imgPath="noimg.jpg";//預設圖片
+			}	
 		}else{
 			//存圖片
 			String pfile=replydto.getFinallyPhoto().substring(replydto.getFinallyPhoto().indexOf(",") + 1);

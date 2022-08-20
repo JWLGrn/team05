@@ -54,13 +54,13 @@ public class EventController {
 	private EventDao eDao;
 	
 	Integer userId=1;//管理員模式
-	//Integer userId=2;//使用者模式
-	Integer eventId=1;
+	//Integer userId=3;//使用者模式
+	//Integer eventId=1;
 	//主頁
 	@GetMapping("/event/page")
 	public String recipepage(Model m) {
 		m.addAttribute("userId", userId);	
-		m.addAttribute("eventId",eventId);	//insert
+		//m.addAttribute("eventId",eventId);	//insert
 		return "event";
 	}
 	//顯示食譜
@@ -95,13 +95,14 @@ public class EventController {
 	//新增活動
 	@ResponseBody
 	@PostMapping(value="/event/insert", produces = { "application/json; charset=UTF-8" })
-	public void eventInsert(@RequestBody EventDto eventdto, Model m) throws Exception {
+	public List<Event> eventInsert(@RequestBody EventDto eventdto, Model m) throws Exception {
+
 		Event event=new Event();//建一個空的event
 		Integer eventId=eventdto.getEventId();
-		//if(eventId==1) {   //新增時先存一次,取得id <新增時id設1>
-		//	eDao.save(event);
-		//	eventId=event.getEventId();
-	//	}
+		if(eventId==1) {   //新增時先存一次,取得id <新增時id設1>
+			eDao.save(event);
+			eventId=event.getEventId();
+		}		
 		event.setEventId(eventId);
 		event.setEventTitle(eventdto.getEventTitle());
 		event.setEventContext(eventdto.getEventContext());
@@ -126,5 +127,8 @@ public class EventController {
 		event.setEventPhoto(imgPath);
 		eDao.save(event);//存檔
 		//顯示
+		List<Event> newEvent=eDao.findAll();		
+		return newEvent;
+		
 	}
 }
