@@ -71,9 +71,10 @@ $(document).ready(function(){
 	show();
 });
 		
-function show(){	
+function show(){
+	
 	var settings = {
-        "url":"${contextRoot}/event/showrecipe",
+        "url": "http://localhost:8090/cookblog/reply/show",
     	"method": "GET",
    		"timeout": 0,
     };
@@ -89,6 +90,10 @@ function show(){
 			    +"留言圖片:<img src='"+value.finallyPhoto+"'/>"
 				+"留言內容:"+value.message+"<br/>"			    
 			    +"留言時間:"+value.uploadTime; 
+			if(value.userId==${usersId}){
+				replydata+="<button onclick='update("+value.replyId+")'>修改</button>";
+				replydata+="<button onclick='del("+value.replyId+")'>刪除</button>";
+			}
 			replydata+="<br/>-----------------------------------------<br/></div>";
 		})
 		$("#showmsg").html(replydata);
