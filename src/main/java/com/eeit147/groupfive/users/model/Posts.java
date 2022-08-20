@@ -39,6 +39,12 @@ public class Posts {
 	@Column(name = "context")
 	private String context;
 	
+	@Column(name = "postphoto")
+	private String postphoto;
+	
+	@Column(name = "outline")
+	private String outline;
+	
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Taipei") //for JSON  需加timezone時區
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") //for SpringMVC
 	@Temporal(TemporalType.TIMESTAMP)
@@ -107,6 +113,22 @@ public class Posts {
 		this.time = time;
 	}
 
+	public String getPostphoto() {
+		return postphoto;
+	}
+
+	public void setPostphoto(String postphoto) {
+		this.postphoto = postphoto;
+	}
+
+	public String getOutline() {
+		return outline;
+	}
+
+	public void setOutline(String outline) {
+		this.outline = outline;
+	}
+
 	public Users getUsers() {
 		return users;
 	}
@@ -130,5 +152,12 @@ public class Posts {
 	public void setReport(Set<Report> report) {
 		this.report = report;
 	}
+
+	@Override
+	public String toString() {
+		return "Posts [title=" + title + ", context=" + context + ", postphoto=" + postphoto + ", outline=" + outline
+				+ "]";
+	}
+	
 
 }

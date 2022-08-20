@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html class="no-js" lang="">
+<html>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="${contextRoot}/css/summernote.css">
     <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
+    
     <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
     <!-- Select 2 CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
@@ -38,15 +39,15 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-    <style>
-		.ck-editor__editable_inline {
-			/* 設定最低高度 */
-    		min-height: 500px;
+    <style type="text/css">
+    .imgcut{
+		height:300px;
+		overflow:hidden;
 		}
     </style>
 </head>
-
 <body>
+    <!-- Add your site or application content here -->
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
     <!-- Preloader End Here -->
@@ -57,7 +58,7 @@
     <!-- ScrollUp End Here -->
     <div id="wrapper" class="wrapper">
         <!-- Header Area Start Here -->
-        <jsp:include page="layout/navbar.jsp"/>
+		<jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- Inne Page Banner Area Start Here -->
         <section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg">
@@ -65,12 +66,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Submit a Recipe</h1>
+                            <h1>List Blog Page</h1>
                             <ul>
                                 <li>
                                     <a href="index.html">Home</a>
                                 </li>
-                                <li>Recipe Post</li>
+                                <li>Blog</li>
                             </ul>
                         </div>
                     </div>
@@ -78,30 +79,191 @@
             </div>
         </section>
         <!-- Inne Page Banner Area End Here -->
-        <!-- Submit Recipe Area Start Here -->
-        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+        <!-- Blog List Area Start Here -->
+        <section class="blog-list-page-wrap padding-top-80 padding-bottom-50">
             <div class="container">
                 <div class="row gutters-60">
                     <div class="col-lg-8">
-                        <form class="submit-recipe-form" method="POST" action="recipe/insert">
-                        <div class="form-group">
-                                <input type="file" id="photo">
+					<!-- ----------------------章列表重複結構---------------------- -->
+					<c:forEach items="${postsPage.content}" var="post">
+                        <div class="blog-box-layout1">
+                            <div class="item-figure imgcut">
+                                <a href="${contextRoot}/posts/find/${post.postsId}"><img src="${contextRoot}/posts/${post.postphoto}" alt="Blog"></a>
                             </div>
-                            <div class="form-group">
-                                <label>標題</label>
-                                <input type="text" placeholder="請輸入文章標題..." class="form-control" id="title"
-                                    data-error="Subject field is required" required>
-                                <div class="help-block with-errors"></div>
+                            <div class="item-content">
+                                <ul class="entry-meta">
+                                    <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${post.time}"/></a></li>
+                                    <li><a href="#"><i class="fas fa-user"></i>by <span>${post.users.userName}</span></a></li>
+                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(03)</span></a></li>
+                                    <li><a href="#"><i class="fas fa-heart"></i><span>59</span></a></li>
+                                </ul>
+                                <h3 class="item-title"><a href="${contextRoot}/posts/find/${post.postsId}">${post.title}</a></h3>
+                                <p>${post.outline}</p>
+                                <a href="${contextRoot}/posts/find/${post.postsId}" class="item-btn">繼續閱讀→<i class="flaticon-next"></i></a>
                             </div>
-                            <div class="form-group">
-                                <label>文章內容</label>
-        							<textarea id="editor"></textarea>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <button type="button" class="btn-submit">發表文章</button>
-                        </form>
+                        </div>
+                        </c:forEach>
+                     <!-- ----------------------章列表重複結構---------------------- -->
+                     <ul class="pagination-layout1">
+                     <c:forEach begin="1" end="${postsPage.totalPages}" var="pageNumber">
+					<c:choose>
+						<c:when test="${pageNumber-1 == postsPage.number}">
+							<li class="active">
+								<a>${pageNumber}</a>
+							</li>	
+						</c:when>
+						<c:otherwise>
+							<li><a href="${contextRoot}/posts/find/all?p=${pageNumber}">
+								${pageNumber} </a>
+							</li>	
+						</c:otherwise>
+
+					</c:choose>
+				</c:forEach>
+                        </ul>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                        <div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">LATEST BLOG</h3>
+                            </div>
+                            <div class="widget-blog-post">
+                                <ul class="block-list">
+                                    <li class="single-item">
+                                        <div class="item-img">
+                                            <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
+                                                    2018</a></div>
+                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                                    Mozzarella Oelette</a></h4>
+                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                                    John Martin</a></div>
+                                        </div>
+                                    </li>
+                                    <li class="single-item">
+                                        <div class="item-img">
+                                            <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
+                                                    2018</a></div>
+                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                                    Mozzarella Oelette</a></h4>
+                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                                    John Martin</a></div>
+                                        </div>
+                                    </li>
+                                    <li class="single-item">
+                                        <div class="item-img">
+                                            <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
+                                                    2018</a></div>
+                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                                    Mozzarella Oelette</a></h4>
+                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                                    John Martin</a></div>
+                                        </div>
+                                    </li>
+                                    <li class="single-item">
+                                        <div class="item-img">
+                                            <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
+                                                    2018</a></div>
+                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                                    Mozzarella Oelette</a></h4>
+                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                                    John Martin</a></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
+                            </div>
+                            <div class="widget-follow-us">
+                                <ul>
+                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-ad">
+                                <a href="#"><img src="img/figure/figure6.jpg" alt="Ad" class="img-fluid"></a>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">CATEGORIES</h3>
+                            </div>
+                            <div class="widget-categories">
+                                <ul>
+                                    <li>
+                                        <a href="#">BreakFast
+                                            <span>25</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Lunch
+                                            <span>15</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Pasta
+                                            <span>22</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dinner
+                                            <span>18</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dessert
+                                            <span>36</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Drinks
+                                            <span>12</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Fruits
+                                            <span>05</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-newsletter-subscribe">
+                                <h3>GET LATEST UPDATES</h3>
+                                <p>Newsletter Subscribe</p>
+                                <form class="newsletter-subscribe-form">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="your e-mail address" class="form-control" name="email"
+                                            data-error="E-mail field is required" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="form-group mb-none">
+                                        <button type="submit" class="item-btn">SUBSCRIBE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div class="widget">
                             <div class="section-heading heading-dark">
                                 <h3 class="item-heading">FEATURED ARTICLE</h3>
@@ -155,83 +317,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                            </div>
-                            <div class="widget-follow-us">
-                                <ul>
-                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">LATEST RECIPES</h3>
-                            </div>
-                            <div class="widget-latest">
-                                <ul class="block-list">
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
-                                            <div class="count-number">1</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                            <div class="count-number">2</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
-                                            <div class="count-number">3</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
-                                            <div class="count-number">4</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
                         <div class="widget">
                             <div class="section-heading heading-dark">
                                 <h3 class="item-heading">INSTAGRAM</h3>
@@ -295,18 +380,54 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">POPULAR TAGS</h3>
+                            </div>
+                            <div class="widget-tag">
+                                <ul>
+                                    <li>
+                                        <a href="#">DESERT</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">CAKE</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">BREAKFAST</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">BURGER</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">DINNER</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">PIZZA</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">SEA FOOD</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">SALAD</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">JUICE</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Submit Recipe Area End Here -->
+        <!-- Blog List Area End Here -->
         <!-- Footer Area Start Here -->
         <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
     <!-- Search Box Start Here -->
     <div id="search" class="search-wrap">
-        <button type="button" class="close">�</button>
+        <button type="button" class="close">×</button>
         <form class="search-form">
             <input type="search" value="" placeholder="Type here........" />
             <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
@@ -367,61 +488,5 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
-    <script src="${contextRoot}/ckeditor/ckeditor.js"></script>
- 	<script type="text/javascript">
- 		ClassicEditor
-    	.create(document.querySelector('#editor'))
-    	.then(editor => {
-    		window.editor = editor;
-    	})
-
-//     	$(".btn-submit").click(function(){
-//             var editorData= editor.getData();
-//             var settings = {
-//             		  "url": "http://localhost:8090/cookblog/posts/insert",
-//             		  "method": "POST",
-//             		  "timeout": 0,
-//             		  "headers": {
-//             		    "Content-Type": "application/json"
-//             		  },
-//             		  "data": JSON.stringify({
-//             		    "title": $("#title").val(),
-//             		    "context": $(editor.getData()).text()
-//             		  }),
-//             		};
-
-//             		$.ajax(settings).done(function (response) {
-//             		  console.log(response);
-//             		});
-//           })
-          
-          $(".btn-submit").click(function(){
-        	  var formData = new FormData();
-              var data= new Blob([JSON.stringify({
-                  "title": $("#title").val(),
-                  "context": editor.getData(),
-                  "outline": $(editor.getData()).text().substr(0,180)+"..."
-              	  })], {
-                      type: "application/json"
-                  });
-
-              formData.append("posts", data);
-              formData.append("photo", $("#photo")[0].files[0]);
-              $.ajax({
-                  url : "http://localhost:8090/cookblog/posts/insert",
-                  type : "post",
-                  data : formData,
-                  cache: false,
-                  processData : false,
-                  contentType: false,
-                  success : function(response) {
-                	  window.location.href = "http://localhost:8090/cookblog/posts/find/"+response;
-                  },
-              });
-
-          })
- 	</script>
 </body>
-
-
 </html>

@@ -146,7 +146,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Blog</a>
+                                    <li><a href="${contextRoot}/posts/find/all">Blog</a>
                                         <ul class="dropdown-menu-col-1">
                                             <li><a href="blog-grid.html">Blog Grid</a></li>
                                             <li><a href="blog-list.html">Blog List</a></li>
