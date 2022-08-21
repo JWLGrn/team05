@@ -2,15 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<script src="jquery-3.6.0.min.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -20,10 +22,12 @@ body {font-size:16px;}
 <title>管理使用者</title>
 </head>
 <body>
-<div class="w3-main" style="margin-right:220px;">
-<h3>管理使用者</h3>
-</div>
-<div class="w3-main" style="margin-left:220px;"> 
+<jsp:include page="adminMenu.jsp"></jsp:include>
+<div class="w3-main" style="margin-left:220px;">
+<h3>管理使用者</h3> 
+<label >使用者帳號:</label>
+
+<input id="userName" placeholder="請輸入使用者帳號" />
 <table  class="table table-striped">
 <thead>
     <tr>
@@ -48,7 +52,7 @@ body {font-size:16px;}
 	<td><input name="password" value="${u.password}" /></td>
 	<td><input name="userName" value="${u.userName}" /></td>
 	<td><input name="permission" value="${u.permission}" /></td>
-	<td><button type="submit" class="btn btn-primary">送出</button></td>
+	<td><button type="submit" class="btn btn-primary btn-sm">送出</button></td>
 	<td><a href="${contextRoot}/deleteUser/${u.userId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>
 	
 </form>
@@ -57,19 +61,49 @@ body {font-size:16px;}
 </tbody>
 </table>
 </div>
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-    <h3 class="w3-padding-64"><b>系統管理</b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#admin" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a> 
-    <a href="${contextRoot}/showAllUsers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理使用者</a> 
-    <a href="${contextRoot}/addfoods" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">新增食材</a> 
-    <a href="${contextRoot}/showAllFoods123" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理食材</a> 
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-  </div>
-</nav>
+<!-- <script>
+$("#userName").keyup(function(){
+	let usernameValue = $('#userName').val();
+	let urlStr = "${contextRoot}/find/searchUser/" + usernameValue;
+	$.ajax({
+		url: urlStr ,
+		type : 'Get',
+		datatype: 'text',
+		success:function(data){
+			var append1 ;
+			 $('#userbody').empty();
+			 for (var i = 0; i < data.length; i++) {
+				  const item = data[i];
+				  console.log(i, item);
+				var text=	'<tr id="userTr">'+	
+					'<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
+					+'<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'+
+					'<td><input  id="userPhoto'+item.userId+'" name="userPhoto" value="'+item.userPhoto+'" /></td>'+
+					'<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'+
+					'<td><input  id="password'+item.userId+'" =name="password" value="'+item.password+'" /></td>'+
+					'<td><input  id="userName'+item.userId+'" =name="userName" value="'+item.userName+'" /></td>'+
+					'<td><input  id="permission'+item.userId+'" =name="permission" value="'+item.permission+'" /></td>'+
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.userId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'</form>'+	
+					'</tr>'
+					console.log("text",text);
+					$("#userbody").append(text);				
+			}
+			console.log("data",data);
+		}
+	});
+});
+function sendfromUpdateData(userId){	
+	console.log(userId)
+	console.log($("#userPhoto"+userId).val())
+	console.log($("#email"+userId).val())
+	console.log($("#password"+userId).val()
+	console.log($("#userName"+userId).val()
+	console.log($("#permission"+userId).val())
+	const url="${contextRoot}/editFoods/"+userId+"/"+$("#userPhoto"+userId).val()+"/"+$("#email"+userId).val()+"/"+$("#password"+userId).val()+"/"+$("#userName"+userId).val()+"/"+$("#permission"+userId).val(); 
+	window.location.href = url;
+}
+</script>-->
 </body>
 </html>

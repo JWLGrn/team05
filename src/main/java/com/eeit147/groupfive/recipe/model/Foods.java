@@ -71,6 +71,12 @@ public class Foods {
 		this.calorie = calorie;
 	}
 
+	@Override
+	public String toString() {
+		return "Foods [foodsId=" + foodsId + ", foodsName=" + foodsName + ", foodsType=" + foodsType + ", calorie="
+				+ calorie + "]";
+	}
+
 //	public Set<RecipeFoods> getRecipeFoods() {
 //		return recipeFoods;
 //	}
@@ -88,11 +94,7 @@ public class Foods {
 //		this.recipeFoods = recipeFoods;
 //	}
 
-//	@Override
-//	public String toString() {
-//		return "Foods [foodsId=" + foodsId + ", foodsName=" + foodsName + ", foodsType=" + foodsType + ", calorie="
-//				+ calorie + ", recipeFoods=" + recipeFoods + "]";
-//	}
+
 
 
 

@@ -2,7 +2,9 @@ package com.eeit147.groupfive.controller;
 
 
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -77,6 +79,12 @@ private FoodsService fService;
 		//食材列表分頁
 		@GetMapping("/showAllFoods123")
 		public String viewFoodsPage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber, Model model) {
+			Set<String> data = new LinkedHashSet<String>(); 
+			 List<Foods> foods=fDao.findAll();
+			for(Foods food : foods ) { 
+			 data.add(food.getFoodsType()); 
+			}
+			model.addAttribute("option", data);
 			Page<Foods> page = fService.findByPage(pageNumber);
 			model.addAttribute("page", page);
 			return "test/showAllFoods123";
