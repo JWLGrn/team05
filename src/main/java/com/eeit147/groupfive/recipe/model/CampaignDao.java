@@ -1,0 +1,18 @@
+package com.eeit147.groupfive.recipe.model;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.eeit147.groupfive.users.model.Users;
+
+@Repository
+@Transactional
+public interface CampaignDao extends JpaRepository<Campaign, Integer> {
+	//查詢是否有該關聯
+		public Boolean existsByEventAndRecipe(Event event,Recipe recipe);
+	
+}

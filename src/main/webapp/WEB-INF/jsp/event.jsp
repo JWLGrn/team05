@@ -56,16 +56,13 @@ img{
 <button id="createbtn">建立活動</button>	
 <div onclick="hotkey()" style="color:red;">快捷鍵</div>
 </div>
-<h3>活動顯示</h3>
+
 <div id="showevent">
-
-
+	<h3>活動顯示</h3>
 </div>
 
-<h3>我的食譜</h3>
 <div id="myRecipe">
-
-<button>參加活動</button>	
+    
 </div>
 
 
@@ -75,14 +72,13 @@ let fileDataURL;
 //網頁載入時預設--------------------------------------------
 $(document).ready(function(){
 	 $("#createbtn").hide();
-	 
+	 $("#showMyRecipe").hide();
 	 if(${userId}==1){//userId=1  -->管理員
 	 	$("#newevent").show();
 	 }else{
 	 	$("#newevent").hide();
 	}
-	//顯示食譜和活動
-	 showMyRecipe();
+	//顯示活動
 	 showAllEvent();
 	 //預設開始時間 結束時間
 	 dateSet();
@@ -117,15 +113,22 @@ function imgview(event,imgid){
   }
 }
 //顯示食譜
-function showMyRecipe(){
+function showMyRecipe(eventId){
 	var settings = {
 	        "url": "http://localhost:8090/cookblog/event/showrecipe",
 	    	"method": "GET",
 	   		"timeout": 0,
 	    };
 		$.ajax(settings).done(function (response) {
-			var replydata="";
+			var replydata="<h3>我的食譜</h3>";
+			
 			$.each(response,function(index,value){
+				
+				
+				console.log("@@"+checkjoin(eventId,value.recipeId));
+ 				//if(checkjoin(eventId,value.recipeId)==true){
+ 					replydata+='<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'">'
+ 				//}
 				replydata+=
 					"食譜Id:"+value.recipeId+"<br/>"
 					+"食譜名稱:"+value.cookTitle+""
@@ -134,14 +137,14 @@ function showMyRecipe(){
 				    +"烹調時間:"+value.cookTime+"分鐘_"
 					+"食用人數:"+value.cookServe+"人<br/>"			    
 				    +"時間:"+value.date +"<br/>"	
-					+"卡洛里:"+value.totalCal;	
-				replydata+="<button onclick='participate("+value.recipeId+")'>參加活動</button><br/>-----------------------------------------<br/></div>";
+					+"卡洛里:"+value.totalCal
+					+"<br/>-----------------------------------</br>";		
 			})
-			$("#myRecipe").html(replydata);
-			
+			replydata+="<button onclick='checkchoice("+eventId+")'>送出</button>";
+			$("#myRecipe").html(replydata);			
 		});	
 }
-//顯示活動
+//顯示活動  管理員:crud,一般使用者:參加活動
 function showAllEvent(){
 	var settings = {
 	        "url": "http://localhost:8090/cookblog/event/showevent",
@@ -159,8 +162,12 @@ function showAllEvent(){
 				    +"開始時間:"+value.timeStart+"<br/>"
 					+"結束時間:"+value.timeEnd;
 				if(${userId}==1){
- 				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button><br/>";
-			    }	
+ 				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button>";
+ 				     replydata+="<button onclick='del("+value.eventId+")'>刪除</button>";
+			    }else{
+			    	replydata+="<button onclick='participate("+value.eventId+")'>參加活動</button>";
+			    }
+				replydata+="<br/>-----------------------------------------<br/>";
  			})
 
  			$("#showevent").html(replydata);
@@ -228,21 +235,24 @@ $("#timeEnd").blur(function(){
 	let inputtime=$("#timeEnd").val();
 	let tarr=inputtime.split("-"); 
 	let date_num=parseInt(starr[2])+1;
+	
  	function reset(){
  		if(date_num<10){date_num="0"+date_num}
  		$("#timeEnd").val(starr[0]+"-"+starr[1]+"-"+date_num);
- 	}
-	if(tarr[0]<starr[0]){
-		$("#checkTime").text("結束時間不可小於開始時間");
+	}
+	if(tarr[0]<starr[0]||tarr[0]>(parseInt(starr[0])+1)){//年
+		$("#checkTime").text("結束時間不可小於開始時間,也不能超過一年");
 		reset();
 	}else{
-		if(tarr[1]<starr[1]){
+		if(tarr[1]<starr[1]){//月
 			$("#checkTime").text("結束時間不可小於開始時間");
 			reset();
 		}else{
-			if(tarr[2]<date_num){
+			if(tarr[2]<date_num){//日
 				$("#checkTime").text("結束時間不可小於開始時間");
 				reset();
+			}else{
+				$("#checkTime").text("");
 			}
 		}
 	}	
@@ -293,9 +303,11 @@ $("#createbtn").click(function(){
 					+"敘述:"+value.eventContext+"<br/>"
 				    +"開始時間:"+value.timeStart+"<br/>"
 					+"結束時間:"+value.timeEnd;
-				if(${userId}==1){
- 				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button><br/>";
-			    }	
+ 				if(${userId}==1){
+				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button>";
+				     replydata+="<button onclick='del("+value.eventId+")'>刪除</button>";
+			    }
+				replydata+="<br/>-----------------------------------------<br/>";	
  			})
  			$("#showevent").html(replydata);
  			//清空資料
@@ -336,12 +348,107 @@ function updateevent(eventId){
 		}
 	});
 }
+//刪除
+function del(eventId){
+ 	var r = confirm("您確定要刪除嗎?");
+ 	if (r == true) {
+ 		console.log("del");
+ 		alert('刪除成功');
+ 	var replyjson=JSON.stringify(eventId);
+  	$.ajax({
+  		url:"${contextRoot}/event/delete",
+  		contentType:'application/json',//送出資料型態
+ 		dataType:'json',//回傳資料型態
+ 		method:'post',
+ 		data:replyjson,
+ 		success:function(result){			
+			alert('刪除成功');
+ 		},
+ 		error:function(err){
+ 			console.log(err);
+ 		}
+ 	});
+  }
+	 $(location).prop("href", "http://localhost:8090/cookblog/event/page");
+}
 
 //參加活動紐
-function participate(recipeId){
-	//判斷是否有參加
-	//以參加,按鈕必須顯示已參加
-	console.log("participate");
+function participate(eventId){
+	//顯示選擇活動
+	var replyjson=JSON.stringify(eventId);
+	$.ajax({
+		url:"${contextRoot}/event/update",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){						
+			var replydata="";			
+ 				replydata+=
+					"活動Id:"+result.eventId+"<br/>"
+					+"活動標題:"+result.eventTitle+""
+					+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
+					+"敘述:"+result.eventContext+"<br/>"
+				    +"開始時間:"+result.timeStart+"<br/>"
+					+"結束時間:"+result.timeEnd+"<br/>"
+					+"<button onclick='rechoice()'>重新選擇</button>";	
+ 			$("#showevent").html(replydata);
+ 			$("#showMyRecipe").show();
+ 			showMyRecipe(eventId);
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+//重新選擇想參加的活動
+function rechoice(){
+	 $(location).prop("href", "http://localhost:8090/cookblog/event/page");
+}
+//將參加的食譜傳到後端資料庫
+function checkchoice(eventId){
+	var str=eventId;
+	var nodes=document.getElementsByName('choicerecipe');
+	for(let i=0;i<nodes.length;i++){
+		if(nodes[i].checked){
+			str+="-"+nodes[i].value;
+		}
+	}
+	var replyjson=JSON.stringify(str);
+	 $.ajax({
+	 	url:"${contextRoot}/event/participate",
+	 	contentType:'application/json',//送出資料型態
+	 	dataType:'json',//回傳資料型態
+	 	method:'post',
+	 	data:replyjson,
+	 	success:function(result){						
+			$(location).prop("href", "http://localhost:8090/cookblog/event/page");
+	 	},
+	 	error:function(err){
+	 		console.log(err);
+	 	}
+	});
+}
+function checkjoin(eventId,recipeId){
+	let obj={
+			eventId:eventId,
+			recipeId:recipeId
+	}
+  	var replyjson=JSON.stringify(obj);
+  	 $.ajax({
+	 	url:"${contextRoot}/event/participatecheck",
+ 	 	contentType:'application/json',//送出資料型態
+  	 	dataType:'json',//回傳資料型態
+  	 	method:'post',
+  	 	data:replyjson,
+  	 	success:function(result){		
+			console.log(result);
+			return result;
+  	 	},
+  	 	error:function(err){
+  	 		console.log(err);
+  	 	}
+  	});
 }
 </script>
 </body>
