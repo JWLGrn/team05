@@ -2,41 +2,32 @@ package com.eeit147.groupfive.recipe.controller;
 
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.eeit147.groupfive.recipe.model.Campaign;
+import com.eeit147.groupfive.recipe.model.CampaignDao;
+import com.eeit147.groupfive.recipe.model.CampaignDto;
 import com.eeit147.groupfive.recipe.model.Event;
 import com.eeit147.groupfive.recipe.model.EventDao;
 import com.eeit147.groupfive.recipe.model.EventDto;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
-import com.eeit147.groupfive.recipe.model.RecipeStep;
 import com.eeit147.groupfive.recipe.model.RecipeStepDao;
-import com.eeit147.groupfive.recipe.service.RecipeService;
-import com.eeit147.groupfive.recipe.service.RecipeSteptService;
-import com.eeit147.groupfive.users.model.Reply;
-import com.eeit147.groupfive.users.model.ReplyDto;
+import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -52,10 +43,14 @@ public class EventController {
 	private RecipeStepDao rsDao;
 	@Autowired
 	private EventDao eDao;
+	@Autowired
+	private CampaignDao cDao;
+	@Autowired
+	private FavoriteDao fDao;
 	
-	Integer userId=1;//管理員模式
-	//Integer userId=3;//使用者模式
-	//Integer eventId=1;
+	//Integer userId=1;//管理員模式
+	Integer userId=3;//使用者模式
+	Integer eventId=1;
 	//主頁
 	@GetMapping("/event/page")
 	public String recipepage(Model m) {
@@ -96,12 +91,14 @@ public class EventController {
 	@ResponseBody
 	@PostMapping(value="/event/insert", produces = { "application/json; charset=UTF-8" })
 	public List<Event> eventInsert(@RequestBody EventDto eventdto, Model m) throws Exception {
-
+		boolean updatejudge=true;
 		Event event=new Event();//建一個空的event
 		Integer eventId=eventdto.getEventId();
 		if(eventId==1) {   //新增時先存一次,取得id <新增時id設1>
-			eDao.save(event);
-			eventId=event.getEventId();
+			if(updatejudge==false) {
+				eDao.save(event);
+				eventId=event.getEventId();
+			}
 		}		
 		event.setEventId(eventId);
 		event.setEventTitle(eventdto.getEventTitle());
@@ -115,7 +112,9 @@ public class EventController {
 		//設定照片
 		String imgPath="event"+eventId+".jpg";//路徑儲存
 		if(eventdto.getEventPhoto()==null) {
+			
 			imgPath="noimg.jpg";//預設圖片
+			
 		}else{
 			//存圖片
 			String pfile=eventdto.getEventPhoto().substring(eventdto.getEventPhoto().indexOf(",") + 1);
@@ -131,4 +130,46 @@ public class EventController {
 		return newEvent;
 		
 	}
+	@ResponseBody	@PostMapping(value="/event/delete", produces = { "application/json; charset=UTF-8" })
+	public void eventDelete(@RequestBody Integer eventId, Model m){
+		eDao.deleteById(eventId);
+
+	}
+	@ResponseBody	@PostMapping(value="/event/choice", produces = { "application/json; charset=UTF-8" })
+	public Event eventchoice(@RequestBody Integer eventId, Model m){
+		Optional<Event> e=eDao.findById(eventId);
+		Event event=e.get();
+	    return event;
+	}
+//Campaign
+	@ResponseBody	@PostMapping(value="/event/participate", produces = { "application/json; charset=UTF-8" })
+	public void participate(@RequestBody String recipelist, Model m){		
+		String[] data=recipelist.replace("\"","").split("-");//切割字串,data[0]為eventId,data[n]為recipeId
+		int eventId=Integer.parseInt(data[0]);
+		Optional<Event> e=eDao.findById(eventId);
+		Event event=e.get();
+		for(int i=1;i<data.length;i++) {
+			int recipeId=Integer.parseInt(data[i]);				
+			Optional<Recipe> r=rDao.findById(recipeId);
+			Recipe recipe=r.get();
+			System.out.println(i+"_"+recipe.getRecipeId()+"_"+event.getEventId());
+			Campaign campaign=new Campaign();
+			campaign.setEvent(event);
+			campaign.setRecipe(recipe);
+			cDao.save(campaign);
+		}	
+	}
+	@ResponseBody	@PostMapping(value="/event/participatecheck", produces = { "application/json; charset=UTF-8" })
+	public boolean participateCheck(@RequestBody CampaignDto campaignDto,Model m){
+		//System.out.println(campaignDto.getEventId());
+		//System.out.println(campaignDto.getRecipeId());		
+		Optional<Event> e=eDao.findById(campaignDto.getEventId());
+		Event event=e.get();
+		Optional<Recipe> r=rDao.findById(campaignDto.getRecipeId());
+		Recipe recipe=r.get();
+		boolean campaignslist=cDao.existsByEventAndRecipe(event, recipe);
+		System.out.println(campaignslist);
+		return campaignslist;
+	}
+	
 }
