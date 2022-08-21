@@ -64,6 +64,11 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+<!-- 		綠界組態設定 -->
+		<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-core</artifactId>
+</dependency>
 		
 	</dependencies>
 

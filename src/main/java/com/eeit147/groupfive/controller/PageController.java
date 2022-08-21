@@ -147,4 +147,8 @@ private FoodsService fService;
 		return "insertrecipe";
 	}
 	
+	@GetMapping("/testecPay")
+	public String ecPay() {
+		return "testecpay";
+	}
 }

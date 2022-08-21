@@ -101,7 +101,7 @@
                                                                     Recipe</a>
                                                             </li>
                                                             <li>
-                                                                <a href="login.html"><i class="fas fa-lock"></i>Login</a>
+                                                                <a href="${contextRoot}/user/login"><i class="fas fa-lock"></i>Login</a>
                                                             </li>
                                                             <li>
                                                                 <a href="404.html"><i class="fas fa-exclamation-triangle"></i>404
@@ -139,7 +139,7 @@
                                                 <a href="submit-recipe.html">Submit Recipe</a>
                                             </li>
                                             <li>
-                                                <a href="login.html">Login</a>
+                                                <a href="logins.html">Login</a>
                                             </li>
                                             <li>
                                                 <a href="login.html">404 Error</a>
