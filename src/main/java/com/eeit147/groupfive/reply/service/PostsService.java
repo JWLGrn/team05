@@ -119,4 +119,10 @@ public class PostsService {
 		
 		return null;
 	}
+
+	// 查詢最新文章
+	public List<Posts> findLatestPosts(){
+		List<Posts> posts = pDao.findTop4ByOrderByTimeDesc();
+		return posts;
+	}
 }
