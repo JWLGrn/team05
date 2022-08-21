@@ -159,5 +159,8 @@ public class Posts {
 				+ "]";
 	}
 	
+	public String getUserName() {
+		return users.getUserName();
+	}
 
 }

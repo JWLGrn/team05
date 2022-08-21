@@ -94,7 +94,7 @@
                                 <ul class="entry-meta">
                                     <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${post.time}"/></a></li>
                                     <li><a href="#"><i class="fas fa-user"></i>by <span>${post.users.userName}</span></a></li>
-                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(03)</span></a></li>
+                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(${fn:length(post.reply)})</span></a></li>
                                     <li><a href="#"><i class="fas fa-heart"></i><span>59</span></a></li>
                                 </ul>
                                 <h3 class="item-title"><a href="${contextRoot}/posts/find/${post.postsId}">${post.title}</a></h3>
@@ -128,7 +128,8 @@
                                 <h3 class="item-heading">LATEST BLOG</h3>
                             </div>
                             <div class="widget-blog-post">
-                                <ul class="block-list">
+                                <ul class="block-list" id="latestPost">
+							<!-- ------------------重複的結構------------------ -->
                                     <li class="single-item">
                                         <div class="item-img">
                                             <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
@@ -142,45 +143,7 @@
                                                     John Martin</a></div>
                                         </div>
                                     </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
-                                                    2018</a></div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
-                                                    2018</a></div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>15 Dec,
-                                                    2018</a></div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
+                             <!-- ------------------重複的結構------------------ -->
                                 </ul>
                             </div>
                         </div>
@@ -489,4 +452,27 @@
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
 </body>
+<script type="text/javascript">
+		var settings = {
+		  "url": "http://localhost:8090/cookblog/posts/find/lastest",
+		  "method": "GET",
+		  "timeout": 0,
+		};
+
+		$.ajax(settings).done(function (response) {
+			var latestPost = '';
+            for(let i in response){
+            	latestPost +='<li class="single-item">'
+            	+'<div class="item-img">'
+            	+'<a href="#"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" width="100"></a>'
+            	+'</div><div class="item-content">'
+            	+'<div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
+            	+'<h4 class="item-title"><a href="#">'+response[i].title+'</a></h4>'
+            	+'<div class="item-post-by"><a href="${contextRoot}/posts/find/'+response[i].postsId+'"><i class="fas fa-user"></i><span>by </span>'
+            	+response[i].userName+'</a></div></div></li>'
+            }
+            $("#latestPost").html("").append(latestPost);
+		});
+
+</script>
 </html>

@@ -11,4 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PostsDao extends JpaRepository<Posts, Integer> {
 
+	public List<Posts> findTop4ByOrderByTimeDesc();
+	
 }

@@ -86,7 +86,7 @@
                                 <ul class="entry-meta">
                                     <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${posts.time}"/></a></li>
                                     <li><a href="#"><i class="fas fa-user"></i>by <span>${posts.users.userName}</span></a></li>
-                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(03)</span></a></li>
+                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(${fn:length(posts.reply)})</span></a></li>
                                     <li><a href="#"><i class="fas fa-heart"></i><span>59</span></a></li>
                                     <li><a href="${contextRoot}/posts/delete/${posts.postsId}"><span>刪除</span></a></li>
                                     <li><a href="${contextRoot}/posts/update/${posts.postsId}"><span>修改</span></a></li>
@@ -192,83 +192,29 @@
                                 <div class="section-heading3 heading-dark">
                                     <h2 class="item-heading">RECIPE REVIEWS</h2>
                                 </div>
-                                <ul>
-                                    <li class="reviews-single-item">
-                                        <div class="media media-none--xs">
-                                            <img src="img/blog/comment1.jpg" alt="Comment" class="media-img-auto">
-                                            <div class="media-body">
-                                                <h4 class="comment-title">Liza Zaman</h4>
-                                                <span class="post-date">September 27, 2018</span>
-                                                <p>Absolutely great recipe. I cooked it for my kids and they loved it,
-                                                    even
-                                                    asked for more, can you believe it?</p>
-                                                <ul class="item-rating">
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item"><span>9<span> / 10</span></span> </li>
-                                                </ul>
-                                                <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reviews-single-item">
-                                        <div class="media media-none--xs">
-                                            <img src="img/blog/comment2.jpg" alt="Comment" class="media-img-auto">
-                                            <div class="media-body">
-                                                <h4 class="comment-title">John Martin</h4>
-                                                <span class="post-date">September 12, 2018</span>
-                                                <p>Absolutely great recipe. I cooked it for my kids and they loved it,
-                                                    even
-                                                    asked for more, can you believe it?</p>
-                                                <ul class="item-rating">
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item"><span>7<span> / 10</span></span> </li>
-                                                </ul>
-                                                <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                <ul id="replyblock">
+                                <!-- --------------------留言區重複的結構-------------------- -->
+                                    
+								<!-- --------------------留言區重複的結構-------------------- -->
                                 </ul>
                             </div>
                             <div class="leave-review">
                                 <div class="section-heading3 heading-dark">
                                     <h2 class="item-heading">LEAVE A REVIEW</h2>
                                 </div>
-                                <form class="leave-form-box">
+                                <form class="leave-form-box" id="insertreply">
+                                    <input type="hidden" value="${posts.postsId}" name="postsId">
                                     <div class="row">
+								<!-- --------------留言-------------- -->
                                         <div class="col-12 form-group">
-                                            <label>Comment :</label>
-                                            <textarea placeholder="" class="textarea form-control" name="message" rows="7"
+                                            <label>留言 :</label>
+                                            <textarea placeholder="" class="textarea form-control" name="message" id="message" rows="7"
                                                 cols="20" data-error="Message field is required" required></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Name :</label>
-                                            <input type="text" placeholder="" class="form-control" name="name"
-                                                data-error="Name field is required" required>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>E-mail :</label>
-                                            <input type="email" placeholder="" class="form-control" name="email"
-                                                data-error="E-mail field is required" required>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Website :</label>
-                                            <input type="email" placeholder="" class="form-control" name="email"
-                                                data-error="E-mail field is required" required>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
+                                <!-- --------------留言-------------- -->
                                         <div class="col-12 form-group mb-0">
-                                            <button type="submit" class="item-btn">POST REVIEW</button>
+                                            <button type="button" class="item-btn" id="replysubmit">送出</button>
                                         </div>
                                     </div>
                                     <div class="form-response"></div>
@@ -642,4 +588,44 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
+    <script type="text/javascript">
+    
+    	function replyList(response){
+    		var replyList = '';
+                    for(let i in response){
+                        replyList +='<li class="reviews-single-item">'
+                                    +'<div class="media media-none--xs">'
+                                    +' <img src="${contextRoot}/users/'+response[i].userPhoto+'" alt="Comment" class="media-img-auto">'
+                                    +'<div class="media-body">'
+                                    +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
+                                    +'<p>'+response[i].message+'</p>'+'</div></div></li>'
+                    }
+                    $("#replyblock").html("").append(replyList);
+    	}
+    
+    	$("#replysubmit").click(function(){
+    		var data = $("#insertreply").serialize();
+            $.ajax({
+                url : 'http://localhost:8090/cookblog/posts/reply/insert',
+                type : 'post',
+                data : data,
+                success : function(response) {
+                	replyList(response)
+                }
+            });
+
+    	})
+    	
+    	var settings = {
+  			"url": "http://localhost:8090/cookblog/posts/reply/all",
+  			"method": "GET",
+  			"timeout": 0,
+		};
+
+		$.ajax(settings).done(function (response) {
+			replyList(response);
+		});
+		
+    </script>
+    </body>
 </html>
