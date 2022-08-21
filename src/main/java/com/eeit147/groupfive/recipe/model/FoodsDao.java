@@ -19,5 +19,8 @@ public interface FoodsDao extends JpaRepository<Foods, Integer> {
 	//透過多種類別搜尋食材
 	public List<Foods> findByFoodsTypeIn(String[] FoodsType);
 	
+	//透過單一種類搜尋食材
+	public List<Foods> findByFoodsType(String FoodsType);
+	
 }
 

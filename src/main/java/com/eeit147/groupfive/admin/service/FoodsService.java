@@ -52,6 +52,19 @@ public class FoodsService {
 			List<Foods> fList = fDao.findAll();
 			return fList;
 		}
+		//驗證食材是否已存在
+		public List<Foods> fuzzySearchFinByFoodsName(String foodsname) {
+			List<Foods> foodList = fDao.findByFoodsNameLike(foodsname);	
+			System.out.println("foodList:"+foodList.toString());
+			return foodList;
+		}
+		//搜尋食材類別
+		public List<Foods> findByFoodsType(String foodsType) {
+			List<Foods> foodList = fDao.findByFoodsType(foodsType);	
+			System.out.println("foodList:"+foodList.toString());
+			return foodList;
+		}
+		
 	}
 		
 

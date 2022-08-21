@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,10 +20,9 @@ body {font-size:16px;}
 <title>管理使用者</title>
 </head>
 <body>
-<div class="w3-main" style="margin-right:220px;">
-<h3>管理使用者</h3>
-</div>
-<div class="w3-main" style="margin-left:220px;"> 
+<jsp:include page="adminMenu.jsp"></jsp:include>
+<div class="w3-main" style="margin-left:220px;">
+<h3>管理使用者</h3> 
 <table  class="table table-striped">
 <thead>
     <tr>
@@ -48,7 +47,7 @@ body {font-size:16px;}
 	<td><input name="password" value="${u.password}" /></td>
 	<td><input name="userName" value="${u.userName}" /></td>
 	<td><input name="permission" value="${u.permission}" /></td>
-	<td><button type="submit" class="btn btn-primary">送出</button></td>
+	<td><button type="submit" class="btn btn-primary btn-sm">送出</button></td>
 	<td><a href="${contextRoot}/deleteUser/${u.userId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>
 	
 </form>
@@ -57,19 +56,5 @@ body {font-size:16px;}
 </tbody>
 </table>
 </div>
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-    <h3 class="w3-padding-64"><b>系統管理</b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#admin" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a> 
-    <a href="${contextRoot}/showAllUsers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理使用者</a> 
-    <a href="${contextRoot}/addfoods" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">新增食材</a> 
-    <a href="${contextRoot}/showAllFoods123" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理食材</a> 
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-  </div>
-</nav>
 </body>
 </html>

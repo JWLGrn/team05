@@ -7,6 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="bootstrap.min.css">
+<script src="jquery-3.6.0.min.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -17,10 +20,23 @@ body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
-<title>顯示所有食材</title>
+<title>管理食材</title>
 </head>
 <body>
+<jsp:include page="adminMenu.jsp"></jsp:include>
+
+
 <div class="w3-main" style="margin-left:220px;"> 
+
+<h3>管理食材</h3>
+<label >食材名稱:</label>
+
+<input id="foodsName" placeholder="請輸入食材名稱" />
+<select id="foosTypeSelelct" onchange="searchFoodsByfoodsType()">
+	<c:forEach items="${option}" var="f">
+		<option>${f}</option>
+	</c:forEach>
+</select>
 <table  class="table table-striped">
 <thead>
     <tr>
@@ -30,27 +46,27 @@ body {font-size:16px;}
       <th scope="col">卡路里</th>
 	</tr>
   </thead>
-  <tbody>
+<tbody id="foodbody" >
+		<c:forEach items="${page.content}" var="f">	
+		<tr id="foodTr">	
+		<form class="form" method="post" action="${contextRoot}/editFoods">
+		<td><input  type="hidden" name="foodsId" value="${f.foodsId}"/></td>
+		<td><input  name="foodsName" value="${f.foodsName}" /></td>
+		<td><input  name="foodsType" value="${f.foodsType}" /></td>
+		<td><input  name="calorie" value="${f.calorie}" /></td>
+		<td><button id="formButton" type="submit" class="btn btn-primary btn-sm">送出</button><td>
+		</form>	
+		<td><a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>						
+		</tr>	
+		</c:forEach>
 
-<c:forEach items="${page.content}" var="f">
-<tr>
-
-<form class="form" method="post" action="${contextRoot}/editFoods">
-<td><input  type="hidden" name="foodsId" value="${f.foodsId}"/></td>
-<td><input  name="foodsName" value="${f.foodsName}" /></td>
-<td><input  name="foodsType" value="${f.foodsType}" /></td>
-<td><input  name="calorie" value="${f.calorie}" /></td>
-<td><button type="submit" class="btn btn-primary">送出</button><td>
-<td><a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>
-						
-</form>
-
-</c:forEach>
 </tbody>
+
 </table>
 </div>
 
 <div class="row justify-content-center w3-main" style="margin-left:220px;">
+
 			<div class="col-8">
 				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
 				<c:choose>
@@ -65,20 +81,79 @@ body {font-size:16px;}
 				</c:forEach>
 			</div>
 		</div>
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-    <h3 class="w3-padding-64"><b>系統管理</b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#admin" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a> 
-    <a href="${contextRoot}/showAllUsers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理使用者</a> 
-    <a href="${contextRoot}/addfoods" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">新增食材</a> 
-    <a href="${contextRoot}/showAllFoods123" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">管理食材</a> 
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-  </div>
-</nav>
+<script>
+$("#foodsName").keyup(function(){
+	let foodsnameValue = $('#foodsName').val();
+	let urlStr = "${contextRoot}/find/searchFoods/" + foodsnameValue;
+	$.ajax({
+		url: urlStr ,
+		type : 'Get',
+		datatype: 'text',
+		success:function(data){
+			var append1 ;
+			 $('#foodbody').empty();
+			 for (var i = 0; i < data.length; i++) {
+				  const item = data[i];
+				  console.log(i, item);
+				var text=	'<tr id="foodTr">'+	
+					'<form  id="formFood"  class="form" method="post" action="${contextRoot}/editFoods">'
+					+'<td><input  type="hidden" name="foodsId'+item.foodsId+'" value="'+item.foodsId+'"/></td>'+
+					'<td><input  id="foodsName'+item.foodsId+'" name="foodsName" value="'+item.foodsName+'" /></td>'+
+					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
+					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'</form>'+	
+					'</tr>'
+					console.log("text",text);
+					$("#foodbody").append(text);				
+			}
+			console.log("data",data);
+		}
+	});
+});
+function searchFoodsByfoodsType(){
+	let foodsnameValue = $('#foosTypeSelelct').val();
+	let urlStr = "${contextRoot}/find/searchFoodsByfoodsType/" + foodsnameValue;
+	$.ajax({
+		url: urlStr ,
+		type : 'Get',
+		datatype: 'text',
+		success:function(data){
+			var append1 ;
+			 $('#foodbody').empty();
+			 for (var i = 0; i < data.length; i++) {
+				  const item = data[i];
+				  console.log(i, item);
+				var text=	'<tr id="foodTr">'+	
+					'<form  id="formFood"  class="form" method="post" action="${contextRoot}/editFoods">'
+					+'<td><input  type="hidden" name="foodsId'+item.foodsId+'" value="'+item.foodsId+'"/></td>'+
+					'<td><input  id="foodsName'+item.foodsId+'" name="foodsName" value="'+item.foodsName+'" /></td>'+
+					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
+					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'</form>'+	
+					'</tr>'
+					console.log("text",text);
+					$("#foodbody").append(text);	
+			}
+			console.log("data",data);
+		}
+	});
 
+
+}
+
+function sendfromUpdateData(foodsId){	
+	console.log(foodsId)
+	console.log($("#foodsName"+foodsId).val())
+	console.log($("#foodsType"+foodsId).val())
+	console.log($("#calorie"+foodsId).val())
+	const url="${contextRoot}/editFoods/"+foodsId+"/"+$("#foodsName"+foodsId).val()+"/"+$("#foodsType"+foodsId).val()+"/"+$("#calorie"+foodsId).val(); 
+	window.location.href = url;
+}
+</script>
 </body>
+
 </html>
