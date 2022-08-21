@@ -11,6 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<script src="jquery-3.6.0.min.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -23,6 +25,9 @@ body {font-size:16px;}
 <jsp:include page="adminMenu.jsp"></jsp:include>
 <div class="w3-main" style="margin-left:220px;">
 <h3>管理使用者</h3> 
+<label >使用者帳號:</label>
+
+<input id="userName" placeholder="請輸入使用者帳號" />
 <table  class="table table-striped">
 <thead>
     <tr>
@@ -56,5 +61,49 @@ body {font-size:16px;}
 </tbody>
 </table>
 </div>
+<!-- <script>
+$("#userName").keyup(function(){
+	let usernameValue = $('#userName').val();
+	let urlStr = "${contextRoot}/find/searchUser/" + usernameValue;
+	$.ajax({
+		url: urlStr ,
+		type : 'Get',
+		datatype: 'text',
+		success:function(data){
+			var append1 ;
+			 $('#userbody').empty();
+			 for (var i = 0; i < data.length; i++) {
+				  const item = data[i];
+				  console.log(i, item);
+				var text=	'<tr id="userTr">'+	
+					'<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
+					+'<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'+
+					'<td><input  id="userPhoto'+item.userId+'" name="userPhoto" value="'+item.userPhoto+'" /></td>'+
+					'<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'+
+					'<td><input  id="password'+item.userId+'" =name="password" value="'+item.password+'" /></td>'+
+					'<td><input  id="userName'+item.userId+'" =name="userName" value="'+item.userName+'" /></td>'+
+					'<td><input  id="permission'+item.userId+'" =name="permission" value="'+item.permission+'" /></td>'+
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.userId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'</form>'+	
+					'</tr>'
+					console.log("text",text);
+					$("#userbody").append(text);				
+			}
+			console.log("data",data);
+		}
+	});
+});
+function sendfromUpdateData(userId){	
+	console.log(userId)
+	console.log($("#userPhoto"+userId).val())
+	console.log($("#email"+userId).val())
+	console.log($("#password"+userId).val()
+	console.log($("#userName"+userId).val()
+	console.log($("#permission"+userId).val())
+	const url="${contextRoot}/editFoods/"+userId+"/"+$("#userPhoto"+userId).val()+"/"+$("#email"+userId).val()+"/"+$("#password"+userId).val()+"/"+$("#userName"+userId).val()+"/"+$("#permission"+userId).val(); 
+	window.location.href = url;
+}
+</script>-->
 </body>
 </html>

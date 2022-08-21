@@ -32,6 +32,8 @@ body {font-size:16px;}
 <label >食材名稱:</label>
 
 <input id="foodsName" placeholder="請輸入食材名稱" />
+
+<label >食材類別:</label>
 <select id="foosTypeSelelct" onchange="searchFoodsByfoodsType()">
 	<c:forEach items="${option}" var="f">
 		<option>${f}</option>

@@ -34,7 +34,7 @@ public class FoodsController {
 		Model model){
 		Foods f = fService.insertFoods(fd);
 		model.addAttribute("newFoods", f);
-		return "test/addfoods";
+		return "redirect:/showAllFoods123";
 	}
 	//驗證食材是否已存在
 	@PostMapping("/foodname/checkFoodsByName")
@@ -120,7 +120,7 @@ public class FoodsController {
 		return fList;
 	}
 	
-	// 模糊搜尋食物名稱
+	// 依照食材類別搜尋食材名稱
 	@GetMapping("/find/searchFoodsByfoodsType/{foodsType}")
 	public @ResponseBody List<Foods> searchFoodsByfoodsType(@PathVariable String foodsType) {
 		System.out.println("foodsType:"+foodsType);

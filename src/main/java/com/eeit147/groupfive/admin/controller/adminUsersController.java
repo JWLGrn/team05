@@ -58,6 +58,28 @@ public class adminUsersController {
 		return "test/showAllUsers";
 	}
 	
+//	//使用者篩選結果編輯傳值
+//	@PostMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
+//	public String editAdminUsersget(@PathVariable("userId") Integer userid,@PathVariable("userName") String username, @PathVariable("email") String email,
+//			@PathVariable("password") String password, @PathVariable("permission") Integer permission,
+//			//@PathVariable("user_photo")MultipartFile file,
+//			Model model){
+//		String photopath= "";
+//		Users au = new Users();
+//		au.setUserId(userid);
+//		au.setUserName(username);
+//		au.setEmail(email);
+//		au.setPassword(password);
+//		au.setPermission(permission);
+////		au.setUserPhoto(photopath);
+//		
+//		aService.insertUser(au);
+//		model.addAttribute("allUsers",uDao.findAll() );
+//		
+//		return "test/showAllUsers";
+//	}
+	
+	//刪除使用者
 	@GetMapping("/deleteUser/{userId}")
 	public String deleteUser(@PathVariable Integer userId) {
 		aService.deleteUser(userId);
@@ -88,6 +110,14 @@ public class adminUsersController {
         model.addAttribute("user",user);
 		return "index";
 	}
+	
+	// 模糊搜尋使用者名稱
+		@GetMapping("/find/searchUser/{userName}")
+		public @ResponseBody List<Users> findByUserNameLike(@PathVariable String userName) {
+			System.out.println("userName:"+userName);
+			List<Users> fList = aService.findByUserNameLike("%"+userName+"%");
+			return fList;
+		}
 		
 }
 
