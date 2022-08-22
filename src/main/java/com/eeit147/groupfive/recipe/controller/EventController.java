@@ -172,43 +172,37 @@ public class EventController {
 		return campaignslist;
 	}
 //顯示參加活動的名單
-	 @ResponseBody
-<<<<<<< HEAD
-	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
-	 public  List<CampaignDto> campaignAlllist(@RequestBody Integer eventId,Model m){
-		 
-=======
-	 @GetMapping("/campaign/list/{eventId}")
-	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
-		 System.out.println(eventId);
->>>>>>> 4b12698c8a717697d45bb6a3c0d87dc6bc84c465
-		 Optional<Event> e=eDao.findById(eventId);
-		 Event event=e.get();
-		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
-	     List<Campaign> campaignlist=cDao.findAllRecipeByEventId(eventId);
-		 for(int i = 0; i < campaignlist.size(); i++) {
-	          Integer resipeId=campaignlist.get(i).getRecipe().getRecipeId();
-	          Optional<Recipe> r=rDao.findById(resipeId);
-	          Recipe recipe=r.get();
-	          CampaignDto campaigndto=new CampaignDto();
-	          campaigndto.setCookTitle(recipe.getCookTitle());
-	          campaigndto.setCookPhoto(recipe.getCookPhoto());
-	          campaigndto.setUserName(recipe.getUserName()) ;
-	          campaigndto.setUserPhoto(recipe.getUserPhoto());
-	          //取得按讚數
-	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
-	          System.out.println("aaa"+recipeOfFavorite);
-	          campaigndto.setFavoritenum(recipeOfFavorite);
-	          
-	          cDto.add(campaigndto);
-<<<<<<< HEAD
-	     }
-		
-=======
-	     }		
->>>>>>> 4b12698c8a717697d45bb6a3c0d87dc6bc84c465
-		 return cDto;		
-	 }
+//	 @ResponseBody
+//	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
+//	 public  List<CampaignDto> campaignAlllist(@RequestBody Integer eventId,Model m){
+//		 
+//	 @GetMapping("/campaign/list/{eventId}")
+//	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
+//		 System.out.println(eventId);
+//		 Optional<Event> e=eDao.findById(eventId);
+//		 Event event=e.get();
+//		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
+//	     List<Campaign> campaignlist=cDao.findAllRecipeByEventId(eventId);
+//		 for(int i = 0; i < campaignlist.size(); i++) {
+//	          Integer resipeId=campaignlist.get(i).getRecipe().getRecipeId();
+//	          Optional<Recipe> r=rDao.findById(resipeId);
+//	          Recipe recipe=r.get();
+//	          CampaignDto campaigndto=new CampaignDto();
+//	          campaigndto.setCookTitle(recipe.getCookTitle());
+//	          campaigndto.setCookPhoto(recipe.getCookPhoto());
+//	          campaigndto.setUserName(recipe.getUserName()) ;
+//	          campaigndto.setUserPhoto(recipe.getUserPhoto());
+//	          //取得按讚數
+//	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
+//	          System.out.println("aaa"+recipeOfFavorite);
+//	          campaigndto.setFavoritenum(recipeOfFavorite);
+//	          
+//	          cDto.add(campaigndto);
+//	     }
+//		
+//	     }		
+//		 return cDto;		
+//	 }
 //	 @GetMapping("/event/showevent")
 //		public String eventpage(Model m) {
 //			m.addAttribute("userId", userId);	
