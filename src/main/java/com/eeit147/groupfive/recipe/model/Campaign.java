@@ -77,6 +77,12 @@ public class Campaign {
 		builder.append("]");
 		return builder.toString();
 	}
-
 	
+	//-----------------------
+	public String getCookTitle(){
+		return recipe.getCookTitle();
+	}
+	public String getCookPhoto(){
+		return recipe.getCookPhoto();
+	}	
 }
