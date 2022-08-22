@@ -20,7 +20,7 @@
 	<div>收藏者</div>
 	<div>白色 未點讚</div>
 	<div >黃色 已點讚</div>	
-	<img src="${contextRoot}/imagecollect/4/7" id="collect" data-user="4" data-recipe="7" width="200">
+	<img src="${contextRoot}/imagecollect/4/9" id="collect" data-user="4" data-recipe="9" width="200">
 
 
 

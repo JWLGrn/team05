@@ -1,5 +1,6 @@
 package com.eeit147.groupfive.users.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,9 @@ public class CollectService {
 	//新增為收藏
 	public Collect saveUserandRecipe(Collect collect) {
 		return cDao.save(collect);
+	}
+	public List<Collect> findCollectByUsers(Users users){
+		return cDao.findAll();
+//		return cDao.findByUsers(users);
 	}
 }

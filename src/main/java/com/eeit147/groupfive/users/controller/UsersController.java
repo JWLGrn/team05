@@ -75,15 +75,25 @@ public class UsersController {
 	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
 		HashMap<String, String> msg = new HashMap<String, String>();
 		Users loginUser = UService.findUsersByEmailandPassword(user.getEmail(), user.getPassword());
-
 		if (loginUser == null) {
 			msg.put("loginfail", "帳號密碼錯誤，請輸入正確的帳號密碼");
+			m.addAttribute("msg", msg);
+			return "redirect:/user/login";
 		}
+		
+		//Users userid = UService.findUsersById(loginUser.getUserId());
+		System.out.println(loginUser.getUserId());
+		Integer permission = loginUser.getPermission();
+	
 		if (msg.isEmpty()) {
 			session.setAttribute("loginUser", loginUser);
-			return "test/loginSuccess";
+			if(permission == 1) {
+				return "index";
+			}else if(permission == 2) {
+				return "admin";
+			}		
 		}
-		m.addAttribute("msg", msg);
+
 		return "test/login";
 	}
 
@@ -372,11 +382,19 @@ public class UsersController {
 			return re;
 		}
 	}
-	@GetMapping("/follow.persional.controller")
-	public String findByUsers(Model m) {
+	//查詢追蹤使用者的頁面
+	@GetMapping("/follow.personal.controller")
+	public @ResponseBody List<Follow> findByUsers(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
-		List<Users> follow = flService.findByUsers(session);
-		m.addAttribute("follow", follow);
-		return "/test/followpage";
+		List<Follow> follow = flService.findByUsers(session);
+//		m.addAttribute("follow", follow);
+		return follow;
+	}
+	@GetMapping("/collect.personal.controller")
+	public  String findCollectByUsers(Model m){
+		Users session = (Users)m.getAttribute("loginUser");
+		List<Collect> collect = cService.findCollectByUsers(session);
+		m.addAttribute("collect", collect);
+		return "test/collectpage";
 	}
 }
