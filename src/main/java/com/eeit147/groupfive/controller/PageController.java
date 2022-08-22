@@ -159,4 +159,9 @@ private FoodsService fService;
 	public String ecPay() {
 		return "testecpay";
 	}
+	
+	@GetMapping("/showevent")
+	public String eventshow() {
+		return "eventshow";
+	}
 }

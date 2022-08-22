@@ -21,17 +21,19 @@ public class CampaignDto implements Serializable{
 	private Users users;
 	private String userName;
 	private String userPhoto;
+	private Integer favoritenum;
 	
-	@Autowired
-	private UsersDao uDao;
-	@Autowired
-	private RecipeDao rDao;
-
-	public Integer getRecipeId() {
-		return recipeId;
+	public Integer getFavoritenum() {
+		return favoritenum;
 	}
-	public void setRecipeId(Integer recipeId) {
-		this.recipeId = recipeId;
+	public void setFavoritenum(Integer favoritenum) {
+		this.favoritenum = favoritenum;
+	}
+	public Integer getCampaignId() {
+		return campaignId;
+	}
+	public void setCampaignId(Integer campaignId) {
+		this.campaignId = campaignId;
 	}
 	public Integer getEventId() {
 		return eventId;
@@ -39,64 +41,49 @@ public class CampaignDto implements Serializable{
 	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
-//----------------------
+	public Integer getRecipeId() {
+		return recipeId;
+	}
+	public void setRecipeId(Integer recipeId) {
+		this.recipeId = recipeId;
+	}
 	public Recipe getRecipe() {
-		Optional<Recipe> r=rDao.findById(recipeId);
-		Recipe recipe=r.get();
 		return recipe;
-	}
-	public String getCookTitle() {
-		cookTitle=recipe.getCookTitle();
-		return cookTitle;
-	}
-	public String getCookPhoto() {
-		cookPhoto=recipe.getCookPhoto();
-		return cookPhoto;
-	}
-//----------------------
-	public Users getUsers() {
-		Users users=recipe.getUsers();
-		return users;
-	}
-	
-	public void setCampaignId(Integer campaignId) {
-		this.campaignId = campaignId;
 	}
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
+	public String getCookTitle() {
+		return cookTitle;
+	}
 	public void setCookTitle(String cookTitle) {
 		this.cookTitle = cookTitle;
+	}
+	public String getCookPhoto() {
+		return cookPhoto;
 	}
 	public void setCookPhoto(String cookPhoto) {
 		this.cookPhoto = cookPhoto;
 	}
+	public Users getUsers() {
+		return users;
+	}
 	public void setUsers(Users users) {
 		this.users = users;
+	}
+	public String getUserName() {
+		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getUserPhoto() {
+		return userPhoto;
+	}
 	public void setUserPhoto(String userPhoto) {
 		this.userPhoto = userPhoto;
 	}
-	public void setuDao(UsersDao uDao) {
-		this.uDao = uDao;
-	}
-	public void setrDao(RecipeDao rDao) {
-		this.rDao = rDao;
-	}
-	public String getUserName() {
-		userName=users.getUserName();
-		return userName;
-	}
 	
-	public String getUserPhoto() {
-		userPhoto=users.getUserPhoto();
-		return userPhoto;
-	}
-	
-	
-	
+
 	
 }

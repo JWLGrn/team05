@@ -15,6 +15,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -172,9 +173,9 @@ public class EventController {
 	}
 //顯示參加活動的名單
 	 @ResponseBody
-	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
-	 public  void campaignAlllist(@RequestBody Integer eventId,Model m){
-		 
+	 @GetMapping("/campaign/list/{eventId}")
+	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
+		 System.out.println(eventId);
 		 Optional<Event> e=eDao.findById(eventId);
 		 Event event=e.get();
 		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
@@ -186,16 +187,21 @@ public class EventController {
 	          CampaignDto campaigndto=new CampaignDto();
 	          campaigndto.setCookTitle(recipe.getCookTitle());
 	          campaigndto.setCookPhoto(recipe.getCookPhoto());
-	          Users users=recipe.getUsers();
-	          campaigndto.setUserName(users.getUserName()) ;
-	          campaigndto.setUserPhoto(users.getUserPhoto());
-	          System.out.println(recipe.getCookTitle());
-	          System.out.println(recipe.getCookPhoto());
-	          System.out.println(users.getUserName());
-	          System.out.println(users.getUserPhoto());
+	          campaigndto.setUserName(recipe.getUserName()) ;
+	          campaigndto.setUserPhoto(recipe.getUserPhoto());
+	          //取得按讚數
+	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
+	          System.out.println("aaa"+recipeOfFavorite);
+	          campaigndto.setFavoritenum(recipeOfFavorite);
+	          
 	          cDto.add(campaigndto);
-	     }
-		
-		 //return cDto;		
+	     }		
+		 return cDto;		
 	 }
+//	 @GetMapping("/event/showevent")
+//		public String eventpage(Model m) {
+//			m.addAttribute("userId", userId);	
+//			//m.addAttribute("eventId",eventId);	//insert
+//			return "event";
+//	}
 }

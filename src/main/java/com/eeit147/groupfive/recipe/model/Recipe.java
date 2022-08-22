@@ -251,6 +251,13 @@ public class Recipe {
 		builder.append("]");
 		return builder.toString();
 	}
+	public String getUserName() {
+		return users.getUserName();
+	}
+	public String getUserPhoto() {
+		return users.getUserPhoto();
+	}
+
 	public Integer getUserId() {
 		return users.getUserId();
 	}

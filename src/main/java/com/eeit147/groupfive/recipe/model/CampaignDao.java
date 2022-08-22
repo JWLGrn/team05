@@ -19,4 +19,7 @@ public interface CampaignDao extends JpaRepository<Campaign, Integer> {
 	@Query(value="select * from campaign where fk_campaign_event = :eventId", nativeQuery = true)
 	public List<Campaign> findAllRecipeByEventId(Integer eventId);
 	
+	@Query(value="select count(*) from favorite where fk_favorite_recipe = :recipeId", nativeQuery = true)
+	public Integer findFavoriteByRecipeId(Integer recipeId);
+	
 }
