@@ -20,6 +20,9 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	//找User By email
 	public List<Users> findByemail(String email);
 	
+	@Query(value = "from Users where email = :email ")
+	public Users  findByemail02(@Param("email")String email);
+	
 	//模糊查詢User By 使用者名稱
 	public List<Users> findByUserNameLike(String userName);
 	
@@ -28,6 +31,7 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	
 	//查詢User By 多筆食譜
 	public List<Users> findByRecipeIn(List<Recipe> recipes);
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.eeit147.groupfive.controller;
 
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.eeit147.groupfive.users.model.Users;
+import com.eeit147.groupfive.users.model.UsersDao;
+
 @Controller
-@SessionAttributes("verificationCode" )
+@SessionAttributes({"verificationCode","userGet"} )
 public class GmailController {
 
 @Autowired	
 private JavaMailSender  mailSender;
+
+@Autowired
+private UsersDao uDao;
 	
     //接收使用者信箱，發送信件和驗證碼
     @PostMapping("/users/send/email")
@@ -34,8 +41,16 @@ private JavaMailSender  mailSender;
 	        message.setSubject("主旨：I-Cook 歡迎您");
 	        message.setText("很高興歡迎您，這是您的驗證碼"+verificationCode);
 	        mailSender.send(message);
+	        Users userEmail = uDao.findByemail02(email);
+	        System.out.println(userEmail+"=========================================");
+	         Integer userId = ((Users) userEmail).getUserId();
+	         System.out.println(userId);
+	         Optional<Users> user = uDao.findById(userId);
+	         Users userGet = user.get();	       
+	        model.addAttribute("userGet", userGet);
 	        model.addAttribute("message", message);
 	        model.addAttribute("verificationCode",verificationCode);
+	        //需要導入首頁
 	        return "email/confirmmail";
 	    }
     //確認驗證碼是否相同
@@ -47,6 +62,7 @@ private JavaMailSender  mailSender;
     	if(vCode.equals(code)) {
     		return "email/successMail";
     	}
+    	//需要登入失敗的頁面
     	return "email/failmail"; 
     	
     }

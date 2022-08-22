@@ -75,22 +75,77 @@
         </section>
         <!-- Inne Page Banner Area End Here -->
         <!-- Submit Recipe Area Start Here -->
-        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
-            <div class="container">
+<!--         <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"> -->
+<!--             <div class="container"> -->
 
-<h3>會員登入</h3>
-	<form:form action="login.controller" method="Post" modelAttribute="login">
-		<form:label path="email" type="text">會員帳號:</form:label>
-		<form:input path="email" placeholder="請輸入Email" />
-		<form:label path="password" >會員密碼:</form:label>
-		<form:input path="password" placeholder="請輸入密碼"/>
-			<div style="color:red">${msg.loginfail}</div>	
-		<form:button type="submit">登入</form:button>
-		<form:button type="button">註冊</form:button>
-			
-	</form:form>
-	</div>
-	 </section>
+<!-- <h3>會員登入</h3> -->
+<%-- 	<form:form action="login.controller" method="Post" modelAttribute="login"> --%>
+<%-- 		<form:label path="email" type="text">會員帳號:</form:label> --%>
+<%-- 		<form:input path="email" placeholder="請輸入Email" /> --%>
+<%-- 		<form:label path="password" >會員密碼:</form:label> --%>
+<%-- 		<form:input path="password" placeholder="請輸入密碼"/> --%>
+<%-- 			<div style="color:red">${msg.loginfail}</div>	 --%>
+<%-- 		<form:button class="fill-btn" type="submit" >登入</form:button> --%>
+		 
+<%-- 		<form:button class="fill-btn" type="button" ><a href="${contextRoot}/Users" style="color:black;">註冊</a></form:button> --%>
+<%-- 	</form:form> --%>
+<!-- 	</div> -->
+<!-- 	 </section> -->
+<!-- 	----------------------------- -->
+ <section class="login-page-wrap padding-top-80 padding-bottom-50">
+            <div class="container">
+                <div class="row gutters-60">
+                    <div class="col-lg-8">
+                        <div class="login-box-layout1">
+                            <div class="section-heading heading-dark">
+                                <h2 class="item-heading">LOGIN FORM</h2>
+                            </div>
+                            <form:form action="login.controller" method="Post" modelAttribute="login" class="login-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="mb-3">Email Address</label>
+                                        <form:input class="main-input-box" path="email" placeholder="請輸入Email" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="mb-3">Password</label>
+                                        <form:input class="main-input-box" path="password" placeholder="請輸入密碼"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="checkbox checkbox-primary">
+                                            <input id="checkbox1" type="checkbox">
+                                            <label for="checkbox1">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="lost-password"><a href="${contextRoot}/setGmail">Lost your password?</a></label>
+                                    </div>
+                                </div>
+                                <div class="btn-area">
+                                    <form:button class="btn-fill btn-primary" type="submit" value="Login">登入<i class="flaticon-next"></i></form:button>
+                                    <form:button class="btn-fill btn-primary" type="button"><a href="${contextRoot}/Users" style="color:white;">註冊</a><i class="flaticon-next"></i></form:button>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                        <div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">ABOUT ME</h3>
+                            </div>
+                            <div class="widget-about">
+                                <figure class="author-figure"><img src="img/figure/about.jpg" alt="about"></figure>
+                                <figure class="author-signature"><img src="img/figure/signature.png" alt="about"></figure>
+                                <p>Fusce mauris auctor ollicituder teary iner hendrerit risusey aeenean rauctor pibus
+                                    doloer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- --------------------------- -->
 	  <!-- Submit Recipe Area End Here -->
         <!-- Footer Area Start Here -->
         <jsp:include page="../layout/footer.jsp"/>

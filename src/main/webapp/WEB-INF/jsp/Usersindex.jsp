@@ -47,13 +47,8 @@
 
 	</form>
 
-	<div>
 		<button class="container btn btn-success" onclick="keyin1()">Eason</button>
-	</div>
-	<div>
 		<button class="container btn btn-danger" onclick="keyin2()">sf</button>
-	</div>
-	測試成功
 
 	<script src="${cpntextRoot}/cookblog/jquery-3.6.0.min.js"></script>
 	<script src="bootstrap.bundle.min.js"></script>
