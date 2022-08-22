@@ -4,12 +4,14 @@ package com.eeit147.groupfive.recipe.controller;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +42,6 @@ public class EventController {
 	@Autowired
 	private RecipeDao rDao;
 	@Autowired
-	private RecipeStepDao rsDao;
-	@Autowired
 	private EventDao eDao;
 	@Autowired
 	private CampaignDao cDao;
@@ -51,7 +51,7 @@ public class EventController {
 	//Integer userId=1;//管理員模式
 	Integer userId=3;//使用者模式
 	Integer eventId=1;
-	//主頁
+	//活動主頁
 	@GetMapping("/event/page")
 	public String recipepage(Model m) {
 		m.addAttribute("userId", userId);	
@@ -168,8 +168,34 @@ public class EventController {
 		Optional<Recipe> r=rDao.findById(campaignDto.getRecipeId());
 		Recipe recipe=r.get();
 		boolean campaignslist=cDao.existsByEventAndRecipe(event, recipe);
-		System.out.println(campaignslist);
 		return campaignslist;
 	}
-	
+//顯示參加活動的名單
+	 @ResponseBody
+	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
+	 public  void campaignAlllist(@RequestBody Integer eventId,Model m){
+		 
+		 Optional<Event> e=eDao.findById(eventId);
+		 Event event=e.get();
+		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
+	     List<Campaign> campaignlist=cDao.findAllRecipeByEventId(eventId);
+		 for(int i = 0; i < campaignlist.size(); i++) {
+	          Integer resipeId=campaignlist.get(i).getRecipe().getRecipeId();
+	          Optional<Recipe> r=rDao.findById(resipeId);
+	          Recipe recipe=r.get();
+	          CampaignDto campaigndto=new CampaignDto();
+	          campaigndto.setCookTitle(recipe.getCookTitle());
+	          campaigndto.setCookPhoto(recipe.getCookPhoto());
+	          Users users=recipe.getUsers();
+	          campaigndto.setUserName(users.getUserName()) ;
+	          campaigndto.setUserPhoto(users.getUserPhoto());
+	          System.out.println(recipe.getCookTitle());
+	          System.out.println(recipe.getCookPhoto());
+	          System.out.println(users.getUserName());
+	          System.out.println(users.getUserPhoto());
+	          cDto.add(campaigndto);
+	     }
+		
+		 //return cDto;		
+	 }
 }

@@ -61,8 +61,11 @@ img{
 	<h3>活動顯示</h3>
 </div>
 
-<div id="myRecipe">
-    
+<div id="showcampaign">
+	<h3>活動參加者</h3>
+</div>
+
+<div id="myRecipe">    
 </div>
 
 
@@ -123,16 +126,12 @@ function showMyRecipe(eventId){
 			var replydata="<h3>我的食譜</h3>";
 			
 			$.each(response,function(index,value){
-				
-				
-				console.log("@@"+checkjoin(eventId,value.recipeId));
- 				//if(checkjoin(eventId,value.recipeId)==true){
- 					replydata+='<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'">'
- 				//}
+				checkjoin(eventId,value.recipeId);
+				replydata+='<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'"/>';
 				replydata+=
 					"食譜Id:"+value.recipeId+"<br/>"
 					+"食譜名稱:"+value.cookTitle+""
-					+"<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"
+					+"<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"//onblur="checkjoin('+eventId+','+value.recipeId+')
 					+"敘述:"+value.cookDescription+"<br/>"
 				    +"烹調時間:"+value.cookTime+"分鐘_"
 					+"食用人數:"+value.cookServe+"人<br/>"			    
@@ -375,30 +374,53 @@ function del(eventId){
 //參加活動紐
 function participate(eventId){
 	//顯示選擇活動
-	var replyjson=JSON.stringify(eventId);
+// 	var replyjson=JSON.stringify(eventId);
+// 	$.ajax({
+// 		url:"${contextRoot}/event/update",
+// 		contentType:'application/json',//送出資料型態
+// 		dataType:'json',//回傳資料型態
+// 		method:'post',
+// 		data:replyjson,
+// 		success:function(result){						
+// 			var replydata="";			
+//  				replydata+="<h3>選擇參加的活動</h3>"
+// 					+"活動Id:"+result.eventId+"<br/>"
+// 					+"活動標題:"+result.eventTitle+""
+// 					+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
+// 					+"敘述:"+result.eventContext+"<br/>"
+// 				    +"開始時間:"+result.timeStart+"<br/>"
+// 					+"結束時間:"+result.timeEnd+"<br/>"
+// 					+"<button onclick='rechoice()'>重新選擇</button>";	
+//  			$("#showevent").html(replydata);
+//  			$("#showMyRecipe").show();
+//  			showMyRecipe(eventId);
+// 		},
+// 		error:function(err){
+// 			console.log(err);
+// 		}
+// 	});
+	//參加者名單
+	var replyjson1=JSON.stringify(eventId);
 	$.ajax({
-		url:"${contextRoot}/event/update",
-		contentType:'application/json',//送出資料型態
-		dataType:'json',//回傳資料型態
-		method:'post',
-		data:replyjson,
-		success:function(result){						
-			var replydata="";			
- 				replydata+=
-					"活動Id:"+result.eventId+"<br/>"
-					+"活動標題:"+result.eventTitle+""
-					+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
-					+"敘述:"+result.eventContext+"<br/>"
-				    +"開始時間:"+result.timeStart+"<br/>"
-					+"結束時間:"+result.timeEnd+"<br/>"
-					+"<button onclick='rechoice()'>重新選擇</button>";	
- 			$("#showevent").html(replydata);
- 			$("#showMyRecipe").show();
- 			showMyRecipe(eventId);
-		},
+ 		url:"${contextRoot}/campaign/list",
+ 		contentType:'application/json',//送出資料型態
+ 		dataType:'json',//回傳資料型態
+ 		method:'post',
+ 		data:replyjson1,
+ 		success:function(result){
+ 			var replydata="";
+ 			$.each(result,function(index,value){			
+  				replydata+="<h3>參加者</h3>"
+ 					+"食譜標題:"+value.cookTitle+"<br/>"
+ 					+"食譜圖片:<img src='${contextRoot}/image/event/"+value.cookTitle+"' class='userimg'/><br/>"
+ 					+"作者:"+value.userName+"<br/>"
+ 					+"<img src='${contextRoot}/image/event/"+value.userPhoto+"' class='userimg'/><br/>";
+ 			})
+  			$("#showcampaign").html(replydata);
+ 		},
 		error:function(err){
-			console.log(err);
-		}
+ 			console.log(err);
+ 		}
 	});
 }
 //重新選擇想參加的活動
@@ -443,7 +465,10 @@ function checkjoin(eventId,recipeId){
   	 	data:replyjson,
   	 	success:function(result){		
 			console.log(result);
-			return result;
+			if(result==true){
+				console.log(recipeId);
+				$("input[value='"+recipeId+"']").hide();
+			}
   	 	},
   	 	error:function(err){
   	 		console.log(err);
