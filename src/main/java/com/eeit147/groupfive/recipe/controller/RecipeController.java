@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Foods;
@@ -37,6 +38,7 @@ import com.eeit147.groupfive.users.model.UsersDao;
 
 
 @Controller
+@SessionAttributes("loginUser")
 public class RecipeController {
 	@Autowired
 	private RecipeSteptService rsService;
@@ -318,5 +320,11 @@ public class RecipeController {
 		m.addAttribute("collectRecipes",recipe);
 		return "test/collectRankTest";
 	}
-
+	@GetMapping("/recipe.personal.controller")
+	public String findRecipeByUserId(Model m) {
+		Users session = (Users)m.getAttribute("loginUser");
+		List<Recipe> recipe = rService.findRecipeByUserId(session);
+		m.addAttribute("recipe", recipe);
+		return "test/selfRecipe" ;
+	}
 }

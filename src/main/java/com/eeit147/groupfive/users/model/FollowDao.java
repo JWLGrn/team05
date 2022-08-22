@@ -1,5 +1,7 @@
 package com.eeit147.groupfive.users.model;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,4 +14,6 @@ public interface FollowDao extends JpaRepository<Follow, Integer> {
 		public Boolean existsByUsersAndTrack(Users users,Users track);
 	//刪除users and track的關聯
 		public void deleteByUsersAndTrack(Users users,Users track);
+		//查詢個人收藏畫面
+		public List<Users> findByUsers(Users users);
 }

@@ -47,6 +47,8 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findAllRecipeByRecipeId(Integer recipeId);
 	
+	@Query(value = "from Recipe where userId = :userId")
+	public List<Recipe> findAllRecipeByUserId(@Param("userId") Integer userId);
 	
-	
+	public List<Recipe> findByUsers(Users users);
 }

@@ -372,14 +372,11 @@ public class UsersController {
 			return re;
 		}
 	}
-	//查詢個人食譜
-	@GetMapping("/mydatabase")
-	public String findPersonalByRecipe(Integer id,Model m) {
+	@GetMapping("/follow.persional.controller")
+	public String findByUsers(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
-	
-		Users user = UService.findOneUserById(id);
-		Set<Recipe> recipe = user.getRecipe();
-		m.addAttribute("recipe", recipe);
-		return "test/selfRecipe" ;
+		List<Users> follow = flService.findByUsers(session);
+		m.addAttribute("follow", follow);
+		return "/test/followpage";
 	}
 }

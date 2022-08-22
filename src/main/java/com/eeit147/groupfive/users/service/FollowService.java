@@ -1,5 +1,7 @@
 package com.eeit147.groupfive.users.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,4 +35,7 @@ public class FollowService {
 		return flDao.save(follow);
 	}
 	
+	public List<Users> findByUsers(Users users){
+		return flDao.findByUsers(users);
+	}
 }

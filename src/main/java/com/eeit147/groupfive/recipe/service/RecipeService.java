@@ -439,5 +439,8 @@ public class RecipeService {
 //	public List<Recipe> findRecipeByRecipeId(@Param("recipeId") Integer recipeId) {
 //		return rDao.findAllRecipeByRecipeId(recipeId);
 //	}
-
+	//查詢個人食譜By Userid
+	public List<Recipe> findRecipeByUserId(Users users){
+		return rDao.findByUsers(users);
+	}
 }

@@ -12,7 +12,8 @@
 
 
 <img  src="${pageContext.request.contextPath}/users/${loginUser.getUserPhoto()}" width="300">${loginUser.getUserName() }
-<a href="${pageContext.request.contextPath}/mydatabase"><input type="button" name="follow" id="follow" value="查詢個人食譜頁面"><br>
+<a href="${pageContext.request.contextPath}/recipe.personal.controller"><input type="button" name="follow" id="follow" value="查詢個人食譜頁面"><br>
+<a href="${pageContext.request.contextPath}/follow.persional.controller"><input type="button" name="follow" id="follow" value="查詢追蹤使用者頁面"><br>
 
 
 

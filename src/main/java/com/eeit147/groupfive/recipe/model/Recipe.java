@@ -251,5 +251,7 @@ public class Recipe {
 		builder.append("]");
 		return builder.toString();
 	}
-
+	public Integer getUserId() {
+		return users.getUserId();
+	}
 }
