@@ -75,6 +75,11 @@ public class Follow {
 	public String toString() {
 		return "Follow [followId=" + followId + ", users=" + users + ", track=" + track + "]";
 	}
-
+	public String getUserName() {
+		return track.getUserName();
+	}
+	public String getUserPhoto() {
+		return track.getUserPhoto();
+	}
 	
 }

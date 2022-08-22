@@ -115,7 +115,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="login-form">
-                        <input class="main-input-box" type="text" placeholder="User Name" />
+                        <input class="main-input-box" type="text" placeholder="User Email" />
                         <input class="main-input-box" type="password" placeholder="Password" />
                         <div class="inline-box mb-5 mt-4">
                             <div class="checkbox checkbox-primary">

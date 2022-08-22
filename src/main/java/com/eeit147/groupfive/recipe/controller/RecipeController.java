@@ -320,6 +320,7 @@ public class RecipeController {
 		m.addAttribute("collectRecipes",recipe);
 		return "test/collectRankTest";
 	}
+	//查詢個人食譜
 	@GetMapping("/recipe.personal.controller")
 	public String findRecipeByUserId(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");

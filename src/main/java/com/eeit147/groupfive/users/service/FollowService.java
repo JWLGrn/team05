@@ -35,7 +35,7 @@ public class FollowService {
 		return flDao.save(follow);
 	}
 	
-	public List<Users> findByUsers(Users users){
+	public List<Follow> findByUsers(Users users){
 		return flDao.findByUsers(users);
 	}
 }

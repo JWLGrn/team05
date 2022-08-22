@@ -15,5 +15,5 @@ public interface FollowDao extends JpaRepository<Follow, Integer> {
 	//刪除users and track的關聯
 		public void deleteByUsersAndTrack(Users users,Users track);
 		//查詢個人收藏畫面
-		public List<Users> findByUsers(Users users);
+		public List<Follow> findByUsers(Users users);
 }

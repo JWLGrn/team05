@@ -23,7 +23,7 @@
                                     </li>
                                     <li><a href="#${contextRoot}/posts/find/all">個人</a>
                                         <ul class="dropdown-menu-col-1">
-                                            <li><a href="author.html">　Author</a></li>
+                                            <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
