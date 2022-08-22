@@ -398,7 +398,7 @@ function participate(eventId){
 // 		error:function(err){
 // 			console.log(err);
 // 		}
-// 	});
+//	});
 	//參加者名單
 	var replyjson1=JSON.stringify(eventId);
 	$.ajax({
