@@ -173,7 +173,7 @@ public class EventController {
 //顯示參加活動的名單
 	 @ResponseBody
 	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
-	 public  void campaignAlllist(@RequestBody Integer eventId,Model m){
+	 public  List<CampaignDto> campaignAlllist(@RequestBody Integer eventId,Model m){
 		 
 		 Optional<Event> e=eDao.findById(eventId);
 		 Event event=e.get();
@@ -196,6 +196,6 @@ public class EventController {
 	          cDto.add(campaigndto);
 	     }
 		
-		 //return cDto;		
+		 return cDto;		
 	 }
 }
