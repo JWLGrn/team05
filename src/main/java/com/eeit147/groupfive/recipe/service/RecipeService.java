@@ -1,6 +1,8 @@
 package com.eeit147.groupfive.recipe.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -404,7 +406,7 @@ public class RecipeService {
 
 	// 查詢按讚數前幾名
 	public List<Recipe> favorRank(Integer rank){
-		 // 取得前五名收藏的食譜id + 收藏數
+		 // 取得前五名按讚的食譜id + 按讚數
 		 List<Object[]> list = rDao.findFavoriteRank(rank);
 		 
 		 // 取得食譜ID的List

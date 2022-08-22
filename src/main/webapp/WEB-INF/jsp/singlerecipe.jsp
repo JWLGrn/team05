@@ -212,7 +212,7 @@
                                     </div>
                                     <div class="item-content">
                                         <div class="serial-number">${rS.step} Step</div>
-                                            ${rS.stepDescription}
+                                          <p>${rS.stepDescription}</p>
                                     </div>
                                 </div>
                             </c:forEach>

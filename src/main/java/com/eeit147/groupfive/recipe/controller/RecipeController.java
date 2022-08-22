@@ -306,19 +306,19 @@ public class RecipeController {
 	}
 	
 	// 查詢收藏數前幾名
-	@GetMapping("find/collectrank")
-	public String collectRank(Model m){
-		List<Recipe> recipe = rService.collectRank(5);
-		m.addAttribute("collectRecipes",recipe);
-		return "test/collectRankTest";
+	@GetMapping("find/collectrank/{rank}")
+	@ResponseBody
+	public List<Recipe> collectRank(@PathVariable("rank")Integer rank){
+		List<Recipe> recipe = rService.collectRank(rank);
+		return recipe;
 	}
 	
 	// 查詢按讚數前幾名
-	@GetMapping("find/favorrank")
-	public String favorRank(Model m){
-		List<Recipe> recipe = rService.favorRank(5);
-		m.addAttribute("collectRecipes",recipe);
-		return "test/collectRankTest";
+	@GetMapping("find/favorrank/{rank}")
+	@ResponseBody
+	public List<Recipe> favorRank(@PathVariable("rank")Integer rank){
+		List<Recipe> recipe = rService.favorRank(rank);
+		return recipe;
 	}
 	@GetMapping("/recipe.personal.controller")
 	public String findRecipeByUserId(Model m) {

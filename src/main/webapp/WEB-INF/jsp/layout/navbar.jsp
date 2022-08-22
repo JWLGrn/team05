@@ -13,7 +13,7 @@
                             </div>
                             <nav class="site-nav">
                                 <ul id="site-menu" class="site-menu">
-                                    <li><a href="#">首頁</a></li>
+                                    <li><a href="${contextRoot}">首頁</a></li>
                                     <li>
                                         <a href="category.html">分類</a>
                                     </li>

@@ -102,14 +102,14 @@ public class PostsController {
 		reply.setPosts(post);
 		reply.setUsers(user);
 		Reply reply2 = rService.insertReply(reply);
-		return "redirect:/posts/reply/all";
+		return "redirect:/posts/reply/"+postsId;
 	}
 	
-	// 顯示所有留言
-	@GetMapping("/posts/reply/all")
+	// 顯示文章所有留言
+	@GetMapping("/posts/reply/{postId}")
 	@ResponseBody
-	public List<Reply> findAllReply(){
-		List<Reply> replys = rService.findAllReply();
+	public List<Reply> findAllReply(@PathVariable("postId")Integer postId){
+		List<Reply> replys = rService.findPostAllReply(postId);
 		return replys;
 	}
 	
@@ -121,5 +121,4 @@ public class PostsController {
 		return posts;
 	}
 	
-	// 最新文章
 }

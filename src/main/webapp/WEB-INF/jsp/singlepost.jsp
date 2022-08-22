@@ -539,6 +539,7 @@
     <script src="${contextRoot}/js/main.js"></script>
     <script type="text/javascript">
     
+    	//留言欄位新增留言
     	function replyList(response){
     		var replyList = '';
                     for(let i in response){
@@ -552,6 +553,7 @@
                     $("#replyblock").html("").append(replyList);
     	}
     
+    	//送出留言
     	$("#replysubmit").click(function(){
     		var data = $("#insertreply").serialize();
             $.ajax({
@@ -565,8 +567,9 @@
 
     	})
     	
+    	// 顯示留言
     	var settings = {
-  			"url": "http://localhost:8090/cookblog/posts/reply/all",
+  			"url": "http://localhost:8090/cookblog/posts/reply/${posts.postsId}",
   			"method": "GET",
   			"timeout": 0,
 		};
@@ -575,6 +578,7 @@
 			replyList(response);
 		});
 		
+		// 最新貼文
 		var settings = {
 				  "url": "http://localhost:8090/cookblog/posts/find/lastest",
 				  "method": "GET",
