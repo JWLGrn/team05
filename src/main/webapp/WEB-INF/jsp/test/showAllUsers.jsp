@@ -40,7 +40,7 @@ body {font-size:16px;}
       <th scope="col">使用者權限</th>
 	</tr>
   </thead>
-  <tbody>
+  <tbody id="userbody">
 
 <c:forEach items="${allUsers}" var="u">
 <tr>
@@ -61,9 +61,10 @@ body {font-size:16px;}
 </tbody>
 </table>
 </div>
-<!-- <script>
+<script>
 $("#userName").keyup(function(){
 	let usernameValue = $('#userName').val();
+	console.log(usernameValue)
 	let urlStr = "${contextRoot}/find/searchUser/" + usernameValue;
 	$.ajax({
 		url: urlStr ,
@@ -98,12 +99,12 @@ function sendfromUpdateData(userId){
 	console.log(userId)
 	console.log($("#userPhoto"+userId).val())
 	console.log($("#email"+userId).val())
-	console.log($("#password"+userId).val()
-	console.log($("#userName"+userId).val()
+	console.log($("#password"+userId).val())
+	console.log($("#userName"+userId).val())
 	console.log($("#permission"+userId).val())
 	const url="${contextRoot}/editFoods/"+userId+"/"+$("#userPhoto"+userId).val()+"/"+$("#email"+userId).val()+"/"+$("#password"+userId).val()+"/"+$("#userName"+userId).val()+"/"+$("#permission"+userId).val(); 
 	window.location.href = url;
 }
-</script>-->
+</script>
 </body>
 </html>
