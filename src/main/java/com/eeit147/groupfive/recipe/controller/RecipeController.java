@@ -320,6 +320,7 @@ public class RecipeController {
 		List<Recipe> recipe = rService.favorRank(rank);
 		return recipe;
 	}
+	//查詢個人食譜
 	@GetMapping("/recipe.personal.controller")
 	public String findRecipeByUserId(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");

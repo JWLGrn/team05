@@ -7,12 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>查詢追蹤使用者</title>
+<title>個人收藏頁面</title>
 </head>
 <body>
-<div>查詢追蹤使用者</div>
-<c:forEach items="${follow}" var="f">
-<span>${f.track} </span>
+<div>個人收藏頁面</div>
+<c:forEach items="${collect}" var="c">
+<span>${c.recipe.cookTitle} </span>
+<span>${c.recipe.cookDescription} </span>
+<span>${c.recipe.totalCal} </span>
+<span>${c.recipe.recipeId} </span>
 
 
 </c:forEach>
