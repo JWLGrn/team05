@@ -125,27 +125,26 @@ private FoodsService fService;
 		List<Keyword> category = kDao.findAll();
 		m.addAttribute(category);
 		return "test/categoryPageTest";
-	}
-	
+	}	
 	@GetMapping("/posts")
 	public String goPostPage() {
 		return "createpost";
 	}
-	//chart.js報表分析
+	//chart.js報表分析長條圖
 	@GetMapping("/testchart")
 	public String chartJs() {
 		return "testchartjs";
 	}
-	
 	@GetMapping("/collectpage")
 	public String collectPage() {
 		return "test/collectTest";
 	}
-	//chart.js報表分析02版本
+	//chart.js報表分析圓餅圖
 	@GetMapping("/testchart02")
 	public String chartJs02() {
 		return "testchartjss";
 	}
+	//管理者回覆檢舉
 	@GetMapping("/adminReport")
 	public String adminReport() {
 		return "test/adminreport";
@@ -154,7 +153,7 @@ private FoodsService fService;
 	public String insertrecipe() {
 		return "insertrecipe";
 	}
-	
+	//綠界測試
 	@GetMapping("/testecPay")
 	public String ecPay() {
 		return "testecpay";

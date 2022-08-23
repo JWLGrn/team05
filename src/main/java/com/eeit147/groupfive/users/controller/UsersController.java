@@ -43,7 +43,7 @@ import com.eeit147.groupfive.users.service.FollowService;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
-@SessionAttributes({ "loginUser", "result" })
+@SessionAttributes({ "loginUser", "result","updateUserResult" })
 public class UsersController {
 	@Autowired
 	private UsersService UService;
@@ -102,6 +102,7 @@ public class UsersController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/user/login";
+		//要把 logout按鈕隱藏起來!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
 	// 會員註冊
@@ -134,7 +135,14 @@ public class UsersController {
 		System.out.println(newuser);
 
 		model.addAttribute("result", result);
-		return "SuccessUser";
+		if(permission ==1) {
+			return "SuccessUser";
+
+		} else if (permission ==2){
+			//管理者頁面!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			return "admin";
+		}
+		return "index";
 	}
 
 	// 判斷是否有重複的email
@@ -192,7 +200,7 @@ public class UsersController {
 		System.out.println(updateUser);
 
 		model.addAttribute("updateUserResult", updateUserResult);
-		return "updatesuccess";
+		return "SuccessUser";
 	}
 
 	// 抓取recipe and userid 案讚關聯
@@ -211,11 +219,9 @@ public class UsersController {
 		if (exist) {
 			fDao.deleteByUsersAndRecipe(usering, recipe);
 			model.addAttribute("exist", exist);
-			System.out.println(favorite + "===============================test=====================================");
 		} else {
 			fDao.save(favorite);
 			model.addAttribute("exist", exist);
-			System.out.println(favorite + "==============================test======================================");
 		}
 		return "SuccessUser";
 	}

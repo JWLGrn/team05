@@ -1,25 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
+<html class="no-js" lang="">
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-<html>
-
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-<meta charset="UTF-8">
-<title>會員註冊</title>
-<link rel="stylesheet" href="bootstrap.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- 					google font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Ranna | Submit Recipes</title>
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon -->
+<link rel="shortcut icon" href="favicon.png">
+<!-- Normalize Css -->
+<link rel="stylesheet" href="${contextRoot}/css/normalize.css">
+<!-- Main Css -->
+<link rel="stylesheet" href="${contextRoot}/css/main.css">
+<!-- Bootstrap Css -->
+<link rel="stylesheet" href="${contextRoot}/css/bootstrap.min.css">
+<!-- Animate CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/animate.min.css">
+<!-- Fontawesome CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/fontawesome-all.min.css">
+<!-- Flaticon CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/flaticon.css">
+<!-- Summernote CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/summernote.css">
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${contextRoot}/css/owl.theme.default.min.css">
+<!-- Select 2 CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
+<!-- Custom Css -->
+<link rel="stylesheet" href="${contextRoot}/css/style.css">
+<!-- Modernizr Js -->
+<script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
 <style>
 .error {
@@ -32,86 +52,181 @@
 </style>
 </head>
 
-<body class="container">
-	<form action="${contextRoot}/insertUser" method="post"
-		enctype="multipart/form-data">
-		會員名稱:<input type="text" name="user_name" id="user_name"><br />
-		信箱:<input type="email" name="email" id="email"><span id="msg"></span><br />
-		密碼:<input type="password" name="password" id="password"><br />
-		會員照片:<input type="file" name="user_photo"><br /> <input
-			type="hidden" name="user_id"><br /> <input type=hidden
-			name="permission" value="1" placeholder="1"><br /> <input
-			type="submit" value="註冊"> <i class="fa fa-check"
-			aria-hidden="true"></i>
-
-
-	</form>
-
-		<button class="container btn btn-success" onclick="keyin1()">Eason</button>
-		<button class="container btn btn-danger" onclick="keyin2()">sf</button>
-
-	<script src="${cpntextRoot}/cookblog/jquery-3.6.0.min.js"></script>
-	<script src="bootstrap.bundle.min.js"></script>
-	<script>
-		$("#email").blur(function() {
-							//取得使用者輸入的mail
-							let emailValue = $('#email').val();
-							if (emailValue != "") {
-								let urlStr = "${contextRoot}/users/checkmail?email="+ emailValue;
-								$.ajax({
-											url : urlStr,
-											type : 'POST',
-											dataType : 'text',
-											success : function(data) {
-												if (data == 1) {
-													$("#msg").text("用戶已存在,請輸入其他帳號");
-													$("#msg").prepend("<img  src='users/woman.jpeg' width='300'> ")
-													$("#msg").attr("class","error");
-													$("#email").val("");
-													console.log($("#email").val())
-													// alert("用戶已存在,請輸入其他帳號");
-												} else {
-													$("#msg").text("帳號可以使用");
-													$("#msg").prepend("<img  src='users/man.jpeg' width='300' > ")
-													$("#msg").attr("class","success");
+<body>
+	<!-- Preloader Start Here -->
+	<div id="preloader"></div>
+	<!-- Preloader End Here -->
+	<!-- ScrollUp Start Here -->
+	<a href="#wrapper" data-type="section-switch" class="scrollup"> <i
+		class="fas fa-angle-double-up"></i>
+	</a>
+	<!-- ScrollUp End Here -->
+	<div id="wrapper" class="wrapper">
+		<!-- Header Area Start Here -->
+		<jsp:include page="layout/navbar.jsp" />
+		<!-- Header Area End Here -->
+		<!-- Inne Page Banner Area Start Here -->
+		<section class="inner-page-banner bg-common"
+			data-bg-image="/img/figure/inner-page-banner1.jpg">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="breadcrumbs-area">
+							<h1>Welcome to I Cook</h1>
+							<ul>
+								<li><a href="${contextRoot}">Home</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		</div>
+		<!-- Inne Page Banner Area End Here -->
+		<!-- Submit Recipe Area Start Here -->
+		<!--         <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"> -->
+		<!--             <div class="container"> -->
+		<!-- -------------------------------------------------------------------------------------------------- -->
+		<section class="login-page-wrap padding-top-80 padding-bottom-50">
+			<div class="container">
+				<div class="row gutters-60">
+					<div class="col-lg-8">
+						<div class="login-box-layout1">
+							<div class="section-heading heading-dark">
+								<h2 class="item-heading">REGISTER</h2>
+							</div>
+							<form action="${contextRoot}/insertUser" method="post"
+								enctype="multipart/form-data" class="login-form">
+								<div class="row">
+									<div class="col-md-6">
+										<label class="mb-3">Number Name</label> <input type="text"
+											name="user_name" id="user_name" class="main-input-box"
+											placeholder="請輸入姓名"><br /> <label class="mb-3">Email
+											Address</label> <input type="email" name="email" id="email"
+											class="main-input-box" placeholder="請輸入信箱"><span
+											id="msg"></span><br /> <label class="mb-3">Password</label>
+										<input type="password" name="password" id="password"
+											class="main-input-box" placeholder="請輸入密碼"><br /> <label
+											class="mb-3">Number Photo</label><input type="file"
+											name="user_photo" class="main-input-box" placeholder="請上傳照片"><br />
+										<input type="hidden" name="user_id"><br /> <input
+											type=hidden name="permission" value="1" placeholder="1" id="permission">
+										<!-- 			<i class="fa fa-check" -->
+										<!-- 			aria-hidden="true"></i> -->
+										<div class="btn-area">
+											<button type="submit" class="btn-fill btn-primary">
+												送出<i class="flaticon-next"></i>
+											</button>
+											<div class="btn-area">
+												<div class="btn-area">
+													<button type="button" class="btn-fill btn-primary" onclick="keyin1()">
+														Eason會員<i class="flaticon-next"></i>
+													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin2()">
+														sf管理者<i class="flaticon-next"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--  ------------------------------------------------------------------ -->
+		<script>
+			$("#email")
+					.blur(
+							function() {
+								//取得使用者輸入的mail
+								let emailValue = $('#email').val();
+								if (emailValue != "") {
+									let urlStr = "${contextRoot}/users/checkmail?email="
+											+ emailValue;
+									$.ajax({
+												url : urlStr,
+												type : 'POST',
+												dataType : 'text',
+												success : function(data) {
+													if (data == 1) {
+														$("#msg")
+																.text(
+																		"用戶已存在,請輸入其他帳號");
+														$("#msg")
+																.prepend(
+																		"<img  src='users/woman.jpeg' width='300'> ")
+														$("#msg").attr("class",
+																"error");
+														$("#email").val("");
+														console.log($("#email")
+																.val())
+														// alert("用戶已存在,請輸入其他帳號");
+													} else {
+														$("#msg")
+																.text("帳號可以使用");
+														$("#msg")
+																.prepend(
+																		"<img  src='users/man.jpeg' width='300' > ")
+														$("#msg").attr("class",
+																"success");
+													}
 												}
-											}
-										});
-							} else {
-								$("#msg").text("請輸入email");
-								$("#msg").attr("class", "error");
-							}
-						});
-		function focus() {
-			var account = document.getElementById("user_name");
-		}
-		function loginVerify() {
-			var account = document.getElementById("user_name").value;
-			var password = document.getElementById("password").value;
-			if (account.length == '') {
-				alert('帳號不能為空');
-				return;
+											});
+								} else {
+									$("#msg").text("請輸入email");
+									$("#msg").attr("class", "error");
+								}
+							});
+			function focus() {
+				var account = document.getElementById("user_name");
 			}
-			if (password.length == '') {
-				alert('密碼不能為空');
-				return;
+			function loginVerify() {
+				var account = document.getElementById("user_name").value;
+				var password = document.getElementById("password").value;
+				if (account.length == '') {
+					alert('帳號不能為空');
+					return;
+				}
+				if (password.length == '') {
+					alert('密碼不能為空');
+					return;
+				}
+				document.getElementById("form").submit();
 			}
-			document.getElementById("form").submit();
-		}
-		function keyin1() {
-			document.getElementById("user_name").value = "Eason";
-			document.getElementById("email").value = "Eason@gmail.com";
-			document.getElementById("password").value = "qaz123";
-		}
-		function keyin2() {
-			document.getElementById("user_name").value = "sf";
-			document.getElementById("email").value = "sf@gmail.com";
-			document.getElementById("password").value = "qaz456";
-		}
-	</script>
+			function keyin1() {
+				document.getElementById("user_name").value = "Eason";
+				document.getElementById("email").value = "Eason@gmail.com";
+				document.getElementById("password").value = "qaz123";
+				document.getElementById("permission").value = "1";
 
-
-
+			}
+			function keyin2() {
+				document.getElementById("user_name").value = "sf";
+				document.getElementById("email").value = "sf@gmail.com";
+				document.getElementById("password").value = "qaz456";
+				document.getElementById("permission").value = "2";
+			}
+		</script>
+		<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="${contextRoot}/js/popper.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+		<!-- Plugins Js -->
+		<script src="${contextRoot}/js/plugins.js"></script>
+		<!-- Owl Carousel Js -->
+		<script src="${contextRoot}/js/owl.carousel.min.js"></script>
+		<!-- Summernote JS -->
+		<script src="${contextRoot}/js/summernote.min.js"></script>
+		<!-- Select 2 Js -->
+		<script src="${contextRoot}/js/select2.full.min.js"></script>
+		<!-- Smoothscroll Js -->
+		<script src="${contextRoot}/js/smoothscroll.min.js"></script>
+		<!-- Custom Js -->
+		<script src="${contextRoot}/js/main.js"></script>
 </body>
 
 </html>

@@ -23,11 +23,9 @@
                                     </li>
                                     <li><a href="#${contextRoot}/posts/find/all">個人</a>
                                         <ul class="dropdown-menu-col-1">
-<<<<<<< HEAD
+                                      <li>  <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
                                             <li><a href="author.html">　個人會員資料</a></li>
-=======
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
->>>>>>> d9cbbc22ad15fec97871dd4acd006762815bd4c4
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
@@ -118,9 +116,14 @@
                                     </li>
                                     <li>
                                         <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i>Login
-                                        </button>
+                                            <i class="flaticon-profile"></i><a href="${contextRoot}/user/login" style="color: white">Login
+                                       </a> </button>
                                     </li>
+                                    <li>
+                                        <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
+                                            <i class="flaticon-profile"></i><a href="${contextRoot}/users/logout" style="color: white">Logout</a>  </button>
+                                    </li>
+                                    
                                     <li>
                                         <a href="${contextRoot}/insertrecipe" class="fill-btn"><i class="flaticon-plus-1"></i>上傳食譜</a>
                                     </li>
@@ -154,7 +157,7 @@
                         </div>
                         <div class="col-lg-4 d-none d-lg-block">
                             <div class="site-logo-desktop">
-                                <a href="index.html" class="main-logo"><img src="img/logo-dark.png" alt="Site Logo"></a>
+                                <a href="${contextRoot}" class="main-logo"><img src="img/logo-dark.png" alt="Site Logo"></a>
                             </div>
                         </div>
                         <div class="col-lg-4">

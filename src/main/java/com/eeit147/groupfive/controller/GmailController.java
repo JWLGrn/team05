@@ -63,7 +63,7 @@ private UsersDao uDao;
     		return "email/successMail";
     	}
     	//需要登入失敗的頁面
-    	return "email/failmail"; 
+    	return "/"; 
     	
     }
 }

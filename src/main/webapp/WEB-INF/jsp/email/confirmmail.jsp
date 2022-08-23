@@ -62,7 +62,7 @@
                             <h1>Welcome to I Cook</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="${contextRoot}">Home</a>
                                 </li>
                             </ul>
                         </div>
@@ -70,6 +70,7 @@
                 </div>
             </div>
         </section>
+        </div>
         <!-- Inne Page Banner Area End Here -->
         <!-- Submit Recipe Area Start Here -->
 <!--         <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"> -->
@@ -107,8 +108,7 @@
 <br>
 偷看驗證碼:<br>
 ${verificationCode}
-
-
+<!-- ------------------------------------------------------- -->
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
     <script src="${contextRoot}/js/popper.min.js"></script>
