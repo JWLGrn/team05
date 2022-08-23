@@ -71,4 +71,7 @@ public class RecipeKeyword {
 		this.keyword = keyword;
 	}
 	
+	public String getKeywords() {
+		return keyword.getKeyword();
+	}
 }

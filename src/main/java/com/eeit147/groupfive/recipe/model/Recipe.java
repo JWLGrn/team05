@@ -261,8 +261,5 @@ public class Recipe {
 	public Integer getUserId() {
 		return users.getUserId();
 	}
-	
-	public String getUserName() {
-		return users.getUserName();
-	}
+
 }
