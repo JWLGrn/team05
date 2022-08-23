@@ -23,17 +23,14 @@
                                     </li>
                                     <li><a href="#${contextRoot}/posts/find/all">個人</a>
                                         <ul class="dropdown-menu-col-1">
-<<<<<<< HEAD
                                       <li>  <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
                                             <li><a href="author.html">　個人會員資料</a></li>
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
-=======
 
                                             <li><a href="author.html">　個人會員資料</a></li>
 
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
 
->>>>>>> d2377d67e4c8c34ca42b39aecfbc71d4ca48fdcb
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>

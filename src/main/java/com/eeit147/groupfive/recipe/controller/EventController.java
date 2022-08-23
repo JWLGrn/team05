@@ -192,7 +192,7 @@ System.out.println("@@@@"+eventdto.getEventPhoto());
 	          CampaignDto campaigndto=new CampaignDto();
 	          campaigndto.setCookTitle(recipe.getCookTitle());
 	          campaigndto.setCookPhoto(recipe.getCookPhoto());
-	          campaigndto.setUserName(recipe.getUserName()) ;
+	          campaigndto.setUserName(recipe.getUserName());
 	          campaigndto.setUserPhoto(recipe.getUserPhoto());
 	          //取得按讚數
 	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
