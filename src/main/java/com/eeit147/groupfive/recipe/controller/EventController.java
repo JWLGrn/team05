@@ -49,8 +49,8 @@ public class EventController {
 	@Autowired
 	private FavoriteDao fDao;
 	
-	//Integer userId=1;//管理員模式
-	Integer userId=3;//使用者模式
+	Integer userId=1;//管理員模式
+	//Integer userId=3;//使用者模式
 	Integer eventId=1;
 	//活動主頁
 	@GetMapping("/event/page")
@@ -95,12 +95,14 @@ public class EventController {
 		boolean updatejudge=true;
 		Event event=new Event();//建一個空的event
 		Integer eventId=eventdto.getEventId();
+		boolean update=true;//新增
 		if(eventId==1) {   //新增時先存一次,取得id <新增時id設1>
-			if(updatejudge==false) {
 				eDao.save(event);
 				eventId=event.getEventId();
-			}
-		}		
+				update=false;//刪除
+
+		}
+
 		event.setEventId(eventId);
 		event.setEventTitle(eventdto.getEventTitle());
 		event.setEventContext(eventdto.getEventContext());
@@ -111,11 +113,14 @@ public class EventController {
 		event.setTimeStart(datestart);
 		event.setTimeEnd(dateend);
 		//設定照片
+System.out.println("@@@@"+eventdto.getEventPhoto());
+		
 		String imgPath="event"+eventId+".jpg";//路徑儲存
-		if(eventdto.getEventPhoto()==null) {
-			
-			imgPath="noimg.jpg";//預設圖片
-			
+		
+		if(eventdto.getEventPhoto()==null) {	
+			if(update==false) {//新增
+				imgPath="noimg.jpg";//預設圖片
+			}
 		}else{
 			//存圖片
 			String pfile=eventdto.getEventPhoto().substring(eventdto.getEventPhoto().indexOf(",") + 1);
@@ -172,41 +177,33 @@ public class EventController {
 		return campaignslist;
 	}
 //顯示參加活動的名單
-//	 @ResponseBody
-//	 @PostMapping(value="/campaign/list", produces = { "application/json; charset=UTF-8" })
-//	 public  List<CampaignDto> campaignAlllist(@RequestBody Integer eventId,Model m){
-//		 
-//	 @GetMapping("/campaign/list/{eventId}")
-//	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
-//		 System.out.println(eventId);
-//		 Optional<Event> e=eDao.findById(eventId);
-//		 Event event=e.get();
-//		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
-//	     List<Campaign> campaignlist=cDao.findAllRecipeByEventId(eventId);
-//		 for(int i = 0; i < campaignlist.size(); i++) {
-//	          Integer resipeId=campaignlist.get(i).getRecipe().getRecipeId();
-//	          Optional<Recipe> r=rDao.findById(resipeId);
-//	          Recipe recipe=r.get();
-//	          CampaignDto campaigndto=new CampaignDto();
-//	          campaigndto.setCookTitle(recipe.getCookTitle());
-//	          campaigndto.setCookPhoto(recipe.getCookPhoto());
-//	          campaigndto.setUserName(recipe.getUserName()) ;
-//	          campaigndto.setUserPhoto(recipe.getUserPhoto());
-//	          //取得按讚數
-//	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
-//	          System.out.println("aaa"+recipeOfFavorite);
-//	          campaigndto.setFavoritenum(recipeOfFavorite);
-//	          
-//	          cDto.add(campaigndto);
-//	     }
-//		
-//	     }		
-//		 return cDto;		
-//	 }
-//	 @GetMapping("/event/showevent")
-//		public String eventpage(Model m) {
-//			m.addAttribute("userId", userId);	
-//			//m.addAttribute("eventId",eventId);	//insert
-//			return "event";
-//	}
+		 
+	 @GetMapping("/campaign/list/{eventId}")
+	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
+		 System.out.println(eventId);
+		 Optional<Event> e=eDao.findById(eventId);
+		 Event event=e.get();
+		 List<CampaignDto> cDto=new ArrayList<CampaignDto>();
+	     List<Campaign> campaignlist=cDao.findAllRecipeByEventId(eventId);
+		 for(int i = 0; i < campaignlist.size(); i++) {
+	          Integer resipeId=campaignlist.get(i).getRecipe().getRecipeId();
+	          Optional<Recipe> r=rDao.findById(resipeId);
+	          Recipe recipe=r.get();
+	          CampaignDto campaigndto=new CampaignDto();
+	          campaigndto.setCookTitle(recipe.getCookTitle());
+	          campaigndto.setCookPhoto(recipe.getCookPhoto());
+	          campaigndto.setUserName(recipe.getUserName()) ;
+	          campaigndto.setUserPhoto(recipe.getUserPhoto());
+	          //取得按讚數
+	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
+	          System.out.println("aaa"+recipeOfFavorite);
+	          campaigndto.setFavoritenum(recipeOfFavorite);
+	          
+	          cDto.add(campaigndto);
+	     }
+	
+		 return cDto;		
+	 }
+//----------------------------------------------------------------------------------------------
+	  
 }
