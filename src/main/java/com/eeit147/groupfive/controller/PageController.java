@@ -91,9 +91,9 @@ private FoodsService fService;
 		}	
 		
 		// 首頁
-		@GetMapping("/adminindex")
+		@GetMapping("/admInindex")
 		public String goAdminIndex() {
-			return "adminindex";
+			return "test/adminIndex";
 		}
 		
 	//測試查詢頁面

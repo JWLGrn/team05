@@ -14,6 +14,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+ <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.png">
+    <!-- Normalize Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
+    <!-- Main Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/main.css">
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/animate.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/fontawesome-all.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/flaticon.css">
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/summernote.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
+    <!-- Select 2 CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/style.css">
+    <!-- Modernizr Js -->
+    <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -23,6 +48,7 @@ body {font-size:16px;}
 <title>管理食材</title>
 </head>
 <body>
+<jsp:include page="../layout/navbar.jsp"/>
 <jsp:include page="adminMenu.jsp"></jsp:include>
 
 
@@ -56,9 +82,9 @@ body {font-size:16px;}
 		<td><input  name="foodsName" value="${f.foodsName}" /></td>
 		<td><input  name="foodsType" value="${f.foodsType}" /></td>
 		<td><input  name="calorie" value="${f.calorie}" /></td>
-		<td><button id="formButton" type="submit" class="btn btn-primary btn-sm">送出</button><td>
+		<td><button id="formButton" type="submit" class="w3-button w3-red w3-hover-black">送出</button><td>
 		</form>	
-		<td><a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>						
+		<td><a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>						
 		</tr>	
 		</c:forEach>
 
