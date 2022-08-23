@@ -22,15 +22,12 @@
 			</h3>
 		</div>
 		<div class="w3-bar-block">
-			<a href="#admin" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a>
-			<a href="${contextRoot}/showAllUsers"
-				class="w3-bar-item w3-button w3-hover-white">管理使用者</a> <a
-				href="${contextRoot}/addfoods"
-				class="w3-bar-item w3-button w3-hover-white">新增食材</a> <a
-				href="${contextRoot}/showAllFoods123"
-				class="w3-bar-item w3-button w3-hover-white">管理食材</a> <a
-				href="#packages" class="w3-bar-item w3-button w3-hover-white">Packages</a>
-			<a href="#contact" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+			<a href="${contextRoot}/admInindex" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a>
+			<a href="${contextRoot}/addfoods" class="w3-bar-item w3-button w3-hover-white">新增食材</a>
+			<a href="${contextRoot}/showAllFoods123" class="w3-bar-item w3-button w3-hover-white">管理食材</a>
+			<a href="${contextRoot}/showAllUsers" class="w3-bar-item w3-button w3-hover-white">管理使用者</a>
+			<a href="#packages" class="w3-bar-item w3-button w3-hover-white">管理活動</a>
+			<a href="#contact" class="w3-bar-item w3-button w3-hover-white">回覆使用者</a>
 		</div>
 	</nav>
 </body>
