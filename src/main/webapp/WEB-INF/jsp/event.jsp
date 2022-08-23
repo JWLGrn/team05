@@ -376,7 +376,7 @@ function del(eventId){
 //參加活動紐
 function participate(eventId){
 	//顯示選擇活動
-<<<<<<< HEAD
+
 // 	var replyjson=JSON.stringify(eventId);
 // 	$.ajax({
 // 		url:"${contextRoot}/event/update",
@@ -403,10 +403,8 @@ function participate(eventId){
 // 		}
 //	});
 	//參加者名單
-	var replyjson1=JSON.stringify(eventId);
-=======
+
 	var replyjson=JSON.stringify(eventId);
->>>>>>> 4b12698c8a717697d45bb6a3c0d87dc6bc84c465
 	$.ajax({
 		url:"${contextRoot}/event/update",
 		contentType:'application/json',//送出資料型態
