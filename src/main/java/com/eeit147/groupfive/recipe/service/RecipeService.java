@@ -445,4 +445,9 @@ public class RecipeService {
 	public List<Recipe> findRecipeByUserId(Users users){
 		return rDao.findByUsers(users);
 	}
+	
+	// 隨機食譜
+	public List<Recipe> findRandomRecipe(Integer number){
+		return rDao.findRandomRecipe(number);
+	}
 }

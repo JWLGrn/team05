@@ -328,4 +328,14 @@ public class RecipeController {
 		m.addAttribute("recipe", recipe);
 		return "test/selfRecipe" ;
 	}
+	
+	// 隨機食譜
+	@GetMapping("recipe/find/random/{number}")
+	@ResponseBody
+	public List<Recipe> randomRecipe(@PathVariable("number")Integer number){
+		List<Recipe> recipe = rService.findRandomRecipe(number);
+		return recipe;
+	}
+	
+	
 }

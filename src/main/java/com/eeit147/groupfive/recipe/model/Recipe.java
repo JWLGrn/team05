@@ -261,4 +261,8 @@ public class Recipe {
 	public Integer getUserId() {
 		return users.getUserId();
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68647edae484bba36ca7431ca19cb3b4043f2b9e
 }
