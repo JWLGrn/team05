@@ -31,17 +31,8 @@ height: 50px;
                                     </li>
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
-<<<<<<< HEAD
-<<<<<<< HEAD
                                       <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }"> 修改會員資料</a></li>
                                             <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
-=======
-                                      <li>  <a href="${contextRoot}/users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
-=======
-                                      <li>  <a href="users/updatemember?user_id=${result.userId }">　修改會員資料</a></li>
->>>>>>> bc853b6592c283e0455251f08f26578dd124ecca
-                                            <li><a href="author.html">　個人會員資料</a></li>
->>>>>>> b5700f4bdcbf4c0ff95a7e20de277d7328b33b71
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>
@@ -131,11 +122,8 @@ height: 50px;
                                             </div>
                                         </div>
                                     </li>
-<<<<<<< HEAD
                                     
-=======
                                    <c:if test="${empty loginUser }"> 
->>>>>>> bc853b6592c283e0455251f08f26578dd124ecca
                                     <li>
                                        <a href="${contextRoot}/user/login" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
                                             <i class="flaticon-profile"></i>登入

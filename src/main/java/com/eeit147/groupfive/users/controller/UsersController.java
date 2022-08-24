@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
@@ -70,12 +68,9 @@ public class UsersController {
 		m.addAttribute("login", u);
 		return "test/login";
 	}
-<<<<<<< HEAD
 
 	// 會員執行登入 判斷帳號密碼 需要再寫一個抓userid!!!!!!!!!!!!!!!!!!????????
-=======
 	// 會員執行登入 判斷帳號密碼
->>>>>>> bc853b6592c283e0455251f08f26578dd124ecca
 	@PostMapping("/user/login.controller")
 	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
 		HashMap<String, String> msg = new HashMap<String, String>();
@@ -144,7 +139,6 @@ public class UsersController {
 			return "redirect:/user/login";
 
 		} else if (permission ==2){
-			//管理者頁面!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			return "test/adminIndex";
 		}
 		return "redirect:/user/login";

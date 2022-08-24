@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +27,7 @@ import com.eeit147.groupfive.recipe.model.EventDao;
 import com.eeit147.groupfive.recipe.model.EventDto;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
-import com.eeit147.groupfive.recipe.model.RecipeStepDao;
-import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
-import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
 
