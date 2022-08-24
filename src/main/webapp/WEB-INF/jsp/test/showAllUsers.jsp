@@ -107,7 +107,7 @@ body {font-size:16px;}
 $("#userName").keyup(function(){
 	let usernameValue = $('#userName').val();
 	console.log(usernameValue)
-	let urlStr = "${contextRoot}/find/searchUser/" + usernameValue;
+	let urlStr = "${contextRoot}/find/searchUser/"+ usernameValue;
 	$.ajax({
 		url: urlStr ,
 		type : 'Get',
@@ -117,7 +117,7 @@ $("#userName").keyup(function(){
 			 $('#userbody').empty();
 			 for (var i = 0; i < data.length; i++) {
 				  const item = data[i];
-				  console.log(i, item);
+				  console.log(i,item);
 				var text=	'<tr id="userTr">'+	
 					'<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
 					+'<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'+
@@ -130,7 +130,6 @@ $("#userName").keyup(function(){
 					'<td><a href="${contextRoot}/deleteFood/'+item.userId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
 					'</form>'+	
 					'</tr>'
-					console.log("text",text);
 					$("#userbody").append(text);				
 			}
 			console.log("data",data);

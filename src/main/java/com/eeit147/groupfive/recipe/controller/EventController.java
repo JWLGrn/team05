@@ -51,7 +51,7 @@ public class EventController {
 	
 	Integer userId=1;//管理員模式
 	//Integer userId=3;//使用者模式
-	Integer eventId=1;
+	//Integer eventId=1;
 	//活動主頁
 	@GetMapping("/event/page")
 	public String recipepage(Model m) {
@@ -113,13 +113,12 @@ public class EventController {
 		event.setTimeStart(datestart);
 		event.setTimeEnd(dateend);
 		//設定照片
-System.out.println("@@@@"+eventdto.getEventPhoto());
 		
-		String imgPath="event"+eventId+".jpg";//路徑儲存
+		String imgPath="event"+eventId+".jpeg";//路徑儲存
 		
 		if(eventdto.getEventPhoto()==null) {	
 			if(update==false) {//新增
-				imgPath="noimg.jpg";//預設圖片
+				imgPath="noimg.jpeg";//預設圖片
 			}
 		}else{
 			//存圖片
@@ -142,7 +141,7 @@ System.out.println("@@@@"+eventdto.getEventPhoto());
 
 	}
 	@ResponseBody	@PostMapping(value="/event/choice", produces = { "application/json; charset=UTF-8" })
-	public Event eventchoice(@RequestBody Integer eventId, Model m){
+	public Event eventchoice(@RequestBody Integer eventId, Model m){	
 		Optional<Event> e=eDao.findById(eventId);
 		Event event=e.get();
 	    return event;
@@ -205,5 +204,14 @@ System.out.println("@@@@"+eventdto.getEventPhoto());
 		 return cDto;		
 	 }
 //----------------------------------------------------------------------------------------------
-	  
+
+	 @ResponseBody	@PostMapping(value="/event/joindelete", produces = { "application/json; charset=UTF-8" })
+		public void joinDelete(@RequestBody String data, Model m){
+		 String[] dataarr=data.replace("\"","").split(",");//切割字串,
+		 int recipeId=Integer.parseInt(dataarr[0]);
+		 int eventId=Integer.parseInt(dataarr[1]);
+		 System.out.println(dataarr[1]);
+		 Campaign campaign=cDao.findCampaignByEventIdAndRecipeId(eventId, recipeId);		
+		 cDao.deleteById(campaign.getcampaignId());
+		}
 }
