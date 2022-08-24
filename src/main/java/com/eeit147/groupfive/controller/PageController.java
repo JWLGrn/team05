@@ -90,8 +90,8 @@ private FoodsService fService;
 			return "test/showAllFoods123";
 		}	
 		
-		// 首頁
-		@GetMapping("/admInindex")
+		// 後台首頁
+		@GetMapping("/adminIndex")
 		public String goAdminIndex() {
 			return "test/adminIndex";
 		}

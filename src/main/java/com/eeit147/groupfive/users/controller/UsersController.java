@@ -90,7 +90,7 @@ public class UsersController {
 			if(permission == 1) {
 				return "index";
 			}else if(permission == 2) {
-				return "admin";
+				return "test/adminIndex";
 			}		
 		}
 
@@ -140,7 +140,7 @@ public class UsersController {
 
 		} else if (permission ==2){
 			//管理者頁面!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			return "admin";
+			return "test/adminIndex";
 		}
 		return "index";
 	}

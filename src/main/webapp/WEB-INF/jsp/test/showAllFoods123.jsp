@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -65,7 +66,7 @@ body {font-size:16px;}
 		<option>${f}</option>
 	</c:forEach>
 </select>
-<table  class="table table-striped">
+<table id="foodTable" class="table table-striped">
 <thead>
     <tr>
 	<th></th>
@@ -109,6 +110,9 @@ body {font-size:16px;}
 				</c:forEach>
 			</div>
 		</div>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+<!-- <script -->
+<!-- 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
 <script>
 $("#foodsName").keyup(function(){
 	let foodsnameValue = $('#foodsName').val();
@@ -129,8 +133,8 @@ $("#foodsName").keyup(function(){
 					'<td><input  id="foodsName'+item.foodsId+'" name="foodsName" value="'+item.foodsName+'" /></td>'+
 					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
 					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
-					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="w3-button w3-red w3-hover-black">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'+						
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);
@@ -159,8 +163,8 @@ function searchFoodsByfoodsType(){
 					'<td><input  id="foodsName'+item.foodsId+'" name="foodsName" value="'+item.foodsName+'" /></td>'+
 					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
 					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
-					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
+					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="w3-button w3-red w3-hover-black">送出</button></A></td>'+
+					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'+						
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);
@@ -181,6 +185,9 @@ function sendfromUpdateData(foodsId){
 	const url="${contextRoot}/editFoods/"+foodsId+"/"+$("#foodsName"+foodsId).val()+"/"+$("#foodsType"+foodsId).val()+"/"+$("#calorie"+foodsId).val(); 
 	window.location.href = url;
 }
+//	$(document).ready(function() {
+//	$('#foodTable').DataTable();
+//});
 </script>
 </body>
 

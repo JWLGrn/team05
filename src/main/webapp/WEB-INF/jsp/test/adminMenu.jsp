@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
 	<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
@@ -22,7 +23,7 @@
 			</h3>
 		</div>
 		<div class="w3-bar-block">
-			<a href="${contextRoot}/admInindex" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a>
+			<a href="${contextRoot}/adminIndex" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a>
 			<a href="${contextRoot}/addfoods" class="w3-bar-item w3-button w3-hover-white">新增食材</a>
 			<a href="${contextRoot}/showAllFoods123" class="w3-bar-item w3-button w3-hover-white">管理食材</a>
 			<a href="${contextRoot}/showAllUsers" class="w3-bar-item w3-button w3-hover-white">管理使用者</a>
