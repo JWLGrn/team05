@@ -281,17 +281,20 @@
 //定義物件
 let fileDataURL;
 //--------------------------------------------測試用
-$(document).ready(function() {
-	$("#showevent").hide();
-	$("#insertevent").hide();
-	$("#oneevent_out").show();//顯示選擇的活動
-	participate(2)
-	$("#showmyRecipe").hide();
-	$("#showparticipate").hide();
-	//功能
- 	$("#createbtn").hide;//未填資料先隱藏
- 	$("#neweventbtn").hide();//連結紐隱藏
-});
+ $(document).ready(function() {
+//區塊
+		$("#showevent").hide();
+		$("#insertevent").hide();
+		$("#oneevent_out").show();//顯示選擇的活動
+		//participate(2);
+		$("#showmyRecipe").hide();
+		$("#showparticipate").show();//顯示參加者
+		participatelist(2);
+		//功能
+	 	$("#createbtn").hide;//未填資料先隱藏
+	 	$("#neweventbtn").hide();//連結紐隱藏
+ 	
+ });
 
 //---------------------------------------------呼叫區
 //  $(document).ready(function() {//網頁載入,顯示活動區塊
@@ -348,7 +351,7 @@ function showupdate(eventId){
 	$("#showevent").hide();
 	$("#insertevent").hide();
 	$("#oneevent_out").show();//顯示選擇的活動
-	participate(eventId)
+	participate(eventId);
 	$("#showmyRecipe").show();//顯示食譜
 	showMyRecipe(eventId);
 	$("#showparticipate").hide();
@@ -357,11 +360,19 @@ function showupdate(eventId){
  	$("#neweventbtn").hide();//連結紐隱藏
 
  }
- //呼叫
- function showparticipate(){
- 	$("#show_myRecipe").hide();
- 	$("#showparticipate").show();
- 	participatelist();
+ //顯示參加名單showparticipate()
+ function showparticipate(eventId){
+	//區塊
+		$("#showevent").hide();
+		$("#insertevent").hide();
+		$("#oneevent_out").show();//顯示選擇的活動
+		participate(2);
+		$("#showmyRecipe").hide();
+		$("#showparticipate").show();//顯示參加者
+		participatelist(2);
+		//功能
+	 	$("#createbtn").hide;//未填資料先隱藏
+	 	$("#neweventbtn").hide();//連結紐隱藏
  }
 //---------------------------------------------顯示區
 //--------------------event顯示類------------------->  
@@ -614,7 +625,6 @@ function updateevent(eventId){
 function del(eventId){
 	var r = confirm("您確定要刪除嗎?");
 	if (r == true) {
- 	console.log("del");
 	 alert('刪除成功');
 	var replyjson=JSON.stringify(eventId);
 	$.ajax({
@@ -673,7 +683,7 @@ function showMyRecipe(eventId){
 			};
 			$.ajax(settings).done(function (response) {
 			var replydata="";
-console.log(eventId)
+
 			$.each(response,function(index,value){
 				count++;
 				checkjoin(eventId,value.recipeId,count);
@@ -698,6 +708,7 @@ console.log(eventId)
 function rechoice(){
 	 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
 }
+//--------------------參加活動選擇-------------------> 
 //將參加的食譜傳到後端資料庫
 function checkchoice(eventId){
 	var str=eventId;
@@ -715,16 +726,16 @@ function checkchoice(eventId){
 		method:'post',
 		data:replyjson,
 		success:function(result){						
-				$(location).prop("href", "http://localhost:8090/cookblog/showevent");
+	
 		},
 		error:function(err){
 				 console.log(err);
 		}
 	});
+    $(location).prop("href", "http://localhost:8090/cookblog/showevent");
 }
 //確認是否參加過
 function checkjoin(eventId,recipeId,count){
-	
 				let obj={
 						eventId:eventId,
 						recipeId:recipeId
@@ -753,8 +764,6 @@ function checkjoin(eventId,recipeId,count){
 function canceljoin(recipeId,eventId){
 	var r = confirm("您確定要取消參加嗎?");
 	if (r == true) {
-	console.log(recipeId);
-	console.log(eventId);
 	let data1=recipeId+","+eventId;
  	var replyjson=JSON.stringify(data1);
  	$.ajax({
@@ -787,13 +796,13 @@ function participatelist(eventId){
 			$.each(response,function(index,value){
 				replydata+=
 					"食譜標題:"+value.cookTitle+"<br/>"
-					+"食譜圖片:<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"
+					+"食譜圖片:<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='eventimg'/><br/>"
 					+"作者:"+value.userName+"<br/>"
-					+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg'/><br/>"
+					+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg eventimg'/><br/>"
 					+"按讚數:"+value.favoritenum+"<br/>";
 		
 			})
-			$("#showcampaign").html(replydata);
+			$("#showparticipate").html(replydata);
 		});	
    
 }

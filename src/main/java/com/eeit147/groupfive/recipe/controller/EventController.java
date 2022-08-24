@@ -49,8 +49,8 @@ public class EventController {
 	@Autowired
 	private FavoriteDao fDao;
 	
-	Integer userId=1;//管理員模式
-	//Integer userId=3;//使用者模式
+	//Integer userId=1;//管理員模式
+	Integer userId=3;//使用者模式
 	//Integer eventId=1;
 	//活動主頁
 	@GetMapping("/event/page")
@@ -176,7 +176,7 @@ public class EventController {
 		return campaignslist;
 	}
 //顯示參加活動的名單
-		 
+	 @ResponseBody
 	 @GetMapping("/campaign/list/{eventId}")
 	 public List<CampaignDto> campaignAlllist(@PathVariable("eventId") Integer eventId,Model m){
 		 System.out.println(eventId);
