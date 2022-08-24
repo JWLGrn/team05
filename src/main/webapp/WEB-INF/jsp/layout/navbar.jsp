@@ -23,8 +23,13 @@
                                     </li>
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
+<<<<<<< HEAD
                                       <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }"> 修改會員資料</a></li>
                                             <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
+=======
+                                      <li>  <a href="${contextRoot}/users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
+                                            <li><a href="author.html">　個人會員資料</a></li>
+>>>>>>> b5700f4bdcbf4c0ff95a7e20de277d7328b33b71
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>

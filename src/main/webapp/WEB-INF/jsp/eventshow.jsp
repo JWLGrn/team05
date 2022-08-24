@@ -41,10 +41,15 @@
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 <style type="text/css">
 .eventimg {
-	width: 200x;
+	width: 300px;
 	height: 200px;
 }
-
+.circle {
+	 border-radius:60%;
+}
+.aligncenter{
+    justify-content: center;
+}
 .imgcenter {
 	display: flex;
 	justify-content: center;
@@ -62,6 +67,8 @@
 	border: white;
 	padding: 10pt 20pt 10pt 20pt;
 	font-weight:bold;
+	margin-bottom: 40pt;
+	margin-left:10pt;
 }
 .submitbtn:hover{
 	background-color:  #e92731;
@@ -78,6 +85,26 @@
     text-align: center;
     color: #444444;
     font-size: 17px;
+}
+.padding_50{
+	padding-left:50pt;
+}
+.color_red{
+  color: #ff5057;
+}
+.color_yellow{
+ color: #fdb401;
+}
+.title_h1{
+   font-weight:bold;
+   font-size: 36px;
+   color:red;
+}
+.padding_top_50{
+	padding-top: 80pt;
+}
+.padding_but_50{
+    padding-bottom: 80pt;
 }
 </style>
 <style>
@@ -113,22 +140,21 @@
 			</div>
 		</section>
 		<!-- Recipe Without Sidebar Area Start Here -->
-		<section
-			class="recipe-without-sidebar-wrap padding-top-80 padding-bottom-22">
-			<div class="container">
 <!-- 顯示活動	-> 選擇	 -->
-		<div class="row" id="showevent">
-				
-		</div>
+<section class="recipe-without-sidebar-wrap padding-top-80 padding-bottom-22">
+		<div class="container">
+		    <div class="row" id="showevent"></div>
+		    <div id="neweventbtn"><a onclick="addevent(1)"><i class="submitbtn">新增活動</i></a>
+		</div>	
+</section>	
 <!-- 新增活動 -->
-		  <div id="insertevent">			
-			<section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+<section id="insertevent" class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
             <div class="container">
                 <div class="row gutters-60">
                     <div class="col-lg-8">
                         <form class="submit-recipe-form">
                             <div class="form-group">
-                                <label><h1>活動新增</h1></label>
+                                <p class="title_h1">活動新增</p>
                                 <input type="hidden" id="eventId" ><br />
                                 <label>活動標題</label>
                                 <input type="text" id="eventTitle" placeholder="Recipe Name" class="form-control" name="name"
@@ -179,52 +205,51 @@
                             <div onclick="hotkey()" style="color: red;">快捷鍵</div>
                         </form>
                     </div>
-
                 </div>
-            </div>
-        </section>
-       </div>
-       			 		
-       
-        <!-- Submit Recipe Area End Here -->
+          </div>
+</section>
 <!-- 選定參加活動 -->
-  <div class="row" id="oneevent_out"></div>
-     <div class="row gutters-40">
-                    <div class="col-lg-8">
-                        <div class="row gutters-40">
+<section class="row aligncenter">
+    <div id="oneevent_out" class="recipe-without-sidebar-wrap padding-top-80 padding-bottom-22">
+      <div class="row gutters-40"> 
+                     <div class="col-lg-9"> 
+                        <div class="row gutters-40 ">
                             <div class="col-12">
                                <div class="product-box-layout4" id="oneevent">
-                                  
-                                </div>
+                               </div>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-       <button onclick="rechoice()" class="submitbtn">重新選擇</button>
-  </div>
+     </div>
+ </section> 
 <!-- 顯示食譜 --> 
 <section class="padding-bottom-45" >
-                <div class="row gutters-40">
-                    <div class="col-lg-8">
-                        <div class="ranna-box-style" id="myRecipe">
+                <div class="row gutters-40 aligncenter" id="showmyRecipe">
+                    <div class="col-lg-8 ">
+                        <div class="ranna-box-style ">
                             <div class="section-heading heading-dark">
-                                <h2 class="item-heading">RECIPES LIST</h2>
+                                <h2 class="item-heading">MY RECIPES LIST</h2>
                             </div>
-                                                        
+                            <div id="myRecipe">
+                            </div>                            
                         </div>
                     </div>
-             </div>                   
+                </div>             
 </section>
-<!-- 顯示食譜 -->     
-
- 
-
+<!-- 顯示參加者 -->    
+<section class="padding-bottom-45" >
+    <div class="row gutters-40 aligncenter" id="showparticipate">
+			<h3>showparticipate</h3>
+	</div>
+</section>
 		<!-- Recipe Without Sidebar Area End Here -->
 		<!-- Footer Area Start Here -->
-		<footer class="ranna-bg-dark">
-			<div class="container">
-				<div class="footer-logo">
+		<footer class="ranna-bg-dark ">
+			<div class="container ">
+				<div class="footer-logo ">
 					<a href="index.html"><img src="img/logo-light.png"
 						class="img-fluid" alt="footer-logo"></a>
 				</div>
@@ -232,7 +257,7 @@
 			</div>
 		</footer>
 
-		<!-- Jquery Js -->
+<!-- Jquery Js -->
 
 		<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 		<!-- Bootstrap Js -->
@@ -246,32 +271,111 @@
 		<!-- Summernote JS 
 		<script src="${contextRoot}/js/summernote.min.js"></script>-->
 		<!-- Select 2 Js -->
-		<script src="${contextRoot}/js/select2.full.min.js"></script>
+		<script src="${contextRoot}/js/select2.full.min.js"></script>       
+        <script src="${contextRoot}/js/main.js"></script>
 
-		<!-- Custom Js -->
-<script src="${contextRoot}/js/main.js"></script>
 
+
+<!-- JAVA　SCRIPT------------------------------------------------ -->
 <script type="text/javascript">
+//定義物件
 let fileDataURL;
-//測試用
-$(document).ready(function() {
-	//showAllEvent();
-	$("#insertevent").hide();
-	//$("#oneevent_out").show();
-	//participate(9);
-	$("#myRecipe").show();
-	showMyRecipe(2);
-});
-//測試期間關閉
-// $(document).ready(function() {
-// 		//顯示活動
-// 		showAllEvent();
-// 		$("#insertevent").hide();
-// 		//預設開始時間 結束時間
-// 		dateSet();				
-// });
-//顯示活動  管理員:crud,一般使用者:參加活動
+//--------------------------------------------測試用
+ $(document).ready(function() {
+//區塊
+		$("#showevent").hide();
+		$("#insertevent").hide();
+		$("#oneevent_out").show();//顯示選擇的活動
+		//participate(2);
+		$("#showmyRecipe").hide();
+		$("#showparticipate").show();//顯示參加者
+		participatelist(2);
+		//功能
+	 	$("#createbtn").hide;//未填資料先隱藏
+	 	$("#neweventbtn").hide();//連結紐隱藏
+ 	
+ });
 
+//---------------------------------------------呼叫區
+//  $(document).ready(function() {//網頁載入,顯示活動區塊
+// 	 //區塊
+// 	 $("#showevent").show();
+// 	 showAllEvent();
+// 	 $("#insertevent").hide();
+// 	 $("#oneevent_out").hide();
+// 	 $("#showmyRecipe").hide();
+// 	 $("#showparticipate").hide();
+//  });
+//新增
+ function addevent(){
+	//區塊
+ 	$("#showevent").hide();
+	$("#insertevent").show();//顯示新增區塊
+ 	$("#oneevent_out").hide();
+	$("#showmyRecipe").hide();
+	$("#showparticipate").hide();
+	//功能
+ 	$("#createbtn").hide();//未填資料先隱藏
+ 	$("#eventId").val("1");//新增預設
+ 	$("#neweventbtn").hide();//連結紐隱藏
+ }
+ //修改
+function showupdate(eventId){
+	//區塊
+ 	$("#showevent").hide();
+	$("#insertevent").show();//顯示新增區塊
+ 	$("#oneevent_out").hide();
+	$("#showmyRecipe").hide();
+	$("#showparticipate").hide();
+	//功能
+ 	$("#createbtn").show();//未填資料先隱藏
+ 	$("#neweventbtn").hide();//連結紐隱藏
+	updateevent(eventId);
+ }
+//參加活動
+ function showoneevent(eventId){
+	//區塊
+	$("#showevent").hide();
+	$("#insertevent").hide();
+	$("#oneevent_out").show();//顯示選擇的活動
+	participate(eventId)
+	$("#showmyRecipe").hide();
+	$("#showparticipate").hide();
+	//功能
+ 	$("#createbtn").hide;//未填資料先隱藏
+ 	$("#neweventbtn").hide();//連結紐隱藏
+ }
+ //呼叫我的食譜
+ function showmyrecipe(eventId){
+	//區塊
+	$("#showevent").hide();
+	$("#insertevent").hide();
+	$("#oneevent_out").show();//顯示選擇的活動
+	participate(eventId);
+	$("#showmyRecipe").show();//顯示食譜
+	showMyRecipe(eventId);
+	$("#showparticipate").hide();
+	//功能
+ 	$("#createbtn").hide;//未填資料先隱藏
+ 	$("#neweventbtn").hide();//連結紐隱藏
+
+ }
+ //顯示參加名單showparticipate()
+ function showparticipate(eventId){
+	//區塊
+		$("#showevent").hide();
+		$("#insertevent").hide();
+		$("#oneevent_out").show();//顯示選擇的活動
+		participate(2);
+		$("#showmyRecipe").hide();
+		$("#showparticipate").show();//顯示參加者
+		participatelist(2);
+		//功能
+	 	$("#createbtn").hide;//未填資料先隱藏
+	 	$("#neweventbtn").hide();//連結紐隱藏
+ }
+//---------------------------------------------顯示區
+//--------------------event顯示類------------------->  
 function showAllEvent() {
 	var settings = {
 					"url" : "http://localhost:8090/cookblog/event/showevent",
@@ -293,24 +397,17 @@ function showAllEvent() {
 					+ '</p><p class="fas fa-clock">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
 					+ '</p><ul class="entry-meta">'
 					//if(${userId}==1){								
-				replydata += '<li><a onclick="updateevent('+ value.eventId+')"><i class="fas fa-user">修改</i></a></li>';
+				replydata += '<li><a ><i class="fas fa-user" onclick="showupdate('+ value.eventId+')">修改</i></a></li>';
 				replydata += '<li><a onclick="del('+ value.eventId+ ')"><i class="fas fa-user">刪除</i></a></li>';
                  //}	
-				replydata += '<li><a onclick="participate('+ value.eventId+ ')"><i class="fas fa-user">參加活動</i></a></li>';
+				replydata += '<li><a onclick="showoneevent('+ value.eventId+ ')"><i class="fas fa-user">參加活動</i></a></li>';
 				replydata += '</ul></div></div></div>';
-
-			})	
-			replydata +='<div><a onclick="addevent(1)"><i class="submitbtn">新增活動</i></a></div>';
+				
+			})				
             $("#showevent").html(replydata);
 			});
 }
-//新增
- function addevent(){
- 	$("#insertevent").show();
- 	$("#showevent").hide();
- 	$("#createbtn").hide();
- 	$("#eventId").val("1");
- }
+//--------------------event編輯類-------------------> 
 //初始時間設定
 function dateSet(){
 		let now=new Date();
@@ -340,256 +437,218 @@ function imgview(event,imgid){
  			fr.readAsDataURL(event.target.files[0]);//img預覽
  	}
 }
-// //顯示食譜
- 
-			function showMyRecipe(eventId){
-				var settings = {
-				        "url": "http://localhost:8090/cookblog/event/showrecipe",
-				    	"method": "GET",
-				   		"timeout": 0,
-				    };
-					$.ajax(settings).done(function (response) {
-						var replydata="<h3>我的食譜</h3>";
-						
-						$.each(response,function(index,value){
-							checkjoin(eventId,value.recipeId);
-							replydata+='<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'"/>';
-							replydata+='<div class="row gutters-40">'
-								+'<div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">'
-								+'<div class="product-box-layout6">'
-								+'<div class="item-figure">'
-								+'<img src="${contextRoot}/image/recipe/'+value.cookPhoto+'" class="eventimg" alt="Product">'
-								+'</div><div class="item-content">'
-								+'<h3 class="item-title"><a href="single-recipe1.html">'+value.recipeId+'_'+value.cookTitle+'</a></h3>'
-								+'<p>'+value.cookDescription+'</p>'
-        						+'<ul class="entry-meta remove-3rd-child-lg">'
-        						+'</ul></div></div></div></div>'
-//                                             <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-//                                             <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-//                                             <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-						})
-						replydata+="<button onclick='checkchoice("+eventId+")'>送出</button>";
-						$("#myRecipe").html(replydata);			
-					});	
+//輸入檢查
+//eventTitle_20字(實際上限中文25字)
+$("#eventTitle").blur(function(){
+	str=eventTitle.value;
+	if(str.length<1||str.length>21){
+		$("#checkTitle").text('自數限定1~20');
+		$("#eventTitle").val("");
+	}else{
+		$("#checkTitle").text("");
+	}
+});
+//eventContext_200字(實際上限max)
+$("#eventContext").blur(function(){
+	str=eventContext.value;
+	if(str.length<1||str.length>200){
+		$("#checkContext").text('自數限定1~200');
+		$("#createbtn").hide();
+	}else{
+		$("#checkContext").text("");
+		$("#createbtn").show();
+	}
+});
+$("#timeStart").blur(function(){
+	//取現在時間
+	let now=new Date();
+	let year=now.getFullYear();
+	let month=now.getMonth()+1;
+	let date=now.getDate();
+	//取輸入時間
+	let inputtime=$("#timeStart").val();
+	let tarr=inputtime.split("-");
+	function reset(){
+		if(month<10){month="0"+month}
+		if(date<10){date="0"+date}
+		timeStart.value=year+"-"+month+"-"+date;
+	}
+	if(tarr[0]<year){
+		$("#checkTime").text("開始時間不可小於今天");
+		reset();
+	}else{
+		if(tarr[1]<month){
+			$("#checkTime").text("開始時間不可小於今天");
+			reset();
+		}else{
+			if(tarr[2]<date){
+				$("#checkTime").text("開始時間不可小於今天");
+				reset();
+			}else{
+				$("#checkTime").text("");
 			}
-
- //輸入檢查--------------------------------------------
-
-			//eventTitle_20字(實際上限中文25字)
-			$("#eventTitle").blur(function(){
-				str=eventTitle.value;
-				if(str.length<1||str.length>21){
-					$("#checkTitle").text('自數限定1~20');
-					$("#eventTitle").val("");
-				}else{
-					$("#checkTitle").text("");
-				}
-			});
-			//eventContext_200字(實際上限max)
-			$("#eventContext").blur(function(){
-				str=eventContext.value;
-				if(str.length<1||str.length>200){
-					$("#checkContext").text('自數限定1~200');
-					$("#createbtn").hide();
-				}else{
-					$("#checkContext").text("");
-					$("#createbtn").show();
-				}
-			});
-			$("#timeStart").blur(function(){
-				//取現在時間
-				let now=new Date();
-				let year=now.getFullYear();
-				let month=now.getMonth()+1;
-				let date=now.getDate();
-				//取輸入時間
-				let inputtime=$("#timeStart").val();
-				let tarr=inputtime.split("-");
-				function reset(){
-					if(month<10){month="0"+month}
-					if(date<10){date="0"+date}
-					timeStart.value=year+"-"+month+"-"+date;
-				}
-				if(tarr[0]<year){
-					$("#checkTime").text("開始時間不可小於今天");
-					reset();
-				}else{
-					if(tarr[1]<month){
-						$("#checkTime").text("開始時間不可小於今天");
-						reset();
-					}else{
-						if(tarr[2]<date){
-							$("#checkTime").text("開始時間不可小於今天");
-							reset();
-						}else{
-							$("#checkTime").text("");
-						}
-					}
-				}	
-			});
-			$("#timeEnd").blur(function(){
-				//取開始時間
-				let starttime=$("#timeStart").val();
-				let starr=starttime.split("-");
-				//取輸入時間
-				let inputtime=$("#timeEnd").val();
-				let tarr=inputtime.split("-"); 
-				let date_num=parseInt(starr[2])+1;
-				
-			 	function reset(){
-			 		if(date_num<10){date_num="0"+date_num}
-			 		$("#timeEnd").val(starr[0]+"-"+starr[1]+"-"+date_num);
-				}
-				if(tarr[0]<starr[0]||tarr[0]>(parseInt(starr[0])+1)){//年
-					$("#checkTime").text("結束時間不可小於開始時間,也不能超過一年");
-					reset();
-				}else{
-					if(tarr[1]<starr[1]){//月
-						$("#checkTime").text("結束時間不可小於開始時間");
-						reset();
-					}else{
-						if(tarr[2]<date_num){//日
-							$("#checkTime").text("結束時間不可小於開始時間");
-							reset();
-						}else{
-							$("#checkTime").text("");
-						}
-					}
-				}	
-			});
-//輸入檢查--------------------------------------------
+		}
+	}	
+});
+$("#timeEnd").blur(function(){
+	//取開始時間
+	let starttime=$("#timeStart").val();
+	let starr=starttime.split("-");
+	//取輸入時間
+	let inputtime=$("#timeEnd").val();
+	let tarr=inputtime.split("-"); 
+	let date_num=parseInt(starr[2])+1;
+	
+ 	function reset(){
+ 		if(date_num<10){date_num="0"+date_num}
+ 		$("#timeEnd").val(starr[0]+"-"+starr[1]+"-"+date_num);
+	}
+	if(tarr[0]<starr[0]||tarr[0]>(parseInt(starr[0])+1)){//年
+		$("#checkTime").text("結束時間不可小於開始時間,也不能超過一年");
+		reset();
+	}else{
+		if(tarr[1]<starr[1]){//月
+			$("#checkTime").text("結束時間不可小於開始時間");
+			reset();
+		}else{
+			if(tarr[2]<date_num){//日
+				$("#checkTime").text("結束時間不可小於開始時間");
+				reset();
+			}else{
+				$("#checkTime").text("");
+			}
+		}
+	}	
+});
 //快捷鍵
-			function hotkey(){
-				$("#eventTitle").val("秋季美食");
-				$("#eventContext").text("募集專屬秋天的美食!");
-				$("#timeStart").val("2022-10-01");
-				$("#timeEnd").val("2022-10-31");
-				$("#createbtn").show();
-				$("#checkTitle").text("");
-				$("#checkContext").text("");
-			}
-			
-// //功能-------------------------------------------------------
+function hotkey(){
+	$("#eventTitle").val("秋季美食");
+	$("#eventContext").text("募集專屬秋天的美食!");
+	$("#timeStart").val("2022-10-01");
+	$("#timeEnd").val("2022-10-31");
+	$("#createbtn").show();
+	$("#checkTitle").text("");
+	$("#checkContext").text("");
+}
+//CRUD
 //新增活動
 $("#createbtn").click(function(){
-				$("#showevent").show();
-				$("#insertevent").hide();
-				var eventId=$("#eventId").val();
-				var eventTitle=$("#eventTitle").val();
-				var eventContext=$("#eventContext").val();
-				var timeStart=$("#timeStart").val();
-				var timeEnd=$("#timeEnd").val();
-				var eventPhoto=$("#eventPhoto").val();
-				console.log(eventId);
-				var event={
-						   eventId:eventId,
-						   eventTitle:eventTitle,
-						   eventContext:eventContext,
-						   timeStart:timeStart,
-						   timeEnd:timeEnd,
-						   eventPhoto:fileDataURL	
-				}
-				var replyjson=JSON.stringify(event);	
-				
-				    $.ajax({
-					url:"${contextRoot}/event/insert",
-					contentType:'application/json',//送出資料型態
-					dataType:'json',//回傳資料型態
-					method:'post',
-					data:replyjson,
-					success:function(result){	
-						var replydata="";
-			 			$.each(result,function(index,value){
-			 				replydata += '<div class="col-lg-4 col-md-6 col-sm-6 col-12" class="test">'
-								+ '<div class="product-box-layout1" class="test">'
-								+ '<figure class="item-figure imgcenter">'
-								+ '<img src="${contextRoot}/image/event/'+value.eventPhoto+'" class="eventimg">'
-								+ '</figure>'
-								+ '<div class="item-content ">'
-								+ '<h3 class="item-title">'
-								+ '<a href="single-recipe1.html">'+ value.eventTitle											
-								+ '</a></h3><p >'+ value.eventContext
-								+ '</p><p class="fas fa-clock">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
-								+ '</p><ul class="entry-meta">'
-								//if(${userId}==1){
-						replydata += '<li><a onclick="addevent()"><i class="fas fa-user">新增</i></a></li>';
-						replydata += '<li><a onclick="updateevent('+ value.eventId+')"><i class="fas fa-user">修改</i></a></li>';
-						replydata += '<li><a onclick="del('+ value.eventId+ ')"><i class="fas fa-user">刪除</i></a></li>';
-		                 //}	
-						replydata += '<li><a onclick="participate('+ value.eventId+ ')"><i class="fas fa-user">參加活動</i></a></li>';
-						replydata += '</ul></div></div></div>';
+	$("#showevent").show();
+	$("#insertevent").hide();
+	$("#neweventbtn").show();
+	var eventId=$("#eventId").val();
+	var eventTitle=$("#eventTitle").val();
+	var eventContext=$("#eventContext").val();
+	var timeStart=$("#timeStart").val();
+	var timeEnd=$("#timeEnd").val();
+	var eventPhoto=$("#eventPhoto").val();
+	console.log(eventId);
+	var event={
+			   eventId:eventId,
+			   eventTitle:eventTitle,
+			   eventContext:eventContext,
+			   timeStart:timeStart,
+			   timeEnd:timeEnd,
+			   eventPhoto:fileDataURL	
+	}
+	var replyjson=JSON.stringify(event);	
+	
+	    $.ajax({
+		url:"${contextRoot}/event/insert",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){	
+			var replydata="";
+ 			$.each(result,function(index,value){
+ 				replydata += '<div class="col-lg-4 col-md-6 col-sm-6 col-12" class="test">'
+					+ '<div class="product-box-layout1" class="test">'
+					+ '<figure class="item-figure imgcenter">'
+					+ '<img src="${contextRoot}/image/event/'+value.eventPhoto+'" class="eventimg">'
+					+ '</figure>'
+					+ '<div class="item-content ">'
+					+ '<h3 class="item-title">'
+					+ '<a href="single-recipe1.html">'+ value.eventTitle											
+					+ '</a></h3><p >'+ value.eventContext
+					+ '</p><p class="fas fa-clock">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
+					+ '</p><ul class="entry-meta">'
+					//if(${userId}==1){
+			replydata += '<li><a onclick="addevent()"><i class="fas fa-user">新增</i></a></li>';
+			replydata += '<li><a onclick="showupdate('+ value.eventId+')"><i class="fas fa-user">修改</i></a></li>';
+			replydata += '<li><a onclick="del('+ value.eventId+ ')"><i class="fas fa-user">刪除</i></a></li>';
+             //}	
+			replydata += '<li><a onclick="participate('+ value.eventId+ ')"><i class="fas fa-user">參加活動</i></a></li>';
+			replydata += '</ul></div></div></div>';
 
-					 })
-                      $("#showevent").html(replydata);
-	                 
-			 			//清空資料
-			 			$("#eventId").val("");
-						$("#eventTitle").val("");
-						$("#eventContext").val("");
-						$("#imgView").attr("src","${contextRoot}/image/step/file.jpg");
-						$("#timeStart").val("");
-						$("#timeEnd").val("");
-						document.getElementById("eventPhoto").remove();
-						$("#fileload").append('<input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">');
-					},
-					error:function(err){
-						console.log(err);
-					}
-			    });
+		 })
+          $("#showevent").html(replydata);
+         
+ 			//清空資料
+ 			$("#eventId").val("");
+			$("#eventTitle").val("");
+			$("#eventContext").val("");
+			$("#imgView").attr("src","${contextRoot}/image/step/file.jpg");
+			$("#timeStart").val("");
+			$("#timeEnd").val("");
+			document.getElementById("eventPhoto").remove();
+			$("#fileload").append('<input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">');
+		},
+		error:function(err){
+			console.log(err);
+		}
+    });
 });
 //修改活動
 function updateevent(eventId){
-	    $("#insertevent").show();
-	    $("#showevent").hide();
-		var replyjson=JSON.stringify(eventId);
-		$.ajax({
-			url:"${contextRoot}/event/update",
-			contentType:'application/json',//送出資料型態
-			dataType:'json',//回傳資料型態
-			method:'post',
-			data:replyjson,
-			success:function(result){			
-				$("#eventId").val(result.eventId);
-				$("#eventTitle").val(result.eventTitle);
-				$("#eventContext").val(result.eventContext);
-				$("#imgView").attr("src","${contextRoot}/image/event/"+result.eventPhoto);
-				$("#timeStart").val(result.timeStart);
-				$("#timeEnd").val(result.timeEnd);
-				},
-			error:function(err){
-					console.log(err);
-			}
+	var replyjson=JSON.stringify(eventId);
+	$.ajax({
+		url:"${contextRoot}/event/update",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){			
+			$("#eventId").val(result.eventId);
+			$("#eventTitle").val(result.eventTitle);
+			$("#eventContext").val(result.eventContext);
+			$("#imgView").attr("src","${contextRoot}/image/event/"+result.eventPhoto);
+			$("#timeStart").val(result.timeStart);
+			$("#timeEnd").val(result.timeEnd);
+		},
+		error:function(err){
+			console.log(err);
+		}
 	});
 }
 //刪除
-	function del(eventId){
-		var r = confirm("您確定要刪除嗎?");
-		if (r == true) {
-			 console.log("del");
-			 alert('刪除成功');
-		var replyjson=JSON.stringify(eventId);
-		$.ajax({
-			 url:"${contextRoot}/event/delete",
-			 contentType:'application/json',//送出資料型態
-			 dataType:'json',//回傳資料型態
-			 method:'post',
-			 data:replyjson,
-			 success:function(result){			
-					alert('刪除成功');
-			 },
-			 error:function(err){
-			 console.log(err);
-			 		}
-			 	});
-			}
-				 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
-}
-
+function del(eventId){
+	var r = confirm("您確定要刪除嗎?");
+	if (r == true) {
+	 alert('刪除成功');
+	var replyjson=JSON.stringify(eventId);
+	$.ajax({
+ 		url:"${contextRoot}/event/delete",
+	 	contentType:'application/json',//送出資料型態
+ 		dataType:'json',//回傳資料型態
+ 		method:'post',
+ 		data:replyjson,
+ 	success:function(result){			
+		alert('刪除成功');
+ 	},
+ 	error:function(err){
+ 		console.log(err);
+ 		}
+ 	});
+  }
+	 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
+} 
+//--------------------活動選擇-------------------> 
 //參加活動紐   顯示選擇活動
 function participate(eventId){
 		var replyjson=JSON.stringify(eventId);
 		$.ajax({
-			url:"${contextRoot}/event/update",
+			url:"${contextRoot}/event/choice",
 			contentType:'application/json',//送出資料型態
 			dataType:'json',//回傳資料型態
 			method:'post',
@@ -600,99 +659,83 @@ function participate(eventId){
 			  		+'<div class="about-box"><div class="about-figure">'
 			  		+'<img src="${contextRoot}/image/event/'+result.eventPhoto+'" alt="About" class="choiceimg"></div>'
 			  		+'<h2 class="about-title title-bar bar-center">'+result.eventTitle+'</h2>'
-			 		+'<p class="my-description">敘述:'+result.eventContext+'<br/>'
-			 		+'開始時間:'+result.timeStart+'<br/>'
+			 		+'<p class="my-description"><i class="fas fa-star color_yellow"></i>'+result.eventContext+'<br/>'
+			 		+'<i class="fas fa-clock color_red"></i>開始時間:'+result.timeStart+'~'
 			 		+'結束時間:'+result.timeEnd+'</p>'
 			 		+'</div></div></div></div>'	
-			 		+'</div></section>';
-			 		//result.eventId
+			 		+'</div></section>'
+			 	    +'<button onclick="rechoice()" class="submitbtn">重新選擇</button>'
+                    +'<button onclick="showmyrecipe('+result.eventId+')" class="submitbtn">我的食譜</button>'
+                    +'<button onclick="showparticipate('+result.eventId+')" class="submitbtn">顯示參加的名單</button>'
 			  	 $("#oneevent").html(replydata);
-			  	 $("#showMyRecipe").show();
-			     showMyRecipe(eventId);
 			 },error:function(err){
 			 	console.log(err);
 		}
     });
 }
-//參加者名單
-// 				var replyjson1=JSON.stringify(eventId);
-// 				$.ajax({
-// 					url:"${contextRoot}/event/update",
-// 					contentType:'application/json',//送出資料型態
-// 					dataType:'json',//回傳資料型態
-// 					method:'post',
-// 					data:replyjson,
-// 					success:function(result){						
-// 						var replydata="";			
-// 			 				replydata+="<h3>選擇參加的活動</h3>"
-// 								+"活動Id:"+result.eventId+"<br/>"
-// 								+"活動標題:"+result.eventTitle+""
-// 								+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
-// 								+"敘述:"+result.eventContext+"<br/>"
-// 							    +"開始時間:"+result.timeStart+"<br/>"
-// 								+"結束時間:"+result.timeEnd+"<br/>"
-// 								+"<button onclick='rechoice()'>重新選擇</button>";	
-// 			 			$("#showevent").html(replydata);
-// 			 			$("#showMyRecipe").show();
-// 			 			campaignlist(eventId);
-// 			 			showMyRecipe(eventId);			
-// 					},
-// 					error:function(err){
-// 						console.log(err);
-// 					}
-// 				});
-// 			}
-//			function campaignlist(eventId){
-// 				//參加者名單
-// 				var settings = {
-// 			        "url": "${contextRoot}/campaign/list/"+eventId,
-// 			    	"method": "GET",
-// 			   		"timeout": 0,
-// 			    };
-				
-// 				$.ajax(settings).done(function (response) {
-// 					var replydata="";
-// 					$.each(response,function(index,value){
-// 						replydata+=
-// 							"食譜標題:"+value.cookTitle+"<br/>"
-// 							+"食譜圖片:<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"
-// 							+"作者:"+value.userName+"<br/>"
-// 							+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg'/><br/>"
-// 							+"按讚數:"+value.favoritenum+"<br/>";
-					
-// 					})
-// 					$("#showcampaign").html(replydata);
-// 				});	
-//			}
+//顯示食譜 
+function showMyRecipe(eventId){
+			let count=0;
+			var settings = {
+				    "url": "http://localhost:8090/cookblog/event/showrecipe",
+				    "method": "GET",
+				   	"timeout": 0,
+			};
+			$.ajax(settings).done(function (response) {
+			var replydata="";
+
+			$.each(response,function(index,value){
+				count++;
+				checkjoin(eventId,value.recipeId,count);
+				replydata+='<div class="row gutters-40" >'
+								+'<div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">'
+								+'<div class="product-box-layout6">'
+								+'<div class="item-figure">'						
+								+'<img src="${contextRoot}/image/recipe/'+value.cookPhoto+'" class="eventimg" alt="Product">'
+								+'</div><div class="item-content" id="canceladdbtn_'+count+'">'
+								+'<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'"/>'
+								+'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+value.recipeId+'">'+value.cookTitle+'</a></h3>'
+								+'<p><i class="fas fa-star color_yellow"></i>'+value.cookDescription+'</p>'
+								+'<p><i class="fas fa-clock color_red"></i>'+value.cookTime+'分鐘</p>'
+        						+'<ul class="entry-meta remove-3rd-child-lg">'
+        						+'</ul></div></div></div></div>'                                       
+				})
+					replydata+="<button onclick='checkchoice("+eventId+")' class='submitbtn'>送出</button>";
+					$("#myRecipe").html(replydata);			
+				});	
+}
 //重新選擇想參加的活動
 function rechoice(){
 	 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
 }
+//--------------------參加活動選擇-------------------> 
 //將參加的食譜傳到後端資料庫
 function checkchoice(eventId){
-				var str=eventId;
-				var nodes=document.getElementsByName('choicerecipe');
-				for(let i=0;i<nodes.length;i++){
-					if(nodes[i].checked){
-						str+="-"+nodes[i].value;
-					}
-				}
-				var replyjson=JSON.stringify(str);
-				 $.ajax({
-				 	url:"${contextRoot}/event/participate",
-				 	contentType:'application/json',//送出資料型態
-				 	dataType:'json',//回傳資料型態
-				 	method:'post',
-				 	data:replyjson,
-				 	success:function(result){						
-						$(location).prop("href", "http://localhost:8090/cookblog/event/page");
-				 	},
-				 	error:function(err){
-				 		console.log(err);
-				 	}
-				});
+	var str=eventId;
+	var nodes=document.getElementsByName('choicerecipe');
+	for(let i=0;i<nodes.length;i++){
+			if(nodes[i].checked){
+					str+="-"+nodes[i].value;
+			}
+	}
+	var replyjson=JSON.stringify(str);
+	$.ajax({
+		url:"${contextRoot}/event/participate",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){						
+	
+		},
+		error:function(err){
+				 console.log(err);
+		}
+	});
+    $(location).prop("href", "http://localhost:8090/cookblog/showevent");
 }
-function checkjoin(eventId,recipeId){
+//確認是否參加過
+function checkjoin(eventId,recipeId,count){
 				let obj={
 						eventId:eventId,
 						recipeId:recipeId
@@ -705,17 +748,63 @@ function checkjoin(eventId,recipeId){
 			  	 	method:'post',
 			  	 	data:replyjson,
 			  	 	success:function(result){		
-						console.log(result);
 						
 						if(result==true){
-							console.log(recipeId);
+							console.log(count);
 							$("input[value='"+recipeId+"']").hide();
+							$("#canceladdbtn_"+count).append('<div onclick="canceljoin('+recipeId+','+eventId+')"><i class="fas fa-user color_red"></i>取消參加</div>');
 						}
 			  	 	},
 			  	 	error:function(err){
 			  	 		console.log(err);
 			  	 	}
-			  	});
+ 			  	});
+}
+//取消參加
+function canceljoin(recipeId,eventId){
+	var r = confirm("您確定要取消參加嗎?");
+	if (r == true) {
+	let data1=recipeId+","+eventId;
+ 	var replyjson=JSON.stringify(data1);
+ 	$.ajax({
+ 		 url:"${contextRoot}/event/joindelete",
+ 		 contentType:'application/json',//送出資料型態
+  		 dataType:'json',//回傳資料型態
+ 		 method:'post',
+ 		 data:replyjson,
+ 		 success:function(result){			
+ 				alert('刪除成功');
+ 		 },
+ 		 error:function(err){
+ 		 	console.log(err);
+ 		 		}
+ 		 	});
+ 		}
+		 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
+
+}
+//--------------------參加名單-------------------> 
+//參加者名單
+function participatelist(eventId){
+		var settings = {
+	        "url": "${contextRoot}/campaign/list/"+eventId,
+	    	"method": "GET",
+	   		"timeout": 0,
+	    };
+		$.ajax(settings).done(function (response) {
+			var replydata="";
+			$.each(response,function(index,value){
+				replydata+=
+					"食譜標題:"+value.cookTitle+"<br/>"
+					+"食譜圖片:<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='eventimg'/><br/>"
+					+"作者:"+value.userName+"<br/>"
+					+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg eventimg'/><br/>"
+					+"按讚數:"+value.favoritenum+"<br/>";
+		
+			})
+			$("#showparticipate").html(replydata);
+		});	
+   
 }
 </script>
 </body>

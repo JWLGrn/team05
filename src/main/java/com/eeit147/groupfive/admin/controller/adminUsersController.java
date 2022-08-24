@@ -115,7 +115,7 @@ public class adminUsersController {
 		@GetMapping("/find/searchUser/{userName}")
 		public @ResponseBody List<Users> findByUserNameLike(@PathVariable String userName) {
 			System.out.println("userName:"+userName);
-			List<Users> fList = aService.findByUserNameLike("%"+userName+"%");
+			List<Users> fList = aService.findByUserNameLike("%"+userName+"%");			
 			return fList;
 		}
 		
