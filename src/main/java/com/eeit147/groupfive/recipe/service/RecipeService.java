@@ -2,8 +2,11 @@ package com.eeit147.groupfive.recipe.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,6 +17,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +44,7 @@ import com.eeit147.groupfive.recipe.model.RecipeKeywordDto;
 import com.eeit147.groupfive.recipe.model.RecipeStep;
 import com.eeit147.groupfive.recipe.model.RecipeStepDao;
 import com.eeit147.groupfive.users.model.FavoriteDao;
+import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -100,6 +107,19 @@ public class RecipeService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else {
+			try {
+				InputStream fis = new FileInputStream(new File(
+						"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\food.png"));
+				OutputStream fos = new FileOutputStream(new File(
+						"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe" + recipeId + ".jpeg"));
+				fos.write(fis.readAllBytes());
+				fos.flush();
+				fos.close();
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		// --------------------------------------------------
@@ -144,6 +164,19 @@ public class RecipeService {
 					stepPhoto[i]
 							.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe"
 									+ recipeId + "_" + (i + 1) + ".jpeg"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
+				try {
+					InputStream fis = new FileInputStream(new File(
+							"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\food.png"));
+					OutputStream fos = new FileOutputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\recipe\\recipe"
+							+ recipeId + "_" + (i + 1) + ".jpeg"));
+					fos.write(fis.readAllBytes());
+					fos.flush();
+					fos.close();
+					fis.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -312,9 +345,10 @@ public class RecipeService {
 	}
 	
 	//查詢所有食譜
-	public List<Recipe> findAllRecipes() {
-		List<Recipe> rList = rDao.findAll();
-		return rList;
+	public Page<Recipe> findAllRecipes(Integer pageNumber) {
+		PageRequest page = PageRequest.of(pageNumber-1, 9, Sort.Direction.DESC, "date");
+		Page<Recipe> recipePage = rDao.findAll(page);
+		return recipePage;
 	}
 	
 	// Recipe List 轉 Dto List
@@ -449,5 +483,10 @@ public class RecipeService {
 	// 隨機食譜
 	public List<Recipe> findRandomRecipe(Integer number){
 		return rDao.findRandomRecipe(number);
+	}
+	
+	public List<Recipe> findLatestRecipe(){
+		List<Recipe> recipe = rDao.findTop5ByOrderByDateDesc();
+		return recipe;
 	}
 }

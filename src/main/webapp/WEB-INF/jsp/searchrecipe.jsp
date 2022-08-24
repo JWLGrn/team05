@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    <style type="text/css">
+    .recipeImg{
+        	object-fit: cover;
+            width: 400px;
+            height: 250px;
+        }
+    </style>
 </head>
 <body>
  <div id="preloader"></div>
@@ -174,11 +181,11 @@
                 </div>
                 <div class="row" id="showrecipe">
 							<!-- ===========================重複的結構=========================== -->
-							<c:forEach items="${rList}" var="rL">
+							<c:forEach items="${page.content}" var="rL">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}"><img src="${contextRoot}/recipe/${rL.cookPhoto}"
-                                        alt="Product"></a></figure>
+                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}">
+                            <img src="${contextRoot}/recipe/${rL.cookPhoto}" alt="Product" class="recipeImg"></a></figure>
                             <div class="item-content">
                                 <span class="sub-title">
                                 <c:forEach items="${rL.recipeKeyword}" var="rK">
@@ -199,6 +206,25 @@
                    		 <!-- ===========================重複的結構=========================== -->
                 </div>
             </div>
+            <div>
+            <ul class="pagination-layout1">
+                     <c:forEach begin="1" end="${page.totalPages}" var="pageNumber">
+					<c:choose>
+						<c:when test="${pageNumber-1 == page.number}">
+							<li class="active">
+								<a>${pageNumber}</a>
+							</li>	
+						</c:when>
+						<c:otherwise>
+							<li><a href="${contextRoot}/recipe/find/all?p=${pageNumber}">
+								${pageNumber} </a>
+							</li>	
+						</c:otherwise>
+
+					</c:choose>
+				</c:forEach>
+             </ul>
+            </div> 
         </section>
         <!-- Recipe Without Sidebar Area End Here -->
         <!-- Footer Area Start Here -->
@@ -301,7 +327,8 @@
 
                     recipes += '<div class="col-lg-4 col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'
+                            +'<img src="${contextRoot}/recipe/'+response[index].cookPhoto+'" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
                             +'<span class="sub-title">' + classifytitle + '</span>'
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'

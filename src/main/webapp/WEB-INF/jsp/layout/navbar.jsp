@@ -148,17 +148,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 d-none d-lg-block">
-                            <div class="nav-action-elements-layout2">
-                                <ul class="nav-social">
-                                    <li><a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" title="twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a></li>
-                                    <li><a href="#" title="skype"><i class="fab fa-skype"></i></a></li>
-                                    <li><a href="#" title="rss"><i class="fas fa-rss"></i></a></li>
-                                    <li><a href="#" title="google-plus"><i class="fab fa-google-plus-g"></i></a></li>
-                                </ul>
-                            </div>
                         </div>
                         <div class="col-lg-4 d-none d-lg-block">
                             <div class="site-logo-desktop">
@@ -166,87 +155,6 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="nav-action-elements-layout3">
-                                <ul>
-                                    <li>
-                                        <div class="header-search-box">
-                                            <a href="#search" title="Search" class="search-button">
-                                                <i class="flaticon-search"></i>
-                                            </a> 
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="cart-wrap d-none d-lg-block">                                            
-                                            <div class="cart-info">
-                                                <i class="flaticon-shopping-bag"></i>
-                                                <div class="cart-amount"><span class="item-currency">$</span>00</div>     
-                                            </div>                                   
-                                            <div class="cart-items">
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product1.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Pressure</a>
-                                                        <span>Code: STPT601</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$249</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product2.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Stethoscope</a>
-                                                        <span>Code: STPT602</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$189</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product3.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Microscope</a>
-                                                        <span>Code: STPT603</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 2</div>
-                                                    <div class="cart-price">$379</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-btn">
-                                                        <a href="#" class="item-btn">View Cart</a>
-                                                        <a href="#" class="item-btn">Checkout</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

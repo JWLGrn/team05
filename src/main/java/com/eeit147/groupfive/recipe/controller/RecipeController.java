@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ import com.eeit147.groupfive.recipe.model.RecipeStepDao;
 import com.eeit147.groupfive.recipe.service.KeywordService;
 import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.recipe.service.RecipeSteptService;
+import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
@@ -213,9 +215,8 @@ public class RecipeController {
                 return o1.getStep() - o2.getStep();
             }
         });
-		m.addAttribute("recipe", newRecipe);
 		
-		return "singlerecipe";
+		return "redirect:/recipe/find/"+newRecipe.getRecipeId();
 	}
 	
 	// 前往修改頁面
@@ -286,13 +287,13 @@ public class RecipeController {
 
 	// 查詢全部食譜
 	@GetMapping("/recipe/find/all")
-	public String findAllRecipe(Model m) {
-		List<Recipe> rList = rService.findAllRecipes();
-		m.addAttribute("rList", rList);
+	public String findAllRecipe(@RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m) {
+		Page<Recipe> page = rService.findAllRecipes(pageNumber);
+		m.addAttribute("page", page);
 		return "searchrecipe";
 	}
 
-	//模糊查詢(找食譜 or 找作者 + 關鍵字 & 食材分類)
+	// 模糊查詢(找食譜 or 找作者 + 關鍵字 & 食材分類)
 	@GetMapping("find/recipe/food")
 	public @ResponseBody Iterable<RecipeDto> findUsersByFoodOrKeyword(
 			@RequestParam("classify") String classify,
@@ -320,7 +321,8 @@ public class RecipeController {
 		List<Recipe> recipe = rService.favorRank(rank);
 		return recipe;
 	}
-	//查詢個人食譜
+	
+	// 查詢個人食譜
 	@GetMapping("/recipe.personal.controller")
 	public String findRecipeByUserId(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
@@ -330,12 +332,19 @@ public class RecipeController {
 	}
 	
 	// 隨機食譜
-	@GetMapping("recipe/find/random/{number}")
+	@GetMapping("/recipe/find/random/{number}")
 	@ResponseBody
 	public List<Recipe> randomRecipe(@PathVariable("number")Integer number){
 		List<Recipe> recipe = rService.findRandomRecipe(number);
 		return recipe;
 	}
 	
+	// 查看最新文章
+	@GetMapping("/recipe/find/lastest")
+	@ResponseBody
+	public List<Recipe> findLatestPosts(){
+		List<Recipe> recipe = rService.findLatestRecipe();
+		return recipe;
+	}
 	
 }

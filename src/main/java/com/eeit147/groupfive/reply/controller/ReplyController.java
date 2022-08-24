@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,66 +60,21 @@ public class ReplyController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/reply/show")
-	public List<Reply> replyShow() {
-		List<Reply> allReply=rpDao.findAllByRecipeReplyById(replytypeId);
-		for(Reply r:allReply) {
-			System.out.println(r.getUsers().getUserName());
-		}
+	@GetMapping("recipe/reply/{recipeId}")
+	public List<Reply> replyShow(@PathVariable("recipeId")Integer recipeId) {
+		List<Reply> allReply=rpDao.findAllByRecipeReplyById(recipeId);
 		return allReply;
 	}
-	public void hello() {
-		System.out.println("hello");
-	}
+	
+	// 新增食譜留言
 	@ResponseBody
 	@PostMapping(value="/reply/insert", produces = { "application/json; charset=UTF-8" })
 	public List<Reply> replyInsert(@RequestBody ReplyDto replydto, Model m) throws Exception {
-		Integer rtype=replydto.getReplytype();
-		Reply reply=new Reply();
-		Integer replyId=replydto.getReplyId();//=recipeId or =postsId
-		Date date=new Date();//修改時用
-		reply.setUploadTime(date);
-		boolean updatejudge=true;
-		if(replyId==1) {   //新增時先存一次,取得id <新增時id設1>
-			rpService.insertReply(reply);
-		    replyId=reply.getReplyId();
-		    updatejudge=false;   
-		}
-		String imgPath="reply"+replyId+".jpg";//路徑儲存
-		//判斷是否有選擇圖片
-		if(replydto.getFinallyPhoto()==null) {
-			if(updatejudge==false) {
-				imgPath="noimg.jpg";//預設圖片
-			}	
-		}else{
-			//存圖片
-			String pfile=replydto.getFinallyPhoto().substring(replydto.getFinallyPhoto().indexOf(",") + 1);
-			byte[] a = Base64.getDecoder().decode(pfile);
-			FileOutputStream out = new FileOutputStream("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\reply\\"+imgPath);
-			out.write(a);
-			out.close();
-		}
-		
-		if(rtype==1) { //1.recipe
-			Optional<Recipe> optional = rDao.findById(replydto.getReplytypeId());
-			Recipe recipe = optional.get();
-			reply.setRecipe(recipe);
-		}else { //2.posts
-			//Optional<Posts> optional = pDao.findById(replytypeId);
-			//Posts posts = optional.get();
-			//reply.setPosts(posts);
-		}
-		reply.setReplyId(replyId);
-		reply.setMessage(replydto.getMessage());
-		reply.setFinallyPhoto(imgPath);
-		Optional<Users> optional2 = uDao.findById(replydto.getUsersId());//抓usersbean
-		Users user = optional2.get();
-		reply.setUsers(user);
-		rpService.insertReply(reply);
-
-		List<Reply> allReply=rpDao.findAllByRecipeReplyById(replydto.getReplytypeId());
+		List<Reply> allReply = rpService.insertReply(replydto);
 		return allReply;
 	}
+	
+	
 	@ResponseBody
 	@PostMapping(value="/reply/update", produces = { "application/json; charset=UTF-8" })
 	public Reply replyUpdate(@RequestBody Integer replyId, Model m){

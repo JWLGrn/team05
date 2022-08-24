@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    <style type="text/css">
+    .recipeImg{
+        	object-fit: contain;
+            width: 330px;
+            height: 330px;
+        }
+    </style>
 </head>
 <body>
  <div id="preloader"></div>
@@ -177,8 +184,8 @@
 							<c:forEach items="${rList}" var="rL">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}"><img src="${contextRoot}/recipe/${rL.cookPhoto}"
-                                        alt="Product"></a></figure>
+                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}">
+                            <img src="${contextRoot}/recipe/${rL.cookPhoto}" alt="Product" class="recipeImg" style="display:block; margin:auto;"></a></figure>
                             <div class="item-content">
                                 <span class="sub-title">
                                 <c:forEach items="${rL.recipeKeyword}" var="rK">
