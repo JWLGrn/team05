@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="btn-area">
                                     <form:button class="btn-fill btn-primary" type="submit" value="Login">登入<i class="flaticon-next"></i></form:button>
-                                    <form:button class="btn-fill btn-primary" type="button"><a href="${contextRoot}/Users" style="color:white;">註冊</a><i class="flaticon-next"></i></form:button>
+                                    <a href="${contextRoot}/Users" style="color:white;"><form:button class="btn-fill btn-primary" type="button">註冊<i class="flaticon-next"></i></form:button></a>
                                 </div>
                             </form:form>
                         </div>
