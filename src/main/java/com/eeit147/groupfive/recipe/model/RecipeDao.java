@@ -54,4 +54,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	@Query(value="SELECT TOP (:number) * FROM Recipe ORDER BY NEWID()", nativeQuery = true)
 	public List<Recipe> findRandomRecipe(@Param("number") Integer number);
+	
+	public List<Recipe> findTop5ByOrderByDateDesc();
 }

@@ -101,7 +101,7 @@ public class PostsController {
 		reply.setMessage(message);
 		reply.setPosts(post);
 		reply.setUsers(user);
-		Reply reply2 = rService.insertReply(reply);
+		rService.insertPostsReply(reply);
 		return "redirect:/posts/reply/"+postsId;
 	}
 	

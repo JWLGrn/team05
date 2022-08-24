@@ -36,6 +36,36 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    <style type="text/css">
+    	.replyobfit{
+            object-fit: contain;
+            width: 200px;
+            height: 150px;
+        }
+        .single-recipe-layout1 .recipe-reviews ul li.reviews-single-item:nth-child(even) {
+    		margin-left: 0px;
+		}
+		.single-recipe-layout1 .recipe-reviews ul li.reviews-single-item img {
+    		border-radius: 0%;
+		}
+		.single-recipe-layout1 .recipe-reviews ul li.reviews-single-item {
+    		padding: 10px;
+		}
+		.single-recipe-layout1 .item-feature ul li {
+    		flex: 0 0 50%;
+    		max-width: 50%;
+		}
+		.recipeobfit{
+            object-fit: contain;
+            width: 150px;
+            height: 100px;
+        }
+        .recipeImg{
+        	object-fit: cover;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
 </head>
 
 <body>
@@ -113,7 +143,7 @@
                                 </div>
                             </div>
                             <div class="item-figure">
-                                <img src="${contextRoot}/recipe/${recipe.cookPhoto}" alt="Product">
+                                <img src="${contextRoot}/recipe/${recipe.cookPhoto}" alt="Product" style="display:block; margin:auto;">
                             </div>
                             <div class="item-feature">
                                 <ul>
@@ -121,24 +151,11 @@
                                         <div class="feature-wrap">
                                             <div class="media">
                                                 <div class="feature-icon">
-                                                    <i class="far fa-clock"></i>
-                                                </div>
-                                                <div class="media-body space-sm">
-                                                    <div class="feature-title">PREP TIME</div>
-                                                    <div class="feature-sub-title"> Mins</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="feature-wrap">
-                                            <div class="media">
-                                                <div class="feature-icon">
                                                     <i class="fas fa-utensils"></i>
                                                 </div>
                                                 <div class="media-body space-sm">
-                                                    <div class="feature-title">COOK TIME</div>
-                                                    <div class="feature-sub-title">${recipe.cookTime} Mins</div>
+                                                    <div class="feature-title">時間</div>
+                                                    <div class="feature-sub-title">${recipe.cookTime} 分鐘</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,21 +167,8 @@
                                                     <i class="fas fa-users"></i>
                                                 </div>
                                                 <div class="media-body space-sm">
-                                                    <div class="feature-title">SERVING</div>
-                                                    <div class="feature-sub-title">${recipe.cookServe} People</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="feature-wrap">
-                                            <div class="media">
-                                                <div class="feature-icon">
-                                                    <i class="far fa-eye"></i>
-                                                </div>
-                                                <div class="media-body space-sm">
-                                                    <div class="feature-title">VIEWS</div>
-                                                    <div class="feature-sub-title"></div>
+                                                    <div class="feature-title">份量</div>
+                                                    <div class="feature-sub-title">${recipe.cookServe} 人份</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,7 +212,7 @@
 							<c:forEach items="${recipe.recipeStep}" var="rS">
                                 <div class="direction-box-layout1">
                                     <div class="item-figure">
-                                        <img src="${contextRoot}/recipe/${rS.stepPhoto}" alt="DIRECTIONS" width="200" height="200">
+                                        <img src="${contextRoot}/recipe/${rS.stepPhoto}" alt="DIRECTIONS" class="recipeImg">
                                     </div>
                                     <div class="item-content">
                                         <div class="serial-number">${rS.step} Step</div>
@@ -262,183 +266,40 @@
                                     </li>
                                 </ul>
                             </div>  
-                            <div class="recipe-author">
-                                <div class="media media-none--xs">
-                                    <img src="img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
-                                    <div class="media-body">
-                                        <h4 class="author-title">Michel Jack</h4>
-                                        <h5 class="author-sub-title">Written by</h5>
-                                        <p>I love cooking and blogging. Using a fork, break salmon. Halve reserved 
-                                                potatoes and eggs crosswise. The of something of did require met of
-                                                help have someone.</p>
-                                        <ul class="author-social">
-                                            <li>
-                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fab fa-skype"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>            
-                            <div class="also-like-wrap">
-                                <h4 class="also-like-title">YOU MAY ALSO LIKE</h4>
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-12">
-                                        <div class="product-box-layout2">
-                                            <figure class="item-figure"><img src="img/product/product11.jpg"
-                                                        alt="Product"></figure>
-                                            <div class="item-content">
-                                                <span class="sub-title">BREAKFAST</span>
-                                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie and
-                                                        Chanterelles</a></h3>
-                                                <ul class="entry-meta">
-                                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-12">
-                                        <div class="product-box-layout2">
-                                            <figure class="item-figure"><img src="img/product/product12.jpg"
-                                                        alt="Product"></figure>
-                                            <div class="item-content">
-                                                <span class="sub-title">DESERT</span>
-                                                <h3 class="item-title"><a href="single-recipe1.html">Pumpkin Cheesecake With
-                                                        GingersnapCrust</a></h3>
-                                                <ul class="entry-meta">
-                                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 d-block d-md-none d-xl-block col-12">
-                                        <div class="product-box-layout2">
-                                            <figure class="item-figure"><img src="img/product/product13.jpg"
-                                                        alt="Product"></figure>
-                                            <div class="item-content">
-                                                <span class="sub-title">JUICE</span>
-                                                <h3 class="item-title"><a href="single-recipe1.html">Blueberry Juice with Lemon Crema</a></h3>
-                                                <ul class="entry-meta">
-                                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>             
-                            </div>
                             <div class="recipe-reviews">
                                 <div class="section-heading heading-dark">
-                                    <h2 class="item-heading">RECIPE REVIEWS</h2>
+                                    <h2 class="item-heading">跟著做做看</h2>
                                 </div>
-                                <div class="avarage-rating-wrap">
-                                    <div class="avarage-rating">Avarage Rating: 
-                                        <span class="rating-icon-wrap">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </span>
-                                        <span class="rating-number">(5)</span>                                        
-                                    </div>
-                                    <div class="total-reviews">Total Reviews:<span class="review-number">(02)</span></div>
-                                </div>
-                                <ul>
-                                    <li class="reviews-single-item">
-                                        <div class="media media-none--xs">
-                                            <img src="img/blog/comment1.jpg" alt="Comment" class="media-img-auto">
-                                            <div class="media-body">
-                                                <h4 class="comment-title">Liza Zaman</h4>
-                                                <span class="post-date">September 27, 2018</span>
-                                                <p>Absolutely great recipe. I cooked it for my kids and they loved it, even 
-                                                        asked for more, can you believe it?</p>
-                                                <ul class="item-rating">
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item"><span>9<span> / 10</span></span> </li>
-                                                </ul>
-                                                <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="reviews-single-item">
-                                        <div class="media media-none--xs">
-                                            <img src="img/blog/comment2.jpg" alt="Comment" class="media-img-auto">
-                                            <div class="media-body">
-                                                <h4 class="comment-title">John Martin</h4>
-                                                <span class="post-date">September 12, 2018</span>
-                                                <p>Absolutely great recipe. I cooked it for my kids and they loved it, even 
-                                                        asked for more, can you believe it?</p>
-                                                <ul class="item-rating">
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                                    <li class="single-item"><span>7<span> / 10</span></span> </li>
-                                                </ul>
-                                                <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                <ul id="showmsg">
+                                <!-- --------------------留言區重複的結構-------------------- -->
+                                    
+								<!-- --------------------留言區重複的結構-------------------- -->
                                 </ul>
                             </div>
                             <div class="leave-review">
                                 <div class="section-heading heading-dark">
-                                    <h2 class="item-heading">LEAVE A REVIEW</h2>
-                                </div>
-                                <div class="rate-wrapper">
-                                    <div class="rate-label">Rating</div>
-                                    <div class="rate">
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                    </div>
+                                    <h2 class="item-heading">留下成果</h2>
                                 </div>
                                 <form class="leave-form-box">
                                     <div class="row">
+                                    <div class="col-12 form-group">
+  									<input type="hidden" value="${recipe.recipeId}" id="replyId">
+  									<input type="hidden" value="3" id="usersId"/>
+                                    		<label>Photo :</label>
+                                        	<label id="fileload">
+                                        	<img src="${contextRoot}/image/recipe/upload.png" id="imgView" class="replyobfit"/>
+      										<input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">
+      										</label>
+                                        	</div>
                                         <div class="col-12 form-group">
+                                        	
                                             <label>Comment :</label>
                                             <textarea placeholder="" class="textarea form-control" name="message" rows="7"
-                                                cols="20" data-error="Message field is required" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                        <div class="col-lg-4 form-group">
-                                            <label>Name :</label>
-                                            <input type="text" placeholder="" class="form-control" name="name"
-                                                data-error="Name field is required" required>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                        <div class="col-lg-4 form-group">
-                                            <label>E-mail :</label>
-                                            <input type="email" placeholder="" class="form-control" name="email"
-                                                data-error="E-mail field is required" required>
-                                            <div class="help-block with-errors"></div>
-                                        </div>
-                                        <div class="col-lg-4 form-group">
-                                            <label>Website :</label>
-                                            <input type="email" placeholder="" class="form-control" name="email"
-                                                data-error="E-mail field is required" required>
+                                                cols="20" data-error="Message field is required" id="message" required></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="col-12 form-group mb-0">
-                                            <button type="submit" class="item-btn">POST REVIEW</button>
+                                            <button type="button" class="item-btn" id="senddata">POST REVIEW</button>
                                         </div>
                                     </div>
                                     <div class="form-response"></div>
@@ -447,64 +308,25 @@
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                    	<div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">關於作者</h3>
+                            </div>
+                            <div class="widget-about">
+                                <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about"></figure>
+                                <h3 class="item-title">${recipe.users.userName}</h3>
+                                <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.follow)} 粉絲</p>
+                                <p><button>追蹤</button></p>
+                            </div>
+                        </div>
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">LATEST RECIPES</h3>
+                                <h3 class="item-heading">最新食譜</h3>
                             </div>
                             <div class="widget-latest">
-                                <ul class="block-list">
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
-                                            <div class="count-number">1</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                            <div class="count-number">2</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
-                                            <div class="count-number">3</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
-                                            <div class="count-number">4</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
+                                <ul class="block-list" id="latestRecipe">
+							<!-- ----------------重複結構---------------- -->
+                            <!-- ----------------重複結構---------------- -->
                                 </ul>
                             </div>
                         </div>
@@ -779,6 +601,122 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
+    <script type="text/javascript">
+    
+    // 右方最新食譜
+    var settings = {
+  		  "url": "http://localhost:8090/cookblog/recipe/find/lastest",
+  		  "method": "GET",
+  		  "timeout": 0,
+  		};
+
+  		$.ajax(settings).done(function (response) {
+  				var latestRecipe = '';
+  			
+  				var count = 1;
+              for(let i in response){
+            	  
+            	let keywords = '';
+            	let kWord = response[i].recipeKeyword;
+            	for(let j in kWord){
+                	keywords += kWord[j].keywords+' '
+            	}
+            	  
+              	latestRecipe += '<li class="single-item">'
+              	+'<div class="item-img">'
+              	+'<a href="${contextRoot}/recipe/find/'+response[i].recipeId+'"><img src="${contextRoot}/recipe/'+response[i].cookPhoto+'" alt="Post" class="recipeobfit"></a>'
+              	+'<div class="count-number">'+count+'</div></div>'
+              	+'<div class="item-content">'
+              	+'<div class="item-ctg">'+keywords.trim()+'</div>'
+              	+'<h4 class="item-title"><a href="${contextRoot}/recipe/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
+              	+'<div class="item-post-by"><a href="#"><i class="fas fa-user"></i><span>by </span>'
+              	+response[i].userName+'</a></div></div></li>'
+              	count++;
+              }
+              $("#latestRecipe").html("").append(latestRecipe);
+  		});
+    
+    
+  //留言欄位新增留言
+	function replyList(response){
+		var replyList = '';
+        for(let i in response){
+             replyList +='<li class="reviews-single-item">'
+                       +'<div class="media media-none--xs">'
+                       +' <img src="${contextRoot}/reply/'+response[i].finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
+                       +'<div class="media-body">'
+                       +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
+                       +'<p>'+response[i].message+'</p>'+'</div></div></li>'
+                }
+                $("#showmsg").html("").append(replyList);
+	}
+    
+ 	// 顯示留言
+	var settings = {
+			"url": "http://localhost:8090/cookblog/recipe/reply/${recipe.recipeId}",
+			"method": "GET",
+			"timeout": 0,
+	};
+
+	$.ajax(settings).done(function (response) {
+		replyList(response);
+	});
+    
+  	//步驟圖片顯示用(跟步驟一樣)+抓url
+    function imgview(event,imgid){   
+      const fr = new FileReader();
+      //抓url
+      let fPhoto=document.getElementById("finallyPhoto").files;
+      if(fPhoto.length>0){//有圖
+    	let fileToLoad=fPhoto[0];//取得檔案詳細資料
+        fr.onload = function (e) {
+        	fileDataURL=e.target.result
+    		$('#'+imgid.id+'').attr('src', fileDataURL);//img預覽
+    	};
+    	console.log(fileToLoad);
+    	fr.readAsDataURL(event.target.files[0]);//img預覽
+      }
+    }
+    
+    // 新增留言
+    $("#senddata").click(function(){
+    	var replyId=$("#replyId").val();
+    	var usersId=$("#usersId").val();
+    	var message=$("#message").val();
+
+    	var reply={
+    			   replyId:replyId,
+    			   usersId:usersId,
+    			   finallyPhoto:fileDataURL,
+    			   message:message		
+    	}
+    	var replyjson=JSON.stringify(reply);
+    	$.ajax({
+    		url:"${contextRoot}/reply/insert",
+    		contentType:'application/json',//送出資料型態
+    		dataType:'json',//回傳資料型態
+    		method:'post',
+    		data:replyjson,
+    		success:function(result){	
+    			var replydata='';
+    			$.each(result,function(index,value){
+    				replydata += '<li class="reviews-single-item">'
+    				+'<div class="media media-none--xs">'
+    				+'<img src="${contextRoot}/reply/'+value.finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
+    				+'<div class="media-body"><h4 class="comment-title">'+value.userName+'</h4>'
+    				+'<span class="post-date">'+value.uploadTime+'</span>'
+    				+'<p>'+value.message+'</p>'
+    				+'</div></div></li>'
+    			})
+    			$("#showmsg").html("").append(replydata);
+    		},
+    		error:function(err){
+    			console.log(err);
+    		}
+    	});
+    });
+    
+    </script>
 </body>
 
 

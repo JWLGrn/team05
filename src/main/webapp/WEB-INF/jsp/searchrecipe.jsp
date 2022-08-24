@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    <style type="text/css">
+    .recipeImg{
+        	object-fit: cover;
+            width: 400px;
+            height: 250px;
+        }
+    </style>
 </head>
 <body>
  <div id="preloader"></div>
@@ -174,11 +181,11 @@
                 </div>
                 <div class="row" id="showrecipe">
 							<!-- ===========================重複的結構=========================== -->
-							<c:forEach items="${rList}" var="rL">
+							<c:forEach items="${page.content}" var="rL">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}"><img src="${contextRoot}/recipe/${rL.cookPhoto}"
-                                        alt="Product"></a></figure>
+                            <figure class="item-figure"><a href="${contextRoot}/recipe/find/${rL.recipeId}">
+                            <img src="${contextRoot}/recipe/${rL.cookPhoto}" alt="Product" class="recipeImg"></a></figure>
                             <div class="item-content">
                                 <span class="sub-title">
                                 <c:forEach items="${rL.recipeKeyword}" var="rK">
@@ -199,6 +206,25 @@
                    		 <!-- ===========================重複的結構=========================== -->
                 </div>
             </div>
+            <div>
+            <ul class="pagination-layout1" id="pagesList">
+                     <c:forEach begin="1" end="${page.totalPages}" var="pageNumber">
+					<c:choose>
+						<c:when test="${pageNumber-1 == page.number}">
+							<li class="active">
+								<a>${pageNumber}</a>
+							</li>	
+						</c:when>
+						<c:otherwise>
+							<li><a href="${contextRoot}/recipe/find/all?p=${pageNumber}">
+								${pageNumber} </a>
+							</li>	
+						</c:otherwise>
+
+					</c:choose>
+				</c:forEach>
+             </ul>
+            </div> 
         </section>
         <!-- Recipe Without Sidebar Area End Here -->
         <!-- Footer Area Start Here -->
@@ -287,7 +313,11 @@
 
             $.ajax(settings).done(function (response) {
                 let recipes = '';
+                let count = 0;
+                let page = 1;
+                var pageList = new Array();
                 for(let index in response){
+
                     let r = response[index].recipeKeyword;
                     var classifytitle = "";
                     if(r != null){
@@ -298,10 +328,10 @@
                         classifytitle.trim();
                     }
                     
-
                     recipes += '<div class="col-lg-4 col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'
+                            +'<img src="${contextRoot}/recipe/'+response[index].cookPhoto+'" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
                             +'<span class="sub-title">' + classifytitle + '</span>'
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'
@@ -311,10 +341,44 @@
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>'
                             +'</ul></div></div></div>'
+                    count++;
+                    
+                    if(count % 9 == 0){
+                        pageList[count / 9 - 1] = recipes;
+                        recipes = "";
+                    }
+                                 
+                }
+
+
+
+                if (recipes != "") {  //剩下的筆數
+                    pageList[Math.ceil(count / 9 - 1)] = recipes;
+                    recipes = "";
                 }
                     
-                $("#showrecipe").html("").append(recipes);
+                $("#showrecipe").html("").append(pageList[0]);
 
+                //分頁按鈕
+                var pages = pageList.length;
+                var str2 = ''
+                for (let i = 1; i <= pages; i++) {
+                    if(i==1){
+                        str2 += '<li class="active"><a>'+i+'</a></li>'
+                    }else{
+                        str2 += '<li><a>'+i+'</a></li>'
+                    }
+                }
+                $("#pagesList").html("").append(str2);
+
+
+                //切換頁面
+                document.getElementById("pagesList").addEventListener("click", function (event) {
+                    let page = event.target.innerHTML
+                if (!isNaN(page)) {
+                        $("#showrecipe").html("").append(pageList[page - 1]);
+                    }
+                })
             });
         })
 
