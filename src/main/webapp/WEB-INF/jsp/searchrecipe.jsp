@@ -373,9 +373,10 @@
 
 
                 //切換頁面
-                document.getElementById("pages").addEventListener("click", function (event) {
-                if (!isNaN(event.target.innerHTML)) {
-                    document.getElementById("usersContainer").innerHTML = pageList[event.target.innerHTML - 1];
+                document.getElementById("pagesList").addEventListener("click", function (event) {
+                    let page = event.target.innerHTML
+                if (!isNaN(page)) {
+                        $("#showrecipe").html("").append(pageList[page - 1]);
                     }
                 })
             });
