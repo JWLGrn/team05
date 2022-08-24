@@ -38,7 +38,7 @@ import com.eeit147.groupfive.users.model.UsersDao;
 
 
 @Controller
-@SessionAttributes("loginUser")
+//@SessionAttributes("loginUser")
 public class RecipeController {
 	@Autowired
 	private RecipeSteptService rsService;
@@ -322,11 +322,11 @@ public class RecipeController {
 	}
 	//查詢個人食譜
 	@GetMapping("/recipe.personal.controller")
-	public String findRecipeByUserId(Model m) {
+	public @ResponseBody List<Recipe> findRecipeByUserId(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
 		List<Recipe> recipe = rService.findRecipeByUserId(session);
-		m.addAttribute("recipe", recipe);
-		return "test/selfRecipe" ;
+//		m.addAttribute("recipe", recipe);
+		return recipe ;
 	}
 	
 	// 隨機食譜

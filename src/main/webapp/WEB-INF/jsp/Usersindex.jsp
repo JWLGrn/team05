@@ -99,18 +99,18 @@
 								enctype="multipart/form-data" class="login-form">
 								<div class="row">
 									<div class="col-md-6">
-										<label class="mb-3">Number Name</label> <input type="text"
-											name="user_name" id="user_name" class="main-input-box"
-											placeholder="請輸入姓名"><br /> <label class="mb-3">Email
-											Address</label> <input type="email" name="email" id="email"
-											class="main-input-box" placeholder="請輸入信箱"><span
-											id="msg"></span><br /> <label class="mb-3">Password</label>
-										<input type="password" name="password" id="password"
-											class="main-input-box" placeholder="請輸入密碼"><br /> <label
-											class="mb-3">Number Photo</label><input type="file"
-											name="user_photo" class="main-input-box" placeholder="請上傳照片"><br />
-										<input type="hidden" name="user_id"><br /> <input
-											type=hidden name="permission" value="1" placeholder="1" id="permission">
+										<label class="mb-3">暱稱</label> 
+										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入姓名"><br /> 
+										<label class="mb-3">電子信箱</label> 
+										<input type="email" name="email" id="email"class="main-input-box" placeholder="請輸入信箱"><span id="msg"></span><br />
+										<label class="mb-3">密碼</label>
+										<input type="password" name="password" id="password" class="main-input-box" placeholder="請輸入密碼"><br /> 
+<!-- 										<label class="mb-3">大頭貼</label> -->
+<!-- 										<input type="file" name="user_photo" class="main-input-box" placeholder="請上傳照片"> -->
+										<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
+   										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br />
+										<input type="hidden" name="user_id"><br /> 
+										<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 										<!-- 			<i class="fa fa-check" -->
 										<!-- 			aria-hidden="true"></i> -->
 										<div class="btn-area">
@@ -137,10 +137,26 @@
 			</div>
 		</section>
 		<!--  ------------------------------------------------------------------ -->
+				<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="${contextRoot}/js/popper.min.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+		<!-- Plugins Js -->
+		<script src="${contextRoot}/js/plugins.js"></script>
+		<!-- Owl Carousel Js -->
+		<script src="${contextRoot}/js/owl.carousel.min.js"></script>
+		<!-- Summernote JS -->
+		<script src="${contextRoot}/js/summernote.min.js"></script>
+		<!-- Select 2 Js -->
+		<script src="${contextRoot}/js/select2.full.min.js"></script>
+		<!-- Smoothscroll Js -->
+		<script src="${contextRoot}/js/smoothscroll.min.js"></script>
+		<!-- Custom Js -->
+		<script src="${contextRoot}/js/main.js"></script>
 		<script>
-			$("#email")
-					.blur(
-							function() {
+		
+			$("#email").blur(function() {
 								//取得使用者輸入的mail
 								let emailValue = $('#email').val();
 								if (emailValue != "") {
@@ -152,12 +168,8 @@
 												dataType : 'text',
 												success : function(data) {
 													if (data == 1) {
-														$("#msg")
-																.text(
-																		"用戶已存在,請輸入其他帳號");
-														$("#msg")
-																.prepend(
-																		"<img  src='users/woman.jpeg' width='300'> ")
+														$("#msg").text("用戶已存在,請輸入其他帳號");
+														$("#msg").prepend("<img  src='no.png' width='15px'> ")
 														$("#msg").attr("class",
 																"error");
 														$("#email").val("");
@@ -169,7 +181,7 @@
 																.text("帳號可以使用");
 														$("#msg")
 																.prepend(
-																		"<img  src='users/man.jpeg' width='300' > ")
+																		"<img  src='go.png' width='15px' > ")
 														$("#msg").attr("class",
 																"success");
 													}
@@ -209,24 +221,21 @@
 				document.getElementById("password").value = "qaz456";
 				document.getElementById("permission").value = "2";
 			}
+			function imgview(event,imgid){   
+				   const fr = new FileReader();
+				   //抓url
+				   let fPhoto=document.getElementById("eventPhoto").files;
+				   if(fPhoto.length>0){//有圖
+				    let fileToLoad=fPhoto[0];//取得檔案詳細資料
+				    fr.onload = function (e) {
+				         fileDataURL=e.target.result
+				      $('#'+imgid.id+'').attr('src', fileDataURL);//img預覽
+				   };
+				    fr.readAsDataURL(event.target.files[0]);//img預覽
+				  }
+				}	
 		</script>
-		<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
-		<!-- Bootstrap Js -->
-		<script src="${contextRoot}/js/popper.min.js"></script>
-		<!-- Bootstrap Js -->
-		<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-		<!-- Plugins Js -->
-		<script src="${contextRoot}/js/plugins.js"></script>
-		<!-- Owl Carousel Js -->
-		<script src="${contextRoot}/js/owl.carousel.min.js"></script>
-		<!-- Summernote JS -->
-		<script src="${contextRoot}/js/summernote.min.js"></script>
-		<!-- Select 2 Js -->
-		<script src="${contextRoot}/js/select2.full.min.js"></script>
-		<!-- Smoothscroll Js -->
-		<script src="${contextRoot}/js/smoothscroll.min.js"></script>
-		<!-- Custom Js -->
-		<script src="${contextRoot}/js/main.js"></script>
+
 </body>
 
 </html>

@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<style>
+.size{
+border-radius:50%;
+width: 60px;
+height: 50px;
+}
+
+</style>
 <header class="header-one">
             <div id="header-main-menu" class="header-main-menu header-sticky">
                 <div class="container">                    
@@ -23,7 +31,7 @@
                                     </li>
                                     <li><a href="#${contextRoot}/posts/find/all">個人</a>
                                         <ul class="dropdown-menu-col-1">
-                                      <li>  <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
+                                      <li>  <a href="users/updatemember?user_id=${result.userId }">　修改會員資料</a></li>
                                             <li><a href="author.html">　個人會員資料</a></li>
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
 
@@ -119,15 +127,21 @@
                                             </div>
                                         </div>
                                     </li>
+                                   <c:if test="${empty loginUser }"> 
                                     <li>
-                                        <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i><a href="${contextRoot}/user/login" style="color: white">Login
-                                       </a> </button>
+                                       <a href="${contextRoot}/user/login" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
+                                            <i class="flaticon-profile"></i>登入
+                                      </button> </a> 
                                     </li>
+                                    </c:if>
+                                    <c:if test="${!empty loginUser }">
+                                    <li><img class="userimg size" alt="" src="${contextRoot}/users/${loginUser.userPhoto}"></li>
+                                   	<li style="color:#ff4a52;">${loginUser.userName}</li>
                                     <li>
-                                        <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i><a href="${contextRoot}/users/logout" style="color: white">Logout</a>  </button>
+                                       <a href="${contextRoot}/users/logout" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
+                                            <i class="flaticon-profile"></i>登出 </button></a> 
                                     </li>
+                                    </c:if>
                                     
                                     <li>
                                         <a href="${contextRoot}/insertrecipe" class="fill-btn"><i class="flaticon-plus-1"></i>上傳食譜</a>

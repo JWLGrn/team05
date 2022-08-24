@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
@@ -43,7 +45,7 @@ import com.eeit147.groupfive.users.service.FollowService;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
-@SessionAttributes({ "loginUser", "result","updateUserResult" })
+//@SessionAttributes({ "loginUser", "result","updateUserResult" })
 public class UsersController {
 	@Autowired
 	private UsersService UService;
@@ -69,7 +71,6 @@ public class UsersController {
 		m.addAttribute("login", u);
 		return "test/login";
 	}
-
 	// 會員執行登入 判斷帳號密碼
 	@PostMapping("/user/login.controller")
 	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
@@ -79,8 +80,7 @@ public class UsersController {
 			msg.put("loginfail", "帳號密碼錯誤，請輸入正確的帳號密碼");
 			m.addAttribute("msg", msg);
 			return "redirect:/user/login";
-		}
-		
+		}		
 		//Users userid = UService.findUsersById(loginUser.getUserId());
 		System.out.println(loginUser.getUserId());
 		Integer permission = loginUser.getPermission();
@@ -93,14 +93,14 @@ public class UsersController {
 				return "admin";
 			}		
 		}
-
-		return "test/login";
+		return "redirect:/user/login";
 	}
 
 	// 會員登出
 	@GetMapping("/users/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
+		new Cookie();
 		return "redirect:/user/login";
 		//要把 logout按鈕隱藏起來!!!!!!!!!!!!!!!!!!!!!!!
 	}
@@ -136,13 +136,13 @@ public class UsersController {
 
 		model.addAttribute("result", result);
 		if(permission ==1) {
-			return "SuccessUser";
+			return "redirect:/user/login";
 
 		} else if (permission ==2){
 			//管理者頁面!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			return "admin";
 		}
-		return "index";
+		return "redirect:/user/login";
 	}
 
 	// 判斷是否有重複的email
