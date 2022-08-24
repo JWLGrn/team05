@@ -89,7 +89,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="mb-3">Email Address</label>
-                                        <input type="text" name="code" class="main-input-box" placeholder="請輸入驗證碼">
+                                        <input required="required" type="text" name="code" class="main-input-box" placeholder="請輸入驗證碼">
                                       <div class="btn-area">
                                     <button type="submit" class="btn-fill btn-primary">送出<i class="flaticon-next"></i></button>
                                    <div class="btn-area">

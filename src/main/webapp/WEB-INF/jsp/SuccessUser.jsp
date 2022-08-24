@@ -61,7 +61,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Welcome to I Cook ${result.userName}</h1>
+							<h1>Welcome to I Cook ${loginUser.userName}</h1>
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -75,17 +75,15 @@
 		<!-- Submit Recipe Area Start Here -->
 		<!--         <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"> -->
 		<!--             <div class="container"> -->
-<img  src="users/${result.userPhoto}" width="300"><br>
+<img  src="users/${loginUser.userPhoto}" width="300"><br>
 ${loginUser.getUserName() }
 <div ></div>
 <!-- <button type="button" onclick="Favorite()" >食譜ID</button> -->
 案讚測試功能:<div  id="myDiv"></div>
 檢舉測試功能:<div id="findUser"></div>
  
-查看User資料測試:${result }<br>
+查看User資料測試:${loginUser }<br>
  
-<%-- <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a> 連結成功 --%>
-<%-- <a href="${pageContext.request.contextPath }/users/logout"><input type="button" value="登出" ></a><br> 連結成功 --%>
 <script>
 function Favorite()
 {

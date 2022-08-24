@@ -163,4 +163,9 @@ private FoodsService fService;
 	public String eventshow() {
 		return "eventshow";
 	}
+	//個人頁面資料呈現
+	@GetMapping("/shownumberuser")
+	public String showNumber() {
+		return "test/shownumber";
+	}
 }

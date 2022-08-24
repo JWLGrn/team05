@@ -21,16 +21,11 @@
                                     <li>
                                         <a href="${contextRoot}/recipe/find/all">食譜</a>
                                     </li>
-                                    <li><a href="#${contextRoot}/posts/find/all">個人</a>
+                                    <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
-                                      <li>  <a href="users/updatemember?user_id=${result.userId }">修改會員資料</a></li>
-                                            <li><a href="author.html">　個人會員資料</a></li>
+                                      <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }"> 修改會員資料</a></li>
+                                            <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
                                             <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
-
-                                            <li><a href="author.html">　個人會員資料</a></li>
-
-                                            <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
-
                                             <li><a href="blog-list.html">　Blog List</a></li>
                                             <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
@@ -119,6 +114,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    
                                     <li>
                                         <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
                                             <i class="flaticon-profile"></i><a href="${contextRoot}/user/login" style="color: white">Login

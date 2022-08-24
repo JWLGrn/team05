@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -70,7 +69,7 @@ public class UsersController {
 		return "test/login";
 	}
 
-	// 會員執行登入 判斷帳號密碼
+	// 會員執行登入 判斷帳號密碼 需要再寫一個抓userid!!!!!!!!!!!!!!!!!!????????
 	@PostMapping("/user/login.controller")
 	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
 		HashMap<String, String> msg = new HashMap<String, String>();
@@ -112,7 +111,8 @@ public class UsersController {
 							 @RequestParam("password") String password, 
 							 @RequestParam("permission") Integer permission,
 							 @RequestParam("user_photo") MultipartFile file, 
-							 Model model) {
+							 Model model,HttpSession session
+							 ) {
 		String photoName = file.getOriginalFilename();
 		String photopath = "";
 		// 註冊會員的email.密碼
@@ -134,7 +134,7 @@ public class UsersController {
 		}
 		System.out.println(newuser);
 
-		model.addAttribute("result", result);
+		model.addAttribute("loginUser", result);
 		if(permission ==1) {
 			return "SuccessUser";
 
@@ -163,7 +163,7 @@ public class UsersController {
 		Optional<Users> Optional = uDao.findById(user_id);
 		Users getUser = Optional.get();
 		System.out.println(getUser);
-		model.addAttribute("getUser", getUser);
+		model.addAttribute("loginUser", getUser);
 		return "updatemember";
 
 	}
@@ -199,8 +199,8 @@ public class UsersController {
 		}
 		System.out.println(updateUser);
 
-		model.addAttribute("updateUserResult", updateUserResult);
-		return "SuccessUser";
+		model.addAttribute("loginUser", updateUserResult);
+		return "redirect:/";
 	}
 
 	// 抓取recipe and userid 案讚關聯
@@ -397,10 +397,10 @@ public class UsersController {
 		return follow;
 	}
 	@GetMapping("/collect.personal.controller")
-	public  String findCollectByUsers(Model m){
+	public  @ResponseBody List<Collect> findCollectByUsers(Model m){
 		Users session = (Users)m.getAttribute("loginUser");
 		List<Collect> collect = cService.findCollectByUsers(session);
-		m.addAttribute("collect", collect);
-		return "test/collectpage";
+//		m.addAttribute("collect", collect);
+		return collect;
 	}
 }

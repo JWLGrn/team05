@@ -61,7 +61,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Hello ${getUser.userName }</h1>
+							<h1>Hello ${loginUser.userName }</h1>
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -86,18 +86,18 @@
 						</div>
 						<form action="${contextRoot}/users/updateMember02" method="post"
 							enctype="multipart/form-data" class="login-form">
-							<input type="hidden" value="${getUser.userId }" name="user_id">
+							<input type="hidden" value="${loginUser.userId }" name="user_id">
 
 							<div class="row">
 								<div class="col-md-6">
 									<label class="mb-3">Number Name</label> <input
-										placeholder="請輸入姓名" type="text" value="${getUser.userName }"
+										placeholder="請輸入姓名" type="text" value="${loginUser.userName }"
 										name="user_name" class="main-input-box"><br /> <label
 										class="mb-3">Email Address</label> 信箱:<input type="email"
-										value="${getUser.email }" name="email" id="email"
+										value="${loginUser.email }" name="email" id="email"
 										class="main-input-box" placeholder="請輸入信箱"><br /> <label
 										class="mb-3">Password</label> <input type="password"
-										value="${getUser.password }" name="password"
+										value="${loginUser.password }" name="password"
 										class="main-input-box" placeholder="請輸入密碼"><br /> <label
 										class="mb-3">Number Photo</label> <input type="file"
 										name="user_photo" class="main-input-box" placeholder="請上傳照片"><br />
@@ -122,7 +122,7 @@
 		</div>
 	</section>
 	<!-- 		------------------------------------------------------------ -->
-	${getUser }
+	${loginUser }
 	<br>
 	<!-- ------------------------------------------------- -->
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>

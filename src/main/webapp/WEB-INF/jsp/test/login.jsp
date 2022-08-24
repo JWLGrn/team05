@@ -90,11 +90,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="mb-3">Email Address</label>
-                                        <form:input class="main-input-box" path="email" placeholder="請輸入Email" />
+                                        <form:input type="email" required="required" class="main-input-box" path="email" placeholder="請輸入Email" />
                                     </div>
                                     <div class="col-md-6">
                                         <label class="mb-3">Password</label>
-                                        <form:input class="main-input-box" path="password" placeholder="請輸入密碼"/>
+                                        <form:input type="password" required="required"  class="main-input-box" path="password" placeholder="請輸入密碼" />
                                     </div>
                                 </div>
                                 <div class="row">

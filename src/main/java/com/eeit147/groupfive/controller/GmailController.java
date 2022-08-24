@@ -60,10 +60,10 @@ private UsersDao uDao;
     	StringBuilder verificationCode =(StringBuilder) model.getAttribute("verificationCode");
     	String vCode = verificationCode.toString();
     	if(vCode.equals(code)) {
-    		return "email/successMail";
+    		return "index";
     	}
     	//需要登入失敗的頁面
-    	return "/"; 
+    	return "index"; 
     	
     }
 }

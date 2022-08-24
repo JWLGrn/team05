@@ -87,7 +87,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="mb-3">Email Address</label>
-                                        <input class="main-input-box" type="email" name="email" placeholder="請輸入Email">
+                                        <input required="required" class="main-input-box" type="email" name="email" placeholder="請輸入Email">
                                       <div class="btn-area">
                                     <button type="submit" class="btn-fill btn-primary">驗證信<i class="flaticon-next"></i></button>
                                    <div class="btn-area">
