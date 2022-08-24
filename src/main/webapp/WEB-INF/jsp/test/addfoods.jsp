@@ -54,16 +54,22 @@ body {font-size:16px;}
 <div class="w3-main" style="margin-left:220px;">
 
 <h3>新增食材</h3>
+<table  class="table table-striped">
+
 	<form:form action="addfoods" method="Post" modelAttribute="addfoodsAttribute">
-		<form:label path="foodsName" >食材名稱:</form:label>
-		<form:input path="foodsName" placeholder="請輸入食材名稱" /></br>
-		<form:label path="foodsType" >食材類別:</form:label>
-		<form:input path="foodsType" placeholder="請輸入食材類別"/></br>
-		<form:label path="calorie" >卡路里　:</form:label>
-		<form:input path="calorie" placeholder="請輸入卡路里"/></br>
-		<form:button type="submit" class="w3-button w3-red w3-hover-black">加入</form:button>
-		<form:button type="reset" class="w3-button w3-red w3-hover-black">取消</form:button>		
+		<tr><td><form:label path="foodsName" >食材名稱:</form:label></td></tr>
+		<tr><td><form:input path="foodsName" placeholder="請輸入食材名稱" /></td></tr>
+		<tr><td><form:label path="foodsType" >食材類別:</form:label></td></tr>
+		<tr><td><form:input path="foodsType" placeholder="請輸入食材類別"/></td></tr>
+		<tr><td><form:label path="calorie" >卡路里　:</form:label></td></tr>
+		<tr><td><form:input path="calorie" placeholder="請輸入卡路里"/></td></tr>
+		<tr>
+		<td><form:button type="submit" class="w3-button w3-red w3-hover-black">加入</form:button>
+			<form:button type="reset" class="w3-button w3-red w3-hover-black">取消</form:button>	</td>
+		</tr>	
 	</form:form>
+	
+	</table>
 </div>
 
 <script>
