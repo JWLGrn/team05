@@ -207,7 +207,7 @@
                 </div>
             </div>
             <div>
-            <ul class="pagination-layout1">
+            <ul class="pagination-layout1" id="pagesList">
                      <c:forEach begin="1" end="${page.totalPages}" var="pageNumber">
 					<c:choose>
 						<c:when test="${pageNumber-1 == page.number}">
@@ -313,7 +313,11 @@
 
             $.ajax(settings).done(function (response) {
                 let recipes = '';
+                let count = 0;
+                let page = 1;
+                var pageList = new Array();
                 for(let index in response){
+
                     let r = response[index].recipeKeyword;
                     var classifytitle = "";
                     if(r != null){
@@ -324,7 +328,6 @@
                         classifytitle.trim();
                     }
                     
-
                     recipes += '<div class="col-lg-4 col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
                             +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'
@@ -338,10 +341,43 @@
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>'
                             +'</ul></div></div></div>'
+                    count++;
+                    
+                    if(count % 9 == 0){
+                        pageList[count / 9 - 1] = recipes;
+                        recipes = "";
+                    }
+                                 
+                }
+
+
+
+                if (recipes != "") {  //剩下的筆數
+                    pageList[Math.ceil(count / 9 - 1)] = recipes;
+                    recipes = "";
                 }
                     
-                $("#showrecipe").html("").append(recipes);
+                $("#showrecipe").html("").append(pageList[0]);
 
+                //分頁按鈕
+                var pages = pageList.length;
+                var str2 = ''
+                for (let i = 1; i <= pages; i++) {
+                    if(i==1){
+                        str2 += '<li class="active"><a>'+i+'</a></li>'
+                    }else{
+                        str2 += '<li><a>'+i+'</a></li>'
+                    }
+                }
+                $("#pagesList").html("").append(str2);
+
+
+                //切換頁面
+                document.getElementById("pages").addEventListener("click", function (event) {
+                if (!isNaN(event.target.innerHTML)) {
+                    document.getElementById("usersContainer").innerHTML = pageList[event.target.innerHTML - 1];
+                    }
+                })
             });
         })
 

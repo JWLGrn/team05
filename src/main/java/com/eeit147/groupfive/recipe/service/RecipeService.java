@@ -410,7 +410,7 @@ public class RecipeService {
 				return recipesDto;
 			}
 		}
-	}	
+	}
 	
 	// 查詢收藏數前幾名
 	public List<Recipe> collectRank(Integer rank){
@@ -485,6 +485,7 @@ public class RecipeService {
 		return rDao.findRandomRecipe(number);
 	}
 	
+	// 顯示最新食譜
 	public List<Recipe> findLatestRecipe(){
 		List<Recipe> recipe = rDao.findTop5ByOrderByDateDesc();
 		return recipe;
