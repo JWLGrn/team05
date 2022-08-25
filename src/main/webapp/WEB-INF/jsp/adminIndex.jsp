@@ -60,8 +60,9 @@ body {font-size:16px;}
 <button onclick="chartjstest()" >切換圓餅圖</button>
 <canvas id="myChart" width="200" height="100"  class="float" style="display:none;"></canvas>
 <canvas id="myChart2" width="450" height="100"  class="float" style="display:none;"></canvas>
-<div id="adminReport" style="display:none; width: 20; height: 10" ></div>
 </div>
+<!-- <div id="adminReport" style="display:none; width: 20; height: 10" ></div> -->
+<div  id="adminReport" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
 <script >
 var content =[];
 
