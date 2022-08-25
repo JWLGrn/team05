@@ -364,6 +364,8 @@ public class RecipeService {
 			dto.setUserId(r.getUsers().getUserId());
 			dto.setUserName(r.getUsers().getUserName());
 			dto.setRecipeKeyword(kService.changeKeywordToDto(r.getRecipeKeyword()));
+			dto.setFavorCount(r.getFavorite().size());
+			dto.setCollectCount(r.getCollect().size());
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -490,4 +492,14 @@ public class RecipeService {
 		List<Recipe> recipe = rDao.findTop5ByOrderByDateDesc();
 		return recipe;
 	}
+	
+	// 查詢食譜by類別
+	public List<Recipe> findByCategory(String category){
+		String[] categories = {category};
+		List<Keyword> keyword = kDao.findByKeywordIn(categories);
+		List<RecipeKeyword> rKeyword = rkDao.findByKeywordIn(keyword);
+		List<Recipe> recipes = rDao.findByRecipeKeywordIn(rKeyword);
+		return recipes;
+	}
+	
 }

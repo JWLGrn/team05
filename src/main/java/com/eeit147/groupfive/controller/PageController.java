@@ -170,4 +170,9 @@ private FoodsService fService;
 	public String showNumber() {
 		return "test/shownumber";
 	}
+	
+//	@GetMapping("/categories")
+//	public String goCategories() {
+//		return "categories";
+//	}
 }

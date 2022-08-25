@@ -56,4 +56,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	public List<Recipe> findRandomRecipe(@Param("number") Integer number);
 	
 	public List<Recipe> findTop5ByOrderByDateDesc();
+	
+	public List<Recipe> findByRecipeKeywordIn(List<RecipeKeyword> recipeKeyword);
 }

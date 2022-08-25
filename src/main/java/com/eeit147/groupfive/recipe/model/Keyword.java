@@ -25,6 +25,9 @@ public class Keyword {
 	@Column(name="keyword")
 	private String keyword;
 
+	@Column(name="keywordPhoto")
+	private String keywordPhoto;
+	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "keyword",cascade = CascadeType.ALL)
 	private Set<RecipeKeyword> recipeKeyword= new LinkedHashSet<RecipeKeyword>();
 
@@ -50,6 +53,14 @@ public class Keyword {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public String getKeywordPhoto() {
+		return keywordPhoto;
+	}
+
+	public void setKeywordPhoto(String keywordPhoto) {
+		this.keywordPhoto = keywordPhoto;
 	}
 
 	public Set<RecipeKeyword> getRecipeKeyword() {

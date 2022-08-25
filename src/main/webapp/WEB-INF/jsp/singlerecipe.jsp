@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
     <style type="text/css">
     	.replyobfit{
             object-fit: contain;
@@ -143,7 +145,9 @@
                                 </div>
                             </div>
                             <div class="item-figure">
+                            <a data-caption="${recipe.cookTitle}" data-fancybox="gallery" href="${contextRoot}/recipe/${recipe.cookPhoto}">
                                 <img src="${contextRoot}/recipe/${recipe.cookPhoto}" alt="Product" style="display:block; margin:auto;">
+                            </a>
                             </div>
                             <div class="item-feature">
                                 <ul>
@@ -212,7 +216,9 @@
 							<c:forEach items="${recipe.recipeStep}" var="rS">
                                 <div class="direction-box-layout1">
                                     <div class="item-figure">
+                                    <a data-caption="${rS.stepDescription}" data-fancybox="gallery" href="${contextRoot}/recipe/${rS.stepPhoto}">
                                         <img src="${contextRoot}/recipe/${rS.stepPhoto}" alt="DIRECTIONS" class="recipeImg">
+                                    </a>
                                     </div>
                                     <div class="item-content">
                                         <div class="serial-number">${rS.step} Step</div>
@@ -233,35 +239,6 @@
                                     </li>
 								</c:forEach>
                                 <!-- ---------------重複的結構--------------- -->
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <ul class="inner-share">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fab fa-facebook-f"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fab fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fab fa-linkedin-in"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fab fa-google-plus-g"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fab fa-pinterest"></i>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -331,21 +308,6 @@
                             </div>
                         </div>
                         <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                            </div>
-                            <div class="widget-follow-us">
-                                <ul>
-                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget">
                             <div class="widget-ad">
                                 <a href="#"><img src="img/figure/figure4.jpg" alt="Ad" class="img-fluid"></a>
                             </div>
@@ -401,22 +363,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="widget-newsletter-subscribe">
-                                <h3>GET LATEST UPDATES</h3>
-                                <p>Newsletter Subscribe</p>
-                                <form class="newsletter-subscribe-form">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="your e-mail address" class="form-control" name="email"
-                                            data-error="E-mail field is required" required>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group mb-none">
-                                        <button type="submit" class="item-btn">SUBSCRIBE</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                         <div class="widget">
@@ -601,6 +547,8 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
     
     // 右方最新食譜
