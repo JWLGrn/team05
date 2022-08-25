@@ -48,7 +48,7 @@ body {font-size:16px;}
 <title>新增食材</title>
 </head>
 <body>
-<jsp:include page="../layout/navbar.jsp"/>
+<jsp:include page="layout/navbar.jsp"/>
 <jsp:include page="adminMenu.jsp"></jsp:include>
 
 <div class="w3-main" style="margin-left:220px;">

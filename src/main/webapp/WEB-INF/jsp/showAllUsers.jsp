@@ -38,9 +38,9 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
-//CSS
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- //CSS -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
 
 <style>
 body, h1, h2, h3, h4, h5 {
@@ -71,7 +71,7 @@ body {
 <title>管理使用者</title>
 </head>
 <body>
-	<jsp:include page="../layout/navbar.jsp" />
+	<jsp:include page="layout/navbar.jsp" />
 	<jsp:include page="adminMenu.jsp"></jsp:include>
 	<div class="w3-main" style="margin-left: 220px;">
 		<h3>管理使用者</h3>
@@ -92,9 +92,9 @@ body {
 			<tbody id="userbody">
 
 				<c:forEach items="${allUsers}" var="u">
-					<tr>
+					
 						<form class="form" method="post" action="${contextRoot}/editAdminUsers">
-
+						<tr>
 							<td><input type="hidden" name="userId" value="${u.userId}" /></td>
 							<td><img class="userimg" alt="" src="${contextRoot}/users/${u.userPhoto}"></td>
 							<td><input name="email" value="${u.email}" /></td>
@@ -105,9 +105,9 @@ body {
 									class="w3-button w3-red w3-hover-black">更新</button></td>
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
 										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
-
+						</tr>
 						</form>
-					</tr>
+					
 				</c:forEach>
 
 			</tbody>
@@ -153,6 +153,7 @@ body {
 											for (var i = 0; i < data.length; i++) {
 												const item = data[i];
 												console.log(i, item);
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/test/showAllUsers.jsp
 												
 												
 												// 下拉式選單
@@ -171,6 +172,10 @@ body {
 												
 												var text = '<tr id="userTr">'
 														+ '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
+=======
+												var text = '<tr id="userTr">'+
+														 '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
+>>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21:src/main/webapp/WEB-INF/jsp/showAllUsers.jsp
 														+ '<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'
 														+ '<td><img class="userimg" alt="" src="${contextRoot}/users/'+item.userPhoto+'"></td>'
 														+ '<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'
@@ -183,8 +188,6 @@ body {
 														+ '<td><a href="${contextRoot}/deleteUser/'+item.userId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'
 														+ '</form>' + '</tr>'
 												console.log("text", text);
-												console.log(item.userName
-														+ "111");
 												$("#userbody").append(text);
 											}
 											console.log("data", data);
@@ -205,6 +208,7 @@ body {
 					+ $("#permission" + userId).val()
 					//+ $("#userPhoto" + userId).val() + "/";
 			window.location.href = url;
+<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/test/showAllUsers.jsp
 <<<<<<< HEAD
 =======
 </tbody>
@@ -260,6 +264,8 @@ $("#userName").keyup(function(){
 			console.log("data",data);
 =======
 >>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
+=======
+>>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21:src/main/webapp/WEB-INF/jsp/showAllUsers.jsp
 		}
 // 		$(document).ready(function() {
 // 			$('#userTable').DataTable();

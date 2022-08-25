@@ -38,7 +38,11 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
+<<<<<<< HEAD
 <style type="text/css">
+=======
+<style>
+>>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21
 body, h1, h2, h3, h4, h5 {
 	font-family: "Poppins", sans-serif
 }
@@ -57,6 +61,7 @@ body {
 .w3-half img:hover {
 	opacity: 1
 }
+<<<<<<< HEAD
 .userimg {
 	width: 100px;
 	height: 100px;
@@ -752,6 +757,20 @@ function canceljoin(recipeId,eventId){
 	participatelist(eventId);
 }		
 </script>
+=======
+</style>
+<style type="text/css">
+.userimg {
+	width: 100px;
+	height: 100px;
+}</style>
+<title>管理活動</title>
+</head>
+<body>
+	<jsp:include page="layout/navbar.jsp" />
+	<jsp:include page="adminMenu.jsp"></jsp:include>
+	
+>>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21
 	
 </body>
 </html>

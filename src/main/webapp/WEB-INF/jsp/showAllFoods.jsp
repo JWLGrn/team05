@@ -49,7 +49,7 @@ body {font-size:16px;}
 <title>管理食材</title>
 </head>
 <body>
-<jsp:include page="../layout/navbar.jsp"/>
+<jsp:include page="layout/navbar.jsp"/>
 <jsp:include page="adminMenu.jsp"></jsp:include>
 
 
@@ -100,7 +100,7 @@ body {font-size:16px;}
 				<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
 				<c:choose>
 					<c:when  test="${page.number != pageNumber -1}">
-					<a href="${contextRoot}/showAllFoods123?p=${pageNumber}">
+					<a href="${contextRoot}/showAllFoods?p=${pageNumber}">
 							${pageNumber} </a>
 					</c:when>
 					<c:otherwise>
