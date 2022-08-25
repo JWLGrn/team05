@@ -166,7 +166,7 @@ public class UsersController {
 		Users getUser = Optional.get();
 		System.out.println(getUser);
 		model.addAttribute("loginUser", getUser);
-		return "updatemember";
+		return "user/updatemember";
 
 	}
 
@@ -256,7 +256,7 @@ public class UsersController {
 		Date date = new Date();
 		model.addAttribute("date", date);
 
-		return "test/usersreport";
+		return "user/usersreport";
 	}
 
 	@GetMapping("/users/reportSuccess")
@@ -295,7 +295,7 @@ public class UsersController {
 		}
 		System.out.println(report+"============================================================");
 		model.addAttribute("report", report);
-		return "SuccessUser";
+		return "user/SuccessUser";
 	}
 	
 	// 追蹤 + 取消追蹤

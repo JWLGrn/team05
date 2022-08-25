@@ -58,9 +58,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findTop5ByOrderByDateDesc();
 	
-<<<<<<< HEAD
 	public List<Recipe> findByRecipeKeywordIn(List<RecipeKeyword> recipeKeyword);
-=======
 	public Set<Recipe> findByCollectIn(List<Collect> collect);
->>>>>>> 8e3486a7539fcf0a663fa7df28973d30765adfcf
 }

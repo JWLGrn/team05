@@ -38,7 +38,6 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
-<<<<<<< HEAD
 <style type="text/css">
 =======
 <style>
@@ -152,7 +151,7 @@ body {
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
-<jsp:include page="test/adminMenu.jsp"/>
+<jsp:include page="adminMenu.jsp"/>
 	<!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	
@@ -757,7 +756,6 @@ function canceljoin(recipeId,eventId){
 	participatelist(eventId);
 }		
 </script>
-=======
 </style>
 <style type="text/css">
 .userimg {
@@ -770,7 +768,6 @@ function canceljoin(recipeId,eventId){
 	<jsp:include page="layout/navbar.jsp" />
 	<jsp:include page="adminMenu.jsp"></jsp:include>
 	
->>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21
 	
 </body>
 </html>

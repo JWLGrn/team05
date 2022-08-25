@@ -192,8 +192,8 @@ height:200px;
                 </div>
             </div>
         </section>
-        案讚測試功能:<div  id="myDiv"></div>
-檢舉測試功能:<div id="findUser"></div>
+<!--案讚測試功能:<div  id="myDiv"></div> -->
+<!-- 檢舉測試功能:<div id="findUser"></div> -->
 	<!-- ScrollUp End Here -->
 <!-- 	<div id="wrapper" class="wrapper"> -->
 		<!-- Header Area Start Here -->

@@ -261,12 +261,9 @@ public class Recipe {
 	public Integer getUserId() {
 		return users.getUserId();
 	}
-<<<<<<< HEAD
 	public Integer getPermission() {
 		return users.getPermission();
 	}
 	
-=======
 
->>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
 }

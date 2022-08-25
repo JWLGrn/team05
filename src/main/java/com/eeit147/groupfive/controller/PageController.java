@@ -168,10 +168,8 @@ private FoodsService fService;
 	//個人頁面資料呈現
 	@GetMapping("/shownumberuser")
 	public String showNumber() {
-		return "test/shownumber";
+		return "user/shownumber";
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//活動管理員
 	@GetMapping("/showallevent")
 	public String showallevent(Model m) {
@@ -179,18 +177,14 @@ private FoodsService fService;
 		m.addAttribute("userId", userId);
 		return "showAllEvent";
 	}
-=======
 	
 //	@GetMapping("/categories")
 //	public String goCategories() {
 //		return "categories";
 //	}
->>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
-=======
 	//食譜分類頁面
 		@GetMapping("/showAllKeywords")
 		public String showAllKeywords() {
 			return "showAllKeywords";
 		}
->>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21
 }

@@ -39,13 +39,10 @@ public class adminUsersController {
 	@Autowired	
 	private JavaMailSender  mailSender;
 	
-<<<<<<< HEAD
 	@Autowired
 	private ReportDao rpDao;
 	
 	
-=======
->>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
 	//編輯使用者
 	@PostMapping("/editAdminUsers")
 	public String editAdminUsers(@RequestParam("userId") Integer userid,@RequestParam("userName") String username, @RequestParam("email") String email,

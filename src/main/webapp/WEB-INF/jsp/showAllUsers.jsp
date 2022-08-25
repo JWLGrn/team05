@@ -153,7 +153,6 @@ body {
 											for (var i = 0; i < data.length; i++) {
 												const item = data[i];
 												console.log(i, item);
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/test/showAllUsers.jsp
 												
 												
 												// 下拉式選單
@@ -172,10 +171,8 @@ body {
 												
 												var text = '<tr id="userTr">'
 														+ '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
-=======
 												var text = '<tr id="userTr">'+
 														 '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
->>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21:src/main/webapp/WEB-INF/jsp/showAllUsers.jsp
 														+ '<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'
 														+ '<td><img class="userimg" alt="" src="${contextRoot}/users/'+item.userPhoto+'"></td>'
 														+ '<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'
@@ -208,9 +205,6 @@ body {
 					+ $("#permission" + userId).val()
 					//+ $("#userPhoto" + userId).val() + "/";
 			window.location.href = url;
-<<<<<<< HEAD:src/main/webapp/WEB-INF/jsp/test/showAllUsers.jsp
-<<<<<<< HEAD
-=======
 </tbody>
 </table>
 </div>
@@ -262,10 +256,6 @@ $("#userName").keyup(function(){
 					$("#userbody").append(text);				
 			}
 			console.log("data",data);
-=======
->>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
-=======
->>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21:src/main/webapp/WEB-INF/jsp/showAllUsers.jsp
 		}
 // 		$(document).ready(function() {
 // 			$('#userTable').DataTable();

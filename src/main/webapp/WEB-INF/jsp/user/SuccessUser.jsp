@@ -52,7 +52,7 @@
 	<!-- ScrollUp End Here -->
 	<div id="wrapper" class="wrapper">
 		<!-- Header Area Start Here -->
-		<jsp:include page="layout/navbar.jsp" />
+		<jsp:include page="../layout/navbar.jsp" />
 		<!-- Header Area End Here -->
 		<!-- Inne Page Banner Area Start Here -->
 		<section class="inner-page-banner bg-common"
