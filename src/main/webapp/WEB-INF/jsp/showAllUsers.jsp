@@ -38,9 +38,9 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
-//CSS
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- //CSS -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
 
 <style>
 body, h1, h2, h3, h4, h5 {
@@ -71,7 +71,7 @@ body {
 <title>管理使用者</title>
 </head>
 <body>
-	<jsp:include page="../layout/navbar.jsp" />
+	<jsp:include page="layout/navbar.jsp" />
 	<jsp:include page="adminMenu.jsp"></jsp:include>
 	<div class="w3-main" style="margin-left: 220px;">
 		<h3>管理使用者</h3>
@@ -92,9 +92,9 @@ body {
 			<tbody id="userbody">
 
 				<c:forEach items="${allUsers}" var="u">
-					<tr>
+					
 						<form class="form" method="post" action="${contextRoot}/editAdminUsers">
-
+						<tr>
 							<td><input type="hidden" name="userId" value="${u.userId}" /></td>
 							<td><img class="userimg" alt="" src="${contextRoot}/users/${u.userPhoto}"></td>
 							<td><input name="email" value="${u.email}" /></td>
@@ -105,12 +105,11 @@ body {
 									class="w3-button w3-red w3-hover-black">送出</button></td>
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
 										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
-
+						</tr>
 						</form>
-					</tr>
+					
 				</c:forEach>
 
-<<<<<<< HEAD
 			</tbody>
 		</table>
 	</div>
@@ -154,8 +153,8 @@ body {
 											for (var i = 0; i < data.length; i++) {
 												const item = data[i];
 												console.log(i, item);
-												var text = '<tr id="userTr">'
-														+ '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
+												var text = '<tr id="userTr">'+
+														 '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
 														+ '<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'
 														+ '<td><img class="userimg" alt="" src="${contextRoot}/users/'+item.userPhoto+'"></td>'
 														+ '<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'
@@ -168,8 +167,6 @@ body {
 														+ '<td><a href="${contextRoot}/deleteUser/'+item.userId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'
 														+ '</form>' + '</tr>'
 												console.log("text", text);
-												console.log(item.userName
-														+ "111");
 												$("#userbody").append(text);
 											}
 											console.log("data", data);
@@ -190,59 +187,6 @@ body {
 					+ $("#userName" + userId).val() + "/"
 					+ $("#permission" + userId).val();
 			window.location.href = url;
-=======
-</tbody>
-</table>
-</div>
-    <!-- Jquery Js -->
-    <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="${contextRoot}/js/popper.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-    <!-- Plugins Js -->
-    <script src="${contextRoot}/js/plugins.js"></script>
-    <!-- Owl Carousel Js -->
-    <script src="${contextRoot}/js/owl.carousel.min.js"></script>
-    <!-- Summernote JS -->
-    <script src="${contextRoot}/js/summernote.min.js"></script>
-    <!-- Select 2 Js -->
-    <script src="${contextRoot}/js/select2.full.min.js"></script>
-    <!-- Smoothscroll Js -->
-    <script src="${contextRoot}/js/smoothscroll.min.js"></script>
-    <!-- Custom Js -->
-    <script src="${contextRoot}/js/main.js"></script>
-<script>
-$("#userName").keyup(function(){
-	let usernameValue = $('#userName').val();
-	console.log(usernameValue)
-	let urlStr = "${contextRoot}/find/searchUser/"+ usernameValue;
-	$.ajax({
-		url: urlStr ,
-		type : 'Get',
-		datatype: 'text',
-		success:function(data){
-			var append1 ;
-			 $('#userbody').empty();
-			 for (var i = 0; i < data.length; i++) {
-				  const item = data[i];
-				  console.log(i,item);
-				var text=	'<tr id="userTr">'+	
-					'<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
-					+'<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'+
-					'<td><input  id="userPhoto'+item.userId+'" name="userPhoto" value="'+item.userPhoto+'" /></td>'+
-					'<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'+
-					'<td><input  id="password'+item.userId+'" =name="password" value="'+item.password+'" /></td>'+
-					'<td><input  id="userName'+item.userId+'" =name="userName" value="'+item.userName+'" /></td>'+
-					'<td><input  id="permission'+item.userId+'" =name="permission" value="'+item.permission+'" /></td>'+
-					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.userId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
-					'</form>'+	
-					'</tr>'
-					$("#userbody").append(text);				
-			}
-			console.log("data",data);
->>>>>>> b5700f4bdcbf4c0ff95a7e20de277d7328b33b71
 		}
 // 		$(document).ready(function() {
 // 			$('#userTable').DataTable();

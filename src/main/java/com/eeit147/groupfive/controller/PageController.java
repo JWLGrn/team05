@@ -64,7 +64,7 @@ private FoodsService fService;
 	public String addFoods(Model model) {
 		Foods food = new Foods(); 
 		model.addAttribute("addfoodsAttribute", food);
-		return "test/addfoods";
+		return "addfoods";
 		}
 	
 	
@@ -73,11 +73,11 @@ private FoodsService fService;
 		public String showAllUsers(Model model) {
 			List<Users> users=uDao.findAll();
 			model.addAttribute("allUsers",uDao.findAll() );
-			return "test/showAllUsers";
+			return "showAllUsers";
 		}
 		
 		//食材列表分頁
-		@GetMapping("/showAllFoods123")
+		@GetMapping("/showAllFoods")
 		public String viewFoodsPage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber, Model model) {
 			Set<String> data = new LinkedHashSet<String>(); 
 			 List<Foods> foods=fDao.findAll();
@@ -87,13 +87,13 @@ private FoodsService fService;
 			model.addAttribute("option", data);
 			Page<Foods> page = fService.findByPage(pageNumber);
 			model.addAttribute("page", page);
-			return "test/showAllFoods123";
+			return "showAllFoods";
 		}	
 		
 		// 後台首頁
 		@GetMapping("/adminIndex")
 		public String goAdminIndex() {
-			return "test/adminIndex";
+			return "adminIndex";
 		}
 		
 	//測試查詢頁面
@@ -170,4 +170,9 @@ private FoodsService fService;
 	public String showNumber() {
 		return "test/shownumber";
 	}
+	//食譜分類頁面
+		@GetMapping("/showAllKeywords")
+		public String showAllKeywords() {
+			return "showAllKeywords";
+		}
 }

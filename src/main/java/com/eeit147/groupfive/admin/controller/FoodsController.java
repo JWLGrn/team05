@@ -34,7 +34,7 @@ public class FoodsController {
 		Model model){
 		Foods f = fService.insertFoods(fd);
 		model.addAttribute("newFoods", f);
-		return "redirect:/showAllFoods123";
+		return "redirect:/showAllFoods";
 	}
 	//驗證食材是否已存在
 	@PostMapping("/foodname/checkFoodsByName")
@@ -68,7 +68,7 @@ public class FoodsController {
 		model.addAttribute("option", data);
 		
 
-		return "redirect:/showAllFoods123";
+		return "redirect:/showAllFoods";
 		
 	}
 	
@@ -93,7 +93,7 @@ public class FoodsController {
 			model.addAttribute("option", data);
 			
 
-			return "redirect:/showAllFoods123";
+			return "redirect:/showAllFoods";
 			
 		}
 	
@@ -102,7 +102,7 @@ public class FoodsController {
 	@GetMapping("/deleteFood/{foodsId}")
 	public String deleteFood(@PathVariable Integer foodsId) {
 		fService.deleteFood(foodsId);
-		return "redirect:/showAllFoods123";
+		return "redirect:/showAllFoods";
 	}
 		
 	// 取得全部食材
