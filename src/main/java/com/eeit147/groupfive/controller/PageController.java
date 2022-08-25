@@ -158,7 +158,7 @@ private FoodsService fService;
 	public String ecPay() {
 		return "testecpay";
 	}
-	
+	//活動個人
 	@GetMapping("/showevent")
 	public String eventshow(Model m) {
 		Integer userId=3;
@@ -169,5 +169,12 @@ private FoodsService fService;
 	@GetMapping("/shownumberuser")
 	public String showNumber() {
 		return "test/shownumber";
+	}
+	//活動管理員
+	@GetMapping("/showallevent")
+	public String showallevent(Model m) {
+		Integer userId=3;
+		m.addAttribute("userId", userId);
+		return "showAllEvent";
 	}
 }
