@@ -104,23 +104,18 @@ public class adminUsersController {
 		Optional<Report> Optional = rDao.findById(report_id);
 		Report user = Optional.get();
 		 Users userId = user.getUsers();
-		String userEmail = userId.getEmail();
-		System.out.println("userEmail"+userEmail);
 		userId.setPermission(0);
-		Report report = new Report();
-		report.setReportId(report_id);
-		report.setReportStatus("已受理");
-		System.out.println(report+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		rpDao.save(report);
+		user.setReportStatus("已受理");
+		user.setReportId(report_id);
+		rpDao.save(user);
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("stu60406666@gmail.com");
-        message.setTo(userEmail);
+        message.setTo(userId.getEmail());
         message.setSubject("主旨：I-Cook 通知");
         message.setText("由於近期文章有接獲檢舉，會暫時停權三天，還請見諒。");
         mailSender.send(message);
         model.addAttribute("user",user);
-        model.addAttribute("report",report);
-		return "test/adminIndex";
+		return "adminIndex";
 	}
 	
 	// 模糊搜尋使用者名稱
