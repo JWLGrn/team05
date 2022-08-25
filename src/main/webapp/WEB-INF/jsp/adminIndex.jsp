@@ -55,11 +55,14 @@ body {font-size:16px;}
 <h1>系統管理首頁</h1>
 </div>
 <div class="row justify-content-center w3-main" style="margin-left:220px;">
+<button type="button" onclick="reportReply()">檢舉信件</button>
 <button onclick="chartjstest02()">切換長條圖</button>
-<button onclick="chartjstest()">切換圓餅圖</button>
+<button onclick="chartjstest()" >切換圓餅圖</button>
 <canvas id="myChart" width="200" height="100"  class="float" style="display:none;"></canvas>
 <canvas id="myChart2" width="450" height="100"  class="float" style="display:none;"></canvas>
 </div>
+<!-- <div id="adminReport" style="display:none; width: 20; height: 10" ></div> -->
+<div  id="adminReport" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
 <script >
 var content =[];
 
@@ -111,6 +114,7 @@ function chartjstest(){
 	xhr.send();
 	$("#myChart").show();
 	$("#myChart2").hide();
+	$("#adminReport").hide();
 }
 </script>
 <%-- <canvas id="example" width="800" height="100"></canvas> --%>
@@ -136,7 +140,47 @@ function chartjstest(){
   		});
   	$("#myChart2").show();
   	$("#myChart").hide();
+  	$("#adminReport").hide();
   }
   </script>
+  <script type="text/javascript">
+function reportReply(){
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+	  var content = "<table border='1'>";
+	  var reportreply=JSON.parse(xhr.responseText);
+	  content += "<tr><th>檢舉ID</th><th>檢舉內容</th><th>檢舉時間</th><th>檢舉類型</th>" 
+			 + "<th>處理狀態</th><th>寄送信箱</th></tr>";
+	  for(var i =0;i<reportreply.length;i++){
+	  content += "<tr><td align='center'>" + reportreply[i].reportId + "</td>" 
+		+ "<td>" + reportreply[i].reportContext + "</td>"
+		+ "<td>" + reportreply[i].reportTime + "</td>"
+		+ "<td align='right'>" + reportreply[i].reportType + "</td>" 
+		+ "<td>" + reportreply[i].reportStatus + "</td>"
+		+ "<td align='center'>"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
+		+ "</td>" + "<td></tr>";
+	  
+	    
+	  
+	  }
+    console.log(this.responseText);
+    console.log(reportreply.length);
+    document.getElementById("adminReport").innerHTML=content;
+  }
+});
+
+
+xhr.open("GET", "http://localhost:8090/cookblog/adminReplyReport",true);
+
+xhr.send();
+$("#adminReport").show();
+$("#myChart").hide();
+$("#myChart2").hide();
+}
+
+</script>
 </body>
 </html>
