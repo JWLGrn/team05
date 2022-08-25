@@ -43,7 +43,7 @@ private FoodsService fService;
 	// 新增使用者
 	@GetMapping("/Users")
 	public String UsersIndex() {
-		return "Usersindex";
+		return "login/Usersindex";
 	}
 
 	// 驗證信

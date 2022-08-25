@@ -93,6 +93,7 @@ public class RecipeDto {
 		this.recipeKeyword = recipeKeyword;
 	}
 
+<<<<<<< HEAD
 	public Integer getFavorCount() {
 		return favorCount;
 	}
@@ -109,4 +110,22 @@ public class RecipeDto {
 		this.collectCount = collectCount;
 	}
 
+=======
+	 public Integer getFavorCount() {
+		  return favorCount;
+		 }
+
+		 public void setFavorCount(Integer favorCount) {
+		  this.favorCount = favorCount;
+		 }
+
+		 public Integer getCollectCount() {
+		  return collectCount;
+		 }
+
+		 public void setCollectCount(Integer collectCount) {
+		  this.collectCount = collectCount;
+		 }
+	
+>>>>>>> 8e3486a7539fcf0a663fa7df28973d30765adfcf
 }

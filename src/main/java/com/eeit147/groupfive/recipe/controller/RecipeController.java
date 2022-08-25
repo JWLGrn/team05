@@ -40,7 +40,7 @@ import com.eeit147.groupfive.users.model.UsersDao;
 
 
 @Controller
-//@SessionAttributes("loginUser")
+@SessionAttributes("loginUser")
 public class RecipeController {
 	@Autowired
 	private RecipeSteptService rsService;
@@ -325,6 +325,7 @@ public class RecipeController {
 	@GetMapping("/recipe.personal.controller")
 	public @ResponseBody List<Recipe> findRecipeByUserId(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
+		System.out.println(session.getUserName());
 		List<Recipe> recipe = rService.findRecipeByUserId(session);
 //		m.addAttribute("recipe", recipe);
 		return recipe ;

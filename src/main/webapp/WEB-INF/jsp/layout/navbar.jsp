@@ -30,20 +30,19 @@ height: 50px;
                                     <li>
                                         <a href="${contextRoot}/recipe/find/all">食譜</a>
                                     </li>
+                                    <c:if test="${!empty loginUser }">
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
-                                      <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }"> 修改會員資料</a></li>
+                                      <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
                                             <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
-                                            <li><a href="${contextRoot}/users/updatemember">　Author</a></li>
-                                            <li><a href="blog-list.html">　Blog List</a></li>
-                                            <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
                                     </li>
+                                    </c:if>
                                     <li><a href="${contextRoot}/posts/find/all">專欄</a>
                                         <ul class="dropdown-menu-col-1">
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-list.html">Blog List</a></li>
-                                            <li><a href="single-blog.html">Blog Details</a></li>
+                                            <li><a href="blog-grid.html">　Blog Grid</a></li>
+                                            <li><a href="blog-list.html">　Blog List</a></li>
+                                            <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="contact.html">關於我們</a></li>

@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
+import com.eeit147.groupfive.recipe.model.RecipeDto;
+import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Collect;
 import com.eeit147.groupfive.users.model.CollectDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -23,6 +25,9 @@ public class CollectService {
 	private UsersDao uDao;
 	@Autowired
 	private RecipeDao rDao;
+	@Autowired
+	private RecipeService rService;
+
 	
 	//取得Users 的id
 	public Users findByUserId(Integer id){
@@ -58,8 +63,8 @@ public class CollectService {
 	public Collect saveUserandRecipe(Collect collect) {
 		return cDao.save(collect);
 	}
-	public List<Collect> findCollectByUsers(Users users){
-		return cDao.findAll();
+	public List<RecipeDto> findCollectByUsers(Users users){
+		return  rService.changeRecipeToDto(rDao.findByCollectIn(cDao.findAll()));
 //		return cDao.findByUsers(users);
 	}
 }
