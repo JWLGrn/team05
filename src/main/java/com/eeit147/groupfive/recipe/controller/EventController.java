@@ -66,7 +66,7 @@ public class EventController {
 	@ResponseBody
 	@GetMapping("/event/showevent")
 	public List<Event> eventShow() {
-		List<Event> allevent=eDao.findAll();		
+		List<Event> allevent=eDao.findAllOrderByTimeEndDesc();		
 		return allevent;
 	}
 	//修改
@@ -189,6 +189,7 @@ public class EventController {
 	          campaigndto.setCookPhoto(recipe.getCookPhoto());
 	          campaigndto.setUserName(recipe.getUserName());
 	          campaigndto.setUserPhoto(recipe.getUserPhoto());
+	          campaigndto.setRecipeId(recipe.getRecipeId());
 	          //取得按讚數
 	          Integer recipeOfFavorite=cDao.findFavoriteByRecipeId(resipeId);
 	          System.out.println("aaa"+recipeOfFavorite);
