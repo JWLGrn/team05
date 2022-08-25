@@ -32,6 +32,17 @@ public class Report {
 	@Column(name="report_context")
 	private String reportContext;
 	
+	@Column(name = "reportstatus")
+	private String reportStatus;
+	
+	public String getReportStatus() {
+		return reportStatus;
+	}
+
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Taipei") //for JSON  需加timezone時區
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") //for SpringMVC
 	@Temporal(TemporalType.TIMESTAMP)
@@ -67,11 +78,13 @@ public class Report {
 	public Report() {
 	}
 	
-	public Report(Integer reportId, String reportContext, Date reportTime, String reportType, Users users, Reply reply,
-			Posts posts) {
+
+	public Report(Integer reportId, String reportContext, String reportStatus, Date reportTime, String reportType,
+			Users users, Reply reply, Posts posts) {
 		super();
 		this.reportId = reportId;
 		this.reportContext = reportContext;
+		this.reportStatus = reportStatus;
 		this.reportTime = reportTime;
 		this.reportType = reportType;
 		this.users = users;
@@ -137,9 +150,11 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report [reportId=" + reportId + ", reportContext=" + reportContext + ", reportTime=" + reportTime
-				+ ", reportType=" + reportType + ", users=" + users + ", reply=" + reply + ", posts=" + posts + "]";
+		return "Report [reportId=" + reportId + ", reportContext=" + reportContext + ", reportStatus=" + reportStatus
+				+ ", reportTime=" + reportTime + ", reportType=" + reportType + ", users=" + users + ", reply=" + reply
+				+ ", posts=" + posts + "]";
 	}
+
 	
 	
 	

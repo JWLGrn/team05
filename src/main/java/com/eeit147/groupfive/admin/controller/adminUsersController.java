@@ -35,6 +35,9 @@ public class adminUsersController {
 	@Autowired	
 	private JavaMailSender  mailSender;
 	
+	@Autowired
+	private ReportDao rpDao;
+	
 	
 	//編輯使用者
 	@PostMapping("/editAdminUsers")
@@ -101,6 +104,11 @@ public class adminUsersController {
 		String userEmail = userId.getEmail();
 		System.out.println("userEmail"+userEmail);
 		userId.setPermission(0);
+		Report report = new Report();
+		report.setReportId(report_id);
+		report.setReportStatus("已受理");
+		System.out.println(report+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		rpDao.save(report);
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("stu60406666@gmail.com");
         message.setTo(userEmail);
@@ -108,7 +116,8 @@ public class adminUsersController {
         message.setText("由於近期文章有接獲檢舉，會暫時停權三天，還請見諒。");
         mailSender.send(message);
         model.addAttribute("user",user);
-		return "index";
+        model.addAttribute("report",report);
+		return "test/adminIndex";
 	}
 	
 	// 模糊搜尋使用者名稱

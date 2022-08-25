@@ -40,7 +40,8 @@
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 </head>
-<body>
+<body onload="Favorite();report()">
+<!-- <body> -->
 <!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	<!-- Preloader End Here -->
@@ -411,6 +412,8 @@
                 </div>
             </div>
         </section>
+        案讚測試功能:<div  id="myDiv"></div>
+檢舉測試功能:<div id="findUser"></div>
 	<!-- ScrollUp End Here -->
 <!-- 	<div id="wrapper" class="wrapper"> -->
 		<!-- Header Area Start Here -->
@@ -426,6 +429,58 @@
 
 
 <!-- ----------------------------------------------------------------------------------------------- -->
+
+
+<script>
+function Favorite()
+{
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+var content ='';
+             var recipe=JSON.parse(xhr.responseText);
+             for(var i =0;i<recipe.length;i++){
+            	 content+= '<a href="' + "${contextRoot}/favorite?recipe_id="+recipe[i].recipeId+"&&user_id=${loginUser.userId }" + '">'
+            	 +'<img src="break.jpg" width="40">'+ 
+            	 recipe[i].cookTitle + '</a>';
+            	 console.log(recipe[i].recipeId);
+             }
+             document.getElementById("myDiv").innerHTML=content;
+  }
+});
+
+xhr.open("GET", "http://localhost:8090/cookblog/finder",true);
+
+xhr.send();
+}
+
+function report(){
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function() {
+	  if(this.readyState === 4) {
+		  var content ='';
+		  var report=JSON.parse(xhr.responseText);
+		  for(var i =0;i<report.length;i++){
+		  content+= '<a href="' + "${contextRoot}/users/report?user_id="+report[i].userId+"&&user_id=${loginUser.userId }" + '">'
+     	 +'<img src="report.jpg" width="40">'+ 
+     	report[i].userName + '</a>';
+	    console.log(this.responseText);
+	    content+='<a>'
+	    document.getElementById("findUser").innerHTML=content;
+		  }
+	  }
+	});
+
+	xhr.open("GET", "http://localhost:8090/cookblog/findUsers",true);
+
+	xhr.send();
+}
+</script>	
+	
 		
 
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>

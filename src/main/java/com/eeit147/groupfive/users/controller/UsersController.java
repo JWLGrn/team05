@@ -69,7 +69,6 @@ public class UsersController {
 		return "test/login";
 	}
 
-	// 會員執行登入 判斷帳號密碼 需要再寫一個抓userid!!!!!!!!!!!!!!!!!!????????
 	// 會員執行登入 判斷帳號密碼
 	@PostMapping("/user/login.controller")
 	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
@@ -85,6 +84,7 @@ public class UsersController {
 		Integer permission = loginUser.getPermission();
 	
 		if (msg.isEmpty()) {
+			session.setMaxInactiveInterval(10*60);
 			session.setAttribute("loginUser", loginUser);
 			if(permission == 1) {
 				return "index";
@@ -101,7 +101,6 @@ public class UsersController {
 		session.invalidate();
 		new Cookie();
 		return "redirect:/user/login";
-		//要把 logout按鈕隱藏起來!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
 	// 會員註冊
@@ -127,6 +126,7 @@ public class UsersController {
 		Integer userId = user.getUserId();
 		user.setUserPhoto(userId + ".jpeg");
 		Users result = UService.insertUser(user);
+		System.out.println(result);
 		try {
 			file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
 		} catch (Exception e) {
@@ -136,6 +136,7 @@ public class UsersController {
 
 		model.addAttribute("loginUser", result);
 		if(permission ==1) {
+
 			return "redirect:/user/login";
 
 		} else if (permission ==2){
@@ -156,7 +157,7 @@ public class UsersController {
 		return "1";
 	}
 
-	// 抓取資料會員資料
+	// 抓取會員資料
 	@GetMapping("/users/updatemember")
 	public String updateMemberDetail(@RequestParam("user_id") Integer user_id, Model model) {
 		Optional<Users> Optional = uDao.findById(user_id);
@@ -248,7 +249,7 @@ public class UsersController {
 		Optional<Users> authorUser = uDao.findById(user_id);
 		Users getAuthorUser = authorUser.get();
 		model.addAttribute("getAuthorUser", getAuthorUser);
-		model.addAttribute("usering", usering);
+		model.addAttribute("loginUser", usering);
         
 		Date date = new Date();
 		model.addAttribute("date", date);
@@ -258,19 +259,22 @@ public class UsersController {
 
 	@GetMapping("/users/reportSuccess")
 	public String userReportSuccess(@RequestParam("getAuthorUser") Integer getAuthorUser,
-									@RequestParam("usering") Integer usering, 
+									@RequestParam("loginUser") Integer loginUser, 
 									@RequestParam("reportTime") Date reportTime,
 									@RequestParam("reportType") String reportType, 
 									@RequestParam("reportContext") String reportContext,
+									@RequestParam("reportStatus") String reportStatus,
 									Model model) {
-		System.out.println(getAuthorUser + "被檢舉者1");
-		System.out.println(usering + "檢舉者1");
+		System.out.println(getAuthorUser + "被檢舉者");
+		System.out.println(loginUser + "檢舉者");
 		// 使用者查詢
-		Users user = (Users) model.getAttribute("result");
-		Integer getUserId = user.getUserId();
+//		Users user = (Users) model.getAttribute("loginUser");
+		Optional<Users> Optional01 = uDao.findById(loginUser);
+		Users loginUserReport = Optional01.get();
+		Integer getUserId = loginUserReport.getUserId();
 		// 被檢舉者查詢
-		Optional<Users> Optional = uDao.findById(getAuthorUser);
-		Users reportUser = Optional.get();
+		Optional<Users> Optional02 = uDao.findById(getAuthorUser);
+		Users reportUser = Optional02.get();
 		Integer reportUserId = reportUser.getUserId();
 		Report report = new Report();
 		if ((getUserId != 0 && reportUserId != 0)) {
@@ -278,13 +282,16 @@ public class UsersController {
 			report.setUsers(reportUser);
 			report.setReportContext(reportContext);
 			report.setReportType(reportType);
+			report.setReportStatus(reportStatus);
 			rpDao.save(report);
 			System.out.println(getAuthorUser + "被檢舉者");
-			System.out.println(usering + "檢舉者");
+			System.out.println(loginUser + "檢舉者");
+		
 
 		} else {
 			return null;
 		}
+		System.out.println(report+"============================================================");
 		model.addAttribute("report", report);
 		return "SuccessUser";
 	}

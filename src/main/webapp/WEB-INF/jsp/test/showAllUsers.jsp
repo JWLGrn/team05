@@ -110,7 +110,6 @@ body {
 					</tr>
 				</c:forEach>
 
-<<<<<<< HEAD
 			</tbody>
 		</table>
 	</div>
@@ -242,7 +241,6 @@ $("#userName").keyup(function(){
 					$("#userbody").append(text);				
 			}
 			console.log("data",data);
->>>>>>> b5700f4bdcbf4c0ff95a7e20de277d7328b33b71
 		}
 // 		$(document).ready(function() {
 // 			$('#userTable').DataTable();

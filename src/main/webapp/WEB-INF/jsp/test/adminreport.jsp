@@ -23,12 +23,13 @@ xhr.addEventListener("readystatechange", function() {
 	  var content = "<table border='1'>";
 	  var reportreply=JSON.parse(xhr.responseText);
 	  content += "<tr><th>檢舉ID</th><th>檢舉內容</th><th>檢舉時間</th><th>檢舉類型</th>" 
-			 + "<th>寄送信箱</th></tr>";
+			 + "<th>處理狀態</th><th>寄送信箱</th></tr>";
 	  for(var i =0;i<reportreply.length;i++){
 	  content += "<tr><td align='center'>" + reportreply[i].reportId + "</td>" 
 		+ "<td>" + reportreply[i].reportContext + "</td>"
 		+ "<td>" + reportreply[i].reportTime + "</td>"
 		+ "<td align='right'>" + reportreply[i].reportType + "</td>" 
+		+ "<td>" + reportreply[i].reportStatus + "</td>"
 		+ "<td align='center'>"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
 		+ "</td>" + "<td></tr>";
 	  

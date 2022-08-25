@@ -1,5 +1,16 @@
 package ecpay.payment.integration.domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.Model;
+
+import ecpay.payment.integration.AllInOne;
+
 /**
  * 產生信用卡分期付款訂單物件
  * @author mark.chiu
@@ -603,4 +614,16 @@ public class AioCheckOutDevide {
 				+ ", CustomField4=" + CustomField4 + ", BidingCard=" + BidingCard + ", MerchantMemberID="
 				+ MerchantMemberID + "]";
 	}
+	
+      public void goECPay(Model model,HttpServletRequest request, HttpServletResponse response,HttpSession session ) {
+//    	  OrderBean ob =(OrderBean) request.getAttribute("orderbean");
+    	  AllInOne aio = new AllInOne("");
+    	  AioCheckOutDevide aioCheck = new AioCheckOutDevide();
+    	  aioCheck.setMerchantID("2000214");
+    	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	  sdf.setLenient(false);
+    	  aioCheck.setMerchantTradeDate(sdf.format(new Date()));
+    	  aioCheck.setTotalAmount(TotalAmount);
+    	  
+      }
 }
