@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
+import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.users.model.Collect;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
@@ -66,7 +67,7 @@ public class UsersController {
 	public String login(Model m) {
 		Users u = new Users();
 		m.addAttribute("login", u);
-		return "test/login";
+		return "login/login";
 	}
 
 	// 會員執行登入 判斷帳號密碼 需要再寫一個抓userid!!!!!!!!!!!!!!!!!!????????
@@ -128,6 +129,7 @@ public class UsersController {
 		user.setUserPhoto(userId + ".jpeg");
 		Users result = UService.insertUser(user);
 		try {
+			//上傳照片到指定路徑 並取名為userid.jpeg
 			file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -391,15 +393,18 @@ public class UsersController {
 	@GetMapping("/follow.personal.controller")
 	public @ResponseBody List<Follow> findByUsers(Model m) {
 		Users session = (Users)m.getAttribute("loginUser");
+		System.out.println(session.getUserName());
 		List<Follow> follow = flService.findByUsers(session);
 //		m.addAttribute("follow", follow);
 		return follow;
 	}
+	//查詢收藏食譜的頁面
 	@GetMapping("/collect.personal.controller")
-	public  @ResponseBody List<Collect> findCollectByUsers(Model m){
+	public  @ResponseBody List<RecipeDto> findCollectByUsers(Model m){
 		Users session = (Users)m.getAttribute("loginUser");
-		List<Collect> collect = cService.findCollectByUsers(session);
+		List<RecipeDto> collect = cService.findCollectByUsers(session);
 //		m.addAttribute("collect", collect);
 		return collect;
 	}
+	
 }

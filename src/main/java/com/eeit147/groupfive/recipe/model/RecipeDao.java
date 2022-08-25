@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eeit147.groupfive.users.model.Collect;
 import com.eeit147.groupfive.users.model.Users;
 
 @Repository
@@ -56,4 +57,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	public List<Recipe> findRandomRecipe(@Param("number") Integer number);
 	
 	public List<Recipe> findTop5ByOrderByDateDesc();
+	
+	public Set<Recipe> findByCollectIn(List<Collect> collect);
 }

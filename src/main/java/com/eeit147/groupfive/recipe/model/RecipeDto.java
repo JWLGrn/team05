@@ -19,7 +19,9 @@ public class RecipeDto {
 	
 	private String userName;
 	
-	private Integer count;
+	private Integer favorCount;
+	
+	private Integer collectCount;
 	
 	private List<RecipeKeywordDto> recipeKeyword = new ArrayList<RecipeKeywordDto>();
 
@@ -90,12 +92,20 @@ public class RecipeDto {
 		this.recipeKeyword = recipeKeyword;
 	}
 
-	public Integer getCount() {
-		return count;
-	}
+	 public Integer getFavorCount() {
+		  return favorCount;
+		 }
 
-	public void setCount(Integer count) {
-		this.count = count;
-	}
+		 public void setFavorCount(Integer favorCount) {
+		  this.favorCount = favorCount;
+		 }
+
+		 public Integer getCollectCount() {
+		  return collectCount;
+		 }
+
+		 public void setCollectCount(Integer collectCount) {
+		  this.collectCount = collectCount;
+		 }
 	
 }

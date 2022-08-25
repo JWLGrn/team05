@@ -364,6 +364,8 @@ public class RecipeService {
 			dto.setUserId(r.getUsers().getUserId());
 			dto.setUserName(r.getUsers().getUserName());
 			dto.setRecipeKeyword(kService.changeKeywordToDto(r.getRecipeKeyword()));
+			dto.setFavorCount(r.getFavorite().size());
+			dto.setCollectCount(r.getCollect().size());
 			dtoList.add(dto);
 		}
 		return dtoList;

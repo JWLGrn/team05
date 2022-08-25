@@ -346,17 +346,13 @@
                     if(count % 9 == 0){
                         pageList[count / 9 - 1] = recipes;
                         recipes = "";
-                    }
-                                 
+                    }                                
                 }
-
-
-
-                if (recipes != "") {  //剩下的筆數
+	           if (recipes != "") {  //剩下的筆數
                     pageList[Math.ceil(count / 9 - 1)] = recipes;
                     recipes = "";
                 }
-                    
+                  
                 $("#showrecipe").html("").append(pageList[0]);
 
                 //分頁按鈕
