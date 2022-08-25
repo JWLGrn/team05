@@ -2,6 +2,7 @@ package com.eeit147.groupfive.admin.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eeit147.groupfive.admin.service.adminUsersService;
+import com.eeit147.groupfive.recipe.model.Recipe;
+import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.model.UsersDto;
 
 @Controller
 public class adminUsersController {
@@ -35,10 +39,13 @@ public class adminUsersController {
 	@Autowired	
 	private JavaMailSender  mailSender;
 	
+<<<<<<< HEAD
 	@Autowired
 	private ReportDao rpDao;
 	
 	
+=======
+>>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
 	//編輯使用者
 	@PostMapping("/editAdminUsers")
 	public String editAdminUsers(@RequestParam("userId") Integer userid,@RequestParam("userName") String username, @RequestParam("email") String email,
@@ -62,11 +69,11 @@ public class adminUsersController {
 	}
 	
 	//使用者篩選結果編輯傳值
-	@PostMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
+	@GetMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
 	public String editAdminUsersget(@PathVariable("userId") Integer userid,@PathVariable("userName") String username, @PathVariable("email") String email,
-			@PathVariable("password") String password, @PathVariable("permission") Integer permission,
+			@PathVariable("password") String password, @PathVariable("permission") Integer permission
 			//@PathVariable("user_photo")MultipartFile file,
-			Model model){
+			){
 		String photopath= "";
 		Users au = new Users();
 		au.setUserId(userid);
@@ -77,9 +84,8 @@ public class adminUsersController {
 //		au.setUserPhoto(photopath);
 		
 		aService.insertUser(au);
-		model.addAttribute("allUsers",uDao.findAll() );
 		
-		return "test/showAllUsers";
+		return "redirect:/showAllUsers";
 	}
 	
 	//刪除使用者
@@ -122,12 +128,29 @@ public class adminUsersController {
 	
 	// 模糊搜尋使用者名稱
 		@GetMapping("/find/searchUser/{userName}")
-		public @ResponseBody List<Users> findByUserNameLike(@PathVariable String userName) {
+		public @ResponseBody List<UsersDto> findByUserNameLike(@PathVariable String userName) {
 			System.out.println("userName:"+userName);
-			List<Users> fList = aService.findByUserNameLike("%"+userName+"%");			
-			return fList;
+			List<Users> fList = aService.findByUserNameLike("%"+userName+"%");
+			List<UsersDto> users = changeUsersToDto(fList);
+			return users;
 		}
 		
+		
+	// List<Users> 轉 List<UsersDto>
+		public List<UsersDto> changeUsersToDto(Iterable<Users> users){
+			List<UsersDto> dtoList=new ArrayList<UsersDto>();
+			for(Users u:users) {
+				UsersDto dto = new UsersDto();
+				dto.setUserId(u.getUserId());
+				dto.setUserName(u.getUserName());
+				dto.setPassword(u.getPassword());
+				dto.setEmail(u.getEmail());
+				dto.setUserPhoto(u.getUserPhoto());
+				dto.setPermission(u.getPermission());
+				dtoList.add(dto);
+			}
+			return dtoList;
+		}	
 }
 
 

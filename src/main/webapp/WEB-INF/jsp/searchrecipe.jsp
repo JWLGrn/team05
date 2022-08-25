@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="${contextRoot}/css/animate.min.css">
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="${contextRoot}/css/microns/microns.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
@@ -80,13 +81,13 @@
                         <div class="btn-group">
                             <div class="input-group-btn adv-search-fill-btn">
                                 <button type="button" id="adv-serch" class="btn-adv-serch">
-                                    <i class="icon-plus flaticon-add-plus-button"></i>
-                                    <i class="icon-minus fas fa-minus"></i>
-                                    分類
+                                    <span class="icon-plus flaticon-add-plus-button typcn typcn-plus" style="font-size:20px">&nbsp;</span>
+                                    <span class="icon-minus fas fa-minus typcn typcn-minus" style="font-size:20px">&nbsp;</span>
+                                     分類
                                 </button>
                             </div>
                             <div class="input-group-btn">
-                                <button type="button" class="btn-search" id="searchrecipe"><i class="flaticon-search"></i></button>
+                                <button type="button" class="btn-search" id="searchrecipe"><span class="flaticon-search mu mu-search" style="font-size:30px;color:white;"></span></button>
                             </div>
                         </div>
                     </div>
@@ -339,7 +340,7 @@
                             +'<ul class="entry-meta">'
                             +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+' Mins</a></li>'
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
-                            +'<li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>'
+                            +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span> Likes</a></li>'
                             +'</ul></div></div></div>'
                     count++;
                     
@@ -360,16 +361,8 @@
                 $("#showrecipe").html("").append(pageList[0]);
 
                 //分頁按鈕
-                var pages = pageList.length;
-                var str2 = ''
-                for (let i = 1; i <= pages; i++) {
-                    if(i==1){
-                        str2 += '<li class="active"><a>'+i+'</a></li>'
-                    }else{
-                        str2 += '<li><a>'+i+'</a></li>'
-                    }
-                }
-                $("#pagesList").html("").append(str2);
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
 
 
                 //切換頁面
@@ -377,10 +370,25 @@
                     let page = event.target.innerHTML
                 if (!isNaN(page)) {
                         $("#showrecipe").html("").append(pageList[page - 1]);
+                        pageBtn(totalPages,page);
                     }
                 })
             });
         })
+
+        //分頁按鈕
+        function pageBtn(totalPages,nowPage){
+                var str2 = ''
+                for (let i = 1; i <= totalPages; i++) {
+                    if(i == nowPage){
+                        str2 += '<li class="active"><a>' + i + '</a></li>'
+                    }else{
+                        str2 += '<li><a style="cursor: pointer;">' + i + '</a></li>'
+                    }
+                }
+                $("#pagesList").html("").append(str2);
+        }
+                
 
     </script>
 </body>

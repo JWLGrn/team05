@@ -170,6 +170,7 @@ private FoodsService fService;
 	public String showNumber() {
 		return "test/shownumber";
 	}
+<<<<<<< HEAD
 	//活動管理員
 	@GetMapping("/showallevent")
 	public String showallevent(Model m) {
@@ -177,4 +178,11 @@ private FoodsService fService;
 		m.addAttribute("userId", userId);
 		return "showAllEvent";
 	}
+=======
+	
+//	@GetMapping("/categories")
+//	public String goCategories() {
+//		return "categories";
+//	}
+>>>>>>> 6993d3947379654d8fbbf57d8d9744c2534ad297
 }

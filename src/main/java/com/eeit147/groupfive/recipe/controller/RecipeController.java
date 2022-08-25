@@ -254,9 +254,8 @@ public class RecipeController {
 		oldRecipe.setCookServe(people);
 		
 		Recipe recipe = rService.updateRecipe(oldRecipe, photo, foods, gram, tags, stepDescript, stepPhoto);
-		
-		m.addAttribute("recipe", recipe);
-		return "singlerecipe";
+
+		return "redirect:/recipe/find/"+recipe.getRecipeId();
 		
 	}
 	
@@ -347,4 +346,19 @@ public class RecipeController {
 		return recipe;
 	}
 	
+	// 查看分類的食譜
+	@GetMapping("/categories/{category}")
+	public String findByCategory(@PathVariable("category")String category,Model m){
+		List<Recipe> recipes = rService.findByCategory(category);
+		m.addAttribute("recipes", recipes);
+		return "";
+	}
+	
+	// 查看分類
+	@GetMapping("/categories")
+	public String findAllCategories(Model m) {
+		List<Keyword> keywords = kService.findAllKeyword();
+		m.addAttribute("category", keywords);
+		return "categories";
+	}
 }

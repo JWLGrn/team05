@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${contextRoot}/css/typicons/typicons.css">
 <style>
 .size{
 border-radius:50%;
@@ -23,7 +24,7 @@ height: 50px;
                                 <ul id="site-menu" class="site-menu">
                                     <li><a href="${contextRoot}">首頁</a></li>
                                     <li>
-                                        <a href="category.html">分類</a>
+                                        <a href="${contextRoot}/categories">分類</a>
                                     </li>
                                     <li><a href="${contextRoot}/showevent">活動</a></li>
                                     <li>
@@ -51,82 +52,11 @@ height: 50px;
                         </div>
                         <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
                             <div class="nav-action-elements-layout1">
-                                <ul>
-                                    <li>
-                                        <div class="cart-wrap cart-on-mobile d-lg-none">                                            
-                                            <div class="cart-info">
-                                                <i class="flaticon-shopping-bag"></i>
-                                                <div class="cart-amount"><span class="item-currency">$</span>00</div>     
-                                            </div>                                   
-                                            <div class="cart-items">
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product1.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Pressure</a>
-                                                        <span>Code: STPT601</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$249</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product2.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Stethoscope</a>
-                                                        <span>Code: STPT602</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$189</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product3.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Microscope</a>
-                                                        <span>Code: STPT603</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 2</div>
-                                                    <div class="cart-price">$379</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-btn">
-                                                        <a href="#" class="item-btn">View Cart</a>
-                                                        <a href="#" class="item-btn">Checkout</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
+                                <ul>             
                                    <c:if test="${empty loginUser }"> 
                                     <li>
                                        <a href="${contextRoot}/user/login" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i>登入
+                                            <span class="flaticon-profile typcn typcn-user-outline" style="font-size:30px">&nbsp;</span>登入
                                       </button> </a> 
                                     </li>
                                     </c:if>
@@ -135,12 +65,12 @@ height: 50px;
                                    	<li style="color:#ff4a52;">${loginUser.userName}</li>
                                     <li>
                                        <a href="${contextRoot}/users/logout" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i>登出 </button></a> 
+                                            <span class="flaticon-profile typcn typcn-user-outline" style="font-size:30px">&nbsp;</span>登出 </button></a> 
                                     </li>
                                     </c:if>
                                     
                                     <li>
-                                        <a href="${contextRoot}/insertrecipe" class="fill-btn"><i class="flaticon-plus-1"></i>上傳食譜</a>
+                                        <a href="${contextRoot}/insertrecipe" class="fill-btn"><span class="flaticon-plus-1 typcn typcn-plus" style="font-size:20px"></span>上傳食譜</a>
                                     </li>
                                 </ul>
                             </div>

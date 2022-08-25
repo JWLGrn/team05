@@ -2548,8 +2548,8 @@ ul {
 }
 
 .adv-search-wrap .advance-search-form .checkbox input[type="checkbox"]:checked+label::after {
-	font-family: 'FontAwesome';
-	content: "\f00c";
+	font-family: 'typicons';
+	content: "\E11E";
 }
 
 .adv-search-wrap .advance-search-form .checkbox input[type="checkbox"]:disabled+label {
