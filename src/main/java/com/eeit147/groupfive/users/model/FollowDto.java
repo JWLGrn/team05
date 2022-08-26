@@ -6,18 +6,20 @@ public class FollowDto {
 		super();
 	}
 	
-	public FollowDto(String userName, String userPhoto, int followCount, int recipeCount) {
+	public FollowDto(String userName, String userPhoto, int followCount, int recipeCount, int favoriteCount) {
 		super();
 		this.userName = userName;
 		this.userPhoto = userPhoto;
 		this.followCount = followCount;
 		this.recipeCount = recipeCount;
+		this.favoriteCount = favoriteCount;
 	}
 
 	private String userName;
 	private String userPhoto;
 	private int followCount;
 	private int recipeCount;
+	private int favoriteCount;
 	
 	
 	public String getUserName() {
@@ -43,6 +45,12 @@ public class FollowDto {
 	}
 	public void setFollowCount(int followCount) {
 		this.followCount = followCount;
+	}
+	public int getfavoriteCount() {
+		return favoriteCount;
+	}
+	public void setfavoriteCount(int favoriteCount) {
+		this.favoriteCount = favoriteCount;
 	}
 	
 	
