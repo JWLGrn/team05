@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.eeit147.groupfive.recipe.model.Campaign;
 import com.eeit147.groupfive.recipe.model.CampaignDao;
@@ -28,10 +29,12 @@ import com.eeit147.groupfive.recipe.model.EventDto;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.users.model.FavoriteDao;
+import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
 
 @Controller
+@SessionAttributes("loginUser")
 public class EventController {
 
 	@Autowired
@@ -45,12 +48,18 @@ public class EventController {
 	@Autowired
 	private FavoriteDao fDao;
 	
-	//Integer userId=1;//管理員模式
-	Integer userId=3;//使用者模式
-	//Integer eventId=1;
+	Integer userId;
+	
 	//活動主頁
 	@GetMapping("/event/page")
 	public String recipepage(Model m) {
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
+		
 		m.addAttribute("userId", userId);	
 		//m.addAttribute("eventId",eventId);	//insert
 		return "event";
@@ -58,7 +67,15 @@ public class EventController {
 	//顯示食譜
 	@ResponseBody
 	@GetMapping("/event/showrecipe")
-	public List<Recipe> recipeShow() {
+	public List<Recipe> recipeShow(Model m) {
+			
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
+		System.out.println(userId);
 		List<Recipe> recipe=rDao.findAllRecipeByUser(userId);
 		return recipe;
 	}

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -34,6 +37,8 @@ import com.eeit147.groupfive.recipe.model.RecipeStepDao;
 import com.eeit147.groupfive.recipe.service.KeywordService;
 import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.recipe.service.RecipeSteptService;
+import com.eeit147.groupfive.users.model.Favorite;
+import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
@@ -54,9 +59,12 @@ public class RecipeController {
 	private RecipeStepDao rsDao;
 	@Autowired
 	private KeywordService kService;
+	@Autowired
+	private FavoriteDao fDao;
 	//測試
-	Integer userId=3;
+	Integer userId;
 	Integer recipeId;
+	
 //	//新增食譜	
 //	@GetMapping("/recipe/insert")
 //	public String recipepage(Model m) {
@@ -197,7 +205,12 @@ public class RecipeController {
 			                @RequestParam("stepPhoto") MultipartFile[] stepPhoto,
 			                Model m) {	//步驟相片	
 
-		Integer userId = 1;
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
 
 		// 食譜
 		Recipe recipe = new Recipe();
@@ -361,5 +374,50 @@ public class RecipeController {
 		List<Keyword> keywords = kService.findAllKeyword();
 		m.addAttribute("category", keywords);
 		return "categories";
+	}
+	@ResponseBody@PostMapping("/recipe/favor")
+	public boolean findfavorornot(@RequestBody Integer recipeId,Model m) {
+		
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
+		
+		
+		Optional<Recipe> optionalr = rDao.findById(recipeId);
+		Recipe recipe = optionalr.get();
+		Optional<Users> optionalu = uDao.findById(userId);
+		Users user = optionalu.get();
+		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);
+		return favor;
+	}
+	@ResponseBody@PostMapping("/recipe/addfavor")
+	public boolean addfavorornot(@RequestBody Integer recipeId,Model m) {
+		
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
+		
+		
+		Optional<Recipe> optionalr = rDao.findById(recipeId);
+		Recipe recipe = optionalr.get();
+		Optional<Users> optionalu = uDao.findById(userId);
+		Users user = optionalu.get();
+		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);//找出兩者是否有關臉
+		if(favor==true) {//已按讚
+			fDao.deleteByUsersAndRecipe(user,recipe);
+			return false;
+		}else {//未按讚
+			Favorite newfavor=new Favorite();
+			newfavor.setRecipe(recipe);
+			newfavor.setUsers(user);
+			fDao.save(newfavor);
+			return true;
+		}	
 	}
 }

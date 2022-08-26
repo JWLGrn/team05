@@ -57,7 +57,6 @@ body {
 .w3-half img:hover {
 	opacity: 1
 }
-<<<<<<< HEAD
 .userimg {
 	width: 100px;
 	height: 100px;
