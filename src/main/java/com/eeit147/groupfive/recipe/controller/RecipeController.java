@@ -420,4 +420,33 @@ public class RecipeController {
 			return true;
 		}	
 	}
+	@ResponseBody@PostMapping("/recipe/checkowner")
+	public boolean checkowner(@RequestBody Integer recipeId,Model m) {
+		
+		if((Users)m.getAttribute("loginUser")!=null) {
+			Users user=(Users)m.getAttribute("loginUser");
+		    userId=user.getUserId();
+		}else {
+			userId=0;
+		}
+		System.out.println(userId);
+		System.out.println(recipeId);
+		
+//		Optional<Recipe> optionalr = rDao.findById(recipeId);
+//		Recipe recipe = optionalr.get();
+//		Optional<Users> optionalu = uDao.findById(userId);
+//		Users user = optionalu.get();
+//		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);//找出兩者是否有關臉
+//		if(favor==true) {//已按讚
+//			fDao.deleteByUsersAndRecipe(user,recipe);
+//			return false;
+//		}else {//未按讚
+//			Favorite newfavor=new Favorite();
+//			newfavor.setRecipe(recipe);
+//			newfavor.setUsers(user);
+//			fDao.save(newfavor);
+//			return true;
+//		}
+		return true;
+	}
 }
