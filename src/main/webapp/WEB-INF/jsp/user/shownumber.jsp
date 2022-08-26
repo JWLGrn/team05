@@ -419,7 +419,7 @@ $('#myfollow').click(function(e){
                             +'<span class="item-number">'+response[index].followCount+'</span>'                        
                             +'</div></li><li><div>'  
                             +'<h4 class="item-title">Favourite</h4>'                      
-                            +'<span class="item-number">'+response[index].favorite+'</span>'               
+                            +'<span class="item-number">'+response[index].favoriteCount+'</span>'               
                             +'</div></li></ul></div></td></tr></tbody></table>';
                        count++;
                     }   

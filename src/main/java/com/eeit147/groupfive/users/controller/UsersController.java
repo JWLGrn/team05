@@ -414,16 +414,21 @@ public class UsersController {
 		 for(Follow element : follow) {
 			 int followCount = 0;
 			 int recipeCount = 0;
+			 int favoriteCount = 0;
 			 //把我追蹤的人 他追蹤的人 計算出來
 			 for(Follow e1 : element.getTrack().getFollow()) {
 				 followCount ++;
 			 }
-			//把我追蹤的人 他的食譜 計算出來
+			 //把我追蹤的人 他的食譜 計算出來
 			 for(Recipe e2 : element.getTrack().getRecipe()) {
 				 System.out.println(e2.getRecipeId());
 				 recipeCount ++;
 			 }
-			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount));
+			 //把我追蹤的人 被案讚次數 計算出來
+			 for(Favorite e3 : element.getTrack().getFavorite()) {
+				 favoriteCount ++;
+			 }
+			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
 		 }
 //		m.addAttribute("follow", follow);
 		return list;
