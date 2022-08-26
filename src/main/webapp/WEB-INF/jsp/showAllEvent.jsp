@@ -39,9 +39,6 @@
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
 <style type="text/css">
-=======
-<style>
->>>>>>> c7b55c48b6cec8ab6ca2d325f46d0698e5a82f21
 body, h1, h2, h3, h4, h5 {
 	font-family: "Poppins", sans-serif
 }
@@ -151,7 +148,7 @@ body {
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
-<jsp:include page="adminMenu.jsp"/>
+<%-- <jsp:include page="adminMenu.jsp"/> --%>
 	<!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	
@@ -673,7 +670,7 @@ function participate(eventId){
 
 //重新選擇想參加的活動
 function rechoice(){
-	 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
+	 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
 }
 //--------------------參加活動選擇-------------------> 
 //將參加的食譜傳到後端資料庫
