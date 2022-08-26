@@ -12,7 +12,6 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -143,14 +142,14 @@ public class UsersController {
 		}
 		System.out.println(newuser);
 
-		model.addAttribute("loginUser", result);
-		if(permission ==1) {
-
-			return "redirect:/user/login";
-
-		} else if (permission ==2){
-			return "test/adminIndex";
-		}
+//		model.addAttribute("loginUser", result);
+//		if(permission ==1) {
+//
+//			return "redirect:/user/login";
+//
+//		} else if (permission ==2){
+//			return "test/adminIndex";
+//		}
 		return "redirect:/user/login";
 	}
 
