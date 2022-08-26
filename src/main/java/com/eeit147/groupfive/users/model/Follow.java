@@ -1,5 +1,7 @@
 package com.eeit147.groupfive.users.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -81,5 +83,7 @@ public class Follow {
 	public String getUserPhoto() {
 		return track.getUserPhoto();
 	}
-	
+	public Set<Follow> getTrackFollow() {
+		return track.getTrack();
+	}
 }

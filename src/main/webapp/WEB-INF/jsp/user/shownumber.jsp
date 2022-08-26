@@ -368,14 +368,15 @@ $('#mycollect').click(function(e){
                             +'</ul></div></div></div>';
                     count++            
                 }
-                collect += '</div>'
+                collect += '</div>'     
                 $("#showblock").html("").append(collect);
                 $(e.target).addClass("active");
                 $(e.target).siblings().removeClass("active");
+                console.log(collect);
 			});
 });
 
-$('#myfollow').click(function(){
+$('#myfollow').click(function(e){
             var settings = {
                 "url": "http://localhost:8090/cookblog/follow.personal.controller",
                 "method": "GET",
@@ -405,22 +406,28 @@ $('#myfollow').click(function(){
                             +'<tr>'  
                             +'<th>'
                             +'<div class="author-personal-info">'
-                            +'<a href="#" class="item-figure"><img src="${contextRoot}/users/" alt="Author"></a>'
+                            +'<a href="#" class="item-figure"><img src="${contextRoot}/image/users/'+response[index].userPhoto+'" alt="Author"></a>'
                             +'<div class="item-content">'
-                            +'<div class="item-title"><a href="#">使用者姓名</a></div>'     
+                            +'<div class="item-title"><a href="#">'+response[index].userName+'</a></div>'     
                             +'</div></div></th><td>'           
                             +'<div class="author-social-info">'               
                             +'<ul><li><div>'                    
                             +'<h4 class="item-title">Recipes</h4>'                       
-                            +'<span class="item-number">食譜總數</span>'                       
+                            +'<span class="item-number">'+response[index].recipeCount+'</span>'                       
                             +'</div></li><li><div>'                           
                             +'<h4 class="item-title">Track</h4>'                            
-                            +'<span class="item-number">被追蹤者</span>'                        
+                            +'<span class="item-number">'+response[index].followCount+'</span>'                        
                             +'</div></li><li><div>'  
                             +'<h4 class="item-title">Favourite</h4>'                      
-                            +'<span class="item-number">案讚數量</span>'               
-                            +'</div></li></ul></div></td></tr></tbody></table>'               
-                    }                      
+                            +'<span class="item-number">'+response[index].favorite+'</span>'               
+                            +'</div></li></ul></div></td></tr></tbody></table>';
+                       count++;
+                    }   
+                 follow += '</div>'    
+   				console.log(follow);
+                $("#showblock").html("").append(follow);
+                $(e.target).addClass("active");
+                $(e.target).siblings().removeClass("active");       
             });
 })
 
