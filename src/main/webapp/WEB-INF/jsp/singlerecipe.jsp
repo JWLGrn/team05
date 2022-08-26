@@ -127,6 +127,7 @@
                                 </div>
                                 <div class="col-xl-3 col-12">
                                     <ul class="action-item">
+                                        <li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button>檢舉</button></a></li>
                                     	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button>修改</button></a></li>
                                     	<li><a href="${contextRoot}/recipe/delete/${recipe.recipeId}"><button>刪除</button></a></li>
                                         <li><button><i class="fas fa-print"></i></button></li>

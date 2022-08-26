@@ -90,7 +90,7 @@ public class UsersController {
 			if(permission == 1) {
 				return "index";
 			}else if(permission == 2) {
-				return "test/adminIndex";
+				return "index";
 			}		
 		}
 		return "redirect:/user/login";

@@ -57,7 +57,7 @@ height:200px;
 </style>
 </head>
 <!-- <body onload="Favorite();report()"> -->
-<!-- <body> -->
+<body>
 <!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	<!-- Preloader End Here -->
