@@ -162,8 +162,7 @@
 								//取得使用者輸入的mail
 								let emailValue = $('#email').val();
 								if (emailValue != "") {
-									let urlStr = "${contextRoot}/users/checkmail?email="
-											+ emailValue;
+									let urlStr = "${contextRoot}/users/checkmail?email="+ emailValue;
 									$.ajax({
 												url : urlStr,
 												type : 'POST',
