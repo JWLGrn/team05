@@ -246,12 +246,9 @@
         </form>
     </div>
     <!-- Search Box End Here -->
-<<<<<<< HEAD
     <!-- Modal Start-->
     
     <!-- Modal End-->
-=======
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->

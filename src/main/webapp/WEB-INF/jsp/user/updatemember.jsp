@@ -98,18 +98,15 @@
 										class="main-input-box" placeholder="請輸入信箱"><br /> <label
 										class="mb-3">Password</label> <input type="password"
 										value="${loginUser.password }" name="password"
-<<<<<<< HEAD
 										class="main-input-box" placeholder="請輸入密碼"><br /> <label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView"/>
    										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
 									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 										
-=======
 										class="main-input-box" placeholder="請輸入密碼"><br /> <label
 										class="mb-3">Member Photo</label> <input type="file"
 										name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
 									<input type=hidden name="permission" value="1" placeholder="1"
 										id="permission">
->>>>>>> 0827Green
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
