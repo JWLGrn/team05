@@ -93,14 +93,30 @@ body {
 
 				<c:forEach items="${allUsers}" var="u">
 					
-						<form class="form" method="post" action="${contextRoot}/editAdminUsers">
+						<form class="form" method="get" action="${contextRoot}/editAdminUsers">
 						<tr>
 							<td><input type="hidden" name="userId" value="${u.userId}" /></td>
 							<td><img class="userimg" alt="" src="${contextRoot}/users/${u.userPhoto}"></td>
-							<td><input name="email" value="${u.email}" /></td>
-							<td><input name="password" value="${u.password}" /></td>
-							<td><input name="userName" value="${u.userName}" /></td>
-							<td><input name="permission" value="${u.permission}" /></td>
+							<td>${u.email}</td>
+							<td>${u.password}</td>
+							<td>${u.userName}</td>
+							<td>
+							<% String[] per = {"停權","一般會員","管理員"};
+								request.setAttribute("per", per);%>
+							<select name="permission" id="permission${u.userId}">
+							<c:forEach begin="0" end="2" step="1" var="i">
+								<c:choose>
+									<c:when test="${i==u.permission}">
+											<option value="${i}" selected>${per[i]}</option>
+									</c:when>
+									<c:otherwise>
+											<option value="${i}">${per[i]}</option>'
+									</c:otherwise>
+								</c:choose>
+							
+							</c:forEach>
+							</select>
+							</td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">更新</button></td>
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
@@ -135,15 +151,12 @@ body {
 <!-- 	<script -->
 <!-- 		src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
  	<script>
-		$("#userName")
-				.keyup(
+		$("#userName").keyup(
 						function() {
 							let usernameValue = $('#userName').val();
 							console.log(usernameValue)
-							let urlStr = "${contextRoot}/find/searchUser/"
-									+ usernameValue;
-							$
-									.ajax({
+							let urlStr = "${contextRoot}/find/searchUser/" + usernameValue;
+							$.ajax({
 										url : urlStr,
 										type : 'Get',
 										datatype : 'text',
@@ -158,8 +171,8 @@ body {
 												// 下拉式選單
 												var per = item.permission;
 												var selectList = '<select name="permission" id="permission'+item.userId+'">'
-												var selectArray = ["","管理員","一般會員"]
-												for(let j=1;j<=2;j++){
+												var selectArray = ["停權","一般會員","管理員"]
+												for(let j=0;j<=2;j++){
 													if(j == per){
 														selectList += '<option value=' + j + ' selected>' + selectArray[j] + '</option>'
 													}else{
@@ -168,20 +181,17 @@ body {
 												}
 												selectList += '</select>'
 												
-												
-												var text = '<tr id="userTr">'
-														+ '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
 												var text = '<tr id="userTr">'+
-														 '<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
-														+ '<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'
+														 '<form  id="formUser"  class="form" method="get" action="${contextRoot}/editAdminUsers">'
+														+ '<td><input  type="hidden" id="userId'+item.userId+'" name="userId" value="'+item.userId+'"/></td>'
 														+ '<td><img class="userimg" alt="" src="${contextRoot}/users/'+item.userPhoto+'"></td>'
-														+ '<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'
-														+ '<td><input  id="password'+item.userId+'" =name="password" value="'+item.password+'" /></td>'
-														+ '<td><input  id="userName'+item.userId+'" =name="userName" value="'+item.userName+'" /></td>'
+														+ '<td>'+item.email+'</td>'
+														+ '<td>'+item.password+'</td>'
+														+ '<td>'+item.userName+'</td>'
 														+ '<td>'+selectList+'</td>'
 														+ '<td><button id="formButton" onclick="sendfromUpdateData('
 														+ item.userId
-														+ ')"  class="w3-button w3-red w3-hover-black">更新</button></A></td>'
+														+ ')"  class="w3-button w3-red w3-hover-black">更新</button></td>'
 														+ '<td><a href="${contextRoot}/deleteUser/'+item.userId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'
 														+ '</form>' + '</tr>'
 												console.log("text", text);
@@ -192,74 +202,12 @@ body {
 									});
 						});
 		function sendfromUpdateData(userId) {
-			console.log(userId)
-			console.log($("#userPhoto" + userId).val())
-			console.log($("#email" + userId).val())
-			console.log($("#password" + userId).val())
-			console.log($("#userName" + userId).val())
-			console.log($("#permission" + userId).val())
-			const url = "${contextRoot}/editAdminUsers/" + userId + "/"
-					+ $("#userName" + userId).val() + "/"
-					+ $("#email" + userId).val() + "/"
-					+ $("#password" + userId).val() + "/"
-					+ $("#permission" + userId).val()
+			const url = "${contextRoot}/editAdminUsers?"
+					+"userId="+ $("#userId" + userId).val() + "&"
+					+"permission="+ $("#permission" + userId).val()
 					//+ $("#userPhoto" + userId).val() + "/";
 			window.location.href = url;
-</tbody>
-</table>
-</div>
-    <!-- Jquery Js -->
-    <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="${contextRoot}/js/popper.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-    <!-- Plugins Js -->
-    <script src="${contextRoot}/js/plugins.js"></script>
-    <!-- Owl Carousel Js -->
-    <script src="${contextRoot}/js/owl.carousel.min.js"></script>
-    <!-- Summernote JS -->
-    <script src="${contextRoot}/js/summernote.min.js"></script>
-    <!-- Select 2 Js -->
-    <script src="${contextRoot}/js/select2.full.min.js"></script>
-    <!-- Smoothscroll Js -->
-    <script src="${contextRoot}/js/smoothscroll.min.js"></script>
-    <!-- Custom Js -->
-    <script src="${contextRoot}/js/main.js"></script>
-<script>
-$("#userName").keyup(function(){
-	let usernameValue = $('#userName').val();
-	console.log(usernameValue)
-	let urlStr = "${contextRoot}/find/searchUser/"+ usernameValue;
-	$.ajax({
-		url: urlStr ,
-		type : 'Get',
-		datatype: 'text',
-		success:function(data){
-			var append1 ;
-			 $('#userbody').empty();
-			 for (var i = 0; i < data.length; i++) {
-				  const item = data[i];
-				  console.log(i,item);
-				var text=	'<tr id="userTr">'+	
-					'<form  id="formUser"  class="form" method="post" action="${contextRoot}/editAdminUsers">'
-					+'<td><input  type="hidden" name="userId'+item.userId+'" value="'+item.userId+'"/></td>'+
-					'<td><input  id="userPhoto'+item.userId+'" name="userPhoto" value="'+item.userPhoto+'" /></td>'+
-					'<td><input  id="email'+item.userId+'"name="email" value="'+item.email+'" /></td>'+
-					'<td><input  id="password'+item.userId+'" =name="password" value="'+item.password+'" /></td>'+
-					'<td><input  id="userName'+item.userId+'" =name="userName" value="'+item.userName+'" /></td>'+
-					'<td><input  id="permission'+item.userId+'" =name="permission" value="'+item.permission+'" /></td>'+
-					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="btn btn-primary btn-sm">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.userId+'"><button  type="button" class="btn btn-primary btn-sm">刪除</button></a></td>'+						
-					'</form>'+	
-					'</tr>'
-					$("#userbody").append(text);				
-			}
-			console.log("data",data);
 		}
-// 		$(document).ready(function() {
-// 			$('#userTable').DataTable();
-// 		});
 	</script>
 </body>
 </html>

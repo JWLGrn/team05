@@ -19,7 +19,7 @@ public class KeywordService {
 	@Autowired
 	private KeywordDao kDao;
 	
-	//取得所有關鍵字
+	//取得所有食譜類別
 	public List<Keyword> findAllKeyword() {
 		List<Keyword> kList = kDao.findAll();
 		return kList;
@@ -37,12 +37,12 @@ public class KeywordService {
 		return dtoList;
 	}
 	
-	//存入關鍵字
+	//存入食譜類別
 	public Keyword insertKeyword(Keyword keyword) {
 			Keyword k = kDao.save(keyword);
 		return k;
 	}
-	//驗證關鍵字是否已存在
+	//驗證食譜類別是否已存在
 	public boolean checkKeywordExist(String keyword) {
 			List<Keyword> check = kDao.findByKeywordLike(keyword);
 			if(check.isEmpty()) {
@@ -50,4 +50,11 @@ public class KeywordService {
 			}
 			return false;
 			}
+	
+	//刪除食譜類別
+	public void deleteKeyword(Integer keywordId) {
+			kDao.deleteById(keywordId);
+		
+		
+	}
 }

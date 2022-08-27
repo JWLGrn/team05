@@ -30,7 +30,6 @@
 			<a href="${contextRoot}/showAllKeywords" class="w3-bar-item w3-button w3-hover-white">管理食譜類別</a>
 			<a href="${contextRoot}/showAllUsers" class="w3-bar-item w3-button w3-hover-white">管理使用者</a>
 			<a href="${contextRoot}/showallevent" class="w3-bar-item w3-button w3-hover-white">管理活動</a>
-			<a href="#contact" class="w3-bar-item w3-button w3-hover-white">回覆使用者</a>
 		</div>
 	</nav>
 

@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.cfg.annotations.MapKeyColumnDelegator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -71,7 +72,6 @@ private FoodsService fService;
 		//顯示使用者
 		@GetMapping("/showAllUsers")
 		public String showAllUsers(Model model) {
-			List<Users> users=uDao.findAll();
 			model.addAttribute("allUsers",uDao.findAll() );
 			return "showAllUsers";
 		}
@@ -185,7 +185,9 @@ private FoodsService fService;
 	
 	//管理食譜分類頁面
 	@GetMapping("/showAllKeywords")
-	public String showAllKeywords() {
+	public String showAllKeywords(Model m) {
+		List<Keyword> kList = kDao.findAll();
+		m.addAttribute("allKeywords", kList);
 		return "showAllKeywords";
 	}
 		

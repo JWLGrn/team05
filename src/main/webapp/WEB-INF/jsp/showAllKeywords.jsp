@@ -63,10 +63,13 @@ body {
 }
 </style>
 <style type="text/css">
-.userimg {
+.keywordimg {
+object-fit:cover;
 	width: 100px;
 	height: 100px;
-}</style>
+}
+
+</style>
 
 <title>管理使用者</title>
 </head>
@@ -87,19 +90,17 @@ body {
 			<tbody id="keywordbody">
 
 				<c:forEach items="${allKeywords}" var="k">
+					<form class="form" method="post" action="${contextRoot}/editKeyword">
 					<tr>
-						<form class="form" method="post" action="${contextRoot}/editKeyword">
-
 							<td><input type="hidden" name="keywordId" value="${k.keywordId}" /></td>
 							<td><input name="keyword" value="${k.keyword}" /></td>
-							<td><img class="keywordimg" alt="" src="${contextRoot}/keyword/${k.keywordPhoto}"></td>
+							<td><img class="keywordimg" alt="" src="${contextRoot}/category/${k.keywordPhoto}"></td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">送出</button></td>
 							<td><a href="${contextRoot}/deleteKeyword/${k.keywordId}"><button
 										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
-
-						</form>
 					</tr>
+					</form>
 				</c:forEach>
 
 			</tbody>
