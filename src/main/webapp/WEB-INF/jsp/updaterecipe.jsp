@@ -63,6 +63,19 @@
             width: 150px;
             height: 100px;
         }
+        .recipeImageUpload{
+			object-fit:contain;
+			height:125px;
+			width:125px;
+			border-radius:6px;
+		}
+		.insertcontainer{
+			background-color:white;
+			padding:30px;
+			border-radius:10px;
+			border: 1px solid #E0E0E0;
+			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+		}
     </style>
 </head>
 
@@ -99,13 +112,14 @@
         </section>
         <!-- Inne Page Banner Area End Here -->
         <!-- Submit Recipe Area Start Here -->
-        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50" style="background-color:#F0F0F0">
             <div class="container">
                 <div class="row gutters-60">
-                    <div class="col-lg-8">
+                	<div class="col-lg-2"></div>
+                    <div class="col-lg-8 insertcontainer">
                         <form class="submit-recipe-form" method="POST" action="${contextRoot}/recipe/update" enctype="multipart/form-data">
                         	<input type="hidden" value="${recipe.recipeId}" name="recipeId">
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex;justify-content: center;">
                                 <label>
                                     <img id="recipeImageUpload" src="${contextRoot}/recipe/${recipe.cookPhoto}" height="150px"/>
                                 <input type="file" id="recipePhoto" name="photo" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display: none;"/>
@@ -171,7 +185,7 @@
                                     </c:forEach> 
                                     <!-- ---------------------食材動態結構--------------------- -->
                                     </div>
-                                    <button type="button" class="btn-upload" id="addFood"><i class="flaticon-add-plus-button"></i>加入食材</button>
+                                    <button type="button" class="btn-upload" id="addFood"><span class="typcn typcn-plus">&nbsp;</span>加入食材</button>
                             </div>
                             <div class="additional-input-wrap">
                                 <label>步驟</label>
@@ -182,7 +196,7 @@
                                         <div class="col-3">
                                             <div class="form-group additional-input-box icon-left" style="height: 150px;">
                                                 <i class="fas fa-arrows-alt"></i>
-                                                <label><img id="recipeImageUpload${rSs.index}" src="${contextRoot}/recipe/${rS.stepPhoto}" height="150px"/>
+                                                <label><img id="recipeImageUpload${rSs.index}" src="${contextRoot}/recipe/${rS.stepPhoto}" height="150px" class="recipeImageUpload"/>
                                                 <input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload${rSs.index})" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
                                             </div>
                                         </div>
@@ -196,103 +210,10 @@
                                     </c:forEach>
                                     <!-- ---------------------步驟動態結構--------------------- -->
                                 </div>
-                                    <button type="button" class="btn-upload" id="addStep"><i class="flaticon-add-plus-button"></i>加入步驟</button>
+                                    <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
                             <button type="submit" class="btn-submit">修改食譜</button>
                         </form>
-                    </div>
-                    <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
-                    	<div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">最新食譜</h3>
-                            </div>
-                            <div class="widget-latest">
-                                <ul class="block-list" id="latestRecipe">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">食譜隨選</h3>
-                            </div>
-                            <div class="widget-featured-feed">
-                                <div class="rc-carousel nav-control-layout1" id="randomRecipe" data-loop="true" data-items="3"
-                                    data-margin="5" data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="700"
-                                    data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1"
-                                    data-r-x-small-nav="true" data-r-x-small-dots="false" data-r-x-medium="1"
-                                    data-r-x-medium-nav="true" data-r-x-medium-dots="false" data-r-small="1"
-                                    data-r-small-nav="true" data-r-small-dots="false" data-r-medium="1"
-                                    data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="1"
-                                    data-r-large-nav="true" data-r-large-dots="false" data-r-extra-large="1"
-                                    data-r-extra-large-nav="true" data-r-extra-large-dots="false">
-                                </div>
-                            </div>
-                        </div>
-                        
-
-<!--                         <div class="widget"> -->
-<!--                             <div class="section-heading heading-dark"> -->
-<!--                                 <h3 class="item-heading">INSTAGRAM</h3> -->
-<!--                             </div> -->
-<!--                             <div class="widget-instagram"> -->
-<!--                                 <ul> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure9.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure10.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure11.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure12.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure13.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure14.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure15.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure16.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                     <li> -->
-<!--                                         <div class="item-box"> -->
-<!--                                             <img src="img/social-figure/social-figure17.jpg" alt="Social Figure" class="img-fluid"> -->
-<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
-<!--                                         </div> -->
-<!--                                     </li> -->
-<!--                                 </ul> -->
-<!--                             </div> -->
-<!--                         </div> -->
                     </div>
                 </div>
             </div>
@@ -396,7 +317,7 @@
                               +'<div class="col-3">'
                               +'<div class="form-group additional-input-box icon-left" style="height: 150px;">'
                               +'<i class="fas fa-arrows-alt"></i>'
-                              +'<label><img id="recipeImageUpload'+count+'" src="${contextRoot}/recipe/upload.png" height="150px"/>'
+                              +'<label><img id="recipeImageUpload'+count+'" src="${contextRoot}/recipe/upload.png" height="150px" class="recipeImageUpload"/>'
                               +'<input type="file" name="stepPhoto" onchange="photochange(event,recipeImageUpload'+count+')" accept=".png, .jpg, .jpeg" style="display:none;"/></label>'
                               +'</div></div>'
                               +'<div class="col-9">'
@@ -458,165 +379,6 @@
                 $('.tags').val(taglist);
                 $('.tags').trigger('change');
             });
-
-            
-         // 右方最新食譜
-        	var lastestsettings = {
-      		  "url": "${contextRoot}/recipe/find/lastest",
-      		  "method": "GET",
-      		  "timeout": 0,
-      		};
-
-      		$.ajax(lastestsettings).done(function (response) {
-      				var latestRecipe = '';
-      			
-      				var count = 1;
-                  for(let i in response){
-                	  
-                	let keywords = '';
-                	let kWord = response[i].recipeKeyword;
-                	for(let j in kWord){
-                    	keywords += kWord[j].keywords+' '
-                	}
-                	  
-                  	latestRecipe += '<li class="single-item">'
-                  	+'<div class="item-img">'
-                  	+'<a href="${contextRoot}/recipe/find/'+response[i].recipeId+'"><img src="${contextRoot}/recipe/'+response[i].cookPhoto+'" alt="Post" class="recipeobfit"></a>'
-                  	+'<div class="count-number">'+count+'</div></div>'
-                  	+'<div class="item-content">'
-                  	+'<div class="item-ctg">'+keywords.trim()+'</div>'
-                  	+'<h4 class="item-title"><a href="${contextRoot}/recipe/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
-                  	+'<div class="item-post-by"><a href="#"><i class="fas fa-user"></i><span>by </span>'
-                  	+response[i].userName+'</a></div></div></li>'
-                  	count++;
-                  }
-                  $("#latestRecipe").html("").append(latestRecipe);
-      		});
-            
-      		
-        // 右方隨機推播
-    var randomsettings = {
-        "url": "${contextRoot}/recipe/find/random/6",
-        "method": "GET",
-        "timeout": 0
-    };
-            
-        $.ajax(randomsettings).done(function (response) {
-        var figure = '';
-        for(let i in response){
-            let keywords = "";
-            let kWord = response[i].recipeKeyword;
-            for(let j in kWord){
-                keywords += kWord[j].keywords+" "
-            }
-            figure +='<div class="featured-box-layout1">'
-                   +'<div class="item-img">'
-                   +'<img src="${contextRoot}/recipe/'+response[i].cookPhoto+'" alt="Brand" class="img-fluid"></div>'
-            	   +'<div class="item-content">'
-            	   +'<span class="ctg-name">'+keywords.trim()+'</span>'
-        		   +'<h4 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
-        		   +'<p class="descript">'+response[i].cookDescription+'</p></div></div>'
-        }
-        $("#randomRecipe").html("").append(figure);
-        $("#randomRecipe").each(function () {
-            var carousel = $(this),
-                loop = carousel.data('loop'),
-                items = carousel.data('items'),
-                margin = carousel.data('margin'),
-                stagePadding = carousel.data('stage-padding'),
-                autoplay = carousel.data('autoplay'),
-                autoplayTimeout = carousel.data('autoplay-timeout'),
-                smartSpeed = carousel.data('smart-speed'),
-                dots = carousel.data('dots'),
-                nav = carousel.data('nav'),
-                navSpeed = carousel.data('nav-speed'),
-                rXsmall = carousel.data('r-x-small'),
-                rXsmallNav = carousel.data('r-x-small-nav'),
-                rXsmallDots = carousel.data('r-x-small-dots'),
-                rXmedium = carousel.data('r-x-medium'),
-                rXmediumNav = carousel.data('r-x-medium-nav'),
-                rXmediumDots = carousel.data('r-x-medium-dots'),
-                rSmall = carousel.data('r-small'),
-                rSmallNav = carousel.data('r-small-nav'),
-                rSmallDots = carousel.data('r-small-dots'),
-                rMedium = carousel.data('r-medium'),
-                rMediumNav = carousel.data('r-medium-nav'),
-                rMediumDots = carousel.data('r-medium-dots'),
-                rLarge = carousel.data('r-large'),
-                rLargeNav = carousel.data('r-large-nav'),
-                rLargeDots = carousel.data('r-large-dots'),
-                rExtraLarge = carousel.data('r-extra-large'),
-                rExtraLargeNav = carousel.data('r-extra-large-nav'),
-                rExtraLargeDots = carousel.data('r-extra-large-dots'),
-                center = carousel.data('center'),
-                custom_nav = carousel.data('custom-nav') || '';
-            carousel.addClass('owl-carousel');
-            var owl = carousel.owlCarousel({
-                loop: (loop ? true : false),
-                items: (items ? items : 4),
-                lazyLoad: true,
-                margin: (margin ? margin : 0),
-                autoplay: (autoplay ? true : false),
-                autoplayTimeout: (autoplayTimeout ? autoplayTimeout : 1000),
-                smartSpeed: (smartSpeed ? smartSpeed : 250),
-                dots: (dots ? true : false),
-                nav: (nav ? true : false),
-                navText: ['<span class="flaticon-back typcn typcn-chevron-left" aria-hidden="true"></span>', '<span class="flaticon-next typcn typcn-chevron-right" aria-hidden="true"></span>'],
-                navSpeed: (navSpeed ? true : false),
-                center: (center ? true : false),
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: (rXsmall ? rXsmall : 1),
-                        nav: (rXsmallNav ? true : false),
-                        dots: (rXsmallDots ? true : false)
-                    },
-                    576: {
-                        items: (rXmedium ? rXmedium : 2),
-                        nav: (rXmediumNav ? true : false),
-                        dots: (rXmediumDots ? true : false)
-                    },
-                    768: {
-                        items: (rSmall ? rSmall : 3),
-                        nav: (rSmallNav ? true : false),
-                        dots: (rSmallDots ? true : false)
-                    },
-                    992: {
-                        items: (rMedium ? rMedium : 4),
-                        nav: (rMediumNav ? true : false),
-                        dots: (rMediumDots ? true : false)
-                    },
-                    1200: {
-                        items: (rLarge ? rLarge : 5),
-                        nav: (rLargeNav ? true : false),
-                        dots: (rLargeDots ? true : false)
-                    },
-                    1400: {
-                        items: (rExtraLarge ? rExtraLarge : 6),
-                        nav: (rExtraLargeNav ? true : false),
-                        dots: (rExtraLargeDots ? true : false)
-                    }
-                }
-            });
-            if (custom_nav) {
-                var nav = $(custom_nav),
-                    nav_next = $('.rt-next', nav),
-                    nav_prev = $('.rt-prev', nav);
-
-                nav_next.on('click', function (e) {
-                    e.preventDefault();
-                    owl.trigger('next.owl.carousel');
-                    return false;
-                });
-
-                nav_prev.on('click', function (e) {
-                    e.preventDefault();
-                    owl.trigger('prev.owl.carousel');
-                    return false;
-                });
-            }
-        });
-    });
     </script>
 </body>
 

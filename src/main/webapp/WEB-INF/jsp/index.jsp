@@ -35,17 +35,17 @@
     <style type="text/css">
     	.imgcut{
 			height:500px;
-			overflow:hidden;
+			object-fit: cover;
 		}
 
         .obfit{
-            object-fit: contain;
+            object-fit: cover;
             width: 300px;
             height: 200px;
             vertical-align: middle;
         }
         .obfit2{
-            object-fit: contain;
+            object-fit: cover;
             width: 350px;
             height: 250px;
             vertical-align: middle;
@@ -73,6 +73,7 @@
         <jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- 首頁輪播 -->
+        <div style="background-color:#F0F0F0;padding-top:25px;">
         <section class="ranna-slider-area">
             <div class="container">      
                 <div class="rc-carousel nav-control-layout2" id="figureList" data-loop="true" data-items="30" data-margin="5"
@@ -90,7 +91,7 @@
         <!-- 首頁輪播 -->
 
         <!-- 最多人收藏 -->
-        <section class="padding-bottom-45" id="cllectScrollRecipe">
+        <section class="padding-bottom-45" id="cllectScrollRecipe" style="display:none;">
             <div class="container">
                 <div class="ranna-box-style">
                     <div class="section-heading heading-dark">
@@ -105,7 +106,7 @@
         </section>
         <!-- 最多人收藏 -->
         <!-- 最多人收藏 -->
-        <section class="padding-bottom-45" id="favorScrollRecipe">
+        <section class="padding-bottom-45" id="favorScrollRecipe" style="display:none;">
             <div class="container">
                 <div class="ranna-box-style">
                     <div class="section-heading heading-dark">
@@ -120,7 +121,7 @@
         </section>
         <!-- 最多人收藏 -->
         <!-- 隨機推播 -->
-        <section class="padding-bottom-45" id="randomScrollRecipe">
+        <section class="padding-bottom-45" id="randomScrollRecipe" style="display:none;">
         
             <div class="container">
             <div class="section-heading heading-dark">
@@ -132,6 +133,7 @@
             </div>
         </section>
         <!-- 隨機推播 -->
+        </div>
         <!-- Popular Recipe Start Here -->
         <!-- Footer Area Start Here -->
         <jsp:include page="layout/footer.jsp"/>
@@ -165,17 +167,17 @@
     <script>
     	$(document).scroll(function() {
     	  	var y = $(this).scrollTop();
-    	  	if (y > 300) {
+    	  	if (y > 150) {
     	  		$('#cllectScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#cllectScrollRecipe').fadeOut(900);
     	  	}
-    	  	if (y > 700) {
+    	  	if (y > 625) {
     	  		$('#favorScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#favorScrollRecipe').fadeOut(900);
     	  	}
-    	  	if (y > 1150) {
+    	  	if (y > 1200) {
     	  		$('#randomScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#randomScrollRecipe').fadeOut(900);

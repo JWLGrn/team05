@@ -45,6 +45,13 @@
 			width:125px;
 			border-radius:6px;
 		}
+		.insertcontainer{
+			background-color:white;
+			padding:30px;
+			border-radius:10px;
+			border: 1px solid #E0E0E0;
+			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+		}
     </style>
 </head>
 <body>
@@ -80,11 +87,11 @@
         </section>
         <!-- Inne Page Banner Area End Here -->
         <!-- Submit Recipe Area Start Here -->
-        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+        <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"  style="background-color:#F0F0F0">
             <div class="container">
                 <div class="row gutters-60">
                 	<div class="col-lg-2"></div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 insertcontainer">
                         <form class="submit-recipe-form" method="POST" action="recipe/insert" enctype="multipart/form-data">
                             <div class="form-group" style="display: flex;justify-content: center;">
                                 <label><img id="recipeImageUpload" src="${contextRoot}/recipe/upload.png" height="150px"/>
@@ -145,7 +152,7 @@
                                     </div>
                                     <!-- ---------------------食材動態結構--------------------- -->
                                     </div>
-                                    <button type="button" class="btn-upload" id="addFood"><i class="flaticon-add-plus-button"></i>加入食材</button>
+                                    <button type="button" class="btn-upload" id="addFood"><span class="typcn typcn-plus">&nbsp;</span>加入食材</button>
                             </div>
                             <div class="additional-input-wrap">
                                 <label>步驟</label>
@@ -168,7 +175,7 @@
                                     </div>
                                     <!-- ---------------------步驟動態結構--------------------- -->
                                 </div>
-                                    <button type="button" class="btn-upload" id="addStep"><i class="flaticon-add-plus-button"></i>加入步驟</button>
+                                    <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
                             <button type="submit" class="btn-submit">發佈食譜</button>
                         </form>
