@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -90,7 +90,7 @@
 
 							<div class="row">
 								<div class="col-md-6">
-									<label class="mb-3">Number Name</label> <input
+									<label class="mb-3">Mmeber Name</label> <input
 										placeholder="請輸入姓名" type="text" value="${loginUser.userName }"
 										name="user_name" class="main-input-box"><br /> <label
 										class="mb-3">Email Address</label> 信箱:<input type="email"
@@ -99,8 +99,8 @@
 										class="mb-3">Password</label> <input type="password"
 										value="${loginUser.password }" name="password"
 										class="main-input-box" placeholder="請輸入密碼"><br /> <label
-										class="mb-3">Number Photo</label> <input type="file"
-										name="user_photo" class="main-input-box" placeholder="請上傳照片"><br />
+										class="mb-3">Member Photo</label> <input type="file"
+										name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
 									<input type=hidden name="permission" value="1" placeholder="1"
 										id="permission">
 									<!-- 			<i class="fa fa-check" -->
@@ -122,8 +122,7 @@
 		</div>
 	</section>
 	<!-- 		------------------------------------------------------------ -->
-	${loginUser }
-	<br>
+		
 	<!-- ------------------------------------------------- -->
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<!-- Bootstrap Js -->

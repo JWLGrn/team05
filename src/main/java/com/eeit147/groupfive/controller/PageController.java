@@ -187,4 +187,9 @@ private FoodsService fService;
 		public String showAllKeywords() {
 			return "showAllKeywords";
 		}
+		@GetMapping("/aboutus")
+		public String showaboutus () {
+			return "aboutus/aboutus";
+			
+		}
 }

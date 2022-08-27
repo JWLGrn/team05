@@ -21,31 +21,40 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="donation")
+@Table(name = "donation")
 public class Donation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="donation_id")
+	@Column(name = "donation_id")
 	private Integer donationId;
-	
-	@Column(name="price")
+
+	@Column(name = "price")
 	private Integer price;
-	
-	@JsonFormat(pattern = "yyyy/MM/dd",timezone = "Asia/Taipei") //for JSON  需加timezone時區
-	@DateTimeFormat(pattern = "yyyy/MM/dd") //for SpringMVC
+
+	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Taipei") // for JSON 需加timezone時區
+	@DateTimeFormat(pattern = "yyyy/MM/dd") // for SpringMVC
 	@Temporal(TemporalType.DATE)
-	@Column(name="donate_date")
+	@Column(name = "donate_date")
 	private Date donateDate;
-	
-	@PrePersist //物件轉換成 Persistent(永續) 狀態前要執行的方法
+
+	@Column(name = "phone")
+	private Integer phone;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "tradeno")
+	private String tradeno;
+
+	@PrePersist // 物件轉換成 Persistent(永續) 狀態前要執行的方法
 	public void onCreate() {
-		//若added為空則放入當下時間
-		if(donateDate == null) {
+		// 若added為空則放入當下時間
+		if (donateDate == null) {
 			donateDate = new Date();
 		}
 	}
-	
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_donation_users")
@@ -54,12 +63,32 @@ public class Donation {
 	public Donation() {
 	}
 
-	public Donation(Integer donationId, Integer price, Date donateDate, Users users) {
+	public Donation(Integer donationId, Integer price, Date donateDate, Integer phone, String address, String tradeno,
+			Users users) {
 		super();
 		this.donationId = donationId;
 		this.price = price;
 		this.donateDate = donateDate;
+		this.phone = phone;
+		this.address = address;
+		this.tradeno = tradeno;
 		this.users = users;
+	}
+
+	public Integer getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Integer phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Integer getDonationId() {
@@ -93,5 +122,13 @@ public class Donation {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
-	
+
+	public String getTradeno() {
+		return tradeno;
+	}
+
+	public void setTradeno(String tradeno) {
+		this.tradeno = tradeno;
+	}
+
 }

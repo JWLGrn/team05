@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->

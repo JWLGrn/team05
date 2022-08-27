@@ -94,7 +94,10 @@ public class UsersController {
 				return "index";
 			}else if(permission == 2) {
 				return "index";
-			}		
+			} else if(permission == 0) {
+				return "redirect:/user/login";
+				
+			}
 		}
 		return "redirect:/user/login";
 	}

@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Ranna | Submit Recipes</title>
 <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->

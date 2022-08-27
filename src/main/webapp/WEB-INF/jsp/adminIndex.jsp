@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->
@@ -59,6 +59,7 @@ border-radius: 45px;
 <h1>系統管理首頁</h1>
 </div>
 <div class="row justify-content-center w3-main" style="margin-left:220px;">
+<button type="button" onclick="showDonation()" class="aaa">贊助者資料</button>
 <button type="button" onclick="reportReply()" class="aaa">檢舉信件</button>
 <button onclick="chartjstest02()" class="aaa">切換長條圖</button>
 <button onclick="chartjstest()" class="aaa" >切換圓餅圖</button>
@@ -67,6 +68,8 @@ border-radius: 45px;
 </div>
 <!-- <div id="adminReport" style="display:none; width: 20; height: 10" ></div> -->
 <div  id="adminReport" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
+<div  id="SDonation" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
+
 <script >
 var content =[];
 
@@ -119,6 +122,7 @@ function chartjstest(){
 	$("#myChart").show();
 	$("#myChart2").hide();
 	$("#adminReport").hide();
+	$("#SDonation").hide();
 }
 </script>
 <%-- <canvas id="example" width="800" height="100"></canvas> --%>
@@ -145,6 +149,7 @@ function chartjstest(){
   	$("#myChart2").show();
   	$("#myChart").hide();
   	$("#adminReport").hide();
+  	$("#SDonation").hide();
   }
   </script>
   <script type="text/javascript">
@@ -183,6 +188,45 @@ xhr.send();
 $("#adminReport").show();
 $("#myChart").hide();
 $("#myChart2").hide();
+$("#SDonation").hide();
+}
+
+function showDonation(){
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function() {
+	  if(this.readyState === 4) {
+		  var content = "<table class='table table-striped'>";
+		  var showDonation=JSON.parse(xhr.responseText);
+		  content += "<tr><th scope='col'>贊助者ID</th><th scope='col'>贊助金額</th><th scope='col'>贊助時間</th><th scope='col'>贊助者電話</th>" 
+				 + "<th scope='col'>贊助者地址</th><th scope='col'>贊助者訂單編號</th></tr>";
+		  for(var i =0;i<showDonation.length;i++){
+		  content += 
+			  "<tr><td >" + showDonation[i].donationId + "</td>" 
+			+ "<td>" + showDonation[i].price + "</td>"
+			+ "<td>" + showDonation[i].donateDate + "</td>"
+			+ "<td >" +'0'+ showDonation[i].phone + "</td>" 
+			+ "<td>" + showDonation[i].address + "</td>"
+			+ "<td>" + showDonation[i].tradeno + "</td>"
+			+ "</td>" + "<td></tr>";
+		  
+		    
+		  
+		  }
+	    console.log(this.responseText);
+	    console.log(showDonation.length);
+	    document.getElementById("SDonation").innerHTML=content;
+	  }
+	});
+
+	xhr.open("POST", "http://localhost:8090/cookblog/findAllDonation");
+
+	xhr.send();
+	$("#adminReport").hide();
+	$("#myChart").hide();
+	$("#myChart2").hide();
+	$("#SDonation").show();
 }
 
 </script>

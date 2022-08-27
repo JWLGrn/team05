@@ -14,7 +14,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
+    
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->
@@ -38,12 +40,8 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-    <style>
-    
-    </style>
 </head>
-<body>
-<body>
+<body onload="stoplogin()">
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
     <!-- Preloader End Here -->
@@ -159,6 +157,13 @@
 
     
     <script type="text/javascript">
+    
+    function stoplogin(){
+     if(${loginUser.permission ==0}){
+    	 
+     }
+    }
+    
     function keyin1() {
 		document.getElementById("email").value = "Luffy@gmail.com";
 		document.getElementById("password").value = "qaz123";
@@ -170,6 +175,32 @@
 		document.getElementById("password").value = "1234";
 		document.getElementById("permission").value = "2";
 	}
+// 	function userDetail(){
+		
+	
+	
+// 	var xhr = new XMLHttpRequest();
+// 	xhr.withCredentials = true;
+
+// 	xhr.addEventListener("readystatechange", function() {
+// 	  if(this.readyState === 4) {
+// 		  var content ='';
+//           var users=JSON.parse(xhr.responseText);
+//           for(var i =0;i<users.length;i++){
+//          	 content+= '<a href="' + "${contextRoot}/favorite?recipe_id="+recipe[i].recipeId+"&&user_id=${loginUser.userId }" + '">'
+//          	 +'<img src="break.jpg" width="40">'+ 
+//          	 recipe[i].cookTitle + '</a>';
+//          	 console.log(recipe[i].recipeId);
+//           }
+//           document.getElementById("myDiv").innerHTML=content;
+// 	  }
+// 	});
+
+// 	xhr.open("GET", "http://localhost:8090/cookblog/findUsers");
+
+// 	xhr.send();
+// 	}
+	
     </script>
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->

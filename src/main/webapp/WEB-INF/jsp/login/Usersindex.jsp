@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -135,6 +135,7 @@
 					</div>
 				</div>
 			</div>
+			<a href="${contextRoot}/ss">ssssssssssssssssss</a>
 		</section>
 		
 
