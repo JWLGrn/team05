@@ -391,8 +391,11 @@ public class RecipeController {
 		Optional<Recipe> optionalr = rDao.findById(recipeId);
 		Recipe recipe = optionalr.get();
 		Optional<Users> optionalu = uDao.findById(userId);
-		Users user = optionalu.get();
-		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);
+		Users oneUser = new Users();
+		if(optionalu.isPresent()) {
+			oneUser = optionalu.get();
+		}
+		boolean favor = fDao.existsByUsersAndRecipe(oneUser,recipe);
 		return favor;
 	}
 	@ResponseBody@PostMapping("/recipe/addfavor")

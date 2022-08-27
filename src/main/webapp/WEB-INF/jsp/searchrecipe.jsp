@@ -34,7 +34,7 @@
             height: 250px;
         }
     	.inner-page-banner:before {
-    		background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, .5)),url("${contextRoot}/banner/recipebanner.jpg");
+    		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/recipebanner.jpg");
     		background-position: center;
             background-size: cover;
 		}

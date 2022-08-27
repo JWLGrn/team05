@@ -38,9 +38,32 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-    <script>
-        
-    </script>
+    <style type="text/css">
+/*     .inner-page-banner:before { */
+/*     		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/recipe/${recipe.cookPhoto}"); */
+/*     		background-position: center; */
+/*             background-size: cover; */
+/* 		} */
+
+	   .descript{
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2; /*行數*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+        .img-fluid{
+            object-fit: cover;
+            width: 350px;
+            height: 300px;
+        }
+        .recipeobfit{
+            object-fit: contain;
+            width: 150px;
+            height: 100px;
+        }
+    </style>
 </head>
 
 <body>
@@ -57,7 +80,7 @@
         <jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- Inne Page Banner Area Start Here -->
-        <section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg">
+        <section class="inner-page-banner bg-common">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -179,12 +202,21 @@
                         </form>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                    	<div class="widget">
+                            <div class="section-heading heading-dark">
+                                <h3 class="item-heading">最新食譜</h3>
+                            </div>
+                            <div class="widget-latest">
+                                <ul class="block-list" id="latestRecipe">
+                                </ul>
+                            </div>
+                        </div>
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">FEATURED ARTICLE</h3>
+                                <h3 class="item-heading">食譜隨選</h3>
                             </div>
                             <div class="widget-featured-feed">
-                                <div class="rc-carousel nav-control-layout1" data-loop="true" data-items="3"
+                                <div class="rc-carousel nav-control-layout1" id="randomRecipe" data-loop="true" data-items="3"
                                     data-margin="5" data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="700"
                                     data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1"
                                     data-r-x-small-nav="true" data-r-x-small-dots="false" data-r-x-medium="1"
@@ -193,185 +225,74 @@
                                     data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="1"
                                     data-r-large-nav="true" data-r-large-dots="false" data-r-extra-large="1"
                                     data-r-extra-large-nav="true" data-r-extra-large-dots="false">
-                                    <div class="featured-box-layout1">
-                                        <div class="item-img">
-                                            <img src="img/product/product17.jpg" alt="Brand" class="img-fluid">
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="ctg-name">BREAKFAST</span>
-                                            <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
-                                            <p>Definitiones noel ei verear intelle
-                                                gatpri civibus consequat area
-                                                refund efficiantue.</p>
-                                        </div>
-                                    </div>
-                                    <div class="featured-box-layout1">
-                                        <div class="item-img">
-                                            <img src="img/product/product18.jpg" alt="Brand" class="img-fluid">
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="ctg-name">DINNER</span>
-                                            <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
-                                            <p>Definitiones noel ei verear intelle
-                                                gatpri civibus consequat area
-                                                refund efficiantue.</p>
-                                        </div>
-                                    </div>
-                                    <div class="featured-box-layout1">
-                                        <div class="item-img">
-                                            <img src="img/product/product19.jpg" alt="Brand" class="img-fluid">
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="ctg-name">SALAD</span>
-                                            <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
-                                            <p>Definitiones noel ei verear intelle
-                                                gatpri civibus consequat area
-                                                refund efficiantue.</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                            </div>
-                            <div class="widget-follow-us">
-                                <ul>
-                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">LATEST RECIPES</h3>
-                            </div>
-                            <div class="widget-latest">
-                                <ul class="block-list">
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
-                                            <div class="count-number">1</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                            <div class="count-number">2</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
-                                            <div class="count-number">3</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                    <li class="single-item">
-                                        <div class="item-img">
-                                            <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
-                                            <div class="count-number">4</div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-ctg">DESERT</div>
-                                            <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                                    Mozzarella Oelette</a></h4>
-                                            <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                                    John Martin</a></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
 
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">INSTAGRAM</h3>
-                            </div>
-                            <div class="widget-instagram">
-                                <ul>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure9.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure10.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure11.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure12.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure13.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure14.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure15.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure16.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-box">
-                                            <img src="img/social-figure/social-figure17.jpg" alt="Social Figure" class="img-fluid">
-                                            <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+<!--                         <div class="widget"> -->
+<!--                             <div class="section-heading heading-dark"> -->
+<!--                                 <h3 class="item-heading">INSTAGRAM</h3> -->
+<!--                             </div> -->
+<!--                             <div class="widget-instagram"> -->
+<!--                                 <ul> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure9.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure10.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure11.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure12.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure13.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure14.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure15.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure16.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <div class="item-box"> -->
+<!--                                             <img src="img/social-figure/social-figure17.jpg" alt="Social Figure" class="img-fluid"> -->
+<!--                                             <a href="#" class="item-icon"><i class="fab fa-instagram"></i></a> -->
+<!--                                         </div> -->
+<!--                                     </li> -->
+<!--                                 </ul> -->
+<!--                             </div> -->
+<!--                         </div> -->
                     </div>
                 </div>
             </div>
@@ -390,44 +311,6 @@
         </form>
     </div>
     <!-- Search Box End Here -->
-    <!-- Modal Start-->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title-default-bold mb-none">Login</div>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form class="login-form">
-                        <input class="main-input-box" type="text" placeholder="User Name" />
-                        <input class="main-input-box" type="password" placeholder="Password" />
-                        <div class="inline-box mb-5 mt-4">
-                            <div class="checkbox checkbox-primary">
-                                <input id="modal-checkbox" type="checkbox">
-                                <label for="modal-checkbox">Remember Me</label>
-                            </div>
-                            <label class="lost-password"><a href="#">Lost your password?</a></label>
-                        </div>
-                        <div class="inline-box mb-5 mt-4">
-                            <button class="btn-fill" type="submit" value="Login">Login</button>
-                            <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a>
-                        </div>
-                    </form>
-                    <label>Login connect with your Social Network</label>
-                    <div class="login-box-social">
-                        <ul>
-                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal End-->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -576,30 +459,164 @@
                 $('.tags').trigger('change');
             });
 
-            // //載入圖片到input file
-            // function loadURLToInputFiled(url){
-            //     getImgURL(url, (imgBlob)=>{
-            //     console.log(url);
-            //     let fileName = 'hasFilename.jpg'
-            //     let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
-            //     let container = new DataTransfer(); 
-            //     container.items.add(file);
-            //     document.querySelector('#recipePhoto').files = container.files;
-    
-            //     })
-            // }
-
-            // // 取得圖片
-            // function getImgURL(url, callback){
-            //     var xhr = new XMLHttpRequest();
-            //     xhr.onload = function() {
-            //         callback(xhr.response);
-            //     };
-            //     xhr.open('GET', url);
-            //     xhr.responseType = 'blob';
-            //     xhr.send();
-            // }
             
+         // 右方最新食譜
+        	var lastestsettings = {
+      		  "url": "${contextRoot}/recipe/find/lastest",
+      		  "method": "GET",
+      		  "timeout": 0,
+      		};
+
+      		$.ajax(lastestsettings).done(function (response) {
+      				var latestRecipe = '';
+      			
+      				var count = 1;
+                  for(let i in response){
+                	  
+                	let keywords = '';
+                	let kWord = response[i].recipeKeyword;
+                	for(let j in kWord){
+                    	keywords += kWord[j].keywords+' '
+                	}
+                	  
+                  	latestRecipe += '<li class="single-item">'
+                  	+'<div class="item-img">'
+                  	+'<a href="${contextRoot}/recipe/find/'+response[i].recipeId+'"><img src="${contextRoot}/recipe/'+response[i].cookPhoto+'" alt="Post" class="recipeobfit"></a>'
+                  	+'<div class="count-number">'+count+'</div></div>'
+                  	+'<div class="item-content">'
+                  	+'<div class="item-ctg">'+keywords.trim()+'</div>'
+                  	+'<h4 class="item-title"><a href="${contextRoot}/recipe/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
+                  	+'<div class="item-post-by"><a href="#"><i class="fas fa-user"></i><span>by </span>'
+                  	+response[i].userName+'</a></div></div></li>'
+                  	count++;
+                  }
+                  $("#latestRecipe").html("").append(latestRecipe);
+      		});
+            
+      		
+        // 右方隨機推播
+    var randomsettings = {
+        "url": "${contextRoot}/recipe/find/random/6",
+        "method": "GET",
+        "timeout": 0
+    };
+            
+        $.ajax(randomsettings).done(function (response) {
+        var figure = '';
+        for(let i in response){
+            let keywords = "";
+            let kWord = response[i].recipeKeyword;
+            for(let j in kWord){
+                keywords += kWord[j].keywords+" "
+            }
+            figure +='<div class="featured-box-layout1">'
+                   +'<div class="item-img">'
+                   +'<img src="${contextRoot}/recipe/'+response[i].cookPhoto+'" alt="Brand" class="img-fluid"></div>'
+            	   +'<div class="item-content">'
+            	   +'<span class="ctg-name">'+keywords.trim()+'</span>'
+        		   +'<h4 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
+        		   +'<p class="descript">'+response[i].cookDescription+'</p></div></div>'
+        }
+        $("#randomRecipe").html("").append(figure);
+        $("#randomRecipe").each(function () {
+            var carousel = $(this),
+                loop = carousel.data('loop'),
+                items = carousel.data('items'),
+                margin = carousel.data('margin'),
+                stagePadding = carousel.data('stage-padding'),
+                autoplay = carousel.data('autoplay'),
+                autoplayTimeout = carousel.data('autoplay-timeout'),
+                smartSpeed = carousel.data('smart-speed'),
+                dots = carousel.data('dots'),
+                nav = carousel.data('nav'),
+                navSpeed = carousel.data('nav-speed'),
+                rXsmall = carousel.data('r-x-small'),
+                rXsmallNav = carousel.data('r-x-small-nav'),
+                rXsmallDots = carousel.data('r-x-small-dots'),
+                rXmedium = carousel.data('r-x-medium'),
+                rXmediumNav = carousel.data('r-x-medium-nav'),
+                rXmediumDots = carousel.data('r-x-medium-dots'),
+                rSmall = carousel.data('r-small'),
+                rSmallNav = carousel.data('r-small-nav'),
+                rSmallDots = carousel.data('r-small-dots'),
+                rMedium = carousel.data('r-medium'),
+                rMediumNav = carousel.data('r-medium-nav'),
+                rMediumDots = carousel.data('r-medium-dots'),
+                rLarge = carousel.data('r-large'),
+                rLargeNav = carousel.data('r-large-nav'),
+                rLargeDots = carousel.data('r-large-dots'),
+                rExtraLarge = carousel.data('r-extra-large'),
+                rExtraLargeNav = carousel.data('r-extra-large-nav'),
+                rExtraLargeDots = carousel.data('r-extra-large-dots'),
+                center = carousel.data('center'),
+                custom_nav = carousel.data('custom-nav') || '';
+            carousel.addClass('owl-carousel');
+            var owl = carousel.owlCarousel({
+                loop: (loop ? true : false),
+                items: (items ? items : 4),
+                lazyLoad: true,
+                margin: (margin ? margin : 0),
+                autoplay: (autoplay ? true : false),
+                autoplayTimeout: (autoplayTimeout ? autoplayTimeout : 1000),
+                smartSpeed: (smartSpeed ? smartSpeed : 250),
+                dots: (dots ? true : false),
+                nav: (nav ? true : false),
+                navText: ['<span class="flaticon-back typcn typcn-chevron-left" aria-hidden="true"></span>', '<span class="flaticon-next typcn typcn-chevron-right" aria-hidden="true"></span>'],
+                navSpeed: (navSpeed ? true : false),
+                center: (center ? true : false),
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: (rXsmall ? rXsmall : 1),
+                        nav: (rXsmallNav ? true : false),
+                        dots: (rXsmallDots ? true : false)
+                    },
+                    576: {
+                        items: (rXmedium ? rXmedium : 2),
+                        nav: (rXmediumNav ? true : false),
+                        dots: (rXmediumDots ? true : false)
+                    },
+                    768: {
+                        items: (rSmall ? rSmall : 3),
+                        nav: (rSmallNav ? true : false),
+                        dots: (rSmallDots ? true : false)
+                    },
+                    992: {
+                        items: (rMedium ? rMedium : 4),
+                        nav: (rMediumNav ? true : false),
+                        dots: (rMediumDots ? true : false)
+                    },
+                    1200: {
+                        items: (rLarge ? rLarge : 5),
+                        nav: (rLargeNav ? true : false),
+                        dots: (rLargeDots ? true : false)
+                    },
+                    1400: {
+                        items: (rExtraLarge ? rExtraLarge : 6),
+                        nav: (rExtraLargeNav ? true : false),
+                        dots: (rExtraLargeDots ? true : false)
+                    }
+                }
+            });
+            if (custom_nav) {
+                var nav = $(custom_nav),
+                    nav_next = $('.rt-next', nav),
+                    nav_prev = $('.rt-prev', nav);
+
+                nav_next.on('click', function (e) {
+                    e.preventDefault();
+                    owl.trigger('next.owl.carousel');
+                    return false;
+                });
+
+                nav_prev.on('click', function (e) {
+                    e.preventDefault();
+                    owl.trigger('prev.owl.carousel');
+                    return false;
+                });
+            }
+        });
+    });
     </script>
 </body>
 
