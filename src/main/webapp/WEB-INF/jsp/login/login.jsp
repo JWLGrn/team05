@@ -90,11 +90,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="mb-3">Email Address</label>
-                                        <form:input type="email" required="required" class="main-input-box" path="email" placeholder="請輸入Email" />
+                                        <form:input id="email" type="email" required="required" class="main-input-box" path="email" placeholder="請輸入Email" />
                                     </div>
                                     <div class="col-md-6">
                                         <label class="mb-3">Password</label>
-                                        <form:input type="password" required="required"  class="main-input-box" path="password" placeholder="請輸入密碼" />
+                                        <form:input id="password" type="password" required="required"  class="main-input-box" path="password" placeholder="請輸入密碼" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -112,7 +112,18 @@
                                     <form:button class="btn-fill btn-primary" type="submit" value="Login">登入<i class="flaticon-next"></i></form:button>
                                     <a href="${contextRoot}/Users" style="color:white;"><form:button class="btn-fill btn-primary" type="button">註冊<i class="flaticon-next"></i></form:button></a>
                                 </div>
+                                <div class="btn-area">
+												<div class="btn-area">
+													<button type="button" class="btn-fill btn-primary" onclick="keyin1()">
+														蒙其·D·魯夫<i class="flaticon-next"></i>
+													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin2()">
+														joy<i class="flaticon-next"></i>
+													</button>
+												</div>
+											</div>
                             </form:form>
+                            
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -145,48 +156,21 @@
             <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
         </form>
     </div>
-    <!-- Search Box End Here -->
-    <!-- Modal Start-->
-<!--     先放著 -->
-<!--     <div class="modal fade" id="myModal" role="dialog"> -->
-<!--         <div class="modal-dialog"> -->
-<!--             <div class="modal-content"> -->
-<!--                 <div class="modal-header"> -->
-<!--                     <div class="title-default-bold mb-none">Login</div> -->
-<!--                     <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!--                 </div> -->
-<!--                 <div class="modal-body"> -->
-<%--                     <form class="login-form"> --%>
-<!--                         <input class="main-input-box" type="text" placeholder="User Email" /> -->
-<!--                         <input class="main-input-box" type="password" placeholder="Password" /> -->
-<!--                         <div class="inline-box mb-5 mt-4"> -->
-<!--                             <div class="checkbox checkbox-primary"> -->
-<!--                                 <input id="modal-checkbox" type="checkbox"> -->
-<!--                                 <label for="modal-checkbox">Remember Me</label> -->
-<!--                             </div> -->
-<!--                             <label class="lost-password"><a href="#">Lost your password?</a></label> -->
-<!--                         </div> -->
-<!--                         <div class="inline-box mb-5 mt-4"> -->
-<!--                             <button class="btn-fill" type="submit" value="Login">Login</button> -->
-<!--                             <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
-<!--                         </div> -->
-<%--                     </form> --%>
-<!--                     <label>Login connect with your Social Network</label> -->
-<!--                     <div class="login-box-social"> -->
-<!--                         <ul> -->
-<!--                             <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li> -->
-<!--                             <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li> -->
-<!--                             <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li> -->
-<!--                             <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li> -->
-<!--                         </ul> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-    <!-- Modal End-->
-    <!-- Jquery Js -->
 
+    
+    <script type="text/javascript">
+    function keyin1() {
+		document.getElementById("email").value = "Luffy@gmail.com";
+		document.getElementById("password").value = "qaz123";
+		document.getElementById("permission").value = "1";
+
+	}
+	function keyin2() {
+		document.getElementById("email").value = "joy@gmail.com";
+		document.getElementById("password").value = "1234";
+		document.getElementById("permission").value = "2";
+	}
+    </script>
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
     <script src="${contextRoot}/js/popper.min.js"></script>
@@ -204,9 +188,5 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
-
-
-
-
 </body>
 </html>

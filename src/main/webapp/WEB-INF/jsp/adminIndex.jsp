@@ -45,6 +45,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
+.aaa{
+background-color: #ff4a52;
+border-radius: 45px;
+}
 </style>
 <title>系統管理首頁</title>
 </head>
@@ -55,9 +59,9 @@ body {font-size:16px;}
 <h1>系統管理首頁</h1>
 </div>
 <div class="row justify-content-center w3-main" style="margin-left:220px;">
-<button type="button" onclick="reportReply()">檢舉信件</button>
-<button onclick="chartjstest02()">切換長條圖</button>
-<button onclick="chartjstest()" >切換圓餅圖</button>
+<button type="button" onclick="reportReply()" class="aaa">檢舉信件</button>
+<button onclick="chartjstest02()" class="aaa">切換長條圖</button>
+<button onclick="chartjstest()" class="aaa" >切換圓餅圖</button>
 <canvas id="myChart" width="200" height="100"  class="float" style="display:none;"></canvas>
 <canvas id="myChart2" width="450" height="100"  class="float" style="display:none;"></canvas>
 </div>
@@ -150,17 +154,17 @@ xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function() {
   if(this.readyState === 4) {
-	  var content = "<table border='1'>";
+	  var content = "<table class='table table-striped'>";
 	  var reportreply=JSON.parse(xhr.responseText);
-	  content += "<tr><th>檢舉ID</th><th>檢舉內容</th><th>檢舉時間</th><th>檢舉類型</th>" 
-			 + "<th>處理狀態</th><th>寄送信箱</th></tr>";
+	  content += "<tr><th scope='col'>檢舉ID</th><th scope='col'>檢舉內容</th><th scope='col'>檢舉時間</th><th scope='col'>檢舉類型</th>" 
+			 + "<th scope='col'>處理狀態</th><th scope='col'>寄送信箱</th></tr>";
 	  for(var i =0;i<reportreply.length;i++){
-	  content += "<tr><td align='center'>" + reportreply[i].reportId + "</td>" 
+	  content += "<tr><td >" + reportreply[i].reportId + "</td>" 
 		+ "<td>" + reportreply[i].reportContext + "</td>"
 		+ "<td>" + reportreply[i].reportTime + "</td>"
-		+ "<td align='right'>" + reportreply[i].reportType + "</td>" 
+		+ "<td >" + reportreply[i].reportType + "</td>" 
 		+ "<td>" + reportreply[i].reportStatus + "</td>"
-		+ "<td align='center'>"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
+		+ "<td >"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
 		+ "</td>" + "<td></tr>";
 	  
 	    

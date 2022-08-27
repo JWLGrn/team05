@@ -67,6 +67,12 @@
             width: 150px;
             height: 150px;
         }
+        .color_red{
+  			color: #ff5057;
+		}
+		.color_gray{
+  			color: gray;
+		}
     </style>
 </head>
 
@@ -121,12 +127,13 @@
                                         <li class="single-meta"><a href="#"><i class="far fa-calendar-alt"></i><fmt:formatDate
 											pattern="yyyy/MM/dd EEEE" value="${recipe.date}"/></a></li>
                                         <li class="single-meta"><a href="#"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
-                                        <li class="single-meta"><a href="#"><i class="fas fa-heart"></i><span>${fn:length(recipe.favorite)}</span>
+                                        <li class="single-meta"><i class="fas fa-heart" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a href="#"><span id="fanum">${fn:length(recipe.favorite)}</span>
                                                 Likes</a></li>
-                                    </ul>
+                                    </ul><!--  -->
                                 </div>
                                 <div class="col-xl-3 col-12">
                                     <ul class="action-item">
+                                        <li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button>檢舉</button></a></li>
                                     	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button>修改</button></a></li>
                                     	<li><a href="${contextRoot}/recipe/delete/${recipe.recipeId}"><button>刪除</button></a></li>
                                         <li><button><i class="fas fa-print"></i></button></li>
@@ -550,7 +557,52 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
-    
+    $(document).ready(function() {//網頁載入,顯示活動區塊
+   	    favoriteornot(${recipe.recipeId});
+    });
+    //是否按過讚
+    function favoriteornot(recipeId){
+    	var replyjson=JSON.stringify(recipeId);
+		$.ajax({
+			url:"${contextRoot}/recipe/favor",
+			contentType:'application/json',//送出資料型態
+			dataType:'json',//回傳資料型態
+			method:'post',
+			data:replyjson,
+			success:function(result){
+				console.log(result);
+				if(result==true){
+					$("#favorite").addClass("color_red");
+				}
+			 },error:function(err){
+			 	console.log(err);
+		}
+    });
+}
+function addfavorite(recipeId){
+	str=0;
+	var replyjson=JSON.stringify(recipeId);
+	$.ajax({
+		url:"${contextRoot}/recipe/addfavor",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){
+			if(result==true){
+				$("#favorite").css("color","red");
+				str=Number($("#fanum").text())+1;
+				
+			}else{
+				$("#favorite").css("color","gray");
+				str=$("#fanum").text()-1;
+			}
+			$("#fanum").text(str);
+		 },error:function(err){
+		 	console.log(err);
+	}
+});
+}
     // 右方最新食譜
     var settings = {
   		  "url": "http://localhost:8090/cookblog/recipe/find/lastest",

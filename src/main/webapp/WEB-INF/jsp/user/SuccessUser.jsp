@@ -41,7 +41,7 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 </head>
-<body onload="Favorite();report()" >
+<!-- <body onload="Favorite();report()" > -->
 	<!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	<!-- Preloader End Here -->

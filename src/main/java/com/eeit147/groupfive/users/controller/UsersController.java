@@ -3,6 +3,7 @@ package com.eeit147.groupfive.users.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
@@ -34,6 +36,7 @@ import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
 import com.eeit147.groupfive.users.model.FollowDao;
+import com.eeit147.groupfive.users.model.FollowDto;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -43,7 +46,7 @@ import com.eeit147.groupfive.users.service.FollowService;
 import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
-//@SessionAttributes({ "loginUser", "result","updateUserResult" })
+@SessionAttributes({ "loginUser", "result","updateUserResult" })
 public class UsersController {
 	@Autowired
 	private UsersService UService;
@@ -90,7 +93,7 @@ public class UsersController {
 			if(permission == 1) {
 				return "index";
 			}else if(permission == 2) {
-				return "test/adminIndex";
+				return "index";
 			}		
 		}
 		return "redirect:/user/login";
@@ -98,9 +101,12 @@ public class UsersController {
 
 	// 會員登出
 	@GetMapping("/users/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		new Cookie();
+	public String logout(HttpSession session, SessionStatus sessionStatus) {
+		if(session.getAttribute("loginUser") != null){
+			session.removeAttribute("loginUser");
+			sessionStatus.setComplete();
+		}
+		
 		return "redirect:/user/login";
 	}
 
@@ -136,14 +142,14 @@ public class UsersController {
 		}
 		System.out.println(newuser);
 
-		model.addAttribute("loginUser", result);
-		if(permission ==1) {
-
-			return "redirect:/user/login";
-
-		} else if (permission ==2){
-			return "test/adminIndex";
-		}
+//		model.addAttribute("loginUser", result);
+//		if(permission ==1) {
+//
+//			return "redirect:/user/login";
+//
+//		} else if (permission ==2){
+//			return "test/adminIndex";
+//		}
 		return "redirect:/user/login";
 	}
 
@@ -398,12 +404,34 @@ public class UsersController {
 	}
 	//查詢追蹤使用者的頁面
 	@GetMapping("/follow.personal.controller")
-	public @ResponseBody List<Follow> findByUsers(Model m) {
-		Users session = (Users)m.getAttribute("loginUser");
-		System.out.println(session.getUserName());
-		List<Follow> follow = flService.findByUsers(session);
+	public @ResponseBody List<FollowDto>findByUsers(HttpSession session,Model m) {
+		Users usersession = (Users) m.getAttribute("loginUser");
+//		Users usersession = (Users) session.getAttribute("loginUser");
+		System.out.println(usersession.getUserName());
+		List<Follow> follow = flService.findByUsers(usersession);
+		List<FollowDto> list = new ArrayList();
+		//把使用者追蹤的人 一個個拿出來
+		 for(Follow element : follow) {
+			 int followCount = 0;
+			 int recipeCount = 0;
+			 int favoriteCount = 0;
+			 //把我追蹤的人 他追蹤的人 計算出來
+			 for(Follow e1 : element.getTrack().getFollow()) {
+				 followCount ++;
+			 }
+			 //把我追蹤的人 他的食譜 計算出來
+			 for(Recipe e2 : element.getTrack().getRecipe()) {
+				 System.out.println(e2.getRecipeId());
+				 recipeCount ++;
+			 }
+			 //把我追蹤的人 被案讚次數 計算出來
+			 for(Favorite e3 : element.getTrack().getFavorite()) {
+				 favoriteCount ++;
+			 }
+			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
+		 }
 //		m.addAttribute("follow", follow);
-		return follow;
+		return list;
 	}
 	//查詢收藏食譜的頁面
 	@GetMapping("/collect.personal.controller")

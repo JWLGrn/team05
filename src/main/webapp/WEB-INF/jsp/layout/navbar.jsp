@@ -46,6 +46,11 @@ height: 50px;
                                         </ul>
                                     </li>
                                     <li><a href="contact.html">關於我們</a></li>
+                                    
+                                    <c:if test="${loginUser.permission ==2}">
+                                    <li><a href="${contextRoot}/adminIndex">管理頁面</a>
+                                    </li>
+                                    </c:if>
                                 </ul>
                             </nav>
                         </div>
