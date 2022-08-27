@@ -4,10 +4,11 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${contextRoot}/css/typicons/typicons.css">
 <style>
-.size{
-border-radius:50%;
-width: 60px;
-height: 50px;
+.userimg{
+	object-fit:cover;
+	width: 40px;
+	height: 40px;
+	border-radius:50%;
 }
 
 </style>
@@ -69,7 +70,7 @@ height: 50px;
                                    	<li style="color:#ff4a52;">${loginUser.userName}</li>
                                     <li>
                                        <a href="${contextRoot}/users/logout" style="color: white"> <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <span class="flaticon-profile typcn typcn-user-outline" style="font-size:30px">&nbsp;</span>登出 </button></a> 
+                                            &nbsp;登出 </button></a> 
                                     </li>
                                     </c:if>
                                     
@@ -89,19 +90,6 @@ height: 50px;
                 </div>
             </div>
             <div class="header-bottom d-none d-lg-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 d-none d-lg-block">
-                        </div>
-                        <div class="col-lg-4 d-none d-lg-block">
-                            <div class="site-logo-desktop">
-                                <a href="${contextRoot}" class="main-logo"><img src="img/logo-dark.png" alt="Site Logo"></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                        </div>
-                    </div>
-                </div>
             </div>
         </header>
 

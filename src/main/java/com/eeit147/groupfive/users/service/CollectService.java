@@ -63,8 +63,9 @@ public class CollectService {
 	public Collect saveUserandRecipe(Collect collect) {
 		return cDao.save(collect);
 	}
+	
 	public List<RecipeDto> findCollectByUsers(Users users){
-		return  rService.changeRecipeToDto(rDao.findByCollectIn(cDao.findAll()));
+		return  rService.changeRecipeToDto(rDao.findByCollectIn(cDao.findByUsers(users)));
 //		return cDao.findByUsers(users);
 	}
 }

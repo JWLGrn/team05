@@ -34,7 +34,7 @@
             height: 250px;
         }
     	.inner-page-banner:before {
-    		background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, .5)),url("${contextRoot}/banner/recipebanner.jpg");
+    		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/recipebanner.jpg");
     		background-position: center;
             background-size: cover;
 		}
@@ -246,9 +246,12 @@
         </form>
     </div>
     <!-- Search Box End Here -->
+<<<<<<< HEAD
     <!-- Modal Start-->
     
     <!-- Modal End-->
+=======
+>>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->

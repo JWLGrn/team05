@@ -366,11 +366,13 @@ public class RecipeController {
 	}
 	
 	// 查看分類的食譜
-	@GetMapping("/categories/{category}")
-	public String findByCategory(@PathVariable("category")String category,Model m){
-		List<Recipe> recipes = rService.findByCategory(category);
-		m.addAttribute("recipes", recipes);
-		return "";
+	@GetMapping("/categories/{category}/{pageNumber}")
+	public String findByCategory(@PathVariable("category")String category,
+								 @PathVariable("pageNumber")Integer pageNumber, Model m){
+		 Page<Recipe> page = rService.findByCategory(category,pageNumber);
+		m.addAttribute("page", page);
+		m.addAttribute("category", category);
+		return "singlecategory";
 	}
 	
 	// 查看分類
@@ -395,8 +397,11 @@ public class RecipeController {
 		Optional<Recipe> optionalr = rDao.findById(recipeId);
 		Recipe recipe = optionalr.get();
 		Optional<Users> optionalu = uDao.findById(userId);
-		Users user = optionalu.get();
-		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);
+		Users oneUser = new Users();
+		if(optionalu.isPresent()) {
+			oneUser = optionalu.get();
+		}
+		boolean favor = fDao.existsByUsersAndRecipe(oneUser,recipe);
 		return favor;
 	}
 	//按追蹤

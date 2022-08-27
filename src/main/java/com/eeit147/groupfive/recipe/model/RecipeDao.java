@@ -3,6 +3,8 @@ package com.eeit147.groupfive.recipe.model;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -58,6 +60,6 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public List<Recipe> findTop5ByOrderByDateDesc();
 	
-	public List<Recipe> findByRecipeKeywordIn(List<RecipeKeyword> recipeKeyword);
+	public Page<Recipe> findByRecipeKeywordIn(List<RecipeKeyword> recipeKeyword,Pageable pageable);
 	public Set<Recipe> findByCollectIn(List<Collect> collect);
 }

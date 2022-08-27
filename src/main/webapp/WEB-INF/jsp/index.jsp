@@ -35,20 +35,26 @@
     <style type="text/css">
     	.imgcut{
 			height:500px;
-			overflow:hidden;
+			object-fit: cover;
 		}
 
         .obfit{
-            object-fit: contain;
+            object-fit: cover;
             width: 300px;
             height: 200px;
             vertical-align: middle;
         }
         .obfit2{
-            object-fit: contain;
+            object-fit: cover;
             width: 350px;
             height: 250px;
             vertical-align: middle;
+        }
+        .flaticon-back{
+        	font-size:30px
+        }
+        .flaticon-next{
+        	font-size:30px
         }
     </style>
 </head>
@@ -67,6 +73,7 @@
         <jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- 首頁輪播 -->
+        <div style="background-color:#F0F0F0;padding-top:25px;">
         <section class="ranna-slider-area">
             <div class="container">      
                 <div class="rc-carousel nav-control-layout2" id="figureList" data-loop="true" data-items="30" data-margin="5"
@@ -84,7 +91,7 @@
         <!-- 首頁輪播 -->
 
         <!-- 最多人收藏 -->
-        <section class="padding-bottom-45" id="cllectScrollRecipe">
+        <section class="padding-bottom-45" id="cllectScrollRecipe" style="display:none;">
             <div class="container">
                 <div class="ranna-box-style">
                     <div class="section-heading heading-dark">
@@ -99,7 +106,7 @@
         </section>
         <!-- 最多人收藏 -->
         <!-- 最多人收藏 -->
-        <section class="padding-bottom-45" id="favorScrollRecipe">
+        <section class="padding-bottom-45" id="favorScrollRecipe" style="display:none;">
             <div class="container">
                 <div class="ranna-box-style">
                     <div class="section-heading heading-dark">
@@ -114,7 +121,7 @@
         </section>
         <!-- 最多人收藏 -->
         <!-- 隨機推播 -->
-        <section class="padding-bottom-45" id="randomScrollRecipe">
+        <section class="padding-bottom-45" id="randomScrollRecipe" style="display:none;">
         
             <div class="container">
             <div class="section-heading heading-dark">
@@ -126,6 +133,7 @@
             </div>
         </section>
         <!-- 隨機推播 -->
+        </div>
         <!-- Popular Recipe Start Here -->
         <!-- Footer Area Start Here -->
         <jsp:include page="layout/footer.jsp"/>
@@ -140,45 +148,6 @@
         </form>
     </div>
     <!-- Search Box End Here -->
-    <!-- Modal Start-->
-<!--     先不要用?????? 想到再說 -->
-<!--     <div class="modal fade" id="myModal" role="dialog"> -->
-<!--         <div class="modal-dialog"> -->
-<!--             <div class="modal-content"> -->
-<!--                 <div class="modal-header"> -->
-<!--                     <div class="title-default-bold mb-none" >Login</div> -->
-<!-- <!--                     /user/login --> -->
-<!--                     <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!--                 </div> -->
-<!--                 <div class="modal-body"> -->
-<%--                     <form class="login-form"> --%>
-<!--                         <input class="main-input-box" type="text" placeholder="User Name" /> -->
-<!--                         <input class="main-input-box" type="password" placeholder="Password" /> -->
-<!--                         <div class="inline-box mb-5 mt-4"> -->
-<!--                             <div class="checkbox checkbox-primary"> -->
-<!--                                 <input id="modal-checkbox" type="checkbox"> -->
-<!--                                 <label for="modal-checkbox">Remember Me</label> -->
-<!--                             </div> -->
-<!--                             <label class="lost-password"><a href="#">Lost your password?</a></label> -->
-<!--                         </div> -->
-<!--                         <div class="inline-box mb-5 mt-4"> -->
-<!--                             <button class="btn-fill" type="submit" value="Login">Login</button> -->
-<!--                             <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
-<!--                         </div> -->
-<%--                     </form> --%>
-<!--                     <label>Login connect with your Social Network</label> -->
-<!--                     <div class="login-box-social"> -->
-<!--                         <ul> -->
-<!--                             <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li> -->
-<!--                             <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li> -->
-<!--                             <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li> -->
-<!--                             <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li> -->
-<!--                         </ul> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -198,17 +167,17 @@
     <script>
     	$(document).scroll(function() {
     	  	var y = $(this).scrollTop();
-    	  	if (y > 300) {
+    	  	if (y > 150) {
     	  		$('#cllectScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#cllectScrollRecipe').fadeOut(900);
     	  	}
-    	  	if (y > 700) {
+    	  	if (y > 625) {
     	  		$('#favorScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#favorScrollRecipe').fadeOut(900);
     	  	}
-    	  	if (y > 1150) {
+    	  	if (y > 1200) {
     	  		$('#randomScrollRecipe').fadeIn(900);
     	  	} else {
     	    	$('#randomScrollRecipe').fadeOut(900);
@@ -283,7 +252,7 @@
                 smartSpeed: (smartSpeed ? smartSpeed : 250),
                 dots: (dots ? true : false),
                 nav: (nav ? true : false),
-                navText: ['<i class="flaticon-back" aria-hidden="true"></i>', '<i class="flaticon-next" aria-hidden="true"></i>'],
+                navText: ['<span class="flaticon-back typcn typcn-chevron-left" aria-hidden="true"></span>', '<span class="flaticon-next typcn typcn-chevron-right" aria-hidden="true"></span>'],
                 navSpeed: (navSpeed ? true : false),
                 center: (center ? true : false),
                 responsiveClass: true,

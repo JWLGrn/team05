@@ -2,7 +2,10 @@ package com.eeit147.groupfive.users.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -137,12 +140,27 @@ public class UsersController {
 		user.setUserPhoto(userId + ".jpeg");
 		Users result = UService.insertUser(user);
 		System.out.println(result);
-		try {
-			//上傳照片到指定路徑 並取名為userid.jpeg
-			file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(!file.isEmpty()) {
+				try {
+					//上傳照片到指定路徑 並取名為userid.jpeg
+					file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}else {
+			try {
+				//若無上傳圖片則使用預設圖片
+				InputStream fis = new FileInputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\user.png"));
+				OutputStream fos = new FileOutputStream(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
+				fos.write(fis.readAllBytes());
+				fos.flush();
+				fos.close();
+				fis.close();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
 		}
+		
 		System.out.println(newuser);
 
 //		model.addAttribute("loginUser", result);
@@ -203,11 +221,14 @@ public class UsersController {
 		Integer userId = user.getUserId();
 		user.setUserPhoto(userId + ".jpeg");
 		Users updateUserResult = UService.insertUser(user);
-		try {
+		if(!file.isEmpty()) {
+			try {
 			file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\users\\" + userId + ".jpeg"));
-		} catch (Exception e) {
+			} catch (Exception e) {
 			e.printStackTrace();
+			}
 		}
+		
 		System.out.println(updateUser);
 
 		model.addAttribute("loginUser", updateUserResult);
@@ -415,22 +436,25 @@ public class UsersController {
 		List<FollowDto> list = new ArrayList();
 		//把使用者追蹤的人 一個個拿出來
 		 for(Follow element : follow) {
-			 int followCount = 0;
-			 int recipeCount = 0;
-			 int favoriteCount = 0;
-			 //把我追蹤的人 他追蹤的人 計算出來
-			 for(Follow e1 : element.getTrack().getFollow()) {
-				 followCount ++;
-			 }
-			 //把我追蹤的人 他的食譜 計算出來
-			 for(Recipe e2 : element.getTrack().getRecipe()) {
-				 System.out.println(e2.getRecipeId());
-				 recipeCount ++;
-			 }
-			 //把我追蹤的人 被案讚次數 計算出來
-			 for(Favorite e3 : element.getTrack().getFavorite()) {
-				 favoriteCount ++;
-			 }
+			 int followCount = element.getTrack().getFollow().size();
+			 int recipeCount = element.getTrack().getRecipe().size();
+			 int favoriteCount = element.getTrack().getFavorite().size();
+//			 int followCount = 0;
+//			 int recipeCount = 0;
+//			 int favoriteCount = 0;
+//			 //把我追蹤的人 他追蹤的人 計算出來
+//			 for(Follow e1 : element.getTrack().getFollow()) {
+//				 followCount ++;
+//			 }
+//			 //把我追蹤的人 他的食譜 計算出來
+//			 for(Recipe e2 : element.getTrack().getRecipe()) {
+//				 System.out.println(e2.getRecipeId());
+//				 recipeCount ++;
+//			 }
+//			 //把我追蹤的人 被案讚次數 計算出來
+//			 for(Favorite e3 : element.getTrack().getFavorite()) {
+//				 favoriteCount ++;
+//			 }
 			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
 		 }
 //		m.addAttribute("follow", follow);
