@@ -4,10 +4,11 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${contextRoot}/css/typicons/typicons.css">
 <style>
-.size{
-border-radius:50%;
-width: 60px;
-height: 50px;
+.userimg{
+	object-fit:cover;
+	width: 40px;
+	height: 40px;
+	border-radius:50%;
 }
 
 </style>

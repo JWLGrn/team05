@@ -57,7 +57,7 @@ public class adminUsersController {
 		au.setEmail(email);
 		au.setPassword(password);
 		au.setPermission(permission);
-//		au.setUserPhoto(photopath);
+		
 		
 		aService.insertUser(au);
 		model.addAttribute("allUsers",uDao.findAll() );
