@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="icon" href="${contextRoot}/css/favicon.png">
+<link rel="shortcut icon" href="favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -82,7 +82,7 @@ height:115px;
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Welcome ${loginUser.userName}</h1>
+							 <h1>Welcome ${showUserPage.userName}</h1> 
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -121,48 +121,7 @@ height:115px;
                                 <div id="showblock">
                                     <div id="pageList"></div>
                             <div class="table-responsive">
-<!--                            重複結構  ------------------------------------------------------------ -->
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <th>
-                                                <div class="author-personal-info">
-                                                    <a href="#" class="item-figure"><img src="img/blog/author2.jpg" alt="Author"></a>
-                                                    <div class="item-content">
-                                                        <div class="item-title"><a href="#">Mark Willy</a></div>
-                                                        <div class="item-designation">Dessert Specialist</div>
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <td>
-                                                <div class="author-social-info">
-                                                    <ul>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Recipes</h4>
-                                                                <span class="item-number">15</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Reviews</h4>
-                                                                <span class="item-number">29</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Favourite</h4>
-                                                                <span class="item-number">35+</span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                     
-                                    </tbody>
-                                </table>
-<!--                                 -------------------------------------- -->
+
                             </div>
                             </div>
                         </div>
@@ -170,13 +129,14 @@ height:115px;
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">Welcome ${loginUser.userName }</h3>
+								 <h3 class="item-heading">Welcome ${showUserPage.userName }</h3>
                             </div>
                             <div class="widget-about">
-                                <figure class="author-figure"><img src="${contextRoot}/users/${loginUser.userPhoto}" alt="about" class="obfit"></figure>
+  								<figure class="author-figure"><img src="${contextRoot}/users/${showUserPage.userPhoto}" alt="about" class="obfit"></figure>
 <!--                                 <figure class="author-signature"><img src="img/figure	/signature.png" alt="about"></figure> -->
 <!--                                  <img class="userimg size" style="border-radius: 50%;" alt="about" src="${contextRoot}/users/${loginUser.userPhoto}"> -->
-                            </div>
+  
+                              </div>
                         </div>
                         <div class="widget">
                             <div class="section-heading heading-dark">
@@ -214,60 +174,6 @@ height:115px;
 
 
 <!-- ----------------------------------------------------------------------------------------------- -->
-
-
-<script>
-function Favorite()
-{
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-var content ='';
-             var recipe=JSON.parse(xhr.responseText);
-             for(var i =0;i<recipe.length;i++){
-            	 content+= '<a href="' + "${contextRoot}/favorite?recipe_id="+recipe[i].recipeId+"&&user_id=${loginUser.userId }" + '">'
-            	 +'<img src="break.jpg" width="40">'+ 
-            	 recipe[i].cookTitle + '</a>';
-            	 console.log(recipe[i].recipeId);
-             }
-             document.getElementById("myDiv").innerHTML=content;
-  }
-});
-
-xhr.open("GET", "http://localhost:8090/cookblog/finder",true);
-
-xhr.send();
-}
-
-function report(){
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-
-	xhr.addEventListener("readystatechange", function() {
-	  if(this.readyState === 4) {
-		  var content ='';
-		  var report=JSON.parse(xhr.responseText);
-		  for(var i =0;i<report.length;i++){
-		  content+= '<a href="' + "${contextRoot}/users/report?user_id="+report[i].userId+"&&user_id=${loginUser.userId }" + '">'
-     	 +'<img src="report.jpg" width="40">'+ 
-     	report[i].userName + '</a>';
-	    console.log(this.responseText);
-	    content+='<a>'
-	    document.getElementById("findUser").innerHTML=content;
-		  }
-	  }
-	});
-
-	xhr.open("GET", "http://localhost:8090/cookblog/findUsers",true);
-
-	xhr.send();
-}
-</script>	
-	
-		
-
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 		<!-- Bootstrap Js -->
 		<script src="${contextRoot}/js/popper.min.js"></script>
@@ -291,8 +197,9 @@ function report(){
 
     //查詢個人食譜
      function myrecipe(){
+    let recipeurlStr="${contextRoot}/user/findrecipeuser/'+${recipe}+'"	
 	var settings = {
-			  "url": "http://localhost:8090/cookblog/recipe.personal.controller",
+    		  "url": "http://localhost:8090/cookblog/recipe.personal.controller"
 			  "method": "GET",
 			  "timeout": 0,
 			};

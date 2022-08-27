@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+=======
+>>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.recipe.model.RecipeDto;
+import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.users.model.Collect;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
@@ -67,6 +71,8 @@ public class UsersController {
 	private FollowService flService;
 	@Autowired
 	private CollectService cService;
+	@Autowired
+	private RecipeService rService;
 
 	// 載入登入頁面
 	@GetMapping("/user/login")
@@ -426,12 +432,12 @@ public class UsersController {
 			return re;
 		}
 	}
-	//查詢追蹤使用者的頁面
+	//利用session查詢追蹤使用者的頁面
 	@GetMapping("/follow.personal.controller")
-	public @ResponseBody List<FollowDto>findByUsers(HttpSession session,Model m) {
+	public @ResponseBody List<FollowDto>findByUsers(Model m) {
 		Users usersession = (Users) m.getAttribute("loginUser");
-//		Users usersession = (Users) session.getAttribute("loginUser");
 		System.out.println(usersession.getUserName());
+<<<<<<< HEAD
 		List<Follow> follow = flService.findByUsers(usersession);
 		List<FollowDto> list = new ArrayList();
 		//把使用者追蹤的人 一個個拿出來
@@ -458,8 +464,12 @@ public class UsersController {
 			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
 		 }
 //		m.addAttribute("follow", follow);
+=======
+		List<FollowDto> list = flService.findByUsers(usersession);
+>>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 		return list;
 	}
+	
 	//查詢收藏食譜的頁面
 	@GetMapping("/collect.personal.controller")
 	public  @ResponseBody List<RecipeDto> findCollectByUsers(Model m){
@@ -468,5 +478,29 @@ public class UsersController {
 //		m.addAttribute("collect", collect);
 		return collect;
 	}
-	
+	//利用id查詢被追蹤者的追蹤使用者頁面
+	@GetMapping("/user/findfollowuser/{userid}")
+	@ResponseBody
+	public  List<FollowDto> useridfindByFollerUsers(@PathVariable("userid")Integer id,Model m){
+		Users user = UService.findUsersById(id);
+		List<FollowDto> followlist = flService.findByUsers(user);
+		return followlist;
+	}
+	//利用id查詢被追蹤者的收藏頁面
+	@GetMapping("/user/findcollectuser/{userid}")
+	@ResponseBody
+	public  List<RecipeDto> useridfindByCollectUsers(@PathVariable("userid")Integer id,Model m){
+		Users user = UService.findUsersById(id);
+		List<RecipeDto> collectlist = cService.findCollectByUsers(user);
+		return collectlist;
+	}
+	//利用id查詢被追蹤者的個人食譜頁面
+	@GetMapping("/user/findrecipeuser/{userid}")
+	@ResponseBody
+	public  List<Recipe> useridfindByRecipeUsers(@PathVariable("userid")Integer id,Model m) {
+		Users user = UService.findUsersById(id);
+		List<Recipe> recipelist = rService.findRecipeByUserId(user);
+		m.addAttribute("recipe", user);
+		return recipelist ;
+	}
 }
