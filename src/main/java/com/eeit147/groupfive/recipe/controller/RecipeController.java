@@ -42,6 +42,7 @@ import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.service.UsersService;
 
 
 @Controller
@@ -61,6 +62,8 @@ public class RecipeController {
 	private KeywordService kService;
 	@Autowired
 	private FavoriteDao fDao;
+	@Autowired
+	private UsersService uService;
 	//測試
 	Integer userId;
 	Integer recipeId;
@@ -448,5 +451,14 @@ public class RecipeController {
 //			return true;
 //		}
 		return true;
+	}
+	// 查詢個人食譜
+	@GetMapping("/user/find/{userid}")
+	public  String  findRecipeByUserId(@PathVariable("userid") Integer id,Model m) {
+		System.out.println(id+"============================================================================================================");
+		 Users userList = uService.findOneUserById(id);
+		m.addAttribute("showUserPage", userList);
+		return "user/showUserPage" ;
+//		return userList;
 	}
 }

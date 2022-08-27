@@ -31,6 +31,8 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 	
 	//查詢User By 多筆食譜
 	public List<Users> findByRecipeIn(List<Recipe> recipes);
+
+	public List<Users> findByUserId(Integer id);
 	
 	
 	
