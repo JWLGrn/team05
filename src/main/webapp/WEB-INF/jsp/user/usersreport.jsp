@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -86,7 +86,7 @@ border-radius: 45px;
 				<div class="col-lg-8">
 					<div class="login-box-layout1">
 						<div class="section-heading heading-dark">
-							<h2 class="item-heading">REPORT NUMBER</h2>
+							<h2 class="item-heading">REPORT MEMBER</h2>
 						</div>
 						<form action="${contextRoot}/users/reportSuccess" method="get">
                         <input name="reportStatus" type="hidden" value="未受理"><br>
@@ -95,7 +95,7 @@ border-radius: 45px;
                         <input name="reportTime" type="hidden" value=" ${date }"><br>
 							<div class="row">
 								<div class="col-md-6">
-									<label class="mb-3">Number Name</label>
+									<label class="mb-3">Member Name</label>
 						檢舉類型:<select name="reportType" class="main-input-box" >
                                       <option selected="selected" disabled="disabled"  >請選擇</option>
                                       <option value="不實料理">不實料理</option>

@@ -50,8 +50,6 @@ public class TestOrderString {
 
 			}
 		}
-//		orderService service = new orderServiceImpl();
-//		service.updateOrderAfterCheckout(TradeNoDB, PaymentDate, mAccount);
 
 	}
 

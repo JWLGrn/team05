@@ -41,6 +41,7 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 </head>
+<body>
 <!-- <body onload="Favorite();report()" > -->
 	<!-- Preloader Start Here -->
 	<div id="preloader"></div>
@@ -75,66 +76,58 @@
 		<!-- Submit Recipe Area Start Here -->
 		<!--         <section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50"> -->
 		<!--             <div class="container"> -->
-<%-- <img  src="users/${loginUser.userPhoto}" width="300"><br> --%>
-<%-- ${loginUser.getUserName() } --%>
-<!-- <div ></div> -->
-<!-- <button type="button" onclick="Favorite()" >食譜ID</button> -->
-<!-- 案讚測試功能:<div  id="myDiv"></div> -->
-<!-- 檢舉測試功能:<div id="findUser"></div> -->
- 
-<%-- 查看User資料測試:${loginUser }<br> --%>
-<%-- 檢舉資料${report } --%>
- 
-<script>
-function Favorite()
-{
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+		<!-- Inne Page Banner Area End Here -->
+        <!-- Recipe With Sidebar Area Start Here -->
 
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-var content ='';
-             var recipe=JSON.parse(xhr.responseText);
-             for(var i =0;i<recipe.length;i++){
-            	 content+= '<a href="' + "${contextRoot}/favorite?recipe_id="+recipe[i].recipeId+"&&user_id=${loginUser.userId }" + '">'
-            	 +'<img src="break.jpg" width="40">'+ 
-            	 recipe[i].cookTitle + '</a>';
-            	 console.log(recipe[i].recipeId);
-             }
-             document.getElementById("myDiv").innerHTML=content;
-  }
-});
-
-xhr.open("GET", "http://localhost:8090/cookblog/finder",true);
-
-xhr.send();
-}
-
-function report(){
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-
-	xhr.addEventListener("readystatechange", function() {
-	  if(this.readyState === 4) {
-		  var content ='';
-		  var report=JSON.parse(xhr.responseText);
-		  for(var i =0;i<report.length;i++){
-		  content+= '<a href="' + "${contextRoot}/users/report?user_id="+report[i].userId+"&&user_id=${loginUser.userId }" + '">'
-     	 +'<img src="report.jpg" width="40">'+ 
-     	report[i].userName + '</a>';
-	    console.log(this.responseText);
-	    content+='<a>'
-	    document.getElementById("findUser").innerHTML=content;
-		  }
-	  }
-	});
-
-	xhr.open("GET", "http://localhost:8090/cookblog/findUsers",true);
-
-	xhr.send();
-}
-
-</script>
+<!-- 		-------------------------------------------------------------------------------- -->
+<section class="login-page-wrap padding-top-80 padding-bottom-50">
+			<div class="container">
+				<div class="row gutters-60">
+					<div class="col-lg-8">
+						<div class="login-box-layout1">
+							<div class="section-heading heading-dark">
+								<h2 class="item-heading">DONATION</h2>
+								<p>依據衛生福利部最新公布，2021年各縣市最低生活費標準，也就是俗稱的「貧窮線」，6都除了台中市、桃園市沒調整，台北市、新北市、高雄市和台南市都調高。但依據全球貧窮率報告指出，台灣法定貧窮人口比率為1.5%，而韓國貧窮人口率 14.61%，日本 16.1%，香港 19.6%，美國 15.1 %，台灣不到這些國家的 1/10。如與經濟情況、貧富差距和台灣相似的韓國貧窮人口相較，台灣真實貧窮人口應是現在法定貧窮人口的10倍，差距達320萬人，是應受政府補助的，也是我們所謂的「社福邊緣戶」！
+                                   為了救助生活在最底層的經濟弱勢家庭，基督教救助協會除原有已執行之「重大災難救助」、「急難家庭救助」、
+                                  「弱勢家庭兒童課後陪讀」等服務外，再推出「1919食物銀行」。定期提供經濟弱勢家庭基本民生必需品，以減少其日常生活開支，進而將有限的金錢，
+                                   運用在孩童教育、醫療等方面，改善生活品質。2010年12月第一次試辦物資發放，2011年4月正式於高雄、屏東、台東等「八八災區」開始展開服務，
+                                   至今救助範團已遍及全台，每個月幫助近5000個家庭。
+								</p>
+							</div>
+							<form action="${contextRoot}/ecpay" method="post" class="login-form">
+								<div class="row">
+									<div class="col-md-6">
+<%-- 									<input type="hidden"    name="${loginUser.userId}"  id="${loginUser.userId}" class="main-input-box"><br />  --%>
+									<label class="mb-3">Name</label> 
+										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入名字"><br /> 
+									<label class="mb-3">Phone</label> 
+										<input type="text"  required="required"  name="phone"  id="phone" class="main-input-box"placeholder="請輸入電話"><br /> 
+										<label class="mb-3">Address</label> 
+										<input type="text"  required="required"  name="address"  id="address" class="main-input-box"placeholder="請輸入地址"><br /> 
+										
+										<label class="mb-3">Donation</label> 
+										<input type="text"  required="required"  name="price"  id="price" class="main-input-box"placeholder="請輸入金額"><br /> 
+										<label class="mb-3">Email</label> 
+										<input type="email" name="email" id="email"class="main-input-box" placeholder="請輸入信箱"><span id="msg"></span><br />
+										<input type="hidden" name="user_id"><br /> 
+										<input type=hidden name="permission" value="1" placeholder="1" id="permission">
+										<!-- 			<i class="fa fa-check" -->
+										<!-- 			aria-hidden="true"></i> -->
+										<div class="btn-area">
+											<button type="submit" class="btn-fill btn-primary">
+												送出<i class="flaticon-next"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+<!-- 		-------------------------------------------------------------------- -->
 <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 		<!-- Bootstrap Js -->
 		<script src="${contextRoot}/js/popper.min.js"></script>
@@ -152,7 +145,6 @@ function report(){
 		<script src="${contextRoot}/js/smoothscroll.min.js"></script>
 		<!-- Custom Js -->
 		<script src="${contextRoot}/js/main.js"></script>
-
 
 </body>
 </html>

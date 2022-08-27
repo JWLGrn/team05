@@ -45,8 +45,8 @@ height: 50px;
                                             <li><a href="single-blog.html">　Blog Details</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">關於我們</a></li>
-                                    
+                                    <li><a href="${contextRoot}/aboutus">關於我們</a></li>
+                                    <li><a href="${contextRoot}/donation">贊助</a></li>
                                     <c:if test="${loginUser.permission ==2}">
                                     <li><a href="${contextRoot}/adminIndex">管理頁面</a>
                                     </li>

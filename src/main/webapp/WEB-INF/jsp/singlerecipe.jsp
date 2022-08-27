@@ -14,7 +14,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
+<<<<<<< HEAD
 <!--     <link rel="shortcut icon" href="favicon.png"> -->
+=======
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
+>>>>>>> 0827Green
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->

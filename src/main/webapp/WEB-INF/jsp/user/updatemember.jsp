@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -90,7 +90,7 @@
 
 							<div class="row">
 								<div class="col-md-6">
-									<label class="mb-3">Number Name</label> <input
+									<label class="mb-3">Mmeber Name</label> <input
 										placeholder="請輸入姓名" type="text" value="${loginUser.userName }"
 										name="user_name" class="main-input-box"><br /> <label
 										class="mb-3">Email Address</label> 信箱:<input type="email"
@@ -98,10 +98,18 @@
 										class="main-input-box" placeholder="請輸入信箱"><br /> <label
 										class="mb-3">Password</label> <input type="password"
 										value="${loginUser.password }" name="password"
+<<<<<<< HEAD
 										class="main-input-box" placeholder="請輸入密碼"><br /> <label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView"/>
    										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
 									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 										
+=======
+										class="main-input-box" placeholder="請輸入密碼"><br /> <label
+										class="mb-3">Member Photo</label> <input type="file"
+										name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
+									<input type=hidden name="permission" value="1" placeholder="1"
+										id="permission">
+>>>>>>> 0827Green
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
@@ -121,8 +129,7 @@
 		</div>
 	</section>
 	<!-- 		------------------------------------------------------------ -->
-	${loginUser }
-	<br>
+		
 	<!-- ------------------------------------------------- -->
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<!-- Bootstrap Js -->
