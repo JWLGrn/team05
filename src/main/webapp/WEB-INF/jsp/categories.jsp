@@ -75,10 +75,10 @@
 				<c:forEach items="${category}" var="cate">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="category-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html">
+                            <figure class="item-figure"><a href="${contextRoot}/categories/${cate.keyword}/1">
                             <img src="${contextRoot}/category/${cate.keywordPhoto}" alt="Product" class="recipeImg"></a></figure>
                             <div class="item-content">
-                                <h3 class="item-title"><a href="single-recipe1.html">${cate.keyword}</a></h3>
+                                <h3 class="item-title"><a href="${contextRoot}/categories/${cate.keyword}/1">${cate.keyword}</a></h3>
                                 <span class="sub-title"> ${fn:length(cate.recipeKeyword)} 道食譜</span>
                             </div>
                         </div>

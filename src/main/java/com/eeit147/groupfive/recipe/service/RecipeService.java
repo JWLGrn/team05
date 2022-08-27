@@ -494,12 +494,13 @@ public class RecipeService {
 	}
 	
 	// 查詢食譜by類別
-	public List<Recipe> findByCategory(String category){
+	public Page<Recipe> findByCategory(String category,Integer pageNumber){
 		String[] categories = {category};
 		List<Keyword> keyword = kDao.findByKeywordIn(categories);
 		List<RecipeKeyword> rKeyword = rkDao.findByKeywordIn(keyword);
-		List<Recipe> recipes = rDao.findByRecipeKeywordIn(rKeyword);
-		return recipes;
+		PageRequest page = PageRequest.of(pageNumber-1, 9, Sort.Direction.DESC, "date");
+		Page<Recipe> pages = rDao.findByRecipeKeywordIn(rKeyword,page);
+		return pages;
 	}
 	
 }

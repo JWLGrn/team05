@@ -361,11 +361,13 @@ public class RecipeController {
 	}
 	
 	// 查看分類的食譜
-	@GetMapping("/categories/{category}")
-	public String findByCategory(@PathVariable("category")String category,Model m){
-		List<Recipe> recipes = rService.findByCategory(category);
-		m.addAttribute("recipes", recipes);
-		return "";
+	@GetMapping("/categories/{category}/{pageNumber}")
+	public String findByCategory(@PathVariable("category")String category,
+								 @PathVariable("pageNumber")Integer pageNumber, Model m){
+		 Page<Recipe> page = rService.findByCategory(category,pageNumber);
+		m.addAttribute("page", page);
+		m.addAttribute("category", category);
+		return "singlecategory";
 	}
 	
 	// 查看分類

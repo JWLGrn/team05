@@ -50,6 +50,12 @@
             height: 250px;
             vertical-align: middle;
         }
+        .flaticon-back{
+        	font-size:30px
+        }
+        .flaticon-next{
+        	font-size:30px
+        }
     </style>
 </head>
 <body>
@@ -147,11 +153,11 @@
 <!--             <div class="modal-content"> -->
 <!--                 <div class="modal-header"> -->
 <!--                     <div class="title-default-bold mb-none" >Login</div> -->
-<!-- <!--                     /user/login --> -->
+<!--                      /user/login -->
 <!--                     <button type="button" class="close" data-dismiss="modal">&times;</button> -->
 <!--                 </div> -->
 <!--                 <div class="modal-body"> -->
-<%--                     <form class="login-form"> --%>
+<!--                     <form class="login-form"> --!>
 <!--                         <input class="main-input-box" type="text" placeholder="User Name" /> -->
 <!--                         <input class="main-input-box" type="password" placeholder="Password" /> -->
 <!--                         <div class="inline-box mb-5 mt-4"> -->
@@ -165,7 +171,7 @@
 <!--                             <button class="btn-fill" type="submit" value="Login">Login</button> -->
 <!--                             <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
 <!--                         </div> -->
-<%--                     </form> --%>
+<!--                     </form> --!>
 <!--                     <label>Login connect with your Social Network</label> -->
 <!--                     <div class="login-box-social"> -->
 <!--                         <ul> -->
@@ -283,7 +289,7 @@
                 smartSpeed: (smartSpeed ? smartSpeed : 250),
                 dots: (dots ? true : false),
                 nav: (nav ? true : false),
-                navText: ['<i class="flaticon-back" aria-hidden="true"></i>', '<i class="flaticon-next" aria-hidden="true"></i>'],
+                navText: ['<span class="flaticon-back typcn typcn-chevron-left" aria-hidden="true"></span>', '<span class="flaticon-next typcn typcn-chevron-right" aria-hidden="true"></span>'],
                 navSpeed: (navSpeed ? true : false),
                 center: (center ? true : false),
                 responsiveClass: true,
