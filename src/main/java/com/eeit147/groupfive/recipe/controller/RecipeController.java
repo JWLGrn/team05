@@ -44,11 +44,8 @@ import com.eeit147.groupfive.users.model.FollowDao;
 import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
-<<<<<<< HEAD
 import com.eeit147.groupfive.users.service.FollowService;
-=======
 import com.eeit147.groupfive.users.service.UsersService;
->>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 
 
 @Controller
@@ -69,11 +66,8 @@ public class RecipeController {
 	@Autowired
 	private FavoriteDao fDao;
 	@Autowired
-<<<<<<< HEAD
 	private FollowService fServics;
-=======
 	private UsersService uService;
->>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 	//測試
 	Integer userId;
 	Integer recipeId;
@@ -459,7 +453,6 @@ public class RecipeController {
 		boolean result=fServics.existsByUsersAndTrack(user, track);
 		return result;
 	}
-<<<<<<< HEAD
 	//addfollow
 		@ResponseBody@PostMapping("/recipe/addfollow")
 		public boolean addfollow(@RequestBody Integer recipeId,Model m) {
@@ -489,7 +482,6 @@ public class RecipeController {
 			
 			return result;
 		}
-=======
 	// 查詢個人食譜
 	@GetMapping("/user/find/{userid}")
 	public  String  findRecipeByUserId(@PathVariable("userid") Integer id,Model m) {
@@ -499,5 +491,4 @@ public class RecipeController {
 		return "user/showUserPage" ;
 //		return userList;
 	}
->>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 }

@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-=======
->>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -433,42 +430,39 @@ public class UsersController {
 		}
 	}
 	//利用session查詢追蹤使用者的頁面
-	@GetMapping("/follow.personal.controller")
-	public @ResponseBody List<FollowDto>findByUsers(Model m) {
-		Users usersession = (Users) m.getAttribute("loginUser");
-		System.out.println(usersession.getUserName());
-<<<<<<< HEAD
-		List<Follow> follow = flService.findByUsers(usersession);
-		List<FollowDto> list = new ArrayList();
-		//把使用者追蹤的人 一個個拿出來
-		 for(Follow element : follow) {
-			 int followCount = element.getTrack().getFollow().size();
-			 int recipeCount = element.getTrack().getRecipe().size();
-			 int favoriteCount = element.getTrack().getFavorite().size();
-//			 int followCount = 0;
-//			 int recipeCount = 0;
-//			 int favoriteCount = 0;
-//			 //把我追蹤的人 他追蹤的人 計算出來
-//			 for(Follow e1 : element.getTrack().getFollow()) {
-//				 followCount ++;
-//			 }
-//			 //把我追蹤的人 他的食譜 計算出來
-//			 for(Recipe e2 : element.getTrack().getRecipe()) {
-//				 System.out.println(e2.getRecipeId());
-//				 recipeCount ++;
-//			 }
-//			 //把我追蹤的人 被案讚次數 計算出來
-//			 for(Favorite e3 : element.getTrack().getFavorite()) {
-//				 favoriteCount ++;
-//			 }
-			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
-		 }
-//		m.addAttribute("follow", follow);
-=======
-		List<FollowDto> list = flService.findByUsers(usersession);
->>>>>>> 511fc90caa09ddd077912e56a118d6d736ecd3b4
-		return list;
-	}
+//	@GetMapping("/follow.personal.controller")
+//	public @ResponseBody List<FollowDto>findByUsers(Model m) {
+//		Users usersession = (Users) m.getAttribute("loginUser");
+//		System.out.println(usersession.getUserName());
+//		List<Follow> follow = flService.findByUsers(usersession);
+//		List<FollowDto> list = new ArrayList();
+//		//把使用者追蹤的人 一個個拿出來
+//		 for(Follow element : follow) {
+//			 int followCount = element.getTrack().getFollow().size();
+//			 int recipeCount = element.getTrack().getRecipe().size();
+//			 int favoriteCount = element.getTrack().getFavorite().size();
+////			 int followCount = 0;
+////			 int recipeCount = 0;
+////			 int favoriteCount = 0;
+////			 //把我追蹤的人 他追蹤的人 計算出來
+////			 for(Follow e1 : element.getTrack().getFollow()) {
+////				 followCount ++;
+////			 }
+////			 //把我追蹤的人 他的食譜 計算出來
+////			 for(Recipe e2 : element.getTrack().getRecipe()) {
+////				 System.out.println(e2.getRecipeId());
+////				 recipeCount ++;
+////			 }
+////			 //把我追蹤的人 被案讚次數 計算出來
+////			 for(Favorite e3 : element.getTrack().getFavorite()) {
+////				 favoriteCount ++;
+////			 }
+//			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
+//		 }
+////		m.addAttribute("follow", follow);
+//		List<FollowDto> list = flService.findByUsers(usersession);
+//		return list;
+//	}
 	
 	//查詢收藏食譜的頁面
 	@GetMapping("/collect.personal.controller")
