@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png">
+<!--     <link rel="shortcut icon" href="favicon.png"> -->
     <!-- Normalize Css -->
     <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
     <!-- Main Css -->
@@ -73,6 +73,13 @@
 		.color_gray{
   			color: gray;
 		}
+		.color_blue{
+  			color: blue;
+  			cursor: pointer;
+		}
+		.cursor_pointer{
+			cursor: pointer; 
+		}
     </style>
 </head>
 
@@ -127,7 +134,7 @@
                                         <li class="single-meta"><a href="#"><i class="far fa-calendar-alt"></i><fmt:formatDate
 											pattern="yyyy/MM/dd EEEE" value="${recipe.date}"/></a></li>
                                         <li class="single-meta"><a href="#"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
-                                        <li class="single-meta"><i class="fas fa-heart" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a href="#"><span id="fanum">${fn:length(recipe.favorite)}</span>
+                                        <li class="single-meta"><i class="fas fa-heart cursor_pointer" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a><span id="fanum">${fn:length(recipe.favorite)}</span>
                                                 Likes</a></li>
                                     </ul><!--  -->
                                 </div>
@@ -267,7 +274,7 @@
                                 <form class="leave-form-box">
                                     <div class="row">
                                     <div class="col-12 form-group">
-  									<input type="hidden" value="${recipe.recipeId}" id="replyId">
+  									
   									<input type="hidden" value="3" id="usersId"/>
                                     		<label>Photo :</label>
                                         	<label id="fileload">
@@ -300,7 +307,7 @@
                                 <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about"></figure>
                                 <h3 class="item-title">${recipe.users.userName}</h3>
                                 <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.follow)} 粉絲</p>
-                                <p><button>追蹤</button></p>
+                                <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
                             </div>
                         </div>
                         <div class="widget">
@@ -557,8 +564,13 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
+    var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
-   	    favoriteornot(${recipe.recipeId});
+   		if(eval("${!empty loginUser}")){   			
+   			favoriteornot(recipeId);
+            followornot(recipeId);
+   		}  
+   		followornot(recipeId);
     });
     //是否按過讚
     function favoriteornot(recipeId){
@@ -569,16 +581,16 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
-			success:function(result){
-				console.log(result);
+			success:function(result){				
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}
 			 },error:function(err){
 			 	console.log(err);
 		}
-    });
+    });	
 }
+//按讚 
 function addfavorite(recipeId){
 	str=0;
 	var replyjson=JSON.stringify(recipeId);
@@ -600,9 +612,55 @@ function addfavorite(recipeId){
 			$("#fanum").text(str);
 		 },error:function(err){
 		 	console.log(err);
-	}
-});
+	   }
+  });
 }
+//是否追蹤過
+function followornot(recipeId){
+	// console.log(recipeId);
+     	var replyjson=JSON.stringify(recipeId);
+ 		$.ajax({
+ 			url:"${contextRoot}/recipe/follow",
+ 			contentType:'application/json',//送出資料型態
+ 			dataType:'json',//回傳資料型態
+ 			method:'post',
+ 			data:replyjson,
+ 			success:function(result){
+ 				//console.log(result);
+ 				if(result==true){
+					$("#track").addClass("color_blue");
+					$("#tratext").text("已追蹤");
+				}
+ 			 },error:function(err){
+ 			 	console.log(err);
+ 		}
+     });	
+}
+//按追蹤
+$("#track").click(function(){
+	console.log(recipeId);
+	var replyjson=JSON.stringify(recipeId);
+  	$.ajax({
+  		url:"${contextRoot}/recipe/addfollow",
+  		contentType:'application/json',//送出資料型態
+  		dataType:'json',//回傳資料型態
+  		method:'post',
+  		data:replyjson,
+  		success:function(result){
+  			if(result==true){
+  			    $("#track").css("color","gray");
+  			    $("#tratext").text("追蹤");
+  	 			  }else{
+  	 			$("#track").css("color","blue");  	 			
+  	 			$("#tratext").text("已追蹤");
+  	 			
+  	 		}	
+  		},error:function(err){
+  			   console.log(err);
+  		}
+    });
+})
+
     // 右方最新食譜
     var settings = {
   		  "url": "http://localhost:8090/cookblog/recipe/find/lastest",

@@ -39,9 +39,12 @@ import com.eeit147.groupfive.recipe.service.RecipeService;
 import com.eeit147.groupfive.recipe.service.RecipeSteptService;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
+import com.eeit147.groupfive.users.model.Follow;
+import com.eeit147.groupfive.users.model.FollowDao;
 import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.service.FollowService;
 
 
 @Controller
@@ -61,6 +64,8 @@ public class RecipeController {
 	private KeywordService kService;
 	@Autowired
 	private FavoriteDao fDao;
+	@Autowired
+	private FollowService fServics;
 	//測試
 	Integer userId;
 	Integer recipeId;
@@ -375,6 +380,7 @@ public class RecipeController {
 		m.addAttribute("category", keywords);
 		return "categories";
 	}
+	//查追蹤
 	@ResponseBody@PostMapping("/recipe/favor")
 	public boolean findfavorornot(@RequestBody Integer recipeId,Model m) {
 		
@@ -393,6 +399,7 @@ public class RecipeController {
 		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);
 		return favor;
 	}
+	//按追蹤
 	@ResponseBody@PostMapping("/recipe/addfavor")
 	public boolean addfavorornot(@RequestBody Integer recipeId,Model m) {
 		
@@ -420,8 +427,9 @@ public class RecipeController {
 			return true;
 		}	
 	}
-	@ResponseBody@PostMapping("/recipe/checkowner")
-	public boolean checkowner(@RequestBody Integer recipeId,Model m) {
+	//確認follow
+	@ResponseBody@PostMapping("/recipe/follow")
+	public boolean findfollowornot(@RequestBody Integer recipeId,Model m) {
 		
 		if((Users)m.getAttribute("loginUser")!=null) {
 			Users user=(Users)m.getAttribute("loginUser");
@@ -429,24 +437,42 @@ public class RecipeController {
 		}else {
 			userId=0;
 		}
-		System.out.println(userId);
-		System.out.println(recipeId);
-		
-//		Optional<Recipe> optionalr = rDao.findById(recipeId);
-//		Recipe recipe = optionalr.get();
-//		Optional<Users> optionalu = uDao.findById(userId);
-//		Users user = optionalu.get();
-//		boolean favor=fDao.existsByUsersAndRecipe(user,recipe);//找出兩者是否有關臉
-//		if(favor==true) {//已按讚
-//			fDao.deleteByUsersAndRecipe(user,recipe);
-//			return false;
-//		}else {//未按讚
-//			Favorite newfavor=new Favorite();
-//			newfavor.setRecipe(recipe);
-//			newfavor.setUsers(user);
-//			fDao.save(newfavor);
-//			return true;
-//		}
-		return true;
+				
+		Optional<Recipe> optionalr = rDao.findById(recipeId);
+		Recipe recipe = optionalr.get();
+		Users track=recipe.getUsers();
+		Optional<Users> optionalu = uDao.findById(userId);
+		Users user = optionalu.get();
+		boolean result=fServics.existsByUsersAndTrack(user, track);
+		return result;
 	}
+	//addfollow
+		@ResponseBody@PostMapping("/recipe/addfollow")
+		public boolean addfollow(@RequestBody Integer recipeId,Model m) {
+			
+			if((Users)m.getAttribute("loginUser")!=null) {
+				Users user=(Users)m.getAttribute("loginUser");
+			    userId=user.getUserId();
+			}else {
+				userId=0;
+			}
+					
+			Optional<Recipe> optionalr = rDao.findById(recipeId);
+			Recipe recipe = optionalr.get();
+			Users track=recipe.getUsers();
+			Optional<Users> optionalu = uDao.findById(userId);
+			Users user = optionalu.get();
+			boolean result=fServics.existsByUsersAndTrack(user, track);
+			
+			System.out.println(result);
+			if(result==true) {
+				fServics.deleteByUsersAndTrack(user, track);
+			}else {
+				Follow follow=new Follow(user, track);
+				fServics.saveUserandTrack(follow);
+			}
+			
+			
+			return result;
+		}
 }

@@ -119,6 +119,10 @@
 .recipediv{
 	padding:80pt;
 }
+a{
+    cursor: pointer; 
+}
+
 </style>
 <style>
 </style>

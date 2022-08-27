@@ -98,11 +98,10 @@
 										class="main-input-box" placeholder="請輸入信箱"><br /> <label
 										class="mb-3">Password</label> <input type="password"
 										value="${loginUser.password }" name="password"
-										class="main-input-box" placeholder="請輸入密碼"><br /> <label
-										class="mb-3">Number Photo</label> <input type="file"
-										name="user_photo" class="main-input-box" placeholder="請上傳照片"><br />
-									<input type=hidden name="permission" value="1" placeholder="1"
-										id="permission">
+										class="main-input-box" placeholder="請輸入密碼"><br /> <label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView"/>
+   										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
+									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
+										
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
@@ -142,7 +141,20 @@
 	<script src="${contextRoot}/js/smoothscroll.min.js"></script>
 	<!-- Custom Js -->
 	<script src="${contextRoot}/js/main.js"></script>
-
-
+    <script>
+    function imgview(event,imgid){   
+		   const fr = new FileReader();
+		   //抓url
+		   let fPhoto=document.getElementById("eventPhoto").files;
+		   if(fPhoto.length>0){//有圖
+		    let fileToLoad=fPhoto[0];//取得檔案詳細資料
+		    fr.onload = function (e) {
+		         fileDataURL=e.target.result
+		      $('#'+imgid.id+'').attr('src', fileDataURL);//img預覽
+		   };
+		    fr.readAsDataURL(event.target.files[0]);//img預覽
+		  }
+		}	
+</script>
 </body>
 </html>

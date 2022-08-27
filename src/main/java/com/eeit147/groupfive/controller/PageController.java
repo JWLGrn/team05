@@ -161,8 +161,8 @@ private FoodsService fService;
 	//活動個人
 	@GetMapping("/showevent")
 	public String eventshow(Model m) {
-		Integer userId=3;
-		m.addAttribute("userId", userId);
+		
+		
 		return "eventshow";
 	}
 	//個人頁面資料呈現

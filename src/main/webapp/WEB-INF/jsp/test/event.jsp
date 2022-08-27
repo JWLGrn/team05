@@ -1,1004 +1,510 @@
-<!doctype html>
-<html class="no-js" lang="">
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ranna | All Recipes</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.png">
-    <!-- Normalize Css -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!-- Main Css -->
-    <link rel="stylesheet" href="css/main.css">
-    <!-- Bootstrap Css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="css/animate.min.css">
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="css/fontawesome-all.min.css">
-    <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="fonts/flaticon.css">
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Modernizr Js -->
-    <script src="js/modernizr-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<title>Event</title>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<script src="${contextRoot}/js/jquery-3.6.0.min.js" ></script>
+<script type="text/javascript"></script>
+<style type="text/css">
+h3 {
+    color: purple;
+     }
+ textarea {
+    padding: 10px;
+    max-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    width: 300px;
+    height: 50px;
+}
+input {
+  margin:3pt;
+}
+img{
+	width: 200px; 
+}
+.userimg{
+	width: 100px; 
+
+	border-radius: 10px
+}
+.check{
+	color:red;
+}
+
+  </style>
 </head>
-
 <body>
-    <!--[if lte IE 9]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-    <![endif]-->
+<div id="newevent">
+<h3>活動新增</h3>
+使用者Id:${userId}<br/>
+活動id <input type="text" id="eventId" value="1"><br/>
+活動標題<input type="text" id="eventTitle"><span class="check" id="checkTitle"></span><br/>
+活動內容<textarea id="eventContext"></textarea><span class="check" id="checkContext"></span><br/>
+開始<input type="date" id="timeStart"/><br/>
+結束<input type="date" id="timeEnd"/><span class="check" id="checkTime"></span><br/>
+圖片<label id="fileload"><img src="${contextRoot}/image/step/file.jpg" id="imgView"/>
+   <input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
+<button id="createbtn">建立活動</button>	
+<div onclick="hotkey()" style="color:red;">快捷鍵</div>
+</div>
+<h3>活動顯示</h3>
+<div id="showevent">
+	
+</div>
 
-    <!-- Add your site or application content here -->
-    <!-- Preloader Start Here -->
-    <div id="preloader"></div>
-    <!-- Preloader End Here -->
-    <!-- ScrollUp Start Here -->
-    <a href="#wrapper" data-type="section-switch" class="scrollup">
-        <i class="fas fa-angle-double-up"></i>
-    </a>
-    <!-- ScrollUp End Here -->
-    <div id="wrapper" class="wrapper">
-        <!-- Header Area Start Here -->
-        <header class="header-one">
-            <div id="header-main-menu" class="header-main-menu header-sticky">
-                <div class="container">                    
-                    <div class="row">
-                        <div class="col-lg-8 col-md-3 col-sm-4 col-4 possition-static">
-                            <div class="site-logo-mobile">
-                                <a href="index.html" class="sticky-logo-light"><img src="img/logo-light.png" alt="Site Logo"></a>
-                                <a href="index.html" class="sticky-logo-dark"><img src="img/logo-dark.png" alt="Site Logo"></a>
-                            </div>
-                            <nav class="site-nav">
-                                <ul id="site-menu" class="site-menu">
-                                    <li><a href="#">Home</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index2.html">Home 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="category.html">Category</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Recipes</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li>
-                                                <a href="recipe-with-sidebar.html">Recipes With Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="recipe-without-sidebar.html">Recipes Without Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-recipe1.html">Single Recipe 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-recipe2.html">Single Recipe 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="possition-static hide-on-mobile-menu">
-                                        <a href="#">Pages</a>
-                                        <div class="template-mega-menu">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <div class="menu-ctg-title">Home</div>
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="index.html">
-                                                                    <i class="fas fa-home"></i>Home 1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="index2.html">
-                                                                    <i class="fas fa-home"></i>Home 2</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="menu-ctg-title">Recipes</div>
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="recipe-with-sidebar.html"><i class="fas fa-utensils"></i>Recipes
-                                                                    With Sidebar</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="recipe-without-sidebar.html"><i class="fas fa-utensils"></i>Recipes
-                                                                    Without
-                                                                    Sidebar</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="single-recipe1.html"><i class="fas fa-utensils"></i>Single
-                                                                    Recipe 1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="single-recipe2.html"><i class="fas fa-utensils"></i>Single
-                                                                    Recipe 2</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="menu-ctg-title">Other Pages</div>
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="about.html"><i class="fab fa-cloudversify"></i>About</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="author.html"><i class="fas fa-user"></i>Author</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="single-author.html"><i class="fas fa-user"></i>Author
-                                                                    Details</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="submit-recipe.html"><i class="far fa-share-square"></i>Submit
-                                                                    Recipe</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="login.html"><i class="fas fa-lock"></i>Login</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="404.html"><i class="fas fa-exclamation-triangle"></i>404
-                                                                    Error</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="menu-ctg-title">Shop</div>
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="shop.html"><i class="fas fa-shopping-cart"></i>Shop</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="single-shop.html"><i class="fas fa-shopping-cart"></i>Shop
-                                                                    Details</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="hide-on-desktop-menu">
-                                        <a href="#">Pages</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li>
-                                                <a href="about.html">About</a>
-                                            </li>
-                                            <li>
-                                                <a href="author.html">Author</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-author.html">Author Details</a>
-                                            </li>
-                                            <li>
-                                                <a href="submit-recipe.html">Submit Recipe</a>
-                                            </li>
-                                            <li>
-                                                <a href="login.html">Login</a>
-                                            </li>
-                                            <li>
-                                                <a href="login.html">404 Error</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Blog</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-list.html">Blog List</a></li>
-                                            <li><a href="single-blog.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Shop</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="single-shop.html">Shop Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
-                            <div class="nav-action-elements-layout1">
-                                <ul>
-                                    <li>
-                                        <div class="cart-wrap cart-on-mobile d-lg-none">                                            
-                                            <div class="cart-info">
-                                                <i class="flaticon-shopping-bag"></i>
-                                                <div class="cart-amount"><span class="item-currency">$</span>00</div>     
-                                            </div>                                   
-                                            <div class="cart-items">
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product1.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Pressure</a>
-                                                        <span>Code: STPT601</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$249</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product2.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Stethoscope</a>
-                                                        <span>Code: STPT602</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$189</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product3.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Microscope</a>
-                                                        <span>Code: STPT603</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 2</div>
-                                                    <div class="cart-price">$379</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-btn">
-                                                        <a href="#" class="item-btn">View Cart</a>
-                                                        <a href="#" class="item-btn">Checkout</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
-                                            <i class="flaticon-profile"></i>Login
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <a href="submit-recipe.html" class="fill-btn"><i class="flaticon-plus-1"></i>SUBMIT
-                                            RECIPE</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="mob-menu-open toggle-menu">
-                                <span class="bar"></span>
-                                <span class="bar"></span>
-                                <span class="bar"></span>
-                                <span class="bar"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="header-bottom d-none d-lg-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 d-none d-lg-block">
-                            <div class="nav-action-elements-layout2">
-                                <ul class="nav-social">
-                                    <li><a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" title="twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a></li>
-                                    <li><a href="#" title="skype"><i class="fab fa-skype"></i></a></li>
-                                    <li><a href="#" title="rss"><i class="fas fa-rss"></i></a></li>
-                                    <li><a href="#" title="google-plus"><i class="fab fa-google-plus-g"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-none d-lg-block">
-                            <div class="site-logo-desktop">
-                                <a href="index.html" class="main-logo"><img src="img/logo-dark.png" alt="Site Logo"></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="nav-action-elements-layout3">
-                                <ul>
-                                    <li>
-                                        <div class="header-search-box">
-                                            <a href="#search" title="Search" class="search-button">
-                                                <i class="flaticon-search"></i>
-                                            </a> 
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="cart-wrap d-none d-lg-block">                                            
-                                            <div class="cart-info">
-                                                <i class="flaticon-shopping-bag"></i>
-                                                <div class="cart-amount"><span class="item-currency">$</span>00</div>     
-                                            </div>                                   
-                                            <div class="cart-items">
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product1.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Pressure</a>
-                                                        <span>Code: STPT601</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$249</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product2.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Stethoscope</a>
-                                                        <span>Code: STPT602</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 1</div>
-                                                    <div class="cart-price">$189</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/top-product3.jpg" alt="product" class="img-fluid">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-title">
-                                                        <a href="#">Microscope</a>
-                                                        <span>Code: STPT603</span>
-                                                    </div>
-                                                    <div class="cart-quantity">X 2</div>
-                                                    <div class="cart-price">$379</div>
-                                                    <div class="cart-trash">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item">
-                                                    <div class="cart-btn">
-                                                        <a href="#" class="item-btn">View Cart</a>
-                                                        <a href="#" class="item-btn">Checkout</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- Header Area End Here -->
-        <!-- Inne Page Banner Area Start Here -->
-        <section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="breadcrumbs-area">
-                            <h1>Search Your Recipes</h1>
-                            <ul>
-                                <li>
-                                    <a href="index.html">Home</a>
-                                </li>
-                                <li>All Recipes</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Inne Page Banner Area End Here -->
-        <!-- Recipe Without Sidebar Area Start Here -->
-        <section class="recipe-without-sidebar-wrap padding-top-80 padding-bottom-22">
-            <div class="container">
-                <div class="adv-search-wrap">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Author Name or Recipe Search . . ." />
-                        <div class="btn-group">
-                            <div class="input-group-btn adv-search-fill-btn">
-                                <button type="button" id="adv-serch" class="btn-adv-serch">
-                                    <i class="icon-plus flaticon-add-plus-button"></i>
-                                    <i class="icon-minus fas fa-minus"></i>
-                                    Advanced Search
-                                </button>
-                            </div>
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="advance-search-form">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY CATEGORIES</h3>
-                                <ul class="search-items">
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox101" type="checkbox">
-                                            <label for="checkbox101">Baking</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox102" type="checkbox">
-                                            <label for="checkbox102">Dinner</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox103" type="checkbox">
-                                            <label for="checkbox103">Lunch</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox104" type="checkbox">
-                                            <label for="checkbox104">Sea Food</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox105" type="checkbox">
-                                            <label for="checkbox105">Sweets</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY INGREDIENTS</h3>
-                                <ul class="search-items">
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox106" type="checkbox">
-                                            <label for="checkbox106">Oil</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox107" type="checkbox">
-                                            <label for="checkbox107">Vegitables</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox108" type="checkbox">
-                                            <label for="checkbox108">Fish</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox109" type="checkbox">
-                                            <label for="checkbox109">White Salt</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox110" type="checkbox">
-                                            <label for="checkbox110">Pizza
+<h3>活動參加者</h3>
+<div id="showcampaign">
+	
+</div>
 
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox111" type="checkbox">
-                                            <label for="checkbox111">Meat</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox112" type="checkbox">
-                                            <label for="checkbox112">Juice</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY CUISINE</h3>
-                                <ul class="search-items">
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox113" type="checkbox">
-                                            <label for="checkbox113">Indian</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox114" type="checkbox">
-                                            <label for="checkbox114">Italian</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox115" type="checkbox">
-                                            <label for="checkbox115">Maxican</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox116" type="checkbox">
-                                            <label for="checkbox116">Bengali</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox117" type="checkbox">
-                                            <label for="checkbox117">Franch</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY METHOD</h3>
-                                <ul class="search-items">
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox118" type="checkbox">
-                                            <label for="checkbox118">Baking</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox119" type="checkbox">
-                                            <label for="checkbox119">Freezing</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox120" type="checkbox">
-                                            <label for="checkbox120">Frying</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox121" type="checkbox">
-                                            <label for="checkbox121">Grilling</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product38.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product39.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product40.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product41.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product42.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product43.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product44.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product45.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product46.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product47.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product48.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product49.jpg"
-                                        alt="Product"></a></figure>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <p>More off this less hello salamander lied porpoise much over tightly circa
-                                    outside crud mightily rigorouse. </p>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Recipe Without Sidebar Area End Here -->
-        <!-- Footer Area Start Here -->
-        <footer class="ranna-bg-dark">
-            <div class="container">
-                <div class="footer-logo">
-                    <a href="index.html"><img src="img/logo-light.png" class="img-fluid" alt="footer-logo"></a>
-                </div>
-                <div class="footer-menu">
-                    <ul>
-                        <li><a href="#">FACEBOOK</a></li>
-                        <li><a href="#">TWITTER</a></li>
-                        <li><a href="#">INSTAGRAM</a></li>
-                        <li><a href="#">PINTEREST</a></li>
-                        <li><a href="#">GOOGLEPLUS</a></li>
-                        <li><a href="#">YOUTUBE</a></li>
-                    </ul>
-                </div>
-                <div class="copyright"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
-            </div>
-        </footer>
-        <!-- Footer Area End Here -->
-    </div>
-    <!-- Search Box Start Here -->
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">×</button>
-        <form class="search-form">
-            <input type="search" value="" placeholder="Type here........" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <!-- Search Box End Here -->
-    <!-- Modal Start-->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="title-default-bold mb-none">Login</div>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form class="login-form">
-                        <input class="main-input-box" type="text" placeholder="User Name" />
-                        <input class="main-input-box" type="password" placeholder="Password" />
-                        <div class="inline-box mb-5 mt-4">
-                            <div class="checkbox checkbox-primary">
-                                <input id="modal-checkbox" type="checkbox">
-                                <label for="modal-checkbox">Remember Me</label>
-                            </div>
-                            <label class="lost-password"><a href="#">Lost your password?</a></label>
-                        </div>
-                        <div class="inline-box mb-5 mt-4">
-                            <button class="btn-fill" type="submit" value="Login">Login</button>
-                            <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a>
-                        </div>
-                    </form>
-                    <label>Login connect with your Social Network</label>
-                    <div class="login-box-social">
-                        <ul>
-                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal End-->
-    <!-- Jquery Js -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="js/popper.min.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins Js -->
-    <script src="js/plugins.js"></script>
-    <!-- Smoothscroll Js -->
-    <script src="js/smoothscroll.min.js"></script>
-    <!-- Custom Js -->
-    <script src="js/main.js"></script>
+<div id="myRecipe">    
+</div>
+
+
+<!-- js                                          -->
+<script type="text/javascript">
+let fileDataURL;
+//網頁載入時預設--------------------------------------------
+$(document).ready(function(){
+	 $("#createbtn").hide();
+	 $("#showMyRecipe").hide();
+	 if(${userId}==1){//userId=1  -->管理員
+	 	$("#newevent").show();
+	 }else{
+	 	$("#newevent").hide();
+	}
+	//顯示活動
+	 showAllEvent();
+	 //預設開始時間 結束時間
+	 dateSet();
+});
+//初始時間設定
+function dateSet(){
+	let now=new Date();
+	let month=now.getMonth()+1;
+	let date=now.getDate();
+	let dateend=now.getDate()+1;
+	if(month<10){month="0"+month}
+	if(date<10){date="0"+date}
+	if(dateend<10){dateend="0"+dateend}
+	timeStart.value=now.getFullYear()+"-"+month+"-"+date;
+	timeEnd.value=now.getFullYear()+"-"+month+"-"+dateend;
+	//最大值最小值
+	timeStart.min=now.getFullYear()+"-"+month+"-"+date;
+	timeEnd.min=now.getFullYear()+"-"+month+"-"+dateend;
+}
+//圖片顯示用(跟步驟一樣)+抓url
+function imgview(event,imgid){   
+  const fr = new FileReader();
+  //抓url
+  let fPhoto=document.getElementById("eventPhoto").files;
+  if(fPhoto.length>0){//有圖
+	let fileToLoad=fPhoto[0];//取得檔案詳細資料
+    fr.onload = function (e) {
+    	fileDataURL=e.target.result
+		$('#'+imgid.id+'').attr('src', fileDataURL);//img預覽
+	};
+	fr.readAsDataURL(event.target.files[0]);//img預覽
+  }
+}
+//顯示食譜
+function showMyRecipe(eventId){
+	var settings = {
+	        "url": "http://localhost:8090/cookblog/event/showrecipe",
+	    	"method": "GET",
+	   		"timeout": 0,
+	    };
+		$.ajax(settings).done(function (response) {
+			var replydata="<h3>我的食譜</h3>";
+			
+			$.each(response,function(index,value){
+				checkjoin(eventId,value.recipeId);
+				replydata+='<input type="checkbox" name="choicerecipe" value="'+value.recipeId+'"/>';
+				replydata+=
+					"食譜Id:"+value.recipeId+"<br/>"
+					+"食譜名稱:"+value.cookTitle+""
+					+"<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"//onblur="checkjoin('+eventId+','+value.recipeId+')
+					+"敘述:"+value.cookDescription+"<br/>"
+				    +"烹調時間:"+value.cookTime+"分鐘_"
+					+"食用人數:"+value.cookServe+"人<br/>"			    
+				    +"時間:"+value.date +"<br/>"	
+					+"卡洛里:"+value.totalCal
+					+"<br/>-----------------------------------</br>";		
+			})
+			replydata+="<button onclick='checkchoice("+eventId+")'>送出</button>";
+			$("#myRecipe").html(replydata);			
+		});	
+}
+//顯示活動  管理員:crud,一般使用者:參加活動
+function showAllEvent(){
+	var settings = {
+	        "url": "http://localhost:8090/cookblog/event/showevent",
+	    	"method": "GET",
+	   		"timeout": 0,
+	    };
+ 		$.ajax(settings).done(function (response) {
+ 			var replydata="";
+ 			$.each(response,function(index,value){
+ 				replydata+=
+					"活動Id:"+value.eventId+"<br/>"
+					+"活動標題:"+value.eventTitle+""
+					+"<img src='${contextRoot}/image/event/"+value.eventPhoto+"' class='userimg'/><br/>"
+					+"敘述:"+value.eventContext+"<br/>"
+				    +"開始時間:"+value.timeStart+"<br/>"
+					+"結束時間:"+value.timeEnd;
+				if(${userId}==1){
+ 				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button>";
+ 				     replydata+="<button onclick='del("+value.eventId+")'>刪除</button>";
+			    }else{
+			    	replydata+="<button onclick='participate("+value.eventId+")'>參加活動</button>";
+			    	
+			    }
+				replydata+="<br/>-----------------------------------------<br/>";
+ 			})
+
+ 			$("#showevent").html(replydata);
+ 		});	
+}
+
+//輸入檢查--------------------------------------------
+//eventTitle_20字(實際上限中文25字)
+$("#eventTitle").blur(function(){
+	str=eventTitle.value;
+	if(str.length<1||str.length>21){
+		$("#checkTitle").text('自數限定1~20');
+		$("#eventTitle").val("");
+	}else{
+		$("#checkTitle").text("");
+	}
+});
+//eventContext_200字(實際上限max)
+$("#eventContext").blur(function(){
+	str=eventContext.value;
+	if(str.length<1||str.length>200){
+		$("#checkContext").text('自數限定1~200');
+		$("#createbtn").hide();
+	}else{
+		$("#checkContext").text("");
+		$("#createbtn").show();
+	}
+});
+$("#timeStart").blur(function(){
+	//取現在時間
+	let now=new Date();
+	let year=now.getFullYear();
+	let month=now.getMonth()+1;
+	let date=now.getDate();
+	//取輸入時間
+	let inputtime=$("#timeStart").val();
+	let tarr=inputtime.split("-");
+	function reset(){
+		if(month<10){month="0"+month}
+		if(date<10){date="0"+date}
+		timeStart.value=year+"-"+month+"-"+date;
+	}
+	if(tarr[0]<year){
+		$("#checkTime").text("開始時間不可小於今天");
+		reset();
+	}else{
+		if(tarr[1]<month){
+			$("#checkTime").text("開始時間不可小於今天");
+			reset();
+		}else{
+			if(tarr[2]<date){
+				$("#checkTime").text("開始時間不可小於今天");
+				reset();
+			}else{
+				$("#checkTime").text("");
+			}
+		}
+	}	
+});
+$("#timeEnd").blur(function(){
+	//取開始時間
+	let starttime=$("#timeStart").val();
+	let starr=starttime.split("-");
+	//取輸入時間
+	let inputtime=$("#timeEnd").val();
+	let tarr=inputtime.split("-"); 
+	let date_num=parseInt(starr[2])+1;
+	
+ 	function reset(){
+ 		if(date_num<10){date_num="0"+date_num}
+ 		$("#timeEnd").val(starr[0]+"-"+starr[1]+"-"+date_num);
+	}
+	if(tarr[0]<starr[0]||tarr[0]>(parseInt(starr[0])+1)){//年
+		$("#checkTime").text("結束時間不可小於開始時間,也不能超過一年");
+		reset();
+	}else{
+		if(tarr[1]<starr[1]){//月
+			$("#checkTime").text("結束時間不可小於開始時間");
+			reset();
+		}else{
+			if(tarr[2]<date_num){//日
+				$("#checkTime").text("結束時間不可小於開始時間");
+				reset();
+			}else{
+				$("#checkTime").text("");
+			}
+		}
+	}	
+});
+//快捷鍵
+function hotkey(){
+	$("#eventTitle").val("秋季美食");
+	$("#eventContext").text("募集專屬秋天的美食!");
+	$("#timeStart").val("2022-10-01");
+	$("#timeEnd").val("2022-10-31");
+	$("#createbtn").show();
+	$("#checkTitle").text("");
+	$("#checkContext").text("");
+}
+//功能-------------------------------------------------------
+//新增活動
+$("#createbtn").click(function(){
+	var eventId=$("#eventId").val();;
+	var eventTitle=$("#eventTitle").val();
+	var eventContext=$("#eventContext").val();
+	var timeStart=$("#timeStart").val();
+	var timeEnd=$("#timeEnd").val();
+	var eventPhoto=$("#eventPhoto").val();
+	
+	var event={
+			   eventId:eventId,
+			   eventTitle:eventTitle,
+			   eventContext:eventContext,
+			   timeStart:timeStart,
+			   timeEnd:timeEnd,
+			   eventPhoto:fileDataURL	
+	}
+	var replyjson=JSON.stringify(event);	
+	
+	    $.ajax({
+		url:"${contextRoot}/event/insert",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){	
+			var replydata="";
+ 			$.each(result,function(index,value){
+ 				replydata+=
+					"活動Id:"+value.eventId+"<br/>"
+					+"活動標題:"+value.eventTitle+""
+					+"<img src='${contextRoot}/image/event/"+value.eventPhoto+"' class='userimg'/><br/>"
+					+"敘述:"+value.eventContext+"<br/>"
+				    +"開始時間:"+value.timeStart+"<br/>"
+					+"結束時間:"+value.timeEnd;
+ 				if(${userId}==1){
+				     replydata+="<button onclick='updateevent("+value.eventId+")'>修改</button>";
+				     replydata+="<button onclick='del("+value.eventId+")'>刪除</button>";
+			    }
+				replydata+="<br/>-----------------------------------------<br/>";	
+ 			})
+ 			$("#showevent").html(replydata);
+ 			//清空資料
+ 			$("#eventId").val("");
+			$("#eventTitle").val("");
+			$("#eventContext").val("");
+			$("#imgView").attr("src","${contextRoot}/image/step/file.jpg");
+			$("#timeStart").val("");
+			$("#timeEnd").val("");
+			document.getElementById("eventPhoto").remove();
+			$("#fileload").append('<input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">');
+		},
+		error:function(err){
+			console.log(err);
+		}
+    });
+});
+//修改活動
+function updateevent(eventId){
+	var replyjson=JSON.stringify(eventId);
+	$.ajax({
+		url:"${contextRoot}/event/update",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){			
+			$("#eventId").val(result.eventId);
+			$("#eventTitle").val(result.eventTitle);
+			$("#eventContext").val(result.eventContext);
+			$("#imgView").attr("src","${contextRoot}/image/event/"+result.eventPhoto);
+			$("#timeStart").val(result.timeStart);
+			$("#timeEnd").val(result.timeEnd);
+			//console.log(result.timeStart);
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+//刪除
+function del(eventId){
+ 	var r = confirm("您確定要刪除嗎?");
+ 	if (r == true) {
+ 		console.log("del");
+ 		alert('刪除成功');
+ 	var replyjson=JSON.stringify(eventId);
+  	$.ajax({
+  		url:"${contextRoot}/event/delete",
+  		contentType:'application/json',//送出資料型態
+ 		dataType:'json',//回傳資料型態
+ 		method:'post',
+ 		data:replyjson,
+ 		success:function(result){			
+			alert('刪除成功');
+ 		},
+ 		error:function(err){
+ 			console.log(err);
+ 		}
+ 	});
+  }
+	 $(location).prop("href", "http://localhost:8090/cookblog/event/page");
+}
+
+//參加活動紐
+function participate(eventId){
+	//顯示選擇活動
+
+// 	var replyjson=JSON.stringify(eventId);
+// 	$.ajax({
+// 		url:"${contextRoot}/event/update",
+// 		contentType:'application/json',//送出資料型態
+// 		dataType:'json',//回傳資料型態
+// 		method:'post',
+// 		data:replyjson,
+// 		success:function(result){						
+// 			var replydata="";			
+//  				replydata+="<h3>選擇參加的活動</h3>"
+// 					+"活動Id:"+result.eventId+"<br/>"
+// 					+"活動標題:"+result.eventTitle+""
+// 					+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
+// 					+"敘述:"+result.eventContext+"<br/>"
+// 				    +"開始時間:"+result.timeStart+"<br/>"
+// 					+"結束時間:"+result.timeEnd+"<br/>"
+// 					+"<button onclick='rechoice()'>重新選擇</button>";	
+//  			$("#showevent").html(replydata);
+//  			$("#showMyRecipe").show();
+//  			showMyRecipe(eventId);
+// 		},
+// 		error:function(err){
+// 			console.log(err);
+// 		}
+//	});
+	//參加者名單
+
+	var replyjson=JSON.stringify(eventId);
+	$.ajax({
+		url:"${contextRoot}/event/update",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){						
+			var replydata="";			
+ 				replydata+="<h3>選擇參加的活動</h3>"
+					+"活動Id:"+result.eventId+"<br/>"
+					+"活動標題:"+result.eventTitle+""
+					+"<img src='${contextRoot}/image/event/"+result.eventPhoto+"' class='userimg'/><br/>"
+					+"敘述:"+result.eventContext+"<br/>"
+				    +"開始時間:"+result.timeStart+"<br/>"
+					+"結束時間:"+result.timeEnd+"<br/>"
+					+"<button onclick='rechoice()'>重新選擇</button>";	
+ 			$("#showevent").html(replydata);
+ 			$("#showMyRecipe").show();
+ 			campaignlist(eventId);
+ 			showMyRecipe(eventId);			
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+function campaignlist(eventId){
+	//參加者名單
+	var settings = {
+        "url": "${contextRoot}/campaign/list/"+eventId,
+    	"method": "GET",
+   		"timeout": 0,
+    };
+	
+	$.ajax(settings).done(function (response) {
+		var replydata="";
+		$.each(response,function(index,value){
+			replydata+=
+				"食譜標題:"+value.cookTitle+"<br/>"
+				+"食譜圖片:<img src='${contextRoot}/image/recipe/"+value.cookPhoto+"' class='userimg'/><br/>"
+				+"作者:"+value.userName+"<br/>"
+				+"<img src='${contextRoot}/image/users/"+value.userPhoto+"' class='userimg'/><br/>"
+				+"按讚數:"+value.favoritenum+"<br/>";
+		
+		})
+		$("#showcampaign").html(replydata);
+	});	
+}
+//重新選擇想參加的活動
+function rechoice(){
+	 $(location).prop("href", "http://localhost:8090/cookblog/event/page");
+}
+//將參加的食譜傳到後端資料庫
+function checkchoice(eventId){
+	var str=eventId;
+	var nodes=document.getElementsByName('choicerecipe');
+	for(let i=0;i<nodes.length;i++){
+		if(nodes[i].checked){
+			str+="-"+nodes[i].value;
+		}
+	}
+	var replyjson=JSON.stringify(str);
+	 $.ajax({
+	 	url:"${contextRoot}/event/participate",
+	 	contentType:'application/json',//送出資料型態
+	 	dataType:'json',//回傳資料型態
+	 	method:'post',
+	 	data:replyjson,
+	 	success:function(result){						
+			$(location).prop("href", "http://localhost:8090/cookblog/event/page");
+	 	},
+	 	error:function(err){
+	 		console.log(err);
+	 	}
+	});
+}
+function checkjoin(eventId,recipeId){
+	let obj={
+			eventId:eventId,
+			recipeId:recipeId
+	}
+  	var replyjson=JSON.stringify(obj);
+  	 $.ajax({
+	 	url:"${contextRoot}/event/participatecheck",
+ 	 	contentType:'application/json',//送出資料型態
+  	 	dataType:'json',//回傳資料型態
+  	 	method:'post',
+  	 	data:replyjson,
+  	 	success:function(result){		
+			console.log(result);
+			if(result==true){
+				console.log(recipeId);
+				$("input[value='"+recipeId+"']").hide();
+			}
+  	 	},
+  	 	error:function(err){
+  	 		console.log(err);
+  	 	}
+  	});
+}
+</script>
 </body>
-
-
 </html>
