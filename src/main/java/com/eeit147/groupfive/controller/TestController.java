@@ -81,7 +81,7 @@ public class TestController {
 	@Autowired
 	private RecipeService recipeService;
 	
-	// 關鍵字模糊搜尋
+	// 食譜類別模糊搜尋
 //	@GetMapping("/find/keyword/{word}")
 //	public @ResponseBody List<Keyword> findKeyword(@PathVariable("word") String word) {
 //		List<Keyword> kList = kDao.findByKeywordLike("%" + word + "%");

@@ -2,6 +2,7 @@ package com.eeit147.groupfive.admin.controller;
 
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,20 +17,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.admin.service.adminUsersService;
-import com.eeit147.groupfive.recipe.model.Recipe;
-import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 import com.eeit147.groupfive.users.model.UsersDto;
+import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
 public class adminUsersController {
 	@Autowired
 	private adminUsersService aService;
+	@Autowired
+	private UsersService uService;
 	@Autowired
 	private UsersDao uDao;
 	
@@ -44,12 +47,14 @@ public class adminUsersController {
 	
 	
 	//編輯使用者
-	@PostMapping("/editAdminUsers")
-	public String editAdminUsers(@RequestParam("userId") Integer userid,@RequestParam("userName") String username, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("permission") Integer permission,
-			//@RequestParam("user_photo")MultipartFile file,
-			Model model){
+	@GetMapping("/editAdminUsers")
+	public String editAdminUsers(@RequestParam("userId") Integer userid,
+			@RequestParam("permission") Integer permission){
+		System.out.println(userid);
+		Users user = uService.findUsersById(userid);
+		user.setPermission(permission);
 		
+<<<<<<< HEAD
 		String photopath= "";
 		Users au = new Users();
 		au.setUserId(userid);
@@ -58,18 +63,18 @@ public class adminUsersController {
 		au.setPassword(password);
 		au.setPermission(permission);
 		
+=======
+		aService.insertUser(user);
+>>>>>>> a7b76a0caaa411bd7b9a1a0876269357b03d71f5
 		
-		aService.insertUser(au);
-		model.addAttribute("allUsers",uDao.findAll() );
-		
-		return "test/showAllUsers";
+		return "redirect:/showAllUsers";
 	}
 	
 	//使用者篩選結果編輯傳值
 	@GetMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
 	public String editAdminUsersget(@PathVariable("userId") Integer userid,@PathVariable("userName") String username, @PathVariable("email") String email,
 			@PathVariable("password") String password, @PathVariable("permission") Integer permission
-			//@PathVariable("user_photo")MultipartFile file,
+		//@PathVariable("user_photo")MultipartFile file,
 			){
 		String photopath= "";
 		Users au = new Users();

@@ -63,10 +63,13 @@ body {
 }
 </style>
 <style type="text/css">
-.userimg {
+.keywordimg {
+object-fit:cover;
 	width: 100px;
 	height: 100px;
-}</style>
+}
+
+</style>
 
 <title>管理使用者</title>
 </head>
@@ -74,36 +77,34 @@ body {
 	<jsp:include page="layout/navbar.jsp" />
 	<jsp:include page="adminMenu.jsp"></jsp:include>
 	<div class="w3-main" style="margin-left: 220px;">
-		<h3>管理管理食譜類別</h3>
-<!-- 		<table id="keywordsTable" class="table table-striped"> -->
-<!-- 			<thead> -->
-<!-- 				<tr> -->
-<!-- 					<th></th> -->
-<!-- 					<th scope="col">食譜類別名稱</th> -->
-<!-- 					<th scope="col">食譜類別照片</th> -->
-<!-- 					<th></th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody id="keywordbody"> -->
+		<h3>管理食譜類別</h3>
+		<table id="keywordsTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th scope="col">食譜類別名稱</th>
+					<th scope="col">食譜類別照片</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="keywordbody">
 
-<%-- 				<c:forEach items="${allKeywords}" var="k"> --%>
-<!-- 					<tr> -->
-<%-- 						<form class="form" method="post" action="${contextRoot}/editKeywordbody"> --%>
+				<c:forEach items="${allKeywords}" var="k">
+					<form class="form" method="post" action="${contextRoot}/editKeyword">
+					<tr>
+							<td><input type="hidden" name="keywordId" value="${k.keywordId}" /></td>
+							<td><input name="keyword" value="${k.keyword}" /></td>
+							<td><img class="keywordimg" alt="" src="${contextRoot}/category/${k.keywordPhoto}"></td>
+							<td><button type="submit"
+									class="w3-button w3-red w3-hover-black">送出</button></td>
+							<td><a href="${contextRoot}/deleteKeyword/${k.keywordId}"><button
+										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
+					</tr>
+					</form>
+				</c:forEach>
 
-<%-- 							<td><input type="hidden" name="keywordId" value="${k.keywordId}" /></td> --%>
-<%-- 							<td><input name="keyword" value="${k.keyword}" /></td> --%>
-<%-- 							<td><img class="userimg" alt="" src="${contextRoot}/users/${u.userPhoto}"></td> --%>
-<!-- 							<td><button type="submit" -->
-<!-- 									class="w3-button w3-red w3-hover-black">送出</button></td> -->
-<%-- 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button --%>
-<!-- 										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td> -->
-
-<%-- 						</form> --%>
-<!-- 					</tr> -->
-<%-- 				</c:forEach> --%>
-
-<!-- 			</tbody> -->
-<!-- 		</table> -->
+			</tbody>
+		</table>
 		</div>
 </body>
 </html>
