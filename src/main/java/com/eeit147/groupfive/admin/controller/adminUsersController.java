@@ -45,8 +45,10 @@ public class adminUsersController {
 	
 	//編輯使用者
 	@PostMapping("/editAdminUsers")
-	public String editAdminUsers(@RequestParam("userId") Integer userid,@RequestParam("userName") String username, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("permission") Integer permission,
+	public String editAdminUsers(@RequestParam("userId") Integer userid,
+			@RequestParam("userName") String username,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,@RequestParam("permission") Integer permission,
 			//@RequestParam("user_photo")MultipartFile file,
 			Model model){
 		
@@ -69,7 +71,7 @@ public class adminUsersController {
 	@GetMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
 	public String editAdminUsersget(@PathVariable("userId") Integer userid,@PathVariable("userName") String username, @PathVariable("email") String email,
 			@PathVariable("password") String password, @PathVariable("permission") Integer permission
-			//@PathVariable("user_photo")MultipartFile file,
+		//@PathVariable("user_photo")MultipartFile file,
 			){
 		String photopath= "";
 		Users au = new Users();

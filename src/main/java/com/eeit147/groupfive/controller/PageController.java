@@ -182,9 +182,17 @@ private FoodsService fService;
 //	public String goCategories() {
 //		return "categories";
 //	}
-	//食譜分類頁面
-		@GetMapping("/showAllKeywords")
-		public String showAllKeywords() {
-			return "showAllKeywords";
-		}
+	
+	//管理食譜分類頁面
+	@GetMapping("/showAllKeywords")
+	public String showAllKeywords() {
+		return "showAllKeywords";
+	}
+		
+	//管理食譜分類頁面
+	@GetMapping("/addkeyword")
+	public String addkeyword() {
+		return "addkeyword";
+		
+	}
 }

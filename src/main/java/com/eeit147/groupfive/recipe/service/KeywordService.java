@@ -36,4 +36,18 @@ public class KeywordService {
 		}
 		return dtoList;
 	}
+	
+	//存入關鍵字
+	public Keyword insertKeyword(Keyword keyword) {
+			Keyword k = kDao.save(keyword);
+		return k;
+	}
+	//驗證關鍵字是否已存在
+	public boolean checkKeywordExist(String keyword) {
+			List<Keyword> check = kDao.findByKeywordLike(keyword);
+			if(check.isEmpty()) {
+				return true;
+			}
+			return false;
+			}
 }
