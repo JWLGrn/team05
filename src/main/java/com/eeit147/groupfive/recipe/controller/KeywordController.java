@@ -61,7 +61,7 @@ public class KeywordController {
 		}
 	
 	//編輯關鍵字
-	@PostMapping("/editeditKeyword")
+	@PostMapping("/editKeyword")
 	public String editeditKeyword(@RequestParam("keywordId") Integer keywordId,
 								  @RequestParam("keyword") String keyword,
 								  @RequestParam("keywordPhoto")MultipartFile word,
