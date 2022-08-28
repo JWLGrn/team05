@@ -41,7 +41,7 @@ public class KeywordController {
 	@PostMapping("/addkeyword")
 	public String InsertKeyword(
 			@RequestParam("keyword") String keyword,
-			 @RequestParam("keywordPhoto") MultipartFile file, 
+			 @RequestParam("keywordphoto") MultipartFile file, 
 			 Model model,HttpSession session){
 		Keyword newkeyword = new Keyword();
 		newkeyword.setKeyword(keyword);
@@ -52,7 +52,7 @@ public class KeywordController {
 		Keyword result = kService.insertKeyword(akeyword);
 		System.out.println(result);
 		try {
-			//上傳照片到指定路徑 並取名為userid.jpeg
+//			上傳照片到指定路徑 並取名為userid.jpeg
 			file.transferTo(new File("C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\category\\" + keywordId + ".jpeg"));
 				} catch (Exception e) {
 					e.printStackTrace();
