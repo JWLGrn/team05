@@ -6627,8 +6627,8 @@ ul {
 }
 
 .single-recipe-layout1 .making-elements-wrap .ingridients-wrap .checkbox input[type="checkbox"]:checked+label::after {
-	font-family: 'FontAwesome';
-	content: "\f00c";
+	font-family: 'typicons';
+    content: "\E11E";
 }
 
 .single-recipe-layout1 .making-elements-wrap .ingridients-wrap .checkbox input[type="checkbox"]:disabled+label {

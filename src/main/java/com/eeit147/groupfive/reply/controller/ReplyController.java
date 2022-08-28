@@ -78,7 +78,11 @@ public class ReplyController {
 	@ResponseBody 
 	@PostMapping(value="/reply/insert", produces = { "application/json; charset=UTF-8" })
 	public List<Reply> replyInsert(@RequestBody ReplyDto replydto, Model m) throws Exception {
-		List<Reply> allReply = rpService.insertReply(replydto);
+		Users user=(Users)m.getAttribute("loginUser");
+		if(user == null) {
+			return new ArrayList<Reply>();
+		}
+		List<Reply> allReply = rpService.insertReply(replydto,user);
 		return allReply;
 	}
 	

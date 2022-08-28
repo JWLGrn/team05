@@ -110,7 +110,7 @@
             <div class="container">
                 <div class="ranna-box-style">
                     <div class="section-heading heading-dark">
-                        <h2 class="item-heading">最多人按讚的食譜</h2>
+                        <h2 class="item-heading">最多人喜歡的食譜</h2>
                     </div>
                     <div class="row gutters-40" id="mostFavor">
 					<!--  --------------重複的結構-------------- -->
@@ -139,15 +139,6 @@
         <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
-    <!-- Search Box Start Here -->
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">×</button>
-        <form class="search-form">
-            <input type="search" value="" placeholder="Type here........" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <!-- Search Box End Here -->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -389,7 +380,7 @@
                 +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h3>'
                 +'<ul class="entry-meta"><li><a href="#"><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
                 +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人收藏</a></li></ul></div></div></div>'
+                +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人喜歡</a></li></ul></div></div></div>'
                 $("#mostFavor").html("").append(figure);
             }
 		});

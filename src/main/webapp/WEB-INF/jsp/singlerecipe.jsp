@@ -33,6 +33,8 @@
     <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
+    <!-- simple-notify CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/simple-notify.min.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
@@ -74,7 +76,6 @@
 		.color_gray{
   			color: gray;
 		}
-<<<<<<< HEAD
 		.color_blue{
   			color: blue;
   			cursor: pointer;
@@ -82,7 +83,6 @@
 		.cursor_pointer{
 			cursor: pointer; 
 		}
-=======
         .descript{
             overflow: hidden;
             display: -webkit-box;
@@ -96,7 +96,11 @@
             width: 350px;
             height: 300px;
         }
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
+        .authorimg{
+        	object-fit:cover;
+			width: 200px;
+			height:200px;
+        }
     </style>
 </head>
 
@@ -157,21 +161,9 @@
                                 </div>
                                 <div class="col-xl-3 col-12">
                                     <ul class="action-item">
-                                        <li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button>檢舉</button></a></li>
-                                    	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button>修改</button></a></li>
-                                    	<li><a href="${contextRoot}/recipe/delete/${recipe.recipeId}"><button>刪除</button></a></li>
-                                        <li><button><i class="fas fa-print"></i></button></li>
-                                        <li><button><i class="fas fa-expand-arrows-alt"></i></button></li>
-                                        <li class="action-share-hover"><button><i class="fas fa-share-alt"></i></button>
-                                            <div class="action-share-wrap">
-                                                <a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a>
-                                                <a href="#" title="twitter"><i class="fab fa-twitter"></i></a>
-                                                <a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                                <a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a>
-                                                <a href="#" title="skype"><i class="fab fa-skype"></i></a>
-                                                <a href="#" title="rss"><i class="fas fa-rss"></i></a>
-                                            </div>
-                                        </li>
+                                        <li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button style="font-size:17px">檢舉</button></a></li>
+                                    	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button style="font-size:17px">修改</button></a></li>
+                                    	<li><a><button style="font-size:17px" onclick="deleteRecipe()">刪除</button></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -291,8 +283,6 @@
                                 <form class="leave-form-box">
                                     <div class="row">
                                     <div class="col-12 form-group">
-  									
-  									<input type="hidden" value="3" id="usersId"/>
                                     		<label>Photo :</label>
                                         	<label id="fileload">
                                         	<img src="${contextRoot}/image/recipe/upload.png" id="imgView" class="replyobfit"/>
@@ -321,7 +311,7 @@
                                 <h3 class="item-heading">關於作者</h3>
                             </div>
                             <div class="widget-about">
-                                <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about"></figure>
+                                <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about" class="authorimg"></figure>
                                 <h3 class="item-title">${recipe.users.userName}</h3>
                                 <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.follow)} 粉絲</p>
                                 <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
@@ -444,15 +434,6 @@
         <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
-    <!-- Search Box Start Here -->
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">×</button>
-        <form class="search-form">
-            <input type="search" value="" placeholder="Type here........" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <!-- Search Box End Here -->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -465,14 +446,21 @@
     <script src="${contextRoot}/js/owl.carousel.min.js"></script>
     <!-- Smoothscroll Js -->
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
+    <!-- simple-notify Js -->
+    <script src="${contextRoot}/js/simple-notify.min.js"></script>
+    <!-- sweetalert2 Js -->
+    <script src="${contextRoot}/js/sweetalert2.all.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
-    
+    <!-- Fancybox Js -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
     var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
+<<<<<<< HEAD
 
+=======
+>>>>>>> 95ca3cccd53b6db3fa22acff7e9403580cebfc23
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
@@ -487,7 +475,12 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
+<<<<<<< HEAD
 			success:function(result){
+=======
+			success:function(result){				
+
+>>>>>>> 95ca3cccd53b6db3fa22acff7e9403580cebfc23
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}
@@ -498,6 +491,7 @@
 }
 //按讚 
 function addfavorite(recipeId){
+	if(eval("${!empty loginUser}")){
 	str=0;
 	var replyjson=JSON.stringify(recipeId);
 	$.ajax({
@@ -518,8 +512,9 @@ function addfavorite(recipeId){
 			$("#fanum").text(str);
 		 },error:function(err){
 		 	console.log(err);
-	   }
-  });
+	   	}
+  	  });
+	}
 }
 //是否追蹤過
 function followornot(recipeId){
@@ -547,6 +542,7 @@ function followornot(recipeId){
 }
 //按追蹤
 $("#track").click(function(){
+	if(eval("${!empty loginUser}")){
 	console.log(recipeId);
 	var replyjson=JSON.stringify(recipeId);
   	$.ajax({
@@ -560,15 +556,48 @@ $("#track").click(function(){
   			if(result==true){
   			    $("#track").css("color","gray");
   			    $("#tratext").text("追蹤");
+  			 	new Notify ({
+    	 		    status: 'error',
+    	 		    title: '提示',
+    	 		    text: '已取消追蹤${recipe.users.userName}',
+    	 		    effect: 'slide',
+    	 		    speed: 400,
+    	 		    customIcon: '<i class="fas fa-star"></i>',
+    	 		    showIcon: true,
+    	 		    showCloseButton: true,
+    	 		    autoclose: true,
+    	 		    autotimeout: 3000,
+    	 		    gap: 20,
+    	 		    distance: 20,
+    	 		    type: 1,
+    	 		    position: 'left bottom'
+    	 		  })
+  			  	
   	 			  }else{
   	 			$("#track").css("color","blue");  	 			
   	 			$("#tratext").text("已追蹤");
-  	 			
+  	 		  new Notify ({
+  	 		    status: 'error',
+  	 		    title: '提示',
+  	 		    text: '已追蹤${recipe.users.userName}',
+  	 		    effect: 'slide',
+  	 		    speed: 400,
+  	 		    customIcon: '<i class="fas fa-star"></i>',
+  	 		    showIcon: true,
+  	 		    showCloseButton: true,
+  	 		    autoclose: true,
+  	 		    autotimeout: 3000,
+  	 		    gap: 20,
+  	 		    distance: 20,
+  	 		    type: 1,
+  	 		    position: 'left bottom'
+  	 		  })
   	 		}	
   		},error:function(err){
   			   console.log(err);
   		}
     });
+  }
 })
 
     // 右方最新食譜
@@ -647,13 +676,8 @@ $("#track").click(function(){
     
     // 新增留言
     $("#senddata").click(function(){
-    	var replyId=$("#replyId").val();
-    	var usersId=$("#usersId").val();
     	var message=$("#message").val();
-
     	var reply={
-    			   replyId:replyId,
-    			   usersId:usersId,
     			   finallyPhoto:fileDataURL,
     			   message:message		
     	}
@@ -665,17 +689,23 @@ $("#track").click(function(){
     		method:'post',
     		data:replyjson,
     		success:function(result){	
-    			var replydata='';
-    			$.each(result,function(index,value){
+    			console.log(result);
+    			if(result.length == 0){
+    				alert("請登入會員!!");
+    			}else{
+    				var replydata='';
+    				$.each(result,function(index,value){
     				replydata += '<li class="reviews-single-item">'
-    				+'<div class="media media-none--xs">'
-    				+'<img src="${contextRoot}/reply/'+value.finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
-    				+'<div class="media-body"><h4 class="comment-title">'+value.userName+'</h4>'
-    				+'<span class="post-date">'+value.uploadTime+'</span>'
-    				+'<p>'+value.message+'</p>'
-    				+'</div></div></li>'
-    			})
-    			$("#showmsg").html("").append(replydata);
+    						  +'<div class="media media-none--xs">'
+    						  +'<img src="${contextRoot}/reply/'+value.finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
+    						  +'<div class="media-body"><h4 class="comment-title">'+value.userName+'</h4>'
+    						  +'<span class="post-date">'+value.uploadTime+'</span>'
+    						  +'<p>'+value.message+'</p>'
+    						  +'</div></div></li>'
+    					})
+    				$("#showmsg").html("").append(replydata);
+    			}
+    			
     		},
     		error:function(err){
     			console.log(err);
@@ -806,6 +836,35 @@ $("#track").click(function(){
             }
         });
     });
+    
+      
+
+    // 確認刪除
+    function deleteRecipe(){
+    	Swal.fire({
+        title: '提醒',
+    	text: "確定要刪除此篇食譜？",
+    	icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '刪除',
+    	cancelButtonText: '取消!',
+    }).then((result) => {
+         if (result.isConfirmed) {
+             Swal.fire({
+                title: '提示',
+    	    	text: "食譜已刪除！",
+    	    	icon: 'success',
+    	    	confirmButtonText: '確定'
+            }).then((success) => {
+    	    	 if (success.isConfirmed) {
+    		    	 window.location.href = "${contextRoot}/recipe/delete/${recipe.recipeId}";
+    	    	 }
+    		 })
+          }
+      })
+    }
     </script>
 </body>
 

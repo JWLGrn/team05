@@ -52,6 +52,14 @@
 			border: 1px solid #E0E0E0;
 			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 		}
+		.wrongMessage{
+			margin-left:30px;
+			color:red;
+		}
+		.currectMessage{
+			margin-left:30px;
+			color:green;
+		}
     </style>
 </head>
 <body>
@@ -92,7 +100,7 @@
                 <div class="row gutters-60">
                 	<div class="col-lg-2"></div>
                     <div class="col-lg-8 insertcontainer">
-                        <form class="submit-recipe-form" method="POST" action="recipe/insert" enctype="multipart/form-data">
+                        <form class="submit-recipe-form needs-validation" method="POST" action="recipe/insert" enctype="multipart/form-data" novalidate>
                             <div class="form-group" style="display: flex;justify-content: center;">
                                 <label><img id="recipeImageUpload" src="${contextRoot}/recipe/upload.png" height="150px"/>
                                 <input type="file" name="photo" onchange="photochange(event,recipeImageUpload)" accept=".png, .jpg, .jpeg" style="display:none;"/></label>
@@ -119,15 +127,15 @@
                                     <div class="col-6">
                                         <div class="form-group additional-input-box icon-left">
                                             <i class="far fa-clock"></i>
-                                            <input type="number" placeholder="烹飪時間（分鐘）" class="form-control"
-                                                name="time">   
+                                            <input type="number" placeholder="烹飪時間（分鐘）" class="form-control" name="time" required>
                                         </div>
+                                        	
                                     </div>
                                     <div class="col-6">
                                        <div class="form-group additional-input-box icon-left">
                                             <i class="fas fa-utensils"></i>
                                             <input type="number" placeholder="份量（人份）" class="form-control"
-                                                name="people">
+                                                name="people"  required>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +153,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram">
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" required>
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
@@ -168,7 +176,7 @@
                                         </div>
                                         <div class="col-9">
                                             <div class="form-group additional-input-box icon-right"  style="height: 150px;">
-                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>
+                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required></textarea>
                                                 <i class="fas fa-times removeStep"></i>
                                             </div>
                                         </div>
@@ -177,7 +185,7 @@
                                 </div>
                                     <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
-                            <button type="submit" class="btn-submit">發佈食譜</button>
+                            <button type="submit" class="btn-submit">發佈食譜</button><span id="wrongMessage"></span>
                         </form>
                     </div>
                 </div>
@@ -188,15 +196,6 @@
         <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
-    <!-- Search Box Start Here -->
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">�</button>
-        <form class="search-form">
-            <input type="search" value="" placeholder="Type here........" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <!-- Search Box End Here -->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -250,7 +249,7 @@
                               +'</div></div>'
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-right">'
-                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram">'
+                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram" required>'
                               +'<i class="fas fa-times removeFood"></i>'
                               +'</div></div></div>'
                 $(".foodtable").append(addfoods);
@@ -278,7 +277,7 @@
                               +'</div></div>'
                               +'<div class="col-9">'
                               +'<div class="form-group additional-input-box icon-right"  style="height: 150px;">'
-                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>'
+                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required></textarea>'
                               +'<i class="fas fa-times removeStep"></i>'
                               +'</div></div></div>'
 
@@ -327,6 +326,33 @@
                 });
             });
 
+            // 驗證
+            (function() {
+            	  'use strict';
+            	  window.addEventListener('load', function() {
+            	    var forms = document.getElementsByClassName('needs-validation');
+            	    var validation = Array.prototype.filter.call(forms, function(form) {
+            	      // 送出時驗證
+            	      form.addEventListener('submit', function(event) {
+            	        if (form.checkValidity() === false) {
+            	          event.preventDefault();
+            	          event.stopPropagation();
+            	          $("#wrongMessage").html("").append("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>資料輸入不完全！")
+						  $("#wrongMessage").removeClass("currectMessage").addClass("wrongMessage")
+            	        }
+            	        form.classList.add('was-validated');
+            	      }, false);
+            	      
+            	      // 驗證是否填寫完成
+            	      form.addEventListener('change', function(event) {
+              	        if (form.checkValidity() === true) {
+              	          $("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+						  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+              	        }
+              	      }, false);
+            	    });
+            	  }, false);
+            	})();
             
     </script>
 </body>
