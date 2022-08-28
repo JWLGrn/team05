@@ -53,15 +53,15 @@ body {font-size:16px;}
 
 <div class="w3-main" style="margin-left:220px;">
 
-<h3>新增關鍵字</h3>
+<h3>新增食譜類別</h3>
 <table  class="table table-striped">
 
 <form action="${contextRoot}/addkeyword" method="post" enctype="multipart/form-data" class="login-form">
  	類別名稱:<input type="text" name="keyword" id="word"/><span id="titlecheck" 	class="check"></span><br/>
  	類別圖示:<label><img id="keyword" src="${contextRoot}/image/keyword/file.jpg"/>
-      			<input type="file" id="keyword" name="word" onchange="photochange(event,keyword)" accept=".png, .jpg, .jpeg" style="display:none;"/>
+      			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,keyword)" accept=".png, .jpg, .jpeg" style="display:none;"/>
       		</label>
-			<button id="submit"  onclick="submitBtn()">送出</button>
+			<button id="submit">送出</button>
 </form>
 </table>
 </div>

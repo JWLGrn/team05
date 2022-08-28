@@ -47,25 +47,25 @@ public class adminUsersController {
 	
 	
 	//編輯使用者
-//	@GetMapping("/editAdminUsers")
-//	public String editAdminUsers(@RequestParam("userId") Integer userid,
-//			@RequestParam("permission") Integer permission){
-//		System.out.println(userid);
-//		Users user = uService.findUsersById(userid);
-//		user.setPermission(permission);
-//		
-//		String photopath= "";
-//		Users au = new Users();
-//		au.setUserId(userid);
+	@GetMapping("/editAdminUsers")
+	public String editAdminUsers(@RequestParam("userId") Integer userid,
+			@RequestParam("permission") Integer permission){
+		System.out.println(userid);
+		Users user = uService.findUsersById(userid);
+		user.setPermission(permission);
+		
+		String photopath= "";
+		Users au = new Users();
+		au.setUserId(userid);
 //		au.setUserName(username);
 //		au.setEmail(email);
 //		au.setPassword(password);
-//		au.setPermission(permission);
-//		
-//		aService.insertUser(user);
-//		
-//		return "redirect:/showAllUsers";
-//	}
+		au.setPermission(permission);
+		
+		aService.insertUser(user);
+		
+		return "redirect:/showAllUsers";
+	}
 	
 	//使用者篩選結果編輯傳值
 	@GetMapping("/editAdminUsers/{userId}/{userName}/{email}/{password}/{permission}")
