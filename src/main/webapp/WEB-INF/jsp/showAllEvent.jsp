@@ -290,7 +290,8 @@ body {
 		<!-- Select 2 Js -->
 		<script src="${contextRoot}/js/select2.full.min.js"></script>       
         <script src="${contextRoot}/js/main.js"></script>
-
+		<!-- sweetalert -->
+		<script src="${contextRoot}/js/sweetalert2.all.min.js"></script>
 
 
 <!-- JAVA　SCRIPT------------------------------------------------ -->
@@ -617,26 +618,36 @@ function updateevent(eventId){
 }
 //刪除
 function del(eventId){
-	var r = confirm("您確定要刪除嗎?");
-	if (r == true) {
-	 alert('刪除成功');
-	var replyjson=JSON.stringify(eventId);
-	$.ajax({
- 		url:"${contextRoot}/event/delete",
-	 	contentType:'application/json',//送出資料型態
- 		dataType:'json',//回傳資料型態
- 		method:'post',
- 		data:replyjson,
- 	success:function(result){			
-		alert('刪除成功');
- 	},
- 	error:function(err){
- 		console.log(err);
- 		}
- 	});
-  }
-	 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
-} 
+ 	Swal.fire({
+ 		  title: '您確定要刪除嗎?',
+ 		  icon: 'warning',
+ 		  showCancelButton: true,
+ 		  confirmButtonColor: '#3085d6',
+ 		  cancelButtonColor: '#d33',
+ 		  confirmButtonText: '確定!'
+ 		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '刪除成功!'
+		    )
+		    var replyjson=JSON.stringify(eventId);
+			$.ajax({
+ 				url:"${contextRoot}/event/delete",
+	 			contentType:'application/json',//送出資料型態
+ 				dataType:'json',//回傳資料型態
+ 				method:'post',
+ 				data:replyjson,
+ 				success:function(result){			
+					
+ 				},
+ 				error:function(err){
+ 					console.log(err);
+ 				}
+ 			})
+			 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
+  					}	  
+	}) 
+}
 //--------------------活動選擇-------------------> 
 //參加活動紐   顯示選擇活動
 function participate(eventId){

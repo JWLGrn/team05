@@ -472,17 +472,11 @@
     <script type="text/javascript">
     var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
-<<<<<<< HEAD
+
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
    		}  
-   		followornot(recipeId);
-=======
-        if(eval("${!empty loginUser}")){
-            favoriteornot("${recipe.recipeId}");
-        }
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
     });
     //是否按過讚
     function favoriteornot(recipeId){
@@ -493,11 +487,7 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
-<<<<<<< HEAD
-			success:function(result){				
-=======
 			success:function(result){
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}
@@ -542,10 +532,13 @@ function followornot(recipeId){
  			method:'post',
  			data:replyjson,
  			success:function(result){
- 				//console.log(result);
+ 				console.log(result);
  				if(result==true){
-					$("#track").addClass("color_blue");
+					$("#track").css("color","blue");
 					$("#tratext").text("已追蹤");
+				}else{
+					 $("#track").css("color","gray");
+		  			 $("#tratext").text("追蹤");
 				}
  			 },error:function(err){
  			 	console.log(err);
@@ -563,6 +556,7 @@ $("#track").click(function(){
   		method:'post',
   		data:replyjson,
   		success:function(result){
+  			
   			if(result==true){
   			    $("#track").css("color","gray");
   			    $("#tratext").text("追蹤");

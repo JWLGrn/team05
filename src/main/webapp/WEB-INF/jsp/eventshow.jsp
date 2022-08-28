@@ -208,6 +208,8 @@ a{
             </div>
  </section>
 
+
+
 		<!-- Recipe Without Sidebar Area End Here -->
 		<!-- Footer Area Start Here -->
 		<footer class="ranna-bg-dark ">
@@ -236,14 +238,16 @@ a{
 		<!-- Select 2 Js -->
 		<script src="${contextRoot}/js/select2.full.min.js"></script>       
         <script src="${contextRoot}/js/main.js"></script>
-
-
+        <!-- sweetalert -->
+		<script src="${contextRoot}/js/sweetalert2.all.min.js"></script>
 
 <!-- JAVA　SCRIPT------------------------------------------------ -->
 <script type="text/javascript">
 //定義物件
 let fileDataURL;
 //--------------------------------------------測試用
+ 
+
 
 //---------------------------------------------呼叫區
  $(document).ready(function() {//網頁載入,顯示活動區塊
@@ -254,7 +258,7 @@ let fileDataURL;
 	// participate(eventId)
 	$("#showmyRecipe").hide();
 	// showMyRecipe(eventId);
-	 $("#showparticipate").hide();
+	 $("#showparticipate").hide();	 	 
  });
 //參加活動
  function showoneevent(eventId){
@@ -266,13 +270,6 @@ let fileDataURL;
 	showMyRecipe(eventId);	
 	$("#showparticipate").hide();
  }
-//  //顯示食譜
-//  function showrecipe(eventId){
-// 	 $("#showevent").hide();
-// 	 $("#showmyRecipe").show();//顯示食譜
-// 	 showMyRecipe(eventId);	
-//      $("#showparticipate").hide();
-//  }
  //顯示參加名單showparticipate()
  function showparticipate(eventId){
 	//區塊
@@ -462,26 +459,38 @@ function checkjoin(eventId,recipeId,count){
 }
 //取消參加
 function canceljoin(recipeId,eventId){
-	var r = confirm("您確定要取消參加嗎?");
-	if (r == true) {
-	let data1=recipeId+","+eventId;
- 	var replyjson=JSON.stringify(data1);
- 	$.ajax({
- 		 url:"${contextRoot}/event/joindelete",
- 		 contentType:'application/json',//送出資料型態
-  		 dataType:'json',//回傳資料型態
- 		 method:'post',
- 		 data:replyjson,
- 		 success:function(result){			
- 				alert('刪除成功');
- 		 },
- 		 error:function(err){
- 		 	console.log(err);
- 		 		}
- 		 	});
- 		}
-		 $(location).prop("href", "http://localhost:8090/cookblog/showevent");
-
+	 Swal.fire({
+		  title: '確定要取消參加嗎?',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '確定!'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '刪除成功!'
+		    )
+		    let data1=recipeId+","+eventId;
+ 			var replyjson=JSON.stringify(data1);
+ 			$.ajax({
+ 				 url:"${contextRoot}/event/joindelete",
+ 				 contentType:'application/json',//送出資料型態
+  		 		 dataType:'json',//回傳資料型態
+ 				 method:'post',
+ 		 		 data:replyjson,
+ 		 		 success:function(result){			
+ 				 	
+ 				 },
+ 				 	error:function(err){
+ 		 			console.log(err);
+ 		 		 }
+ 				 
+ 			});
+ 			showoneevent(eventId);
+		  }
+		})
+		 
 }
 //--------------------參加名單-------------------> 
 //參加者名單
