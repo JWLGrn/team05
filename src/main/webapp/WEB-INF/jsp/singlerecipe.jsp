@@ -457,10 +457,7 @@
     <script type="text/javascript">
     var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
-<<<<<<< HEAD
 
-=======
->>>>>>> 95ca3cccd53b6db3fa22acff7e9403580cebfc23
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
@@ -475,12 +472,9 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
-<<<<<<< HEAD
 			success:function(result){
-=======
 			success:function(result){				
 
->>>>>>> 95ca3cccd53b6db3fa22acff7e9403580cebfc23
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}
