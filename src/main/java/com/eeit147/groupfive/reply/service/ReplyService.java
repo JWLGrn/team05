@@ -41,7 +41,7 @@ public class ReplyService {
 	private UsersDao uDao;
 	
 	//食譜類	
-	public List<Reply> insertReply(ReplyDto replydto) throws IOException {
+	public List<Reply> insertReply(ReplyDto replydto,Users user) throws IOException {
 		Reply reply = new Reply();
 		
 		Integer replyId = replydto.getReplyId();//食譜id
@@ -77,9 +77,7 @@ public class ReplyService {
 		newReply.setMessage(replydto.getMessage());
 		newReply.setFinallyPhoto(imgPath);
 		
-		//抓usersbean
-		Optional<Users> optional2 = uDao.findById(replydto.getUsersId());
-		Users user = optional2.get();
+		//連結user
 		newReply.setUsers(user);
 		rpDao.save(newReply);
 

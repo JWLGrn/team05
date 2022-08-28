@@ -38,6 +38,14 @@
     		background-position: center;
             background-size: cover;
 		}
+		.descript{
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3; /*行數*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
     </style>
 </head>
 <body>
@@ -199,7 +207,7 @@
                                 </c:forEach>
                                 </span>
                                 <h3 class="item-title"><a href="${contextRoot}/recipe/find/${rL.recipeId}">${rL.cookTitle}</a></h3>
-                                <p>${rL.cookDescription} </p>
+                                <p class="descript">${rL.cookDescription} </p>
                                 <ul class="entry-meta">
                                     <li><a href="#"><i class="fas fa-clock"></i>${rL.cookTime} Mins</a></li>
                                     <li><a href="#"><i class="fas fa-user"></i>by <span>${rL.users.userName}</span></a></li>
@@ -250,9 +258,8 @@
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
     <script>
-        $("#searchrecipe").click(function(){
-
-            var checkedList = [];
+    	function search(){
+    		var checkedList = [];
             $(".searchgroup:checked").each(function() {
                 checkedList.push("&"+$(this).attr("name")+"="+$(this).val());
             });
@@ -294,7 +301,7 @@
                             +'<div class="item-content">'
                             +'<span class="sub-title">' + classifytitle + '</span>'
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'
-                            +'<p>'+response[index].cookDescription+'</p>'
+                            +'<p class="descript">'+response[index].cookDescription+'</p>'
                             +'<ul class="entry-meta">'
                             +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+' Mins</a></li>'
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
@@ -328,7 +335,26 @@
                     }
                 })
             });
+    	}
+    
+    	// 按搜尋按鍵
+        $("#searchrecipe").click(function(){
+        	search();
         })
+        
+        // 勾選類別
+        $("input[type='checkbox']").change(function(){
+        	search();
+        })
+        
+        // 搜尋欄按ENTER
+        $("#searchWord").keypress(function(e){
+        	if(e.which == 13){
+        		event.preventDefault();
+        		search();
+        	}
+        })
+        
 
         //分頁按鈕
         function pageBtn(totalPages,nowPage){

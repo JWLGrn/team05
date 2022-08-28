@@ -38,6 +38,14 @@
     		background-position: center;
             background-size: cover;
 		}
+		.descript{
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3; /*行數*/
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +96,7 @@
                                 </c:forEach>
                                 </span>
                                 <h3 class="item-title"><a href="${contextRoot}/recipe/find/${rL.recipeId}">${rL.cookTitle}</a></h3>
-                                <p>${rL.cookDescription} </p>
+                                <p class="descript">${rL.cookDescription} </p>
                                 <ul class="entry-meta">
                                     <li><a href="#"><i class="fas fa-clock"></i>${rL.cookTime} Mins</a></li>
                                     <li><a href="#"><i class="fas fa-user"></i>by <span>${rL.users.userName}</span></a></li>
