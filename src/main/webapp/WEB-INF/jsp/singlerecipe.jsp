@@ -74,7 +74,6 @@
 		.color_gray{
   			color: gray;
 		}
-<<<<<<< HEAD
 		.color_blue{
   			color: blue;
   			cursor: pointer;
@@ -82,7 +81,6 @@
 		.cursor_pointer{
 			cursor: pointer; 
 		}
-=======
         .descript{
             overflow: hidden;
             display: -webkit-box;
@@ -96,7 +94,12 @@
             width: 350px;
             height: 300px;
         }
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
+        .authorimg{
+        	object-fit:cover;
+			width: 200px;
+			height:200px;
+        }
+
     </style>
 </head>
 
@@ -321,7 +324,7 @@
                                 <h3 class="item-heading">關於作者</h3>
                             </div>
                             <div class="widget-about">
-                                <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about"></figure>
+                                <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about" class="authorimg"></figure>
                                 <h3 class="item-title">${recipe.users.userName}</h3>
                                 <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.follow)} 粉絲</p>
                                 <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
@@ -444,15 +447,6 @@
         <jsp:include page="layout/footer.jsp"/>
         <!-- Footer Area End Here -->
     </div>
-    <!-- Search Box Start Here -->
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">×</button>
-        <form class="search-form">
-            <input type="search" value="" placeholder="Type here........" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <!-- Search Box End Here -->
     <!-- Jquery Js -->
     <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Js -->
@@ -467,22 +461,15 @@
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
-    
+    <!-- Fancybox Js -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
     var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
-<<<<<<< HEAD
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
    		}  
-   		followornot(recipeId);
-=======
-        if(eval("${!empty loginUser}")){
-            favoriteornot("${recipe.recipeId}");
-        }
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
     });
     //是否按過讚
     function favoriteornot(recipeId){
@@ -493,11 +480,8 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
-<<<<<<< HEAD
 			success:function(result){				
-=======
-			success:function(result){
->>>>>>> 34f7b61bb1a5bce7f3f6299673f1b7e972246082
+
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}

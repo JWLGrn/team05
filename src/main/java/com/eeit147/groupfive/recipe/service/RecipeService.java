@@ -79,7 +79,7 @@ public class RecipeService {
 	private KeywordService kService;
 	
 	//新增食譜
-	public Recipe addRecipe(Integer userId,
+	public Recipe addRecipe(Users user,
 							Recipe recipe, 
 							MultipartFile photo, 
 							String[] foods, 
@@ -87,10 +87,6 @@ public class RecipeService {
 							String[] tags, 
 							String[] stepDescript, 
 							MultipartFile[] stepPhoto) { // 步驟相片
-
-		// 取得user
-		Optional<Users> optional = uDao.findById(userId);
-		Users user = optional.get();
 
 		// 食譜
 		recipe.setUsers(user);
