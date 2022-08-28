@@ -67,6 +67,7 @@ public class ReplyController {
 		return "reply";
 	}
 	
+	// 顯示食譜全部留言
 	@ResponseBody
 	@GetMapping("recipe/reply/{recipeId}")
 	public List<Reply> replyShow(@PathVariable("recipeId")Integer recipeId) {

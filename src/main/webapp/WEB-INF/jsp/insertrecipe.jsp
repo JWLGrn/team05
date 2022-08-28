@@ -127,14 +127,14 @@
                                     <div class="col-6">
                                         <div class="form-group additional-input-box icon-left">
                                             <i class="far fa-clock"></i>
-                                            <input type="number" placeholder="烹飪時間（分鐘）" class="form-control" name="time" required>
+                                            <input type="number" placeholder="烹飪時間（分鐘）" class="form-control" name="time" min="1" required>
                                         </div>
                                         	
                                     </div>
                                     <div class="col-6">
                                        <div class="form-group additional-input-box icon-left">
                                             <i class="fas fa-utensils"></i>
-                                            <input type="number" placeholder="份量（人份）" class="form-control"
+                                            <input type="number" placeholder="份量（人份）" min="1" class="form-control"
                                                 name="people"  required>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" required>
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" min="1" required>
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
@@ -326,8 +326,8 @@
                 });
             });
 
-            // 驗證
-            (function() {
+              // 驗證
+              (function() {
             	  'use strict';
             	  window.addEventListener('load', function() {
             	    var forms = document.getElementsByClassName('needs-validation');
@@ -354,6 +354,13 @@
             	  }, false);
             	})();
             
+            // 驗證數字不可小於零
+            $("input[type='number']").change(function(){
+            	console.log($(this).val());
+            	if($(this).val() <= 0){
+            		$(this).val(1);
+            	}
+            });
     </script>
 </body>
 

@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
     <!-- simple-notify CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/simple-notify.min.css">
+    <!-- sweetalert2 CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/sweetalert2.min.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
@@ -283,7 +285,8 @@
                                 <form class="leave-form-box">
                                     <div class="row">
                                     <div class="col-12 form-group">
-                                    		<label>Photo :</label>
+                                    		<input type="hidden" id="replyId" value="${recipe.recipeId}">
+                                    		<label>照片 :</label>
                                         	<label id="fileload">
                                         	<img src="${contextRoot}/image/recipe/upload.png" id="imgView" class="replyobfit"/>
       										<input type="file" id="finallyPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)">
@@ -291,13 +294,13 @@
                                         	</div>
                                         <div class="col-12 form-group">
                                         	
-                                            <label>Comment :</label>
+                                            <label>留言 :</label>
                                             <textarea placeholder="" class="textarea form-control" name="message" rows="7"
                                                 cols="20" data-error="Message field is required" id="message" required></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="col-12 form-group mb-0">
-                                            <button type="button" class="item-btn" id="senddata">POST REVIEW</button>
+                                            <button type="button" class="item-btn" id="senddata">送出</button>
                                         </div>
                                     </div>
                                     <div class="form-response"></div>
@@ -472,9 +475,7 @@
 			dataType:'json',//回傳資料型態
 			method:'post',
 			data:replyjson,
-			success:function(result){
-			success:function(result){				
-
+			success:function(result){			
 				if(result==true){
 					$("#favorite").addClass("color_red");
 				}
@@ -628,7 +629,7 @@ $("#track").click(function(){
   		});
     
     
-  //留言欄位新增留言
+  	// 留言區顯示新增的留言
 	function replyList(response){
 		var replyList = '';
         for(let i in response){
@@ -654,7 +655,7 @@ $("#track").click(function(){
 	});
     
   	//步驟圖片顯示用(跟步驟一樣)+抓url
-    function imgview(event,imgid){   
+    function imgview(event,imgid){
       const fr = new FileReader();
       //抓url
       let fPhoto=document.getElementById("finallyPhoto").files;
@@ -671,9 +672,11 @@ $("#track").click(function(){
     // 新增留言
     $("#senddata").click(function(){
     	var message=$("#message").val();
+    	var replyId=$("#replyId").val();
     	var reply={
+    			   replyId:replyId,
     			   finallyPhoto:fileDataURL,
-    			   message:message		
+    			   message:message
     	}
     	var replyjson=JSON.stringify(reply);
     	$.ajax({
@@ -697,7 +700,12 @@ $("#track").click(function(){
     						  +'<p>'+value.message+'</p>'
     						  +'</div></div></li>'
     					})
+    				//清空輸入欄+圖片
     				$("#showmsg").html("").append(replydata);
+    				$("#message").val("");
+    				$("#finallyPhoto").val(null);
+    				fileDataURL = null;
+    				$("#imgView").attr("src","${contextRoot}/image/recipe/upload.png");
     			}
     			
     		},
@@ -843,14 +851,14 @@ $("#track").click(function(){
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '刪除',
-    	cancelButtonText: '取消!',
+    	cancelButtonText: '取消',
     }).then((result) => {
          if (result.isConfirmed) {
              Swal.fire({
                 title: '提示',
     	    	text: "食譜已刪除！",
     	    	icon: 'success',
-    	    	confirmButtonText: '確定'
+    	    	confirmButtonText: '返回食譜列表'
             }).then((success) => {
     	    	 if (success.isConfirmed) {
     		    	 window.location.href = "${contextRoot}/recipe/delete/${recipe.recipeId}";
