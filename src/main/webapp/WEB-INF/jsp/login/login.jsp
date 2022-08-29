@@ -118,6 +118,18 @@
 													<button type="button" class="btn-fill btn-primary" onclick="keyin2()">
 														joy<i class="flaticon-next"></i>
 													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin3()">
+														eason<i class="flaticon-next"></i>
+													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin4()">
+														yang<i class="flaticon-next"></i>
+													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin5()">
+														sf<i class="flaticon-next"></i>
+													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin6()">
+														green<i class="flaticon-next"></i>
+													</button>
 												</div>
 											</div>
                             </form:form>
@@ -167,13 +179,26 @@
     function keyin1() {
 		document.getElementById("email").value = "Luffy@gmail.com";
 		document.getElementById("password").value = "qaz123";
-		document.getElementById("permission").value = "1";
-
 	}
 	function keyin2() {
 		document.getElementById("email").value = "joy@gmail.com";
 		document.getElementById("password").value = "1234";
-		document.getElementById("permission").value = "2";
+	}
+	function keyin3() {
+		document.getElementById("email").value = "eason@gmail.com";
+		document.getElementById("password").value = "1234";
+	}
+	function keyin4() {
+		document.getElementById("email").value = "yang@gmail.com";
+		document.getElementById("password").value = "1234";
+	}
+	function keyin5() {
+		document.getElementById("email").value = "sf@gmail.com";
+		document.getElementById("password").value = "1234";
+	}
+	function keyin6() {
+		document.getElementById("email").value = "green@gmail.com";
+		document.getElementById("password").value = "1234";
 	}
 // 	function userDetail(){
 		

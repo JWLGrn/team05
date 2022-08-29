@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.users.model.Posts;
 import com.eeit147.groupfive.users.model.PostsDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -30,14 +31,9 @@ public class PostsService {
 	private UsersDao uDao;
 	
 	// 新增文章
-	public Posts addPost(Posts posts,MultipartFile photo) {
-		Integer userid=1;
-		Optional<Users> op = uDao.findById(userid);
-		if(op.isPresent()) {
-			Users u = op.get();
-			posts.setUsers(u);
-		}
-		
+	public Posts addPost(Posts posts,MultipartFile photo,Users user) {
+
+		posts.setUsers(user);
 		Posts post = pDao.save(posts);
 		
 		Integer postId = post.getPostsId();
@@ -125,4 +121,9 @@ public class PostsService {
 		List<Posts> posts = pDao.findTop4ByOrderByTimeDesc();
 		return posts;
 	}
+	
+		// 隨機食譜
+		public List<Posts> findRandomRecipe(Integer number){
+			return pDao.findRandomPosts(number);
+		}
 }

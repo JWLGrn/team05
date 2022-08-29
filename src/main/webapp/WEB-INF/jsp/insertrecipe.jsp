@@ -164,7 +164,7 @@
                             </div>
                             <div class="additional-input-wrap">
                                 <label>步驟</label>
-                                <div class="steptable">
+                                <div class="steptable" id="steptable">
                                     <!-- ---------------------步驟動態結構--------------------- -->
                                     <div class="row no-gutters singlestep">
                                         <div class="col-3">
@@ -212,6 +212,8 @@
     <script src="${contextRoot}/js/select2.full.min.js"></script>
     <!-- Smoothscroll Js -->
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
+    <!-- Sortable Js -->
+    <script src="${contextRoot}/js/Sortable.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
     <script>
@@ -360,6 +362,12 @@
             	if($(this).val() <= 0){
             		$(this).val(1);
             	}
+            });
+            
+            // 步驟排序
+            new Sortable(steptable, {
+                handle: '.singlestep',
+                animation: 150
             });
     </script>
 </body>

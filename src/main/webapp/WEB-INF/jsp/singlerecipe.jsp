@@ -316,7 +316,7 @@
                             <div class="widget-about">
                                 <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about" class="authorimg"></figure>
                                 <h3 class="item-title">${recipe.users.userName}</h3>
-                                <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.follow)} 粉絲</p>
+                                <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.track)} 粉絲</p>
                                 <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
                             </div>
                         </div>
