@@ -82,19 +82,23 @@ object-fit:cover;
 			<thead>
 				<tr>
 					<th></th>
-					<th scope="col">食譜類別名稱</th>
 					<th scope="col">食譜類別照片</th>
+					<th scope="col">食譜類別名稱</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody id="keywordbody">
 
 				<c:forEach items="${allKeywords}" var="k">
-					<form class="form" method="post" action="${contextRoot}/editKeyword">
+					<form class="form" method="post" action="${contextRoot}/editKeyword" enctype="multipart/form-data">
 					<tr>
 							<td><input type="hidden" name="keywordId" value="${k.keywordId}" /></td>
+							<td>
+							<label><img id="keywordImageUpload${k.keywordId}" src="${contextRoot}/category/${k.keywordPhoto}" class="keywordimg" />
+                             <input type="file" name="keywordPhoto" onchange="photochange(event,keywordImageUpload${k.keywordId})" accept=".png, .jpg, .jpeg" style="display:none;"/>
+                             </label>
+							</td>
 							<td><input name="keyword" value="${k.keyword}" /></td>
-							<td><img class="keywordimg" alt="" src="${contextRoot}/category/${k.keywordPhoto}"></td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">送出</button></td>
 							<td><a href="${contextRoot}/deleteKeyword/${k.keywordId}"><button
@@ -106,5 +110,16 @@ object-fit:cover;
 			</tbody>
 		</table>
 		</div>
+		<script type="text/javascript">//圖片預覽
+        //步驟圖片顯示用(跟步驟一樣)
+        
+        function photochange(event,imgid){   
+            //img預覽
+            let fr = new FileReader();
+            fr.onload = function (e) {
+                $('#'+imgid.id).attr('src', e.target.result);
+            };
+            fr.readAsDataURL(event.target.files[0]);
+        }</script>
 </body>
 </html>
