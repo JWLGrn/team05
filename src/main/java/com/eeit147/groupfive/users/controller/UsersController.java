@@ -430,41 +430,15 @@ public class UsersController {
 		}
 	}
 	//利用session查詢追蹤使用者的頁面
-//	@GetMapping("/follow.personal.controller")
-//	public @ResponseBody List<FollowDto>findByUsers(Model m) {
-//		Users usersession = (Users) m.getAttribute("loginUser");
-//		System.out.println(usersession.getUserName());
-//		List<Follow> follow = flService.findByUsers(usersession);
-//		List<FollowDto> list = new ArrayList();
-//		//把使用者追蹤的人 一個個拿出來
-//		 for(Follow element : follow) {
-//			 int followCount = element.getTrack().getFollow().size();
-//			 int recipeCount = element.getTrack().getRecipe().size();
-//			 int favoriteCount = element.getTrack().getFavorite().size();
-////			 int followCount = 0;
-////			 int recipeCount = 0;
-////			 int favoriteCount = 0;
-////			 //把我追蹤的人 他追蹤的人 計算出來
-////			 for(Follow e1 : element.getTrack().getFollow()) {
-////				 followCount ++;
-////			 }
-////			 //把我追蹤的人 他的食譜 計算出來
-////			 for(Recipe e2 : element.getTrack().getRecipe()) {
-////				 System.out.println(e2.getRecipeId());
-////				 recipeCount ++;
-////			 }
-////			 //把我追蹤的人 被案讚次數 計算出來
-////			 for(Favorite e3 : element.getTrack().getFavorite()) {
-////				 favoriteCount ++;
-////			 }
-//			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(), followCount, recipeCount, favoriteCount));
-//		 }
-////		m.addAttribute("follow", follow);
-//		List<FollowDto> list = flService.findByUsers(usersession);
-//		return list;
-//	}
+	@GetMapping("/follow.personal.controller")
+	public @ResponseBody List<FollowDto>findByUsers(Model m) {
+		Users usersession = (Users) m.getAttribute("loginUser");
+		System.out.println(usersession.getUserName());
+		List<FollowDto> list = flService.findByUsers(usersession);
+		return list;
+	}
 	
-	//查詢收藏食譜的頁面
+	//利用session查詢收藏食譜的頁面
 	@GetMapping("/collect.personal.controller")
 	public  @ResponseBody List<RecipeDto> findCollectByUsers(Model m){
 		Users session = (Users)m.getAttribute("loginUser");
@@ -489,7 +463,7 @@ public class UsersController {
 		return collectlist;
 	}
 	//利用id查詢被追蹤者的個人食譜頁面
-	@GetMapping("/user/findrecipeuser/{userid}")
+	@PostMapping("/user/findrecipeuser/{userid}")
 	@ResponseBody
 	public  List<Recipe> useridfindByRecipeUsers(@PathVariable("userid")Integer id,Model m) {
 		Users user = UService.findUsersById(id);

@@ -36,6 +36,8 @@
 	href="${contextRoot}/css/owl.theme.default.min.css">
 <!-- Select 2 CSS -->
 <link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
+<!-- Select 2 CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/microns/microns.css">
 <!-- Custom Css -->
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
@@ -44,11 +46,20 @@
 <style>
 .error {
 	color: red;
+	margin-top:2px;
 }
 
 .success {
 	color: #00EC00;
 }
+		.wrongMessage{
+			margin-left:30px;
+			color:red;
+		}
+		.currectMessage{
+			margin-left:30px;
+			color:green;
+		}
 </style>
 </head>
 
@@ -96,15 +107,15 @@
 								<h2 class="item-heading">REGISTER</h2>
 							</div>
 							<form action="${contextRoot}/insertUser" method="post"
-								enctype="multipart/form-data" class="login-form">
+								enctype="multipart/form-data" class="login-form needs-validation" novalidate>
 								<div class="row">
 									<div class="col-md-6">
 										<label class="mb-3">暱稱</label> 
-										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入姓名"><br /> 
+										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入姓名" required><br /> 
 										<label class="mb-3">電子信箱</label> 
-										<input type="email" name="email" id="email"class="main-input-box" placeholder="請輸入信箱"><span id="msg"></span><br />
+										<input type="email" name="email" id="email"class="main-input-box" placeholder="請輸入信箱" required><span id="msg" ></span><br />
 										<label class="mb-3">密碼</label>
-										<input type="password" name="password" id="password" class="main-input-box" placeholder="請輸入密碼"><br /> 
+										<input type="password" name="password" id="password" class="main-input-box" placeholder="請輸入密碼" required><br /> 
 <!-- 										<label class="mb-3">大頭貼</label> -->
 <!-- 										<input type="file" name="user_photo" class="main-input-box" placeholder="請上傳照片"> -->
 										<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/recipe/upload.png" id="imgView"/>
@@ -116,7 +127,7 @@
 										<div class="btn-area">
 											<button type="submit" class="btn-fill btn-primary">
 												送出<i class="flaticon-next"></i>
-											</button>
+											</button><span id="wrongMessage"></span>
 											<div class="btn-area">
 												<div class="btn-area">
 													<button type="button" class="btn-fill btn-primary" onclick="keyin1()">
@@ -135,7 +146,6 @@
 					</div>
 				</div>
 			</div>
-			<a href="${contextRoot}/ss">ssssssssssssssssss</a>
 		</section>
 		
 
@@ -171,21 +181,16 @@
 												success : function(data) {
 													if (data == 1) {
 														$("#msg").text("用戶已存在,請輸入其他帳號");
-														$("#msg").prepend("<img  src='no.png' width='15px'> ")
-														$("#msg").attr("class",
-																"error");
+														$("#msg").prepend("<span class='icon mu txt-24 mu-fail'></span>")
+														$("#msg").attr("class","error");
 														$("#email").val("");
 														console.log($("#email")
 																.val())
 														// alert("用戶已存在,請輸入其他帳號");
 													} else {
-														$("#msg")
-																.text("帳號可以使用");
-														$("#msg")
-																.prepend(
-																		"<img  src='go.png' width='15px' > ")
-														$("#msg").attr("class",
-																"success");
+														$("#msg").text("帳號可以使用");
+														$("#msg").prepend("<span class='icon mu txt-24 mu-pass'></span>")
+														$("#msg").attr("class","success");
 													}
 												}
 											});
@@ -236,6 +241,34 @@
 				    fr.readAsDataURL(event.target.files[0]);//img預覽
 				  }
 				}	
+			
+			// 驗證
+            (function() {
+            	  'use strict';
+            	  window.addEventListener('load', function() {
+            	    var forms = document.getElementsByClassName('needs-validation');
+            	    var validation = Array.prototype.filter.call(forms, function(form) {
+            	      // 送出時驗證
+            	      form.addEventListener('submit', function(event) {
+            	        if (form.checkValidity() === false) {
+            	          event.preventDefault();
+            	          event.stopPropagation();
+            	          $("#wrongMessage").html("").append("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>資料輸入不完全！")
+						  $("#wrongMessage").removeClass("currectMessage").addClass("wrongMessage")
+            	        }
+            	        form.classList.add('was-validated');
+            	      }, false);
+            	      
+            	      // 驗證是否填寫完成
+            	      form.addEventListener('change', function(event) {
+              	        if (form.checkValidity() === true) {
+              	          $("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+						  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+              	        }
+              	      }, false);
+            	    });
+            	  }, false);
+            	})();
 		</script>
 
 </body>
