@@ -81,7 +81,7 @@ public class UsersController {
 
 	// 會員執行登入 判斷帳號密碼
 	@PostMapping("/user/login.controller")
-	public String checkLogin(HttpSession session, @ModelAttribute Users user, Model m) {
+	public String checkLogin(HttpSession session,SessionStatus out, @ModelAttribute Users user, Model m) {
 		HashMap<String, String> msg = new HashMap<String, String>();
 		Users loginUser = UService.findUsersByEmailandPassword(user.getEmail(), user.getPassword());
 		if (loginUser == null) {
@@ -92,7 +92,10 @@ public class UsersController {
 		//Users userid = UService.findUsersById(loginUser.getUserId());
 		System.out.println(loginUser.getUserId());
 		Integer permission = loginUser.getPermission();
-	
+			if(permission==0) {
+				out.isComplete();
+				return "redirect:/user/login";
+			}
 		if (msg.isEmpty()) {
 			session.setMaxInactiveInterval(10*60);
 			session.setAttribute("loginUser", loginUser);
@@ -100,9 +103,6 @@ public class UsersController {
 				return "index";
 			}else if(permission == 2) {
 				return "index";
-			} else if(permission == 0) {
-				return "redirect:/user/login";
-				
 			}
 		}
 		return "redirect:/user/login";
@@ -447,7 +447,7 @@ public class UsersController {
 		return collect;
 	}
 	//利用id查詢被追蹤者的追蹤使用者頁面
-	@GetMapping("/user/findfollowuser/{userid}")
+	@PostMapping("/user/findfollowuser/{userid}")
 	@ResponseBody
 	public  List<FollowDto> useridfindByFollerUsers(@PathVariable("userid")Integer id,Model m){
 		Users user = UService.findUsersById(id);
@@ -455,7 +455,7 @@ public class UsersController {
 		return followlist;
 	}
 	//利用id查詢被追蹤者的收藏頁面
-	@GetMapping("/user/findcollectuser/{userid}")
+	@PostMapping("/user/findcollectuser/{userid}")
 	@ResponseBody
 	public  List<RecipeDto> useridfindByCollectUsers(@PathVariable("userid")Integer id,Model m){
 		Users user = UService.findUsersById(id);
