@@ -52,7 +52,7 @@ border-radius: 45px;
 </style>
 <title>系統管理首頁</title>
 </head>
-<body >
+<body  onload="showDonation()">
 <jsp:include page="layout/navbar.jsp"/>
 <jsp:include page="adminMenu.jsp"></jsp:include>
 <div class="w3-main" style="margin-left:220px;">
@@ -81,21 +81,30 @@ function chartjstest(){
 
 	xhr.addEventListener("readystatechange", function() {
 	  if(this.readyState === 4) {
-		  var data = JSON.parse(this.responseText);
-		  for(var i =0;i<1000;i++){
-			   content +=data[i].foodsName;
-			   console.log(data[i].foodsName+"1");
-			   count=count+1;
+		  var keyword = JSON.parse(this.responseText);
+// 		  console.log(keyword);
+// 		  var kv=eval("(" + keyword + ")");
+// 		      var kk=kv.next().value;
+// 		  console.log(kv.recipekeywordId);
+
+// 		  console.log(kv.next().value);
+// 		  console.log(kv.next().value);
+          var keyworda=new Array();
+		  for(var i =0;i<keyword.length;i++){
+			  keyworda.push(keyword[i].keyword)
+// 			   content +=keyword[i].keyword;
+// 			   console.log(keyword[i].keyword+"1");
+// 			   count=count+1;
 			   
 		  }
-		  
-		  console.log(count+"1");
-		  console.log(data[i].foodsName+"2");
+		  console.log(keyworda);
+// 		  console.log(count+"1");
+// 		  console.log(keyword[i].keyword);
 	 
 		var myChart = new Chart(ctx, {
 		  type: 'pie',
 		  data: {
-		     labels: ['一月', '二月', '三月','四月','五月','六月'], //橫軸
+		     labels: keyworda, //橫軸
 		     datasets: [{
 		       backgroundColor: [
 		         'rgba(255, 99, 132, 0.2)',
@@ -117,7 +126,7 @@ function chartjstest(){
 		  
 	  }	  
 	});
-	xhr.open("GET", "http://localhost:8090/cookblog/find/foods/all",true);
+	xhr.open("GET", "http://localhost:8090/cookblog/findAllKeyword",true);
 	xhr.send();
 	$("#myChart").show();
 	$("#myChart2").hide();
@@ -125,7 +134,6 @@ function chartjstest(){
 	$("#SDonation").hide();
 }
 </script>
-<%-- <canvas id="example" width="800" height="100"></canvas> --%>
   <script>
   function chartjstest02(){
   	var ctx = document.getElementById( "myChart2" ),

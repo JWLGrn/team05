@@ -111,15 +111,15 @@
 								<div class="row">
 									<div class="col-md-6">
 										<label class="mb-3">暱稱</label> 
-										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入姓名" required><br /> 
+										<input type="text"  required="required"  name="user_name"  id="user_name" class="main-input-box"placeholder="請輸入姓名" required="required"><br /> 
 										<label class="mb-3">電子信箱</label> 
 										<input type="email" name="email" id="email"class="main-input-box" placeholder="請輸入信箱" required><span id="msg" ></span><br />
 										<label class="mb-3">密碼</label>
-										<input type="password" name="password" id="password" class="main-input-box" placeholder="請輸入密碼" required><br /> 
+										<input type="password" name="password" id="password" class="main-input-box" placeholder="請輸入密碼" required="required"><br /> 
 <!-- 										<label class="mb-3">大頭貼</label> -->
 <!-- 										<input type="file" name="user_photo" class="main-input-box" placeholder="請上傳照片"> -->
 										<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/recipe/upload.png" id="imgView"/>
-   										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br />
+   										<input type="file"  name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br />
 										<input type="hidden" name="user_id"><br /> 
 										<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 										<!-- 			<i class="fa fa-check" -->

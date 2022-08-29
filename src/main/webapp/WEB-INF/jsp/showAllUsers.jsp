@@ -37,7 +37,7 @@
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- //CSS -->
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
@@ -121,7 +121,7 @@ body {
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">更新</button></td>
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
-										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
+										type="button" class="w3-button w3-red w3-hover-black" >刪除</button></a></td>
 						</tr>
 						</form>
 					
@@ -209,6 +209,7 @@ body {
 					//+ $("#userPhoto" + userId).val() + "/";
 			window.location.href = url;
 		}
+		
 	</script>
 </body>
 </html>

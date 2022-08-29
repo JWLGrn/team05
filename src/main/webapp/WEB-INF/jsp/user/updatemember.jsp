@@ -102,7 +102,7 @@
    										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
 									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 										
-										class="main-input-box" placeholder="請輸入密碼"><br /> <label
+										 <label
 										class="mb-3">Member Photo</label> <input type="file"
 										name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
 									<input type=hidden name="permission" value="1" placeholder="1"

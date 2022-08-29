@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eeit147.groupfive.admin.service.adminUsersService;
+import com.eeit147.groupfive.recipe.model.Keyword;
+import com.eeit147.groupfive.recipe.model.KeywordDao;
+import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
+import com.eeit147.groupfive.recipe.model.RecipeKeyword;
+import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -44,6 +49,10 @@ public class adminUsersController {
 	
 	@Autowired
 	private ReportDao rpDao;
+	@Autowired
+	private KeywordDao kDao;
+	@Autowired
+	private RecipeKeywordDao rkDao;
 	
 	
 	//編輯使用者
@@ -144,7 +153,20 @@ public class adminUsersController {
 				dtoList.add(dto);
 			}
 			return dtoList;
-		}	
+		}
+		
+		@GetMapping("/findAllKeyword")
+		public @ResponseBody List<Keyword> showKeyword(){
+			List<Keyword> kList = kDao.findAll();
+			return kList;
+			
+		}
+		
+		@GetMapping("/findAllRecipeKeyword")
+		public @ResponseBody List<RecipeKeyword> showRecipekeyword(){
+			List<RecipeKeyword> rkList =rkDao.findAll();
+			return rkList;
+		}
 }
 
 
