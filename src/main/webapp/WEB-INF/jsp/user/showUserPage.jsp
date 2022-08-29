@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Favicon -->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <!-- Normalize Css -->
 <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
 <!-- Main Css -->
@@ -53,6 +53,7 @@ height:200px;
     color: #ff4a52;
     text-decoration: none;
     background-color: transparent;
+    cursor:pointer
 }
 .photo{
 border-radius: 50%;
@@ -198,8 +199,7 @@ height:115px;
               let recipes = '<div class="section-heading heading-dark">'
                             +' <h2 class="item-heading">RECIPES</h2>'
                             +'</div>'
-                            +'<div class="row">';
-                                
+                            +'<div class="row">';                                
                 let count = 0;
                 let page = 1;
                 var pageList = new Array();
@@ -224,17 +224,24 @@ height:115px;
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++            
+                    count++   
+                    //一頁放4筆資料 因為陣列 所以要-1 
+                    if(count % 4 ==0){
+                    	pageList[count % 4 - 1] = recipes;
+                    	
+                    }
                 }
                 recipes += '</div>'
-                $("#showblock").html("").append(recipes);                               
+                $("#showblock").html("").append(recipes);
+                
 			});
 };
 
 $('#mycollect').click(function(e){
+	let collectUrlStr="${contextRoot}/user/findcollectuser/${showUserPage.userId}"	
              var settings = {
-                     "url": "http://localhost:8090/cookblog/collect.personal.controller",
-                     "method": "GET",
+                     "url": collectUrlStr,
+                     "method": "POST",
                      "timeout": 0,
             };
 
@@ -279,9 +286,10 @@ $('#mycollect').click(function(e){
 });
 
 $('#myfollow').click(function(e){
+	let followUrlStr="${contextRoot}/user/findfollowuser/${showUserPage.userId}"	
             var settings = {
-                "url": "http://localhost:8090/cookblog/follow.personal.controller",
-                "method": "GET",
+			    "url": followUrlStr,
+                "method": "POST",
                  "timeout": 0,
             };
 

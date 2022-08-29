@@ -75,9 +75,11 @@
                                     </li>
                                     </c:if>
                                     
+                                    <c:if test="${!empty loginUser }">
                                     <li>
                                         <a href="${contextRoot}/insertrecipe" class="fill-btn"><span class="flaticon-plus-1 typcn typcn-plus" style="font-size:20px"></span>上傳食譜</a>
                                     </li>
+                                    </c:if>
                                 </ul>
                             </div>
                             <div class="mob-menu-open toggle-menu">

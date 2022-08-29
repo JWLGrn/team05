@@ -1,4 +1,4 @@
-package com.eeit147.groupfive.users.model;
+ package com.eeit147.groupfive.users.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -172,21 +172,22 @@ height:115px;
                             <div class="section-heading heading-dark">
                                 <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
                             </div>
-<!--                             <div class="widget-follow-us"> -->
-<!--                                 <ul> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li> -->
-<!--                                 </ul> -->
-<!--                             </div> -->
+                            <div class="widget-follow-us">
+                                <ul>
+                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
+                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            
+        </section>        
 <!--案讚測試功能:<div  id="myDiv"></div> -->
 <!-- 檢舉測試功能:<div id="findUser"></div> -->
 	<!-- ScrollUp End Here -->
@@ -318,8 +319,9 @@ function report(){
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++            
-                }
+                    count++          
+                    }  
+                
                 recipes += '</div>'
                 $("#showblock").html("").append(recipes);                               
 			});
