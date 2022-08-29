@@ -103,6 +103,10 @@
 			width: 200px;
 			height:200px;
         }
+        #msg{
+        color:red;
+        margin-left:30px;
+        }
     </style>
 </head>
 
@@ -158,7 +162,9 @@
 											pattern="yyyy/MM/dd EEEE" value="${recipe.date}"/></a></li>
                                         <li class="single-meta"><a href="#"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
                                         <li class="single-meta"><i class="fas fa-heart cursor_pointer" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a><span id="fanum">${fn:length(recipe.favorite)}</span>
-                                                Likes</a></li>
+                                                人喜歡</a></li>
+                                        <li class="single-meta"><i><span class="typcn typcn-flag cursor_pointer" style="font-size:22px;" id="collect" onclick="addcollect(${recipe.recipeId})" ></span></i>&nbsp;&nbsp;<a><span id="conum">${fn:length(recipe.collect)}</span>
+                                                人收藏</a></li>
                                     </ul><!--  -->
                                 </div>
                                 <div class="col-xl-3 col-12">
@@ -295,12 +301,23 @@
                                         <div class="col-12 form-group">
                                         	
                                             <label>留言 :</label>
+                                            <c:if test="${!empty loginUser }">
                                             <textarea placeholder="" class="textarea form-control" name="message" rows="7"
                                                 cols="20" data-error="Message field is required" id="message" required></textarea>
+                                             </c:if>
+                                             <c:if test="${empty loginUser }">
+                                             <textarea placeholder="" class="form-control"rows="7"
+                                                cols="20" style="background-color:white;" readonly>請先登入會員 : )</textarea>
+                                              </c:if>  
                                             <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="col-12 form-group mb-0">
-                                            <button type="button" class="item-btn" id="senddata">送出</button>
+                                        	<c:if test="${!empty loginUser }">
+                                            <button type="button" class="item-btn" id="senddata">送出</button><span id="msg"></span>
+                                        	</c:if> 
+                                        	<c:if test="${empty loginUser }">
+                                        	<button type="button" class="item-btn">送出</button>
+                                        	</c:if>
                                         </div>
                                     </div>
                                     <div class="form-response"></div>
@@ -464,6 +481,7 @@
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
+            collectornot(recipeId);
    		}  
     });
     //是否按過讚
@@ -484,6 +502,25 @@
 		}
     });	
 }
+  //是否有收藏
+    function collectornot(recipeId){
+    	var replyjson=JSON.stringify(recipeId);
+		$.ajax({
+			url:"${contextRoot}/recipe/collect",
+			contentType:'application/json',//送出資料型態
+			dataType:'json',//回傳資料型態
+			method:'post',
+			data:replyjson,
+			success:function(result){			
+				if(result==true){
+					$("#collect").addClass("color_red");
+				}
+			 },error:function(err){
+			 	console.log(err);
+		}
+    });	
+}
+  
 //按讚 
 function addfavorite(recipeId){
 	if(eval("${!empty loginUser}")){
@@ -511,6 +548,35 @@ function addfavorite(recipeId){
   	  });
 	}
 }
+
+//按收藏
+function addcollect(recipeId){
+	if(eval("${!empty loginUser}")){
+	str=0;
+	var replyjson=JSON.stringify(recipeId);
+	$.ajax({
+		url:"${contextRoot}/recipe/addcollect",
+		contentType:'application/json',//送出資料型態
+		dataType:'json',//回傳資料型態
+		method:'post',
+		data:replyjson,
+		success:function(result){
+			if(result==true){
+				$("#collect").css("color","red");
+				str=Number($("#conum").text())+1;
+				
+			}else{
+				$("#collect").css("color","gray");
+				str=$("#conum").text()-1;
+			}
+			$("#conum").text(str);
+		 },error:function(err){
+		 	console.log(err);
+	   	}
+  	  });
+	}
+}
+
 //是否追蹤過
 function followornot(recipeId){
 	// console.log(recipeId);
@@ -671,9 +737,14 @@ $("#track").click(function(){
     
     // 新增留言
     $("#senddata").click(function(){
+    	let fPhoto=document.getElementById("finallyPhoto").files;
+    	var fileDataURL=fPhoto[0];
     	var message=$("#message").val();
     	var replyId=$("#replyId").val();
-    	var reply={
+    	if(message == ""){
+    		$("#msg").html("請輸入留言！");
+    	}else{
+    		var reply={
     			   replyId:replyId,
     			   finallyPhoto:fileDataURL,
     			   message:message
@@ -688,7 +759,7 @@ $("#track").click(function(){
     		success:function(result){	
     			console.log(result);
     			if(result.length == 0){
-    				alert("請登入會員!!");
+    				alert("請登入會員！！");
     			}else{
     				var replydata='';
     				$.each(result,function(index,value){
@@ -713,6 +784,8 @@ $("#track").click(function(){
     			console.log(err);
     		}
     	});
+    	}
+    	
     });
     
  // 右方隨機推播

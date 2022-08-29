@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
     
     <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/microns/microns.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
@@ -197,7 +199,8 @@
                     +'<p>'+response[i].cookDescription+'</p>'
                     +'<ul class="entry-meta"><li><a><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
                     +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                    +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> Likes</a></li></ul></div></div>'
+                    +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人喜歡</a></li>'
+                    +'<li><a href="#"><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div>'
             }
             $("#figureList").html("").append(figure);
             $("#figureList").each(function () {
@@ -352,7 +355,7 @@
                 +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h3>'
                 +'<ul class="entry-meta"><li><a href="#"><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
                 +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div></div>'
+                +'<li><a href="#"><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div></div>'
                 $("#mostCollect").html("").append(figure);
             }
 		});

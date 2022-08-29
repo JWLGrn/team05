@@ -402,7 +402,7 @@ $('#myfollow').click(function(e){
                             +'<tr>'  
                             +'<th>'
                             +'<div class="author-personal-info">'
-                            +'<a href="${contextRoot}/user/find/'+response[index].userId+'" class="item-figure photo"><img src="${contextRoot}/image/users/'+response[index].userPhoto+'" alt="Author"></a>'
+                            +'<a href="${contextRoot}/user/find/'+response[index].userId+'" class="item-figure photo"><img src="${contextRoot}/image/users/'+response[index].userPhoto+'" alt="Author" class="photo"></a>'
                             +'<div class="item-content">'
                             +'<div class="item-title"><a href="${contextRoot}/user/find/'+response[index].userId+'">'+response[index].userName+'</a></div>'     
                             +'</div></div></th><td>'           

@@ -53,6 +53,20 @@
             width: 350px;
             height: 300px;
         }
+     .replyobfit{
+     		object-fit: cover;
+            width: 130px;
+            height: 90px;
+       }
+       #msg{
+        	color:red;
+        	margin-left:30px;
+      }
+      .userobfit{
+      		object-fit: cover;
+            width: 150px;
+            height:150px;
+      }
     </style>
 </head>
 <body>
@@ -142,7 +156,7 @@
                                 <!-- --------------留言-------------- -->
                                         <div class="col-12 form-group mb-0">
                                         <c:if test="${!empty loginUser }">
-                                            <button type="button" class="item-btn" id="replysubmit">送出</button>
+                                            <button type="button" class="item-btn" id="replysubmit">送出</button><span id="msg"></span>
                                         </c:if>
                                         <c:if test="${empty loginUser }">
                                         	<button type="button" class="item-btn">送出</button>
@@ -215,7 +229,7 @@
                     for(let i in response){
                         replyList +='<li class="reviews-single-item">'
                                     +'<div class="media media-none--xs">'
-                                    +' <img src="${contextRoot}/users/'+response[i].userPhoto+'" alt="Comment" class="media-img-auto">'
+                                    +' <img src="${contextRoot}/users/'+response[i].userPhoto+'" alt="Comment" class="media-img-auto userobfit">'
                                     +'<div class="media-body">'
                                     +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
                                     +'<p>'+response[i].message+'</p>'+'</div></div></li>'
@@ -225,16 +239,20 @@
     
     	//送出留言
     	$("#replysubmit").click(function(){
-    		var data = $("#insertreply").serialize();
+    		if($("#message").val() == ""){
+    			$("#msg").html("請輸入留言！");
+    		}else{
+    			var data = $("#insertreply").serialize();
             $.ajax({
                 url : 'http://localhost:8090/cookblog/posts/reply/insert',
                 type : 'post',
                 data : data,
                 success : function(response) {
-                	replyList(response)
+                	replyList(response);
+                	$("#message").val("");
                 }
             });
-
+    	   }
     	})
     	
     	// 顯示留言
@@ -260,7 +278,7 @@
 		            for(let i in response){
 		            	latestPost +='<li class="single-item">'
 		            	+'<div class="item-img">'
-		            	+'<a href="#"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" width="100"></a>'
+		            	+'<a href="#"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" class="replyobfit"></a>'
 		            	+'</div><div class="item-content">'
 		            	+'<div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
 		            	+'<h4 class="item-title"><a href="#">'+response[i].title+'</a></h4>'

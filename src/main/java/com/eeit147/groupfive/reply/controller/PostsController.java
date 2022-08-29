@@ -96,11 +96,12 @@ public class PostsController {
 	
 	// 回覆文章
 	@PostMapping("/posts/reply/insert")
-	public String insertReply(String message,Integer postsId) {
-		System.out.println("message:"+message+"postsId"+postsId);
-		Integer userId=1;
-		Optional<Users> op = uDao.findById(userId);
-		Users user = op.get();
+	public String insertReply(String message,Integer postsId,Model m) {
+		
+		Users user=(Users)m.getAttribute("loginUser");
+		if(user==null) {
+			return "redirect:/user/login";
+		}
 		
 		Posts post = pService.findPostById(postsId);
 		
