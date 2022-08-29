@@ -41,9 +41,10 @@
                                     </c:if>
                                     <li><a href="${contextRoot}/posts/find/all">專欄</a>
                                         <ul class="dropdown-menu-col-1">
-                                            <li><a href="blog-grid.html">　Blog Grid</a></li>
-                                            <li><a href="blog-list.html">　Blog List</a></li>
-                                            <li><a href="single-blog.html">　Blog Details</a></li>
+                                        <c:if test="${!empty loginUser }">
+                                            <li><a href="${contextRoot}/posts">　新增文章</a></li>
+                                        </c:if>
+                                            <li><a href="${contextRoot}/posts/find/all">　文章列表</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="${contextRoot}/aboutus">關於我們</a></li>

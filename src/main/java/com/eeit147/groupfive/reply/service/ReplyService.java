@@ -37,10 +37,7 @@ public class ReplyService {
 	@Autowired
 	private RecipeDao rDao;
 	
-	@Autowired
-	private UsersDao uDao;
-	
-	//食譜類	
+	//食譜留言新增	
 	public List<Reply> insertReply(ReplyDto replydto,Users user) throws IOException {
 		Reply reply = new Reply();
 		

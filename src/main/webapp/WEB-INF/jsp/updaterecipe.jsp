@@ -76,6 +76,14 @@
 			border: 1px solid #E0E0E0;
 			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 		}
+		.wrongMessage{
+			margin-left:30px;
+			color:red;
+		}
+		.currectMessage{
+			margin-left:30px;
+			color:green;
+		}
     </style>
 </head>
 
@@ -117,7 +125,7 @@
                 <div class="row gutters-60">
                 	<div class="col-lg-2"></div>
                     <div class="col-lg-8 insertcontainer">
-                        <form class="submit-recipe-form" method="POST" action="${contextRoot}/recipe/update" enctype="multipart/form-data">
+                        <form class="submit-recipe-form needs-validation" method="POST" action="${contextRoot}/recipe/update" enctype="multipart/form-data" novalidate>
                         	<input type="hidden" value="${recipe.recipeId}" name="recipeId">
                             <div class="form-group" style="display: flex;justify-content: center;">
                                 <label>
@@ -151,14 +159,14 @@
                                         <div class="form-group additional-input-box icon-left">
                                             <i class="far fa-clock"></i>
                                             <input type="number" placeholder="烹飪時間（分鐘）" class="form-control"
-                                                name="time" value="${recipe.cookTime}">   
+                                                name="time" value="${recipe.cookTime}" min="1" required>   
                                         </div>
                                     </div>
                                     <div class="col-6">
                                        <div class="form-group additional-input-box icon-left">
                                             <i class="fas fa-utensils"></i>
                                             <input type="number" placeholder="份量（人份）" class="form-control"
-                                                name="people" value="${recipe.cookServe}">
+                                                name="people" value="${recipe.cookServe}" min="1" required>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +185,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" value="${rF.gram}">
+                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" value="${rF.gram}" min="1" required>
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
@@ -189,7 +197,7 @@
                             </div>
                             <div class="additional-input-wrap">
                                 <label>步驟</label>
-                                <div class="steptable">
+                                <div class="steptable" id="steptable">
                                     <!-- ---------------------步驟動態結構--------------------- -->
                                     <c:forEach items="${recipe.recipeStep}" var="rS" varStatus="rSs">
                                     <div class="row no-gutters singlestep">
@@ -202,7 +210,7 @@
                                         </div>
                                         <div class="col-9">
                                             <div class="form-group additional-input-box icon-right"  style="height: 150px;">
-                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto">${rS.stepDescription}</textarea>
+                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required>${rS.stepDescription}</textarea>
                                                 <i class="fas fa-times removeStep"></i>
                                             </div>
                                         </div>
@@ -212,7 +220,7 @@
                                 </div>
                                     <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
-                            <button type="submit" class="btn-submit">修改食譜</button>
+                            <button type="submit" class="btn-submit">修改食譜</button><span id="wrongMessage"></span>
                         </form>
                     </div>
                 </div>
@@ -239,6 +247,8 @@
     <script src="${contextRoot}/js/select2.full.min.js"></script>
     <!-- Smoothscroll Js -->
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
+    <!-- Sortable Js -->
+    <script src="${contextRoot}/js/Sortable.min.js"></script>
     <!-- Custom Js -->
     <script src="${contextRoot}/js/main.js"></script>
     <script>
@@ -282,7 +292,7 @@
                               +'</div></div>'
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-right">'
-                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram">'
+                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram" required>'
                               +'<i class="fas fa-times removeFood"></i>'
                               +'</div></div></div>'
                 $(".foodtable").append(addfoods);
@@ -313,7 +323,7 @@
                               +'</div></div>'
                               +'<div class="col-9">'
                               +'<div class="form-group additional-input-box icon-right"  style="height: 150px;">'
-                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto"></textarea>'
+                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required></textarea>'
                               +'<i class="fas fa-times removeStep"></i>'
                               +'</div></div></div>'
 
@@ -369,6 +379,48 @@
                 console.log(taglist)
                 $('.tags').val(taglist);
                 $('.tags').trigger('change');
+            });
+            
+         	// 驗證
+            (function() {
+            	  'use strict';
+            	  window.addEventListener('load', function() {
+            	    var forms = document.getElementsByClassName('needs-validation');
+            	    var validation = Array.prototype.filter.call(forms, function(form) {
+            	      // 送出時驗證
+            	      form.addEventListener('submit', function(event) {
+            	        if (form.checkValidity() === false) {
+            	          event.preventDefault();
+            	          event.stopPropagation();
+            	          $("#wrongMessage").html("").append("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>資料輸入不完全！")
+						  $("#wrongMessage").removeClass("currectMessage").addClass("wrongMessage")
+            	        }
+            	        form.classList.add('was-validated');
+            	      }, false);
+            	      
+            	      // 驗證是否填寫完成
+            	      form.addEventListener('change', function(event) {
+              	        if (form.checkValidity() === true) {
+              	          $("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+						  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+              	        }
+              	      }, false);
+            	    });
+            	  }, false);
+            	})();
+         
+         	// 驗證數字不可小於零
+            $("input[type='number']").change(function(){
+            	console.log($(this).val());
+            	if($(this).val() <= 0){
+            		$(this).val(1);
+            	}
+            });
+         	
+         	// 步驟排序
+            new Sortable(steptable, {
+                handle: '.singlestep',
+                animation: 150
             });
     </script>
 </body>

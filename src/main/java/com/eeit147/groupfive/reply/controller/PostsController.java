@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.reply.service.PostsService;
 import com.eeit147.groupfive.reply.service.ReplyService;
 import com.eeit147.groupfive.users.model.Posts;
@@ -26,6 +28,7 @@ import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
 
 @Controller
+@SessionAttributes("loginUser")
 public class PostsController {
 
 	@Autowired
@@ -41,7 +44,11 @@ public class PostsController {
 	@RequestMapping(value = "/posts/insert", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	@ResponseBody
 	public Integer addPosts(@RequestPart("posts")Posts posts,@RequestPart("photo")MultipartFile photo,Model m) {
-		Posts newPost = pService.addPost(posts, photo);
+		Users user=(Users)m.getAttribute("loginUser");
+		if(user==null) {
+			return 0;
+		}
+		Posts newPost = pService.addPost(posts, photo,user);
 		return newPost.getPostsId();
 	}
 	
@@ -118,6 +125,14 @@ public class PostsController {
 	@ResponseBody
 	public List<Posts> findLatestPosts(){
 		List<Posts> posts = pService.findLatestPosts();
+		return posts;
+	}
+	
+	// 隨機食譜
+	@GetMapping("/posts/find/random/{number}")
+	@ResponseBody
+	public List<Posts> randomRecipe(@PathVariable("number")Integer number){
+		List<Posts> posts = pService.findRandomRecipe(number);
 		return posts;
 	}
 	

@@ -120,7 +120,7 @@ public class RecipeController {
 							   @RequestParam("photo") MultipartFile photo,	//食譜相片
 							   @RequestParam("foods") String[] foods,		//食譜食材
 							   @RequestParam("gram") Double[] gram,		//食材重量(克)
-							   @RequestParam("tags") String[] tags,		//食材標籤
+							   @RequestParam(value = "tags",required = false, defaultValue = "") String[] tags,		//食材標籤
 							   @RequestParam("stepDescript") String[] stepDescript,  	//步驟描述
 							   @RequestParam("stepPhoto") MultipartFile[] stepPhoto,
 							   Model m) {

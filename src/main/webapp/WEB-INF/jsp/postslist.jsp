@@ -95,7 +95,6 @@
                                     <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${post.time}"/></a></li>
                                     <li><a href="#"><i class="fas fa-user"></i>by <span>${post.users.userName}</span></a></li>
                                     <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(${fn:length(post.reply)})</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>59</span></a></li>
                                 </ul>
                                 <h3 class="item-title"><a href="${contextRoot}/posts/find/${post.postsId}">${post.title}</a></h3>
                                 <p>${post.outline}</p>
