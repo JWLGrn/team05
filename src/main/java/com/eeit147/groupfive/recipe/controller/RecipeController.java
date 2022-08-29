@@ -27,6 +27,8 @@ import com.eeit147.groupfive.recipe.model.RecipeDto;
 import com.eeit147.groupfive.recipe.model.RecipeStep;
 import com.eeit147.groupfive.recipe.service.KeywordService;
 import com.eeit147.groupfive.recipe.service.RecipeService;
+import com.eeit147.groupfive.users.model.Collect;
+import com.eeit147.groupfive.users.model.CollectDao;
 import com.eeit147.groupfive.users.model.Favorite;
 import com.eeit147.groupfive.users.model.FavoriteDao;
 import com.eeit147.groupfive.users.model.Follow;
@@ -53,6 +55,8 @@ public class RecipeController {
 	private FollowService fServics;
 	@Autowired
 	private UsersService uService;
+	@Autowired
+	private CollectDao cDao;
 	//測試
 	Integer userId;
 	Integer recipeId;
@@ -349,4 +353,59 @@ public class RecipeController {
 		return "user/showUserPage" ;
 //		return userList;
 	}
+	
+	
+		// 查收藏
+		@ResponseBody@PostMapping("/recipe/collect")
+		public boolean findcllectornot(@RequestBody Integer recipeId,Model m) {
+			
+			if((Users)m.getAttribute("loginUser")!=null) {
+				Users user=(Users)m.getAttribute("loginUser");
+			    userId=user.getUserId();
+			}else {
+				userId=0;
+			}
+			
+			
+			Optional<Recipe> optionalr = rDao.findById(recipeId);
+			Recipe recipe = optionalr.get();
+			Optional<Users> optionalu = uDao.findById(userId);
+			Users oneUser = new Users();
+			if(optionalu.isPresent()) {
+				oneUser = optionalu.get();
+			}
+			boolean collect = cDao.existsByUsersAndRecipe(oneUser,recipe);
+			return collect;
+		}
+		
+		//按收藏
+		@ResponseBody@PostMapping("/recipe/addcollect")
+		public boolean addcollectornot(@RequestBody Integer recipeId,Model m) {
+			
+			if((Users)m.getAttribute("loginUser")!=null) {
+				Users user=(Users)m.getAttribute("loginUser");
+			    userId=user.getUserId();
+			}else {
+				userId=0;
+			}
+			
+			
+			Optional<Recipe> optionalr = rDao.findById(recipeId);
+			Recipe recipe = optionalr.get();
+			Optional<Users> optionalu = uDao.findById(userId);
+			Users user = optionalu.get();
+			boolean collect=cDao.existsByUsersAndRecipe(user,recipe);//找出兩者是否有關臉
+			if(collect==true) {//已收藏
+				cDao.deleteByUsersAndRecipe(user,recipe);
+				return false;
+			}else {//未收藏
+				Collect newCollect=new Collect();
+				newCollect.setRecipe(recipe);
+				newCollect.setUsers(user);
+				cDao.save(newCollect);
+				return true;
+			}	
+		}
+		
+		
 }
