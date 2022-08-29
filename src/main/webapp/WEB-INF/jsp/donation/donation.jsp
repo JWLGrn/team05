@@ -83,6 +83,7 @@
 <section class="login-page-wrap padding-top-80 padding-bottom-50">
 			<div class="container">
 				<div class="row gutters-60">
+				<div class="col-lg-2"></div>
 					<div class="col-lg-8">
 						<div class="login-box-layout1">
 							<div class="section-heading heading-dark">
@@ -114,7 +115,7 @@
 										<!-- 			<i class="fa fa-check" -->
 										<!-- 			aria-hidden="true"></i> -->
 										<div class="btn-area">
-											<button type="submit" class="btn-fill btn-primary">
+											<button type="submit" class="btn-fill btn-primary" onclick="window.open('${contextRoot}')">
 												送出<i class="flaticon-next"></i>
 											</button>
 										</div>

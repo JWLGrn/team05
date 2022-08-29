@@ -207,4 +207,9 @@ private FoodsService fService;
 		return "addkeyword";
 		
 	}
+	
+	@GetMapping("/websocket")
+	public String websocketMessage() {
+		return "socket/index";
+	}
 }

@@ -80,6 +80,7 @@
 <section class="all-recipes-page-wrap padding-top-80 padding-bottom-50">
             <div class="container">
                 <div class="row gutters-60">
+                <div class="col-lg-2"></div>
                     <div class="col-lg-8">
                         <div class="about-box">
                             <div class="about-figure">

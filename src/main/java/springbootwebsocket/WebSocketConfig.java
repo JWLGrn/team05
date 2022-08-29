@@ -12,7 +12,7 @@ public class  WebSocketConfig implements  WebSocketMessageBrokerConfigurer {
 	@Override
     public void registerStompEndpoints(StompEndpointRegistry endpointRegistry) {
         // 註冊一個給Client連至WebSocket Server的節點(websocket endpoint)
-        endpointRegistry.addEndpoint("/chatroom").withSockJS(); 
+        endpointRegistry.addEndpoint("/").withSockJS(); 
     }
 
     @Override

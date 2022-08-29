@@ -52,7 +52,7 @@ public class EcpayController {
 		obj.setMerchantTradeDate(Date.format(current));
 		obj.setTotalAmount(price.toString());
 		obj.setTradeDesc("援助脆弱家庭兒少免於飢餓、健康成長，以及孤、貧、殘、疾之脆弱年長者獲得適需的資源。");
-		obj.setItemName("贊助");
+		obj.setItemName("援助脆弱家庭兒少免於飢餓");
 		obj.setReturnURL("http://211.23.128.214:5000");
 		obj.setNeedExtraPaidInfo("N");
 		obj.setCreditInstallment("12");
