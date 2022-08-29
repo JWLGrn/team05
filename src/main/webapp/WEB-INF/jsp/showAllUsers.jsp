@@ -38,13 +38,10 @@
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-<<<<<<< HEAD
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
->>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 <!-- //CSS -->
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
@@ -132,15 +129,12 @@ body {
 							</td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">更新</button></td>
-<<<<<<< HEAD
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
 										type="button" class="w3-button w3-red w3-hover-black" >刪除</button></a></td>
-=======
 							<td>
 								<button type="button" class="w3-button w3-red w3-hover-black"
 									onclick="deleteUser(${u.userId})">刪除</button>
 							</td>
->>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 						</tr>
 					</form>
 
@@ -230,8 +224,6 @@ body {
 			window.location.href = url;
 		}
 		
-<<<<<<< HEAD
-=======
 		// 確認刪除使用者
 	    function deleteUser(userId){
 			Swal.fire({
@@ -258,7 +250,6 @@ body {
 	          }
 	      })
 	    }
->>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 	</script>
 </body>
 </html>
