@@ -53,6 +53,7 @@ height:200px;
     color: #ff4a52;
     text-decoration: none;
     background-color: transparent;
+    cursor:pointer;
 }
 .photo{
 object-fit:cover;
@@ -102,17 +103,6 @@ height:115px;
                 <div class="row gutters-60">
                     <div class="col-lg-8">
                         <div class="author-box-layout1">
-                            <div class="adv-search-wrap">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Author Name Search . . ." />
-                                    <div class="btn-group">
-                                        <div class="input-group-btn">
-                                            <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-<!--                             <h3 class="author-section-title">Total 1,050 Authors</h3> -->
 								<nav class="nav nav-pills nav-fill">
  									 <a class="nav-item nav-link active aa" id="myrecipe">個人食譜查詢</a>
   									 <a class="nav-item nav-link aa" id="mycollect">收藏食譜</a>
@@ -182,16 +172,16 @@ height:115px;
                             <div class="section-heading heading-dark">
                                 <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
                             </div>
-                            <div class="widget-follow-us">
-                                <ul>
-                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                                </ul>
-                            </div>
+<!--                             <div class="widget-follow-us"> -->
+<!--                                 <ul> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li> -->
+<!--                                     <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li> -->
+<!--                                 </ul> -->
+<!--                             </div> -->
                         </div>
                     </div>
                 </div>
@@ -202,7 +192,8 @@ height:115px;
 	<!-- ScrollUp End Here -->
 <!-- 	<div id="wrapper" class="wrapper"> -->
 		<!-- Header Area Start Here -->
-		<jsp:include page="../layout/navbar.jsp" />
+		<jsp:include page="../layout/footer.jsp" />
+		
 		<!-- Header Area End Here -->
 		<!-- Inne Page Banner Area Start Here -->
 <!-- 		</div> -->
@@ -317,10 +308,10 @@ function report(){
                     }
                     recipes += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="single-recipe1.html"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
                             +'<div class="item-content">'
                             +'<span class="sub-title">CHICKEN</span>'    
-                            +'<h3 class="item-title"><a href="single-recipe1.html">'+response[index].cookTitle+'</a></h3>'      
+                            +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
                             +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
@@ -361,10 +352,10 @@ $('#mycollect').click(function(e){
                     }
                     collect += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="single-recipe1.html"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
                             +'<div class="item-content">'
                             +'<span class="sub-title">CHICKEN</span>'    
-                            +'<h3 class="item-title"><a href="single-recipe1.html">'+response[index].cookTitle+'</a></h3>'      
+                            +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
                             +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
@@ -413,7 +404,7 @@ $('#myfollow').click(function(e){
                             +'<div class="author-personal-info">'
                             +'<a href="${contextRoot}/user/find/'+response[index].userId+'" class="item-figure photo"><img src="${contextRoot}/image/users/'+response[index].userPhoto+'" alt="Author"></a>'
                             +'<div class="item-content">'
-                            +'<div class="item-title"><a href="#">'+response[index].userName+'</a></div>'     
+                            +'<div class="item-title"><a href="${contextRoot}/user/find/'+response[index].userId+'">'+response[index].userName+'</a></div>'     
                             +'</div></div></th><td>'           
                             +'<div class="author-social-info">'               
                             +'<ul><li><div>'                    
