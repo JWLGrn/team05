@@ -40,6 +40,8 @@
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
     
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -77,16 +79,23 @@ body {font-size:16px;}
   </thead>
 <tbody id="foodbody" >
 		<c:forEach items="${page.content}" var="f">	
-		<tr id="foodTr">	
 		<form class="form" method="post" action="${contextRoot}/editFoods">
+		<tr id="foodTr">	
+		
 		<td><input  type="hidden" name="foodsId" value="${f.foodsId}"/></td>
 		<td><input  name="foodsName" value="${f.foodsName}" /></td>
 		<td><input  name="foodsType" value="${f.foodsType}" /></td>
 		<td><input  name="calorie" value="${f.calorie}" /></td>
 		<td><button id="formButton" type="submit" class="w3-button w3-red w3-hover-black">送出</button><td>
+			
+		
+		<td>
+		<button  type="button" class="w3-button w3-red w3-hover-black"
+		onclick="deleteFood(${f.foodsId})">刪除</button>
+		</td>						
+		
+		</tr>
 		</form>	
-		<td><a href="${contextRoot}/deleteFood/${f.foodsId}"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>						
-		</tr>	
 		</c:forEach>
 
 </tbody>
@@ -188,6 +197,34 @@ function sendfromUpdateData(foodsId){
 //	$(document).ready(function() {
 //	$('#foodTable').DataTable();
 //});
+
+
+     // 確認刪除食材
+        function deleteFood(foodId){
+			Swal.fire({
+	        title: '提醒',
+	    	text: "確定要刪除此食材？",
+	    	icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '刪除',
+	    	cancelButtonText: '取消',
+	    }).then((result) => {
+	         if (result.isConfirmed) {
+	             Swal.fire({
+	                title: '提示',
+	    	    	text: "食材已刪除！",
+	    	    	icon: 'success',
+	    	    	confirmButtonText: '返回食材列表'
+	            }).then((success) => {
+	    	    	 if (success.isConfirmed) {
+	    		    	 window.location.href = "${contextRoot}/deleteFood/"+foodId;
+	    	    	 }
+	    		 })
+	          }
+	      })
+	    }
 </script>
 </body>
 

@@ -30,14 +30,21 @@
 <link rel="stylesheet" href="${contextRoot}/css/summernote.css">
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${contextRoot}/css/owl.theme.default.min.css">
 <!-- Select 2 CSS -->
 <link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
 <!-- Custom Css -->
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+<<<<<<< HEAD
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+=======
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+>>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 <!-- //CSS -->
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
@@ -66,12 +73,13 @@ body {
 .userimg {
 	width: 100px;
 	height: 100px;
-}</style>
+}
+</style>
 
 <title>管理使用者</title>
 </head>
 <body>
-<div id="preloader"></div>
+	<div id="preloader"></div>
 	<jsp:include page="layout/navbar.jsp" />
 	<jsp:include page="adminMenu.jsp"></jsp:include>
 	<div class="w3-main" style="margin-left: 220px;">
@@ -93,38 +101,49 @@ body {
 			<tbody id="userbody">
 
 				<c:forEach items="${allUsers}" var="u">
-					
-						<form class="form" method="get" action="${contextRoot}/editAdminUsers">
+
+					<form class="form" method="get"
+						action="${contextRoot}/editAdminUsers">
 						<tr>
 							<td><input type="hidden" name="userId" value="${u.userId}" /></td>
-							<td><img class="userimg" alt="" src="${contextRoot}/users/${u.userPhoto}"></td>
+							<td><img class="userimg" alt=""
+								src="${contextRoot}/users/${u.userPhoto}"></td>
 							<td>${u.email}</td>
 							<td>${u.password}</td>
 							<td>${u.userName}</td>
 							<td>
-							<% String[] per = {"停權","一般會員","管理員"};
-								request.setAttribute("per", per);%>
-							<select name="permission" id="permission${u.userId}">
-							<c:forEach begin="0" end="2" step="1" var="i">
-								<c:choose>
-									<c:when test="${i==u.permission}">
-											<option value="${i}" selected>${per[i]}</option>
-									</c:when>
-									<c:otherwise>
-											<option value="${i}">${per[i]}</option>'
+								<%
+								String[] per = {"停權", "一般會員", "管理員"};
+								request.setAttribute("per", per);
+								%> <select name="permission"
+								id="permission${u.userId}">
+									<c:forEach begin="0" end="2" step="1" var="i">
+										<c:choose>
+											<c:when test="${i==u.permission}">
+												<option value="${i}" selected>${per[i]}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${i}">${per[i]}</option>'
 									</c:otherwise>
-								</c:choose>
-							
-							</c:forEach>
+										</c:choose>
+
+									</c:forEach>
 							</select>
 							</td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">更新</button></td>
+<<<<<<< HEAD
 							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
 										type="button" class="w3-button w3-red w3-hover-black" >刪除</button></a></td>
+=======
+							<td>
+								<button type="button" class="w3-button w3-red w3-hover-black"
+									onclick="deleteUser(${u.userId})">刪除</button>
+							</td>
+>>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 						</tr>
-						</form>
-					
+					</form>
+
 				</c:forEach>
 
 			</tbody>
@@ -148,10 +167,11 @@ body {
 	<script src="${contextRoot}/js/smoothscroll.min.js"></script>
 	<!-- Custom Js -->
 	<script src="${contextRoot}/js/main.js"></script>
-<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-<!-- 	<script -->
-<!-- 		src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
- 	<script>
+	
+	<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+	<!-- 	<script -->
+	<!-- 		src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
+	<script>
 		$("#userName").keyup(
 						function() {
 							let usernameValue = $('#userName').val();
@@ -210,6 +230,35 @@ body {
 			window.location.href = url;
 		}
 		
+<<<<<<< HEAD
+=======
+		// 確認刪除使用者
+	    function deleteUser(userId){
+			Swal.fire({
+	        title: '提醒',
+	    	text: "確定要刪除此使用者？",
+	    	icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '刪除',
+	    	cancelButtonText: '取消',
+	    }).then((result) => {
+	         if (result.isConfirmed) {
+	             Swal.fire({
+	                title: '提示',
+	    	    	text: "使用者已刪除！",
+	    	    	icon: 'success',
+	    	    	confirmButtonText: '返回使用者列表'
+	            }).then((success) => {
+	    	    	 if (success.isConfirmed) {
+	    		    	 window.location.href = "${contextRoot}/deleteUser/"+userId;
+	    	    	 }
+	    		 })
+	          }
+	      })
+	    }
+>>>>>>> 618c0160d69f868beea36b245c0723c97f7702db
 	</script>
 </body>
 </html>

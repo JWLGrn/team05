@@ -38,6 +38,7 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- //CSS -->
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
@@ -101,8 +102,10 @@ object-fit:cover;
 							<td><input name="keyword" value="${k.keyword}" /></td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">送出</button></td>
-							<td><a href="${contextRoot}/deleteKeyword/${k.keywordId}"><button
-										type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>
+							<td>
+							<button type="button" class="w3-button w3-red w3-hover-black"
+							onclick="deleteKeyword(${k.keywordId})">刪除</button>
+										</td>
 					</tr>
 					</form>
 				</c:forEach>
@@ -120,6 +123,34 @@ object-fit:cover;
                 $('#'+imgid.id).attr('src', e.target.result);
             };
             fr.readAsDataURL(event.target.files[0]);
-        }</script>
+        }
+		
+     // 確認刪除食譜類別
+        function deleteKeyword(keywordId){
+			Swal.fire({
+	        title: '提醒',
+	    	text: "確定要刪除此食譜類別？",
+	    	icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '刪除',
+	    	cancelButtonText: '取消',
+	    }).then((result) => {
+	         if (result.isConfirmed) {
+	             Swal.fire({
+	                title: '提示',
+	    	    	text: "食譜類別已刪除！",
+	    	    	icon: 'success',
+	    	    	confirmButtonText: '返回食譜類別列表'
+	            }).then((success) => {
+	    	    	 if (success.isConfirmed) {
+	    		    	 window.location.href = "${contextRoot}/deleteKeyword/"+keywordId;
+	    	    	 }
+	    		 })
+	          }
+	      })
+	    }
+		</script>
 </body>
 </html>
