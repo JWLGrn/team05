@@ -109,12 +109,10 @@ height:115px;
   									 <a class="nav-item nav-link aa" id="mycollect">收藏食譜</a>
  									 <a class="nav-item nav-link aa" id="myfollow">追蹤作者</a>
 								</nav>
-                                <div id="showblock">
-                                    <div id="pageList"></div>
-                            <div class="table-responsive">
-
-                            </div>
-                            </div>
+                                <div id="showblock"></div>
+                                <ul class="pagination-layout1" id="pagesList"></ul>
+                            <div class="table-responsive"></div>
+                            
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -133,16 +131,6 @@ height:115px;
                             <div class="section-heading heading-dark">
                                 <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
                             </div>
-<!--                             <div class="widget-follow-us"> -->
-<!--                                 <ul> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li> -->
-<!--                                     <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li> -->
-<!--                                 </ul> -->
-<!--                             </div> -->
                         </div>
                     </div>
                 </div>
@@ -224,17 +212,39 @@ height:115px;
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++   
-                    //一頁放4筆資料 因為陣列 所以要-1 
-                    if(count % 4 ==0){
-                    	pageList[count % 4 - 1] = recipes;
-                    	
+                            count++        
+                    if(count % 4 == 0){
+                        recipes += '</div>' 
+                    	pageList.push(recipes);
+                        recipes = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">RECIPES</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
                     }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    recipes += '</div>'
+                    pageList.push(recipes);
+                    recipes = "";
                 }
-                recipes += '</div>'
-                $("#showblock").html("").append(recipes);
-                
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
+                         
 			});
+                
 };
 
 $('#mycollect').click(function(e){
@@ -275,10 +285,36 @@ $('#mycollect').click(function(e){
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++            
+                            count++        
+                    if(count % 4 == 0){
+                        collect += '</div>' 
+                    	pageList.push(collect);
+                        collect = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">COLLECTION</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
+                    }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    collect += '</div>'
+                    pageList.push(collect);
+                    collect = "";
                 }
-                collect += '</div>'     
-                $("#showblock").html("").append(collect);
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
                 $(e.target).addClass("active");
                 $(e.target).siblings().removeClass("active");
                 console.log(collect);
@@ -331,11 +367,36 @@ $('#myfollow').click(function(e){
                             +'<h4 class="item-title">Favourite</h4>'                      
                             +'<span class="item-number">'+response[index].favoriteCount+'</span>'               
                             +'</div></li></ul></div></td></tr></tbody></table>';
-                       count++;
-                    }   
-                 follow += '</div>'    
-   				console.log(follow);
-                $("#showblock").html("").append(follow);
+                            count++        
+                    if(count % 4 == 0){
+                        follow += '</div>' 
+                    	pageList.push(follow);
+                        follow = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">FOLLOW</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
+                    }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    follow += '</div>'
+                    pageList.push(follow);
+                    follow = "";
+                }
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
                 $(e.target).addClass("active");
                 $(e.target).siblings().removeClass("active");       
             });
@@ -348,7 +409,18 @@ $("#myrecipe").click(function(){
     $(this).addClass("active");
     $(this).siblings().removeClass("active");
 })
-   
+ //分頁按鈕
+ function pageBtn(totalPages,nowPage){
+                var str2 = ''
+                for (let i = 1; i <= totalPages; i++) {
+                    if(i == nowPage){
+                        str2 += '<li class="active"><a>' + i + '</a></li>'
+                    }else{
+                        str2 += '<li><a style="cursor: pointer;">' + i + '</a></li>'
+                    }
+                }
+                $("#pagesList").html("").append(str2);
+        }  
 
 </script>
 
