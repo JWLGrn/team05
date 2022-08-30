@@ -25,6 +25,8 @@ import com.eeit147.groupfive.recipe.model.KeywordDao;
 import com.eeit147.groupfive.recipe.model.RecipeFoodsDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDao;
+import com.eeit147.groupfive.users.model.Donation;
+import com.eeit147.groupfive.users.model.DonationDao;
 import com.eeit147.groupfive.users.model.Report;
 import com.eeit147.groupfive.users.model.ReportDao;
 import com.eeit147.groupfive.users.model.Users;
@@ -53,6 +55,8 @@ public class adminUsersController {
 	private KeywordDao kDao;
 	@Autowired
 	private RecipeKeywordDao rkDao;
+	@Autowired
+	private DonationDao dDao;
 	
 	
 	//編輯使用者
@@ -154,18 +158,24 @@ public class adminUsersController {
 			}
 			return dtoList;
 		}
-		
+		//尋找所有keyword
 		@GetMapping("/findAllKeyword")
 		public @ResponseBody List<Keyword> showKeyword(){
 			List<Keyword> kList = kDao.findAll();
 			return kList;
 			
 		}
-		
+		//尋找所有RecipeKeyword
 		@GetMapping("/findAllRecipeKeyword")
 		public @ResponseBody List<RecipeKeyword> showRecipekeyword(){
 			List<RecipeKeyword> rkList =rkDao.findAll();
 			return rkList;
+		}
+		//尋找所有DonationUsers
+		@GetMapping("/findAllDonationUsers")
+		public @ResponseBody List<Donation> showAllDonation(){
+			List<Donation> dList = dDao.findAll();
+			return dList;
 		}
 }
 

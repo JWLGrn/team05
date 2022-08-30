@@ -84,7 +84,7 @@
                     <div class="col-lg-8">
                         <div class="about-box">
                             <div class="about-figure">
-                                <img src="img/figure/about2.jpg" alt="About">
+                                <img src="${contextRoot}/image/aboutus.jpg" alt="About">
                             </div>
                             <h2 class="about-title title-bar bar-center">I Cook</h2>
                             <div><p class="item-description">每個家裡都有廚房，當爐子的火一開、炊煙一起，家也就溫暖了起來。在許多人的成長經驗中，餐桌上的飯菜香充滿了家的幸福溫度，長大後，回想起媽媽做的菜，是既熟悉又難以忘懷的味道。

@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com32/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -63,7 +63,7 @@ border-radius: 45px;
 <button type="button" onclick="reportReply()" class="aaa">檢舉信件</button>
 <button onclick="chartjstest02()" class="aaa">切換長條圖</button>
 <button onclick="chartjstest()" class="aaa" >切換圓餅圖</button>
-<canvas id="myChart" width="200" height="100"  class="float" style="display:none;"></canvas>
+<canvas id="myChart" width="200" height="80"  class="float" style="display:none;"></canvas>
 <canvas id="myChart2" width="450" height="100"  class="float" style="display:none;"></canvas>
 </div>
 <!-- <div id="adminReport" style="display:none; width: 20; height: 10" ></div> -->
@@ -82,34 +82,35 @@ function chartjstest(){
 	xhr.addEventListener("readystatechange", function() {
 	  if(this.readyState === 4) {
 		  var keyword = JSON.parse(this.responseText);
-// 		  console.log(keyword);
-// 		  var kv=eval("(" + keyword + ")");
-// 		      var kk=kv.next().value;
-// 		  console.log(kv.recipekeywordId);
-
-// 		  console.log(kv.next().value);
-// 		  console.log(kv.next().value);
+		  
           var keyworda=new Array();
+		  var keywordcount=new Array();//抓到的keyworda陣列
 		  for(var i =0;i<keyword.length;i++){
 			  keyworda.push(keyword[i].keyword)
-// 			   content +=keyword[i].keyword;
-// 			   console.log(keyword[i].keyword+"1");
-// 			   count=count+1;
-			   
+			  keywordcount.push(keyword[i].recipeKeyword.length) 
 		  }
-		  console.log(keyworda);
-// 		  console.log(count+"1");
-// 		  console.log(keyword[i].keyword);
-	 
+		  console.log(keyworda)
+		  console.log(keywordcount)
 		var myChart = new Chart(ctx, {
 		  type: 'pie',
 		  data: {
 		     labels: keyworda, //橫軸
 		     datasets: [{
 		       backgroundColor: [
-		         'rgba(255, 99, 132, 0.2)',
-		         'rgba(54, 162, 235, 0.2)',
-		         'rgba(255, 206, 86, 0.2)'
+		         '#D0D0D0',
+		         '#FF7575',
+		         '#FFAAD5',
+		         '#FFA6FF',
+		         '#D3A4FF',
+		         '#B9B9FF',
+		         '#97CBFF',
+		         '#BBFFFF',
+		         '#ADFEDC',
+		         '#A6FFA6',
+		         '#D3FF93',
+		         '#FFFFAA',
+		         '#FFED97',
+		         '#FFD1A4'
 		       ],
 		       borderColor: [
 		         'rgba(255,99,132,1)',
@@ -119,11 +120,10 @@ function chartjstest(){
 		       ],
 		       borderWidth: 1,
 		       label: '銷售業績(百萬)',
-		       data: [count, 49, 72,50,588,55]  //縱軸
+		       data: keywordcount  //縱軸
 		     }]
 		  }
-		})
-		  
+		});
 	  }	  
 	});
 	xhr.open("GET", "http://localhost:8090/cookblog/findAllKeyword",true);
@@ -136,15 +136,32 @@ function chartjstest(){
 </script>
   <script>
   function chartjstest02(){
+	  
+	  var xhr = new XMLHttpRequest();
+	  xhr.withCredentials = true;
+	  var count = 0;
+	  xhr.addEventListener("readystatechange", function() {
+	    if(this.readyState === 4) {
+	    	
+	    	var donation = JSON.parse(this.responseText);
+	    	for(var i =0;i<donation.length;i++){
+				  count +=donation[i].price;
+			  }
+	      console.log(count);
+	    }
+	  
+
+	  
+	  
   	var ctx = document.getElementById( "myChart2" ),
   		example = new Chart(ctx, {
   			// 參數設定[註1]
   			type: "bar", // 圖表類型
   			data: {
-  				labels: [ "Red", "Green", "Blue" ], // 標題
+  				labels: [ "2022/06", "2022/07", "2022/08" ], // 標題
   				datasets: [{
   					label: "# of Votes", // 標籤
-  					data: [ 12, 19, 3 ], // 資料
+  					data: [ 58471, 65541, count ], // 資料
   					backgroundColor: [ // 背景色
   					"#ff6384",
   					"#36A2EB",
@@ -152,8 +169,12 @@ function chartjstest(){
   					],
   					borderWidth: 1 // 外框寬度
   				}]
+  			
   			}
   		});
+  		});
+	  xhr.open("GET", "http://localhost:8090/cookblog/findAllDonationUsers");
+	  xhr.send();
   	$("#myChart2").show();
   	$("#myChart").hide();
   	$("#adminReport").hide();
