@@ -619,7 +619,7 @@ $("#track").click(function(){
               	+'<div class="count-number">'+count+'</div></div>'
               	+'<div class="item-content">'
               	+'<div class="item-ctg">'+keywords.trim()+'</div>'
-              	+'<h4 class="item-title"><a href="${contextRoot}/recipe/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
+              	+'<h4 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
               	+'<div class="item-post-by"><a href="#"><i class="fas fa-user"></i><span>by </span>'
               	+response[i].userName+'</a></div></div></li>'
               	count++;

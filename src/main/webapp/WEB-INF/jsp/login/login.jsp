@@ -139,13 +139,11 @@
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">ABOUT ME</h3>
+                                <h3 class="item-heading">ABOUT US</h3>
                             </div>
                             <div class="widget-about">
-                                <figure class="author-figure"><img src="img/figure/about.jpg" alt="about"></figure>
-                                <figure class="author-signature"><img src="img/figure/signature.png" alt="about"></figure>
-                                <p>Fusce mauris auctor ollicituder teary iner hendrerit risusey aeenean rauctor pibus
-                                    doloer.</p>
+                                <figure class="author-figure"><img src="${contextRoot}/image/homephoto.jpg" alt="about"></figure>
+                                <p>Welcome, please come in!</p>
                             </div>
                         </div>
                     </div>
