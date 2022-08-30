@@ -105,6 +105,7 @@
                                     <div class="col-md-6">
                                         <label class="lost-password"><a href="${contextRoot}/setGmail">Lost your password?</a></label>
                                     </div>
+                                    	<span style="color:red">　${msg } ${message}</span>
                                 </div>
                                 <div class="btn-area">
                                     <form:button class="btn-fill btn-primary" type="submit" value="Login">登入<i class="flaticon-next"></i></form:button>

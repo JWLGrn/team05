@@ -8,12 +8,15 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
+import com.eeit147.groupfive.users.service.UsersService;
 
 @Controller
 @SessionAttributes({"verificationCode","userGet"} )
@@ -24,7 +27,9 @@ private JavaMailSender  mailSender;
 
 @Autowired
 private UsersDao uDao;
-	
+@Autowired
+private UsersService uService;
+
     //接收使用者信箱，發送信件和驗證碼
     @PostMapping("/users/send/email")
 	public String sendSimpleMail(@RequestParam("email") String email,Model model) throws Exception {
@@ -46,7 +51,8 @@ private UsersDao uDao;
 	         Integer userId = ((Users) userEmail).getUserId();
 	         System.out.println(userId);
 	         Optional<Users> user = uDao.findById(userId);
-	         Users userGet = user.get();	       
+	         Users userGet = user.get();
+	        
 	        model.addAttribute("userGet", userGet);
 	        model.addAttribute("message", message);
 	        model.addAttribute("verificationCode",verificationCode);
@@ -58,13 +64,28 @@ private UsersDao uDao;
     public String confirm(@RequestParam("code") String code,Model model) {
     	
     	StringBuilder verificationCode =(StringBuilder) model.getAttribute("verificationCode");
+    	Users userGet =(Users) model.getAttribute("userGet");
     	String vCode = verificationCode.toString();
     	if(vCode.equals(code)) {
-    		return "index";
+    		Integer userIdGet = userGet.getUserId();
+    		Users userbean = new Users();
+    		userbean.setUserId(userIdGet);
+    		model.addAttribute("userbean", userbean);
+    		return "email/confirmPassword";
     	}
     	//需要登入失敗的頁面
-    	return "index"; 
+    	model.addAttribute("msg", "驗證碼錯誤");
+    	return "redirect:/user/login"; 
     	
+    }
+    @PostMapping("/users/confirm/password")
+    public String confirmPassword(@RequestParam("password") String pwd,
+    							  @RequestParam("userId") Integer id) {
+    	Optional<Users> userId = uDao.findById(id);
+    	Users userGet = userId.get();
+    	userGet.setPassword(pwd);
+    	uDao.save(userGet);
+    	return "redirect:/user/login";
     }
 }
 

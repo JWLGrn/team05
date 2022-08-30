@@ -61,6 +61,11 @@ object-fit:cover;
 width:115px;
 height:115px;
 }
+.recipeImg{
+object-fit: cover;
+width: 400px;
+height: 250px;
+}
 </style>
 </head>
 <!-- <body onload="Favorite();report()"> -->
@@ -84,7 +89,7 @@ height:115px;
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							 <h1>Welcome ${showUserPage.userName}</h1> 
+							 <h1>${showUserPage.userName} Personal Page</h1> 
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -118,7 +123,7 @@ height:115px;
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                         <div class="widget">
                             <div class="section-heading heading-dark">
-								 <h3 class="item-heading">Welcome ${showUserPage.userName }</h3>
+								 <h3 class="item-heading">${showUserPage.userName } Personal Page</h3>
                             </div>
                             <div class="widget-about">
   								<figure class="author-figure"><img src="${contextRoot}/users/${showUserPage.userPhoto}" alt="about" class="obfit"></figure>
@@ -126,11 +131,6 @@ height:115px;
 <!--                                  <img class="userimg size" style="border-radius: 50%;" alt="about" src="${contextRoot}/users/${loginUser.userPhoto}"> -->
   
                               </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,15 +196,14 @@ height:115px;
                     var classifytitle = "";
                     if(r != null){
                         for(let i in r){
-                            classifytitle += r[i].keyword + " "      
+                            classifytitle += r[i].keywords + " "      
                         }
-                        classifytitle.trim();
                     }
                     recipes += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
-                            +'<span class="sub-title">CHICKEN</span>'    
+                            +'<span class="sub-title">'+classifytitle.trim()+'</span>'    
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
@@ -271,13 +270,12 @@ $('#mycollect').click(function(e){
                         for(let i in r){
                             classifytitle += r[i].keyword + " "      
                         }
-                        classifytitle.trim();
                     }
                     collect += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
-                            +'<span class="sub-title">CHICKEN</span>'    
+                            +'<span class="sub-title">'+classifytitle.trim()+'</span>'    
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            

@@ -90,34 +90,21 @@
 
 							<div class="row">
 								<div class="col-md-6">
-									<label class="mb-3">Mmeber Name</label> <input
-										placeholder="請輸入姓名" type="text" value="${loginUser.userName }"
-										name="user_name" class="main-input-box"><br /> <label
-										class="mb-3">Email Address</label> 信箱:<input type="email"
-										value="${loginUser.email }" name="email" id="email"
-										class="main-input-box" placeholder="請輸入信箱"><br /> <label
-										class="mb-3">Password</label> <input type="password"
-										value="${loginUser.password }" name="password"
-										class="main-input-box" placeholder="請輸入密碼"><br /> <label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView"/>
-   										<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
-									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
-										
-										 <label
-										class="mb-3">Member Photo</label> <input type="file"
-										name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
 									<label class="mb-3">Mmeber Name</label> 
-									<input placeholder="請輸入姓名" type="text" value="${loginUser.userName }"name="user_name" class="main-input-box"><br /> 
+									<input placeholder="請輸入姓名" type="text" value="${loginUser.userName }" name="user_name" class="main-input-box"><br /> 
 									
 									<label class="mb-3">Email Address</label> 信箱:
-									<input type="email"value="${loginUser.email }" name="email" id="email" class="main-input-box" placeholder="請輸入信箱"><br /> 
+									<input type="email" value="${loginUser.email }" name="email" id="email" class="main-input-box" placeholder="請輸入信箱"><br /> 
 									
 									<label class="mb-3">Password</label> 
 									<input type="password" value="${loginUser.password }" name="password" class="main-input-box" placeholder="請輸入密碼"><br /> 
+									<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView" style="cursor:pointer"/>
+   									<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
+									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 									
-									<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView"/>
-   									<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br />
-									<input type=hidden name="permission" value="1" placeholder="1"
-										id="permission">
+									<label class="mb-3">Member Photo</label> 
+									<input type="file" name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
+									
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
