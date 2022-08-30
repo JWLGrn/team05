@@ -43,7 +43,7 @@ public class PostsController {
 	// 新增文章
 	@RequestMapping(value = "/posts/insert", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	@ResponseBody
-	public Integer addPosts(@RequestPart("posts")Posts posts,@RequestPart("photo")MultipartFile photo,Model m) {
+	public Integer addPosts(@RequestPart("posts")Posts posts,@RequestPart(value = "photo",required = false)MultipartFile photo,Model m) {
 		Users user=(Users)m.getAttribute("loginUser");
 		if(user==null) {
 			return 0;

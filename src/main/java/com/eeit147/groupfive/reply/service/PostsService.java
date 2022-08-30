@@ -1,7 +1,11 @@
 package com.eeit147.groupfive.reply.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +44,23 @@ public class PostsService {
 		post.setPostphoto("posts"+ postId + ".jpeg");
 		
 		//儲存圖片
-		if(!photo.isEmpty()) {
+		if(photo != null) {
 			try {
 				photo.transferTo(new File(
 						"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\posts\\posts" + postId + ".jpeg"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				InputStream fis = new FileInputStream(new File(
+						"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\food.png"));
+				OutputStream fos = new FileOutputStream(new File(
+						"C:\\Git\\Project\\team05\\src\\main\\webapp\\image\\posts\\posts" + postId + ".jpeg"));
+				fos.write(fis.readAllBytes());
+				fos.flush();
+				fos.close();
+				fis.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
