@@ -143,7 +143,7 @@ $("#foodsName").keyup(function(){
 					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
 					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
 					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="w3-button w3-red w3-hover-black">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'+						
+					'<td><button  type="button" class="w3-button w3-red w3-hover-black" onclick="deleteFood('+item.foodsId+')">刪除</button></td>'+	
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);
@@ -173,7 +173,7 @@ function searchFoodsByfoodsType(){
 					'<td><input  id="foodsType'+item.foodsId+'"name="foodsType" value="'+item.foodsType+'" /></td>'+
 					'<td><input  id="calorie'+item.foodsId+'" =name="calorie" value="'+item.calorie+'" /></td>'+
 					'<td><button id="formButton" onclick="sendfromUpdateData('+item.foodsId+')"  class="w3-button w3-red w3-hover-black">送出</button></A></td>'+
-					'<td><a href="${contextRoot}/deleteFood/'+item.foodsId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'+						
+					'<td><button  type="button" class="w3-button w3-red w3-hover-black" onclick="deleteFood('+item.foodsId+')">刪除</button></td>'+						
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);

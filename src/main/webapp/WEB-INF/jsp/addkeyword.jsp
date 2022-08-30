@@ -54,16 +54,20 @@ body {font-size:16px;}
 <div class="w3-main" style="margin-left:220px;">
 
 <h3>新增食譜類別</h3>
-<table  class="table table-striped">
+
 
 <form action="${contextRoot}/addkeyword" method="post" enctype="multipart/form-data" class="login-form">
- 	類別名稱:<input type="text" name="keyword" id="word"/><span id="titlecheck" 	class="check"></span><br/>
- 	類別圖示:<label><img id="keyword" src="${contextRoot}/image/keyword/file.jpg"/>
-      			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,keyword)" accept=".png, .jpg, .jpeg" style="display:none;"/>
-      		</label>
-			<button id="submit">送出</button>
-</form>
+ 	<table  class="table table-striped">
+ 	<tr><td>類別名稱:</td></tr>
+ 	<tr><td><input type="text" name="keyword" id="word"/><span id="titlecheck" 	class="check"></span></td></tr>
+ 	<tr><td>類別圖示:</td></tr>
+ 	<tr><td><label><img id="imgfile" src="http://localhost:8090/cookblog/recipe/upload.png"/>
+      			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,imgfile)" accept=".png, .jpg, .jpeg" style="display:none;"/>
+      		</label></td></tr>
+			<tr><td><button id="submit" class="w3-button w3-red w3-hover-black">加入</button></td></tr>
 </table>
+</form>
+
 </div>
 
 <script>
@@ -88,6 +92,7 @@ $("#word").blur(function(){
 //檔案發生改變
 function photochange(event,imgid){
 	//預覽圖
+	
 	var img=document.getElementById(imgid.id);
 	var reader = new FileReader();
 	img.src = URL.createObjectURL(event.target.files[0]);
