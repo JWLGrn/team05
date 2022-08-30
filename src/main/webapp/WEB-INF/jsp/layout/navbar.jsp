@@ -35,7 +35,7 @@
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
                                       <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
-                                            <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
+                                            <li><a href="${contextRoot}/shownumberuser">　個人頁面</a></li>
                                         </ul>
                                     </li>
                                     </c:if>
