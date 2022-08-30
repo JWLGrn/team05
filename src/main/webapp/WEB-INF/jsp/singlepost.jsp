@@ -31,10 +31,10 @@
     <link rel="stylesheet" href="${contextRoot}/css/summernote.css">
     <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
+        <!-- sweetalert2 CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/sweetalert2.min.css">
     
     <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
-    <!-- Select 2 CSS -->
-    <link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
@@ -67,6 +67,9 @@
             width: 150px;
             height:150px;
       }
+      .cursor_pointer{
+			cursor: pointer; 
+		}
     </style>
 </head>
 <body>
@@ -113,10 +116,10 @@
                             </div>
                             <div class="blog-content">
                                 <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${posts.time}"/></a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>${posts.users.userName}</span></a></li>
-                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(${fn:length(posts.reply)})</span></a></li>
-                                    <li><a href="${contextRoot}/posts/delete/${posts.postsId}"><span>刪除</span></a></li>
+                                    <li><a><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${posts.time}"/></a></li>
+                                    <li><a href="${contextRoot}/user/find/${posts.users.userId}"><i class="fas fa-user"></i>by <span>${posts.users.userName}</span></a></li>
+                                    <li><a><i class="fas fa-comments"></i>Comments <span>(${fn:length(posts.reply)})</span></a></li>
+                                    <li><a onclick="deletePost()" class="cursor_pointer"><span>刪除</span></a></li>
                                     <li><a href="${contextRoot}/posts/update/${posts.postsId}"><span>修改</span></a></li>
                                 </ul>
                                 <h3 class="item-title">${posts.title}</h3>
@@ -215,8 +218,8 @@
     <script src="${contextRoot}/js/plugins.js"></script>
     <!-- Owl Carousel Js -->
     <script src="${contextRoot}/js/owl.carousel.min.js"></script>
-    <!-- Select 2 Js -->
-    <script src="${contextRoot}/js/select2.full.min.js"></script>
+    <!-- sweetalert2 Js -->
+    <script src="${contextRoot}/js/sweetalert2.all.min.js"></script>
     <!-- Smoothscroll Js -->
     <script src="${contextRoot}/js/smoothscroll.min.js"></script>
     <!-- Custom Js -->
@@ -240,7 +243,7 @@
     	//送出留言
     	$("#replysubmit").click(function(){
     		if($("#message").val() == ""){
-    			$("#msg").html("請輸入留言！");
+    			$("#msg").html("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>請輸入留言！");
     		}else{
     			var data = $("#insertreply").serialize();
             $.ajax({
@@ -278,11 +281,11 @@
 		            for(let i in response){
 		            	latestPost +='<li class="single-item">'
 		            	+'<div class="item-img">'
-		            	+'<a href="#"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" class="replyobfit"></a>'
+		            	+'<a href="${contextRoot}/posts/find/'+response[i].postsId+'"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" class="replyobfit"></a>'
 		            	+'</div><div class="item-content">'
-		            	+'<div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
-		            	+'<h4 class="item-title"><a href="#">'+response[i].title+'</a></h4>'
-		            	+'<div class="item-post-by"><a href="${contextRoot}/posts/find/'+response[i].postsId+'"><i class="fas fa-user"></i><span>by </span>'
+		            	+'<div class="item-post-date"><a><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
+		            	+'<h4 class="item-title"><a href="${contextRoot}/posts/find/'+response[i].postsId+'">'+response[i].title+'</a></h4>'
+		            	+'<div class="item-post-by"><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i><span>by </span>'
 		            	+response[i].userName+'</a></div></div></li>'
 		            }
 		            $("#latestPost").html("").append(latestPost);
@@ -406,6 +409,33 @@
 			            }
 			        });
 			    });
+			    
+			 // 確認刪除
+			    function deletePost(){
+			    	Swal.fire({
+			        title: '提醒',
+			    	text: "確定要刪除此篇文章？",
+			    	icon: 'warning',
+			        showCancelButton: true,
+			        confirmButtonColor: '#3085d6',
+			        cancelButtonColor: '#d33',
+			        confirmButtonText: '刪除',
+			    	cancelButtonText: '取消',
+			    }).then((result) => {
+			         if (result.isConfirmed) {
+			             Swal.fire({
+			                title: '提示',
+			    	    	text: "文章已刪除！",
+			    	    	icon: 'success',
+			    	    	confirmButtonText: '返回文章列表'
+			            }).then((success) => {
+			    	    	 if (success.isConfirmed) {
+			    		    	 window.location.href = "${contextRoot}/posts/delete/${posts.postsId}";
+			    	    	 }
+			    		 })
+			          }
+			      })
+			    }
     </script>
     </body>
 </html>

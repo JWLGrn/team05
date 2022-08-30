@@ -1,6 +1,9 @@
 package com.eeit147.groupfive.recipe.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eeit147.groupfive.recipe.model.Keyword;
 import com.eeit147.groupfive.recipe.model.KeywordDao;
+import com.eeit147.groupfive.recipe.model.Recipe;
+import com.eeit147.groupfive.recipe.model.RecipeDao;
 import com.eeit147.groupfive.recipe.model.RecipeKeyword;
 import com.eeit147.groupfive.recipe.model.RecipeKeywordDto;
 
@@ -18,6 +23,9 @@ public class KeywordService {
 
 	@Autowired
 	private KeywordDao kDao;
+	
+	@Autowired
+	private RecipeDao rDao;
 	
 	//取得所有食譜類別
 	public List<Keyword> findAllKeyword() {
@@ -57,4 +65,30 @@ public class KeywordService {
 		
 		
 	}
+	
+	// 查詢收藏數前幾名
+		public List<Keyword> categoryRank(Integer rank){
+
+			 // 取得前五名收藏的類別id + 收藏數
+			 List<Object[]> list = rDao.findCategoryRank(rank);
+			 
+			 // 取得類別ID的List
+			 List<Integer> ids = new LinkedList<Integer>();
+			 for(Object[] id : list) {
+				 ids.add((Integer)id[0]);
+			 }
+			 
+			 // 取得類別
+			 List<Keyword> keyword = kDao.findByKeywordIdIn(ids);
+			 
+			 // 對食譜做排序
+			 Collections.sort(keyword, new Comparator<Keyword>() {
+		            @Override
+		            public int compare(Keyword o1, Keyword o2) {
+		                return o2.getRecipeKeyword().size() - o1.getRecipeKeyword().size();
+		            }
+		        });
+
+			return keyword;
+		}
 }

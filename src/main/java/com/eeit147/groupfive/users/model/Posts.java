@@ -162,5 +162,9 @@ public class Posts {
 	public String getUserName() {
 		return users.getUserName();
 	}
+	
+	public Integer getUserId() {
+		return users.getUserId();
+	}
 
 }

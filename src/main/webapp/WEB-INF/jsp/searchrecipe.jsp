@@ -209,9 +209,9 @@
                                 <h3 class="item-title"><a href="${contextRoot}/recipe/find/${rL.recipeId}">${rL.cookTitle}</a></h3>
                                 <p class="descript">${rL.cookDescription} </p>
                                 <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>${rL.cookTime} Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>${rL.users.userName}</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>${fn:length(rL.favorite)}</span> Likes</a></li>
+                                    <li><a><i class="fas fa-clock"></i>${rL.cookTime} Mins</a></li>
+                                    <li><a href="${contextRoot}/user/find/${rL.users.userId}"><i class="fas fa-user"></i>by <span>${rL.users.userName}</span></a></li>
+                                    <li><a><i class="fas fa-heart"></i><span>${fn:length(rL.favorite)}</span> Likes</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -303,9 +303,9 @@
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'
                             +'<p class="descript">'+response[index].cookDescription+'</p>'
                             +'<ul class="entry-meta">'
-                            +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+' Mins</a></li>'
-                            +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
-                            +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span> Likes</a></li>'
+                            +'<li><a><i class="fas fa-clock"></i>'+response[index].cookTime+' Mins</a></li>'
+                            +'<li><a href="${contextRoot}/user/find/'+response[index].userId+'"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'
+                            +'<li><a><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span> Likes</a></li>'
                             +'</ul></div></div></div>'
                     count++;
                     

@@ -73,7 +73,7 @@
             height: 150px;
         }
         .color_red{
-  			color: #ff5057;
+  			color: #ff4a52;
 		}
 		.color_gray{
   			color: gray;
@@ -162,9 +162,9 @@
 											pattern="yyyy/MM/dd EEEE" value="${recipe.date}"/></a></li>
                                         <li class="single-meta"><a href="#"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
                                         <li class="single-meta"><i class="fas fa-heart cursor_pointer" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a><span id="fanum">${fn:length(recipe.favorite)}</span>
-                                                人喜歡</a></li>
+                                                Likes</a></li>
                                         <li class="single-meta"><i><span class="typcn typcn-flag cursor_pointer" style="font-size:22px;" id="collect" onclick="addcollect(${recipe.recipeId})" ></span></i>&nbsp;&nbsp;<a><span id="conum">${fn:length(recipe.collect)}</span>
-                                                人收藏</a></li>
+                                                收藏</a></li>
                                     </ul><!--  -->
                                 </div>
                                 <div class="col-xl-3 col-12">
@@ -228,11 +228,11 @@
                                     </div>
                                     <div class="col-xl-6 col-12">
                                         <div class="nutrition-wrap">
-                                            <h3 class="item-title"><i class="fas fa-info"></i>營養成分</h3>
+                                            <h3 class="item-title"><i class="fas fa-info"></i>營養成分（每人份）</h3>
                                             <ul class="nutrition-list">
                                                 <li>
                                                     <div class="nutrition-name">卡路里</div>
-                                                    <div class="nutrition-value">${recipe.totalCal}</div>
+                                                    <div class="nutrition-value">${recipe.totalCal/recipe.cookServe}</div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -266,7 +266,7 @@
                                 <!-- ---------------重複的結構--------------- -->
                                 <c:forEach items="${recipe.recipeKeyword}" var="rK">
 								  	<li>
-                                      <a href="#">${rK.keyword.keyword}</a>
+                                      <a href="${contextRoot}/categories/${rK.keyword.keyword}/1">${rK.keyword.keyword}</a>
                                     </li>
 								</c:forEach>
                                 <!-- ---------------重複的結構--------------- -->
@@ -333,7 +333,7 @@
                             <div class="widget-about">
                                 <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about" class="authorimg"></figure>
                                 <h3 class="item-title">${recipe.users.userName}</h3>
-                                <p>${fn:length(recipe.users.recipe)} 食譜　　${fn:length(recipe.users.track)} 粉絲</p>
+                                <p>${fn:length(recipe.users.recipe)} 食譜　　<span id="tracknum">${fn:length(recipe.users.track)}</span> 粉絲</p>
                                 <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
                             </div>
                         </div>
@@ -367,80 +367,11 @@
                         </div>
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">CATEGORIES</h3>
+                                <h3 class="item-heading">熱門類別</h3>
                             </div>
                             <div class="widget-categories">
-                                <ul>
+                                <ul id="category">
                                     <li>
-                                        <a href="#">BreakFast
-                                            <span>25</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Lunch
-                                            <span>15</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Pasta
-                                            <span>22</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dinner
-                                            <span>18</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dessert
-                                            <span>36</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Drinks
-                                            <span>12</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Fruits
-                                            <span>05</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">POPULAR TAGS</h3>
-                            </div>
-                            <div class="widget-tag">
-                                <ul>
-                                    <li>
-                                        <a href="#">DESERT</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">CAKE</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">BREAKFAST</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">BURGER</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">DINNER</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">PIZZA</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">SEA FOOD</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">SALAD</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">JUICE</a>
                                     </li>
                                 </ul>
                             </div>
@@ -477,7 +408,7 @@
     <script type="text/javascript">
     var recipeId="${recipe.recipeId}";
     $(document).ready(function() {//網頁載入,顯示活動區塊
-
+    	showReply();
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
             followornot(recipeId);
@@ -617,6 +548,7 @@ $("#track").click(function(){
   			if(result==true){
   			    $("#track").css("color","gray");
   			    $("#tratext").text("追蹤");
+  			    $("#tracknum").text(Number($("#tracknum").text())-1);
   			 	new Notify ({
     	 		    status: 'error',
     	 		    title: '提示',
@@ -637,6 +569,7 @@ $("#track").click(function(){
   	 			  }else{
   	 			$("#track").css("color","blue");  	 			
   	 			$("#tratext").text("已追蹤");
+  	 			$("#tracknum").text(Number($("#tracknum").text())+1);
   	 		  new Notify ({
   	 		    status: 'error',
   	 		    title: '提示',
@@ -694,9 +627,15 @@ $("#track").click(function(){
               $("#latestRecipe").html("").append(latestRecipe);
   		});
     
-    
-  	// 留言區顯示新增的留言
-	function replyList(response){
+ 	// 顯示留言
+ 	function showReply(){
+ 		var replysettings = {
+			"url": "http://localhost:8090/cookblog/recipe/reply/${recipe.recipeId}",
+			"method": "GET",
+			"timeout": 0,
+	};
+
+	$.ajax(replysettings).done(function (response) {
 		var replyList = '';
         for(let i in response){
              replyList +='<li class="reviews-single-item">'
@@ -704,21 +643,13 @@ $("#track").click(function(){
                        +' <img src="${contextRoot}/reply/'+response[i].finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
                        +'<div class="media-body">'
                        +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
-                       +'<p>'+response[i].message+'</p>'+'</div></div></li>'
+                       +'<p>'+response[i].message+'</p>'+'<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a><span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li><li class="single-meta"><a><span onclick="">修改</span></a></li></ul></div></div>'
+                       +'</div></li>'
                 }
-                $("#showmsg").html("").append(replyList);
-	}
-    
- 	// 顯示留言
-	var replysettings = {
-			"url": "http://localhost:8090/cookblog/recipe/reply/${recipe.recipeId}",
-			"method": "GET",
-			"timeout": 0,
-	};
-
-	$.ajax(replysettings).done(function (response) {
-		replyList(response);
+        $("#showmsg").html("").append(replyList);
 	});
+ 	}
+	
     
   	//步驟圖片顯示用(跟步驟一樣)+抓url
     function imgview(event,imgid){
@@ -737,12 +668,10 @@ $("#track").click(function(){
     
     // 新增留言
     $("#senddata").click(function(){
-    	let fPhoto=document.getElementById("finallyPhoto").files;
-    	var fileDataURL=fPhoto[0];
     	var message=$("#message").val();
     	var replyId=$("#replyId").val();
     	if(message == ""){
-    		$("#msg").html("請輸入留言！");
+    		$("#msg").html("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>請輸入留言！");
     	}else{
     		var reply={
     			   replyId:replyId,
@@ -761,18 +690,8 @@ $("#track").click(function(){
     			if(result.length == 0){
     				alert("請登入會員！！");
     			}else{
-    				var replydata='';
-    				$.each(result,function(index,value){
-    				replydata += '<li class="reviews-single-item">'
-    						  +'<div class="media media-none--xs">'
-    						  +'<img src="${contextRoot}/reply/'+value.finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
-    						  +'<div class="media-body"><h4 class="comment-title">'+value.userName+'</h4>'
-    						  +'<span class="post-date">'+value.uploadTime+'</span>'
-    						  +'<p>'+value.message+'</p>'
-    						  +'</div></div></li>'
-    					})
+                    showReply();
     				//清空輸入欄+圖片
-    				$("#showmsg").html("").append(replydata);
     				$("#message").val("");
     				$("#finallyPhoto").val(null);
     				fileDataURL = null;
@@ -939,6 +858,61 @@ $("#track").click(function(){
     		 })
           }
       })
+    }
+    
+    // 右方分類
+    var settings = {
+    		  "url": "${contextRoot}/categories/rank/8",
+    		  "method": "GET",
+    		  "timeout": 0,
+    		};
+
+    		$.ajax(settings).done(function (response) {
+    			var category = "";
+    			for(let i in response){
+    				category += '<li><a href="${contextRoot}/categories/'+response[i].keyword+'/1">'
+    						 +response[i].keyword+'<span>'+response[i].recipeKeyword.length+'</span>'
+    						 +'</a></li>'
+    			}
+    			$("#category").html("").append(category);
+    		});
+    		
+    // 刪除留言
+    function deleteReply(id){
+    		console.log(id)
+    		Swal.fire({
+            title: '提醒',
+        	text: "確定要刪除此篇回覆？",
+        	icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '刪除',
+        	cancelButtonText: '取消',
+        }).then((result) => {
+             if (result.isConfirmed) {
+                 Swal.fire({
+                    title: '提示',
+        	    	text: "回覆已刪除！",
+        	    	icon: 'success',
+        	    	confirmButtonText: '確認'
+                }).then((success) => {
+        	    	 if (success.isConfirmed) {
+                        let settings = {
+                            "url": "http://localhost:8090/cookblog/reply/delete/"+id,
+                            "method": "GET",
+                            "timeout": 0,
+                            };
+
+                            $.ajax(settings).done(function (response) {
+                                showReply();
+                            });
+        	    	 }
+        		 })
+              }
+          })
+    	
+    	
     }
     </script>
 </body>
