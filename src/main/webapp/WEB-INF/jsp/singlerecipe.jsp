@@ -641,15 +641,19 @@ $("#track").click(function(){
              replyList +='<li class="reviews-single-item">'
                        +'<div class="media media-none--xs">'
                        +' <img src="${contextRoot}/reply/'+response[i].finallyPhoto+'" alt="Comment" class="media-img-auto replyobfit">'
-                       +'<div class="media-body">'
+                       +'<div class="media-body actionlist">'
                        +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
-                       +'<p>'+response[i].message+'</p>'+'<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a><span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li><li class="single-meta"><a><span onclick="">修改</span></a></li></ul></div></div>'
+                       +'<p>'+response[i].message+'</p>'
+                       +'<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a class="cursor_pointer">'
+                       +'<span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li>'
+                       +'</ul></div></div>'
                        +'</div></li>'
                 }
         $("#showmsg").html("").append(replyList);
 	});
  	}
 	
+ 	var fileDataURL;
     
   	//步驟圖片顯示用(跟步驟一樣)+抓url
     function imgview(event,imgid){
@@ -914,6 +918,7 @@ $("#track").click(function(){
     	
     	
     }
+    
     </script>
 </body>
 
