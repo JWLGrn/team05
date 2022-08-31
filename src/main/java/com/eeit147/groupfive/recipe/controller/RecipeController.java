@@ -246,6 +246,15 @@ public class RecipeController {
 		m.addAttribute("category", keywords);
 		return "categories";
 	}
+	
+	// 查看分類排名
+	@GetMapping("/categories/rank/{number}")
+	@ResponseBody
+	public List<Keyword> findAJAXCategories(@PathVariable("number")Integer number) {
+		List<Keyword> keywords = kService.categoryRank(number);
+		return keywords;
+	}
+	
 	//查追蹤
 	@ResponseBody@PostMapping("/recipe/favor")
 	public boolean findfavorornot(@RequestBody Integer recipeId,Model m) {

@@ -110,9 +110,9 @@
                             </div>
                             <div class="item-content">
                                 <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${post.time}"/></a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>${post.users.userName}</span></a></li>
-                                    <li><a href="#"><i class="fas fa-comments"></i>Comments <span>(${fn:length(post.reply)})</span></a></li>
+                                    <li><a><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${post.time}"/></a></li>
+                                    <li><a href="${contextRoot}/user/find/${post.users.userId}"><i class="fas fa-user"></i>by <span>${post.users.userName}</span></a></li>
+                                    <li><a><i class="fas fa-comments"></i>Comments <span>(${fn:length(post.reply)})</span></a></li>
                                 </ul>
                                 <h3 class="item-title"><a href="${contextRoot}/posts/find/${post.postsId}">${post.title}</a></h3>
                                 <p>${post.outline}</p>
@@ -196,6 +196,7 @@
     <script src="${contextRoot}/js/main.js"></script>
 </body>
 <script type="text/javascript">
+		// 最新文章
 		var settings = {
 		  "url": "http://localhost:8090/cookblog/posts/find/lastest",
 		  "method": "GET",
@@ -207,11 +208,11 @@
             for(let i in response){
             	latestPost +='<li class="single-item">'
             	+'<div class="item-img">'
-            	+'<a href="#"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" class="replyobfit"></a>'
+            	+'<a href="${contextRoot}/posts/find/'+response[i].postsId+'"><img src="${contextRoot}/posts/'+response[i].postphoto+'" alt="Post" class="replyobfit"></a>'
             	+'</div><div class="item-content">'
-            	+'<div class="item-post-date"><a href="#"><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
-            	+'<h4 class="item-title"><a href="#">'+response[i].title+'</a></h4>'
-            	+'<div class="item-post-by"><a href="${contextRoot}/posts/find/'+response[i].postsId+'"><i class="fas fa-user"></i><span>by </span>'
+            	+'<div class="item-post-date"><a><i class="fas fa-clock"></i>'+response[i].time+'</a></div>'
+            	+'<h4 class="item-title"><a href="${contextRoot}/posts/find/'+response[i].postsId+'">'+response[i].title+'</a></h4>'
+            	+'<div class="item-post-by"><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i><span>by </span>'
             	+response[i].userName+'</a></div></div></li>'
             }
             $("#latestPost").html("").append(latestPost);

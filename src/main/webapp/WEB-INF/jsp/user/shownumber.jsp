@@ -60,6 +60,11 @@ object-fit:cover;
 width:115px;
 height:115px;
 }
+.recipeImg{
+object-fit: cover;
+width: 400px;
+height: 250px;
+}
 </style>
 </head>
 <!-- <body onload="Favorite();report()"> -->
@@ -108,53 +113,11 @@ height:115px;
   									 <a class="nav-item nav-link aa" id="mycollect">收藏食譜</a>
  									 <a class="nav-item nav-link aa" id="myfollow">追蹤作者</a>
 								</nav>
-                                <div id="showblock">
-                                    <div id="pageList"></div>
-                            <div class="table-responsive">
-<!--                            重複結構  ------------------------------------------------------------ -->
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <th>
-                                                <div class="author-personal-info">
-                                                    <a href="#" class="item-figure"><img src="img/blog/author2.jpg" alt="Author"></a>
-                                                    <div class="item-content">
-                                                        <div class="item-title"><a href="#">Mark Willy</a></div>
-                                                        <div class="item-designation">Dessert Specialist</div>
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <td>
-                                                <div class="author-social-info">
-                                                    <ul>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Recipes</h4>
-                                                                <span class="item-number">15</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Reviews</h4>
-                                                                <span class="item-number">29</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div>
-                                                                <h4 class="item-title">Favourite</h4>
-                                                                <span class="item-number">35+</span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                     
-                                    </tbody>
-                                </table>
-<!--                                 -------------------------------------- -->
+                                <div id="showblock"></div>
+                                    <ul class="pagination-layout1" id="pagesList"></ul>
+                                    <div class="table-responsive">
                             </div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -166,21 +129,6 @@ height:115px;
                                 <figure class="author-figure"><img src="${contextRoot}/users/${loginUser.userPhoto}" alt="about" class="obfit"></figure>
 <!--                                 <figure class="author-signature"><img src="img/figure	/signature.png" alt="about"></figure> -->
 <!--                                  <img class="userimg size" style="border-radius: 50%;" alt="about" src="${contextRoot}/users/${loginUser.userPhoto}"> -->
-                            </div>
-                        </div>
-                        <div class="widget">
-                            <div class="section-heading heading-dark">
-                                <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                            </div>
-                            <div class="widget-follow-us">
-                                <ul>
-                                    <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                                    <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -293,8 +241,7 @@ function report(){
               let recipes = '<div class="section-heading heading-dark">'
                             +' <h2 class="item-heading">RECIPES</h2>'
                             +'</div>'
-                            +'<div class="row">';
-                                
+                            +'<div class="row">';     
                 let count = 0;
                 let page = 1;
                 var pageList = new Array();
@@ -303,15 +250,14 @@ function report(){
                     var classifytitle = "";
                     if(r != null){
                         for(let i in r){
-                            classifytitle += r[i].keyword + " "      
-                        }
-                        classifytitle.trim();
+                            classifytitle += r[i].keywords + " "      
+                        }                 
                     }
                     recipes += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
-                            +'<span class="sub-title">CHICKEN</span>'    
+                            +'<span class="sub-title">'+classifytitle.trim()+'</span>'    
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
@@ -319,12 +265,39 @@ function report(){
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++          
-                    }  
-                
-                recipes += '</div>'
-                $("#showblock").html("").append(recipes);                               
+                    count++        
+                    if(count % 4 == 0){
+                        recipes += '</div>' 
+                    	pageList.push(recipes);
+                        recipes = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">RECIPES</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
+                    }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    recipes += '</div>'
+                    pageList.push(recipes);
+                    recipes = "";
+                }
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
+                         
 			});
+                
 };
 
 $('#mycollect').click(function(e){
@@ -335,7 +308,7 @@ $('#mycollect').click(function(e){
             };
 
 			$.ajax(settings).done(function (response) {
-			  console.log(response);
+
               let collect = '<div class="section-heading heading-dark">'
                             +' <h2 class="item-heading">RECIPES</h2>'
                             +'</div>'
@@ -350,13 +323,12 @@ $('#mycollect').click(function(e){
                         for(let i in r){
                             classifytitle += r[i].keyword + " "      
                         }
-                        classifytitle.trim();
                     }
                     collect += '<div class="col-md-6 col-sm-6 col-12">'
                             +'<div class="product-box-layout1">'
-                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product"></a></figure>'
+                            +'<figure class="item-figure"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'"><img src="${contextRoot}/recipe/'+response[index].cookPhoto+'"" alt="Product" class="recipeImg"></a></figure>'
                             +'<div class="item-content">'
-                            +'<span class="sub-title">CHICKEN</span>'    
+                            +'<span class="sub-title">'+classifytitle.trim()+'</span>'    
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
@@ -364,10 +336,36 @@ $('#mycollect').click(function(e){
                             +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
                             +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span>Likes</a></li>'              
                             +'</ul></div></div></div>';
-                    count++            
+                            count++        
+                    if(count % 4 == 0){
+                        collect += '</div>' 
+                    	pageList.push(collect);
+                        collect = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">COLLECTION</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
+                    }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    collect += '</div>'
+                    pageList.push(collect);
+                    collect = "";
                 }
-                collect += '</div>'     
-                $("#showblock").html("").append(collect);
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
                 $(e.target).addClass("active");
                 $(e.target).siblings().removeClass("active");
                 console.log(collect);
@@ -382,7 +380,7 @@ $('#myfollow').click(function(e){
             };
 
             $.ajax(settings).done(function (response) {
-                 console.log(response);
+
                  let follow = '<div class="section-heading heading-dark">'
                             +' <h2 class="item-heading">RECIPES</h2>'
                             +'</div>'
@@ -419,11 +417,36 @@ $('#myfollow').click(function(e){
                             +'<h4 class="item-title">Favourite</h4>'                      
                             +'<span class="item-number">'+response[index].favoriteCount+'</span>'               
                             +'</div></li></ul></div></td></tr></tbody></table>';
-                       count++;
-                    }   
-                 follow += '</div>'    
-   				console.log(follow);
-                $("#showblock").html("").append(follow);
+                            count++        
+                    if(count % 4 == 0){
+                        follow += '</div>' 
+                    	pageList.push(follow);
+                        follow = '<div class="section-heading heading-dark">'
+                                +' <h2 class="item-heading">FOLLOW</h2>'
+                                +'</div>'
+                                +'<div class="row">';   	
+                    }
+                 }  
+                 if (count % 4 != 0) {  //剩下的筆數
+                    follow += '</div>'
+                    pageList.push(follow);
+                    follow = "";
+                }
+                  console.log(pageList[0])
+                $("#showblock").html("").append(pageList[0]);
+
+                //分頁按鈕
+                var totalPages = pageList.length;
+                pageBtn(totalPages,1);
+
+                                //切換頁面
+                $("#pagesList").click(function(event) {
+                    let page2 = $(event.target).html()
+                if (!isNaN(page2)) {
+                        $("#showblock").html("").append(pageList[page2 - 1]);
+                        pageBtn(totalPages,page2);
+                    }
+                })
                 $(e.target).addClass("active");
                 $(e.target).siblings().removeClass("active");       
             });
@@ -436,8 +459,20 @@ $("#myrecipe").click(function(){
     $(this).addClass("active");
     $(this).siblings().removeClass("active");
 })
-   
+ //分頁按鈕
+ function pageBtn(totalPages,nowPage){
+                var str2 = ''
+                for (let i = 1; i <= totalPages; i++) {
+                    if(i == nowPage){
+                        str2 += '<li class="active"><a>' + i + '</a></li>'
+                    }else{
+                        str2 += '<li><a style="cursor: pointer;">' + i + '</a></li>'
+                    }
+                }
+                $("#pagesList").html("").append(str2);
+        }
 
+       
 </script>
 
 

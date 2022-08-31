@@ -62,4 +62,8 @@ public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 	
 	public Page<Recipe> findByRecipeKeywordIn(List<RecipeKeyword> recipeKeyword,Pageable pageable);
 	public Set<Recipe> findByCollectIn(List<Collect> collect);
+	
+	//查詢類別排行榜
+	@Query(nativeQuery = true, value="SELECT top(:number) k.fk_recipekeyword_keyword as keywordId FROM recipekeyword AS k GROUP BY k.fk_recipekeyword_keyword order by COUNT(k.fk_recipekeyword_recipe) DESC")
+	public List<Object[]> findCategoryRank(@Param("number")Integer number);
 }

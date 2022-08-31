@@ -157,6 +157,7 @@ body {
 	</a>
 	<!-- ScrollUp End Here -->		
 <!-- 顯示活動	-> 選擇	 -->
+<div id="wrapper" class="wrapper">
 <div  class="w3-main" style="margin-left:220px;">
 <section class="recipe-without-sidebar-wrap" style="padding-top:30px;">
 		<div class="container">
@@ -221,7 +222,7 @@ body {
                             </div>
 							<button id="createbtn" class="submitbtn">建立活動</button>
 							<a href="http://localhost:8090/cookblog/showallevent"><span id="createbtn" class="submitbtn" >返回</span></a>
-                            <div onclick="hotkey()" style="color: red;"><i class="fas fa-star color_yellow"></i></div>
+                            <div  style="color: red;"><i onclick="hotkey()" class="fas fa-star color_yellow"></i></div>
                         </form>
                      
                     </div>
@@ -471,29 +472,31 @@ $("#timeStart").blur(function(){
 	if(tarr[0]<year){
 		$("#checkTime").text("開始時間不可小於今天");
 		reset();
-	}else{
-		if(tarr[1]<month){
-			$("#checkTime").text("開始時間不可小於今天");
-			reset();
-		}else{
-			if(tarr[2]<date){
-				$("#checkTime").text("開始時間不可小於今天");
-				reset();
-			}else{
-				$("#checkTime").text("");
-			}
-		}
+	}else{$("#checkTime").text("");}
+	
+	if(tarr[0]==year){
+		if(Number(tarr[1])<month){	
+ 			$("#checkTime").text("開始時間不可小於今天");
+ 			reset();
+ 		}else{$("#checkTime").text("");}
+		if(Number(tarr[1])==month){	
+			if(Number(tarr[2])<date){	
+	 			$("#checkTime").text("開始時間不可小於今天");
+	 			reset();
+	 		}else{$("#checkTime").text("");}
+ 		}else{$("#checkTime").text("");}
 	}	
 });
 $("#timeEnd").blur(function(){
 	//取開始時間
 	let starttime=$("#timeStart").val();
 	let starr=starttime.split("-");
+	
 	//取輸入時間
 	let inputtime=$("#timeEnd").val();
 	let tarr=inputtime.split("-"); 
 	let date_num=parseInt(starr[2])+1;
-	
+	//重設
  	function reset(){
  		if(date_num<10){date_num="0"+date_num}
  		$("#timeEnd").val(starr[0]+"-"+starr[1]+"-"+date_num);
@@ -501,19 +504,22 @@ $("#timeEnd").blur(function(){
 	if(tarr[0]<starr[0]||tarr[0]>(parseInt(starr[0])+1)){//年
 		$("#checkTime").text("結束時間不可小於開始時間,也不能超過一年");
 		reset();
-	}else{
+	}else{$("#checkTime").text("");}
+	if(tarr[0]==starr[0]){
 		if(tarr[1]<starr[1]){//月
-			$("#checkTime").text("結束時間不可小於開始時間");
-			reset();
-		}else{
+ 			$("#checkTime").text("結束時間不可小於開始時間");
+ 			reset();
+ 		}else{$("#checkTime").text("");}
+		if(tarr[1]==starr[1]){
 			if(tarr[2]<date_num){//日
-				$("#checkTime").text("結束時間不可小於開始時間");
+ 				$("#checkTime").text("結束時間不可小於開始時間");
 				reset();
-			}else{
-				$("#checkTime").text("");
-			}
+ 			}else{
+ 				$("#checkTime").text("");
+ 			}
 		}
-	}	
+	}
+  
 });
 //快捷鍵
 function hotkey(){
@@ -624,7 +630,8 @@ function del(eventId){
  		  showCancelButton: true,
  		  confirmButtonColor: '#3085d6',
  		  cancelButtonColor: '#d33',
- 		  confirmButtonText: '確定!'
+ 		  confirmButtonText: '確定!',
+ 		  cancelButtonText: '取消!'
  		}).then((result) => {
 		  if (result.isConfirmed) {
 		    Swal.fire(

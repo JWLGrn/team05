@@ -18,4 +18,7 @@ public interface KeywordDao extends JpaRepository<Keyword, Integer> {
 	
 	//透過多種食譜類別搜尋
 	public List<Keyword> findByKeywordIn(String[] keyword);
+	
+	//透過多種食譜類別搜尋
+	public List<Keyword> findByKeywordIdIn(List<Integer> keywordId);
 }

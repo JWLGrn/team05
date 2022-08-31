@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eeit147.groupfive.recipe.model.Recipe;
 import com.eeit147.groupfive.recipe.model.RecipeDao;
@@ -81,12 +82,11 @@ public class UsersController {
 
 	// 會員執行登入 判斷帳號密碼
 	@PostMapping("/user/login.controller")
-	public String checkLogin(HttpSession session,SessionStatus out, @ModelAttribute Users user, Model m) {
+	public String checkLogin(HttpSession session,SessionStatus out, @ModelAttribute Users user, Model m,RedirectAttributes redirectAttributes) {
 		HashMap<String, String> msg = new HashMap<String, String>();
 		Users loginUser = UService.findUsersByEmailandPassword(user.getEmail(), user.getPassword());
 		if (loginUser == null) {
-			msg.put("loginfail", "帳號密碼錯誤，請輸入正確的帳號密碼");
-			m.addAttribute("msg", msg);
+			redirectAttributes.addFlashAttribute("message", "帳號密碼錯誤，請輸入正確的帳號密碼");
 			return "redirect:/user/login";
 		}		
 		//Users userid = UService.findUsersById(loginUser.getUserId());

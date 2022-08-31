@@ -10,16 +10,26 @@
 	height: 40px;
 	border-radius:50%;
 }
+.n-flex{
+	display: flex;
+	align-items: center;
+    flex-direction: row-reverse;
+    width: 150px;
+    margin-left:20px;
+}
 
 </style>
 <header class="header-one">
             <div id="header-main-menu" class="header-main-menu header-sticky">
+            <div class="n-flex">
+           			<a href="${contextRoot}" class="sticky-logo-light"><img src="${contextRoot}/image/img/logo-light.png" alt="Site Logo"></a>
+            </div>
                 <div class="container">                    
                     <div class="row">
                         <div class="col-lg-8 col-md-3 col-sm-4 col-4 possition-static">
                             <div class="site-logo-mobile">
-                                <a href="index.html" class="sticky-logo-light"><img src="img/logo-light.png" alt="Site Logo"></a>
-                                <a href="index.html" class="sticky-logo-dark"><img src="img/logo-dark.png" alt="Site Logo"></a>
+<!--                                 <a href="${contextRoot}" class="sticky-logo-light"><img src="${contextRoot}/image/img/logo-light.png" alt="Site Logo"></a> -->
+<!--                                 <a href="${contextRoot}" class="sticky-logo-dark"><img src="${contextRoot}/image/img/logo-dark.png" alt="Site Logo"></a> -->
                             </div>
                             <nav class="site-nav">
                                 <ul id="site-menu" class="site-menu">
@@ -35,7 +45,7 @@
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
                                       <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
-                                            <li><a href="${contextRoot}/shownumberuser">　個人會員資料</a></li>
+                                            <li><a href="${contextRoot}/shownumberuser">　個人頁面</a></li>
                                         </ul>
                                     </li>
                                     </c:if>
@@ -56,7 +66,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
+                        <div class="col-lg-2 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
                             <div class="nav-action-elements-layout1">
                                 <ul>             
                                    <c:if test="${empty loginUser }"> 

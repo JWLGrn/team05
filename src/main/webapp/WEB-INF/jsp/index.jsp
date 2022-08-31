@@ -198,9 +198,9 @@
                     +'<h2 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h2>'
                     +'<p>'+response[i].cookDescription+'</p>'
                     +'<ul class="entry-meta"><li><a><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
-                    +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                    +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人喜歡</a></li>'
-                    +'<li><a href="#"><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div>'
+                    +'<li><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
+                    +'<li><a><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> Likes</a></li>'
+                    +'<li><a><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div>'
             }
             $("#figureList").html("").append(figure);
             $("#figureList").each(function () {
@@ -325,9 +325,9 @@
                         +'<div class="item-content"><span class="sub-title">'+keywords.trim()+'</span>'
                         +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h3>'
                         +'<ul class="entry-meta">'
-                        +'<li><a href="#"><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
-                        +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                        +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> Likes</a></li></ul></div></div></div>'
+                        +'<li><a><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
+                        +'<li><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
+                        +'<li><a><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> Likes</a></li></ul></div></div></div>'
             }
             $("#randomRecipe").html("").append(figure);
         });
@@ -353,9 +353,9 @@
                 +'<a href="${contextRoot}/recipe/find/'+response[i].recipeId+'" class="item-dot"><span></span><span></span><span></span></a>'
                 +'</div><div class="item-content"><span class="sub-title">'+keywords.trim()+'</span>'
                 +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h3>'
-                +'<ul class="entry-meta"><li><a href="#"><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
-                +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                +'<li><a href="#"><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div></div>'
+                +'<ul class="entry-meta"><li><a><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
+                +'<li><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
+                +'<li><a><i><span class="typcn typcn-flag" style="font-size:22px; color: #ff4a52"></span></i><span>'+response[i].collect.length+'</span> 人收藏</a></li></ul></div></div></div>'
                 $("#mostCollect").html("").append(figure);
             }
 		});
@@ -381,9 +381,9 @@
                 +'<a href="${contextRoot}/recipe/find/'+response[i].recipeId+'" class="item-dot"><span></span><span></span><span></span></a>'
                 +'</div><div class="item-content"><span class="sub-title">'+keywords.trim()+'</span>'
                 +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h3>'
-                +'<ul class="entry-meta"><li><a href="#"><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
-                +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
-                +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人喜歡</a></li></ul></div></div></div>'
+                +'<ul class="entry-meta"><li><a><i class="fas fa-clock"></i>'+response[i].cookTime+' Mins</a></li>'
+                +'<li><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i>by <span>'+response[i].userName+'</span></a></li>'
+                +'<li><a><i class="fas fa-heart"></i><span>'+response[i].favorite.length+'</span> 人喜歡</a></li></ul></div></div></div>'
                 $("#mostFavor").html("").append(figure);
             }
 		});

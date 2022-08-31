@@ -105,6 +105,7 @@
                                     <div class="col-md-6">
                                         <label class="lost-password"><a href="${contextRoot}/setGmail">Lost your password?</a></label>
                                     </div>
+                                    	<span style="color:red">　${msg } ${message}</span>
                                 </div>
                                 <div class="btn-area">
                                     <form:button class="btn-fill btn-primary" type="submit" value="Login">登入<i class="flaticon-next"></i></form:button>
@@ -139,13 +140,11 @@
                     <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                         <div class="widget">
                             <div class="section-heading heading-dark">
-                                <h3 class="item-heading">ABOUT ME</h3>
+                                <h3 class="item-heading">ABOUT US</h3>
                             </div>
                             <div class="widget-about">
-                                <figure class="author-figure"><img src="img/figure/about.jpg" alt="about"></figure>
-                                <figure class="author-signature"><img src="img/figure/signature.png" alt="about"></figure>
-                                <p>Fusce mauris auctor ollicituder teary iner hendrerit risusey aeenean rauctor pibus
-                                    doloer.</p>
+                                <figure class="author-figure"><img src="${contextRoot}/image/homephoto.jpg" alt="about"></figure>
+                                <p>Welcome, please come in!</p>
                             </div>
                         </div>
                     </div>
