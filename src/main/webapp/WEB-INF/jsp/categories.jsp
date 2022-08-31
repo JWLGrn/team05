@@ -54,7 +54,7 @@
         <jsp:include page="layout/navbar.jsp"/>
         <!-- Header Area End Here -->
         <!-- Inne Page Banner Area Start Here -->
-        <section class="inner-page-banner bg-common" data-bg-image="img/figure/categoriesbanner.jpg">
+        <section class="inner-page-banner bg-common">
             <div class="container">
                 <div class="row">
                     <div class="col-12">

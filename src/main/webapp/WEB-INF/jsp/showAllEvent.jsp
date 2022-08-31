@@ -62,8 +62,8 @@ body {
 	height: 100px;
 }
 .eventimg {
-	width: 300px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 }
 .insertdiv{
  	background-color:#fdf1f1;
@@ -194,7 +194,7 @@ body {
                                 <div class="form-group">
                                    <label id="fileload">
                                     <ul class="upload-img">
-                                        <li><img src="img/figure/upload-banner1.jpg" id="imgView" alt="Upload Image" class="eventimg "></li>
+                                        <li><img src="http://localhost:8090/cookblog/recipe/upload.png" id="imgView" alt="Upload Image" class="eventimg "></li>
                                     </ul>
                                       <input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display: none;" onchange="imgview(event,imgView)" >
                                       <i class="fas fa-cloud-upload-alt color_red"></i>UPLOAD
