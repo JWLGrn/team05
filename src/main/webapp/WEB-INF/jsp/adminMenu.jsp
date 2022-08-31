@@ -64,15 +64,23 @@
         	padding-top:7px;
         	padding-left:20px;
         }
-
+		div.admin{
+			background-color:#ff4a52;
+		}
+		body::-webkit-scrollbar {
+   			 display: none;
+		}
+		body{
+			height: 100%;
+		}
     </style>
 </head>
-<body>
-	<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
-		style="z-index: 3; width: 200px; font-weight: bold;" id="mySidebar">
+<body style="height: 100%;">
+	<div class="col-lg-2 admin fixed-top"
+		style="z-index: 3; width: 200px; font-weight: bold;height:100vh;" id="mySidebar">
 		<br>
 		<div>
-		 <h3 class="w3-padding-64">
+		 <h3 class="w3-padding-64" style="padding-top:50px">
 				<b>系統管理</b>
 			</h3>
 			</div>
@@ -80,14 +88,14 @@
 		<div><ul>
 				<li class="navl"><a class="nav" href="${contextRoot}/adminIndex">系統管理首頁</a></li>
 				<li class="navl"><a class="nav" href="${contextRoot}/addfoods">新增食材</a></li>
-				<li class="navl"><a class="nav" href="${contextRoot}/showAllFoods">管理食材</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/show/AllFoods">管理食材</a></li>
 				<li class="navl"><a class="nav" href="${contextRoot}/addkeyword">新增食譜類別</a></li>
 				<li class="navl"><a class="nav" href="${contextRoot}/showAllKeywords">管理食譜類別</a></li>
 				<li class="navl"><a class="nav" href="${contextRoot}/showAllUsers">管理使用者</a></li>
 				<li class="navl"><a class="nav" href="${contextRoot}/showallevent">管理活動</a></li>
 			</ul>
 		</div>
-	</nav>
+	</div>
 
 </body>
 </html>

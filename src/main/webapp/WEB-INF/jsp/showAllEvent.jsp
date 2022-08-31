@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
@@ -147,7 +147,10 @@ body {
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
-<%-- <jsp:include page="adminMenu.jsp"/> --%>
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="adminMenu.jsp"></jsp:include>
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 	<!-- Preloader Start Here -->
 	<div id="preloader"></div>
 	
@@ -158,7 +161,7 @@ body {
 	<!-- ScrollUp End Here -->		
 <!-- 顯示活動	-> 選擇	 -->
 <div id="wrapper" class="wrapper">
-<div  class="w3-main" style="margin-left:220px;">
+<div  class="w3-main">
 <section class="recipe-without-sidebar-wrap" style="padding-top:30px;">
 		<div class="container">
 		    <div class="row" id="showevent"></div>
@@ -262,18 +265,18 @@ body {
                 </div>
             </div>
  </section>
-</div>
+</div></div></div></div></div>
 		<!-- Recipe Without Sidebar Area End Here -->
 		<!-- Footer Area Start Here -->
-		<footer class="ranna-bg-dark ">
-			<div class="container ">
-				<div class="footer-logo ">
-					<a href="index.html"><img src="img/logo-light.png"
-						class="img-fluid" alt="footer-logo"></a>
-				</div>
+<!-- 		<footer class="ranna-bg-dark "> -->
+<!-- 			<div class="container "> -->
+<!-- 				<div class="footer-logo "> -->
+<!-- 					<a href="index.html"><img src="img/logo-light.png" -->
+<!-- 						class="img-fluid" alt="footer-logo"></a> -->
+<!-- 				</div> -->
 
-			</div>
-		</footer>
+<!-- 			</div> -->
+<!-- 		</footer> -->
 
 <!-- Jquery Js -->
 
@@ -771,18 +774,5 @@ function canceljoin(recipeId,eventId){
 	participatelist(eventId);
 }		
 </script>
-</style>
-<style type="text/css">
-.userimg {
-	width: 100px;
-	height: 100px;
-}</style>
-<title>管理活動</title>
-</head>
-<body>
-	<jsp:include page="layout/navbar.jsp" />
-	<jsp:include page="adminMenu.jsp"></jsp:include>
-	
-	
 </body>
 </html>

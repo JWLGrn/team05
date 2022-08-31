@@ -12,7 +12,7 @@
 <script src="bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
  <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -42,6 +42,9 @@
     
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    <link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -52,54 +55,48 @@ body {font-size:16px;}
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
+<div class="container-fluid">
+<div class="row">
 <jsp:include page="adminMenu.jsp"></jsp:include>
-
-
-<div class="w3-main" style="margin-left:220px;"> 
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 
 <h3>管理食材</h3>
-<label >食材名稱:</label>
+<!-- <label >食材名稱:</label> -->
 
-<input id="foodsName" placeholder="請輸入食材名稱" />
+<!-- <input id="foodsName" placeholder="請輸入食材名稱" /> -->
 
-<label >食材類別:</label>
-<select id="foosTypeSelelct" onchange="searchFoodsByfoodsType()">
-	<c:forEach items="${option}" var="f">
-		<option>${f}</option>
-	</c:forEach>
-</select>
+<!-- <label >食材類別:</label> -->
+<!-- <select id="foosTypeSelelct" onchange="searchFoodsByfoodsType()"> -->
+<!-- 	<c:forEach items="${option}" var="f"> -->
+<!-- 		<option>${f}</option> -->
+<!-- 	</c:forEach> -->
 <table id="foodTable" class="table table-striped">
 <thead>
     <tr>
-	<th></th>
+    <th></th>
 	  <th scope="col">食材名稱</th>
       <th scope="col">食材類別</th>
       <th scope="col">卡路里</th>
+      <th></th><th></th>
 	</tr>
   </thead>
 <tbody id="foodbody" >
-		<c:forEach items="${page.content}" var="f">	
-		<form class="form" method="post" action="${contextRoot}/editFoods">
+		<c:forEach items="${foods}" var="f">	
+<!-- 		<form class="form" method="post" action="${contextRoot}/editFoods"> -->
 		<tr id="foodTr">	
-		
-		<td><input  type="hidden" name="foodsId" value="${f.foodsId}"/></td>
-		<td><input  name="foodsName" value="${f.foodsName}" /></td>
-		<td><input  name="foodsType" value="${f.foodsType}" /></td>
-		<td><input  name="calorie" value="${f.calorie}" /></td>
-		<td><button id="formButton" type="submit" class="w3-button w3-red w3-hover-black">送出</button><td>
-			
-		
-		<td>
-		<button  type="button" class="w3-button w3-red w3-hover-black"
-		onclick="deleteFood(${f.foodsId})">刪除</button>
-		</td>						
-		
+		 <td>${f.foodsId}</td>
+		 <td><input type="hidden" id="foodsName${f.foodsId}"  name="foodsName" value="${f.foodsName}"/><label>${f.foodsName}</label></td>
+		 <td><input type="hidden" id="foodsType${f.foodsId}" name="foodsType" value="${f.foodsType}" /><label>${f.foodsType}</label></td>
+		 <td><input type="hidden" id="calorie${f.foodsId}" name="calorie" value="${f.calorie}" /><label>${f.calorie}</label></td>
+		 <td>
+		    <button id="changeBtn" type="button" class="w3-button w3-red w3-hover-black changeBtn">修改</button>
+		    <button onclick="sendfromUpdateData(${f.foodsId})" id="formButton" type="button" class="w3-button w3-red w3-hover-black" style="display:none">送出</button>
+		 </td>
+		 <td><button  type="button" class="w3-button w3-red w3-hover-black" onclick="deleteFood(${f.foodsId})">刪除</button></td>						
 		</tr>
-		</form>	
+<!-- 		</form>	 -->
 		</c:forEach>
-
 </tbody>
-
 </table>
 </div>
 
@@ -118,11 +115,56 @@ body {font-size:16px;}
 				</c:choose>
 				</c:forEach>
 			</div>
-		</div>
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-<!-- <script -->
-<!-- 	src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
+		</div></div></div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- Jquery Js -->
+<!-- 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script>
+$(document).ready( function () {
+	 table();
+} );
+
+$(".changeBtn").click(function(e){
+	$(e.target).siblings("button").show();
+	$(e.target).hide();
+	$(e.target).parents("tr").find("input").attr("type","text");
+	$(e.target).parents("tr").find("label").hide();
+});
+
+function table(){
+	$('#foodTable').DataTable({
+	"ordering": false,
+	"searching": true,
+	language: {
+        "lengthMenu": "顯示 _MENU_ 筆資料",
+        "sProcessing": "處理中...",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "目前有 _MAX_ 筆資料",
+        "sInfoEmpty": "目前共有 0 筆紀錄",
+        "sInfoFiltered": " ",
+        "sInfoPostFix": "",
+        "sSearch": "搜尋:",
+        "sUrl": "",
+        "sEmptyTable": "尚未有資料紀錄存在",
+        "sLoadingRecords": "載入資料中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+            "sFirst": "首頁",
+            "sPrevious": "上一頁",
+            "sNext": "下一頁",
+            "sLast": "末頁"
+        },
+        "order": [[0, "desc"]],
+        "oAria": {
+            "sSortAscending": ": 以升序排列此列",
+            "sSortDescending": ": 以降序排列此列"
+        }
+    },
+});
+}
+
+
 $("#foodsName").keyup(function(){
 	let foodsnameValue = $('#foodsName').val();
 	let urlStr = "${contextRoot}/find/searchFoods/" + foodsnameValue;
@@ -147,7 +189,7 @@ $("#foodsName").keyup(function(){
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);
-					$("#foodbody").append(text);				
+					$("#foodbody").append(text);
 			}
 			console.log("data",data);
 		}
@@ -177,7 +219,7 @@ function searchFoodsByfoodsType(){
 					'</form>'+	
 					'</tr>'
 					console.log("text",text);
-					$("#foodbody").append(text);	
+					$("#foodbody").append(text);
 			}
 			console.log("data",data);
 		}
@@ -194,9 +236,6 @@ function sendfromUpdateData(foodsId){
 	const url="${contextRoot}/editFoods/"+foodsId+"/"+$("#foodsName"+foodsId).val()+"/"+$("#foodsType"+foodsId).val()+"/"+$("#calorie"+foodsId).val(); 
 	window.location.href = url;
 }
-//	$(document).ready(function() {
-//	$('#foodTable').DataTable();
-//});
 
 
      // 確認刪除食材

@@ -12,7 +12,7 @@
 <script src="bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -50,10 +50,10 @@ body {font-size:16px;}
 <body>
 
 <jsp:include page="layout/navbar.jsp"/>
+<div class="container-fluid">
+<div class="row">
 <jsp:include page="adminMenu.jsp"></jsp:include>
-
-<div class="w3-main" style="margin-left:220px;">
-
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 <h3>新增食材</h3>
 <table  class="table table-striped">
 
@@ -65,13 +65,13 @@ body {font-size:16px;}
 		<tr><td><form:label path="calorie" >卡路里　:</form:label></td></tr>
 		<tr><td><form:input path="calorie" placeholder="請輸入卡路里"/></td></tr>
 		<tr>
-		<td><form:button type="submit" class="w3-button w3-red w3-hover-black">加入</form:button>
-			<form:button type="reset" class="w3-button w3-red w3-hover-black">取消</form:button>	</td>
+		<td><form:button type="submit" class="w3-button w3-red w3-hover-black item-btn">加入</form:button>
+			<form:button type="reset" class="w3-button w3-red w3-hover-black item-btn">取消</form:button>	</td>
 		</tr>	
 	</form:form>
 	
 	</table>
-</div>
+</div></div></div>
 
 <script>
 $("#foodsName").blur(function(){

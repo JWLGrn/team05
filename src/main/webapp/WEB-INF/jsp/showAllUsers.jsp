@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
@@ -43,8 +43,8 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- //CSS -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
 <style>
 body, h1, h2, h3, h4, h5 {
@@ -78,9 +78,10 @@ body {
 <body>
 	<div id="preloader"></div>
 	<jsp:include page="layout/navbar.jsp" />
-	<jsp:include page="adminMenu.jsp"></jsp:include>
-	<div class="w3-main" style="margin-left: 220px;">
-		<h3>管理使用者</h3>
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="adminMenu.jsp"/>
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 		<label>使用者帳號:</label> <input id="userName" placeholder="請輸入使用者帳號" />
 		<table id="userTable" class="table table-striped">
 			<thead>
@@ -99,10 +100,9 @@ body {
 
 				<c:forEach items="${allUsers}" var="u">
 
-					<form class="form" method="get"
-						action="${contextRoot}/editAdminUsers">
+					<form class="form" method="get">
 						<tr>
-							<td><input type="hidden" name="userId" value="${u.userId}" /></td>
+							<td><input type="hidden" id="userId${u.userId}" name="userId${u.userId}" value="${u.userId}" /></td>
 							<td><img class="userimg" alt=""
 								src="${contextRoot}/users/${u.userPhoto}"></td>
 							<td>${u.email}</td>
@@ -112,7 +112,7 @@ body {
 								<%
 								String[] per = {"停權", "一般會員", "管理員"};
 								request.setAttribute("per", per);
-								%> <select name="permission"
+								%> <select name="permission${u.userId}"
 								id="permission${u.userId}">
 									<c:forEach begin="0" end="2" step="1" var="i">
 										<c:choose>
@@ -127,8 +127,8 @@ body {
 									</c:forEach>
 							</select>
 							</td>
-							<td><button type="submit"
-									class="w3-button w3-red w3-hover-black">更新</button></td>
+							<td><button type="button"
+									class="w3-button w3-red w3-hover-black" onclick="sendfromUpdateData(${u.userId})">更新</button></td>
 							<td>
 								<button type="button" class="w3-button w3-red w3-hover-black"
 									onclick="deleteUser(${u.userId})">刪除</button>
@@ -140,7 +140,7 @@ body {
 
 			</tbody>
 		</table>
-	</div>
+	</div></div></div>
 	<!-- Jquery Js -->
 	<script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
 	<!-- Bootstrap Js -->
@@ -159,11 +159,41 @@ body {
 	<script src="${contextRoot}/js/smoothscroll.min.js"></script>
 	<!-- Custom Js -->
 	<script src="${contextRoot}/js/main.js"></script>
-	
-	<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-	<!-- 	<script -->
-	<!-- 		src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
+
+		<script
+			src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script>
+	$(document).ready( function () {
+	    $('#userTable').DataTable({
+	    	"ordering": false,
+	    	"searching": false,
+	    	language: {
+	            "lengthMenu": "顯示 _MENU_ 筆資料",
+	            "sProcessing": "處理中...",
+	            "sZeroRecords": "没有匹配结果",
+	            "sInfo": "目前有 _MAX_ 筆資料",
+	            "sInfoEmpty": "目前共有 0 筆紀錄",
+	            "sInfoFiltered": " ",
+	            "sInfoPostFix": "",
+	            "sSearch": "搜尋:",
+	            "sUrl": "",
+	            "sEmptyTable": "尚未有資料紀錄存在",
+	            "sLoadingRecords": "載入資料中...",
+	            "sInfoThousands": ",",
+	            "oPaginate": {
+	                "sFirst": "首頁",
+	                "sPrevious": "上一頁",
+	                "sNext": "下一頁",
+	                "sLast": "末頁"
+	            },
+	            "order": [[0, "desc"]],
+	            "oAria": {
+	                "sSortAscending": ": 以升序排列此列",
+	                "sSortDescending": ": 以降序排列此列"
+	            }
+	        },
+	    });
+	} );
 		$("#userName").keyup(
 						function() {
 							let usernameValue = $('#userName').val();
@@ -218,6 +248,8 @@ body {
 			const url = "${contextRoot}/editAdminUsers?"
 					+"userId="+ $("#userId" + userId).val() + "&"
 					+"permission="+ $("#permission" + userId).val()
+					console.log($("#userId" + userId).val())
+					console.log($("#permission" + userId).val())
 					//+ $("#userPhoto" + userId).val() + "/";
 			window.location.href = url;
 		}

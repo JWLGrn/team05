@@ -28,18 +28,23 @@
 <link rel="stylesheet" href="${contextRoot}/css/fontawesome-all.min.css">
 <!-- Flaticon CSS -->
 <link rel="stylesheet" href="${contextRoot}/css/flaticon.css">
-<!-- Summernote CSS -->
-<link rel="stylesheet" href="${contextRoot}/css/summernote.css">
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
 <link rel="stylesheet"
 	href="${contextRoot}/css/owl.theme.default.min.css">
-<!-- Select 2 CSS -->
-<link rel="stylesheet" href="${contextRoot}/css/select2.min.css">
+<!-- microns CSS -->
+<link rel="stylesheet" href="${contextRoot}/css/microns/microns.css">
 <!-- Custom Css -->
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+<style type="text/css">
+.msg{
+	color:green;
+	margin-left:20px;
+}
+</style>
+
 </head>
 <body>
 	<!-- Preloader Start Here -->
@@ -79,10 +84,11 @@
 	<section class="login-page-wrap padding-top-80 padding-bottom-50">
 		<div class="container">
 			<div class="row gutters-60">
+			<div class="col-lg-2"></div>
 				<div class="col-lg-8">
 					<div class="login-box-layout1">
 						<div class="section-heading heading-dark">
-							<h2 class="item-heading">UPDATE MEMBER</h2>
+							<h2 class="item-heading">更新會員資料</h2>
 						</div>
 						<form action="${contextRoot}/users/updateMember02" method="post"
 							enctype="multipart/form-data" class="login-form">
@@ -98,23 +104,26 @@
 									
 									<label class="mb-3">Password</label> 
 									<input type="password" value="${loginUser.password }" name="password" class="main-input-box" placeholder="請輸入密碼"><br /> 
-									<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView" style="cursor:pointer"/>
-   									<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
-									<input type=hidden name="permission" value="1" placeholder="1" id="permission">
 									
-									<label class="mb-3">Member Photo</label> 
-									<input type="file" name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br />
+									
+<!-- 									<label class="mb-3">Member Photo</label>  -->
+<!-- 									<input type="file" name="user_photo" id="photo" class="main-input-box" placeholder="請上傳照片"><br /> -->
 									
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
 										<button type="submit" class="btn-fill btn-primary">
-											Update<i class="flaticon-next"></i>
-										</button>
+											更新<i class="flaticon-next"></i>
+										</button><span class="msg">${msg}</span>
+										
 										<div class="btn-area">
 											<div class="btn-area"></div>
 										</div>
 									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="mb-3" id="fileload">大頭貼<br /> <img src="${contextRoot}/image/users/${loginUser.userPhoto}" id="imgView" style="cursor:pointer"/>
+   									<input type="file" name="user_photo" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display:none;" onchange="imgview(event,imgView)"></label><br/>
 								</div>
 							</div>
 						</form>
