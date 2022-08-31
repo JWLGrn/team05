@@ -154,7 +154,10 @@ a{
 						<div class="breadcrumbs-area">
 							<h1>Welcome to I Cook</h1>
 							<ul>
-								<li><a href="index.html">Home</a></li>
+							<li>
+                                <a href="http://localhost:8090/cookblog">Home</a>
+                                </li>
+                                <li>Event</li>
 							</ul>
 						</div>
 					</div>

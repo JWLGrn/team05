@@ -69,7 +69,7 @@
                             <h1>Search Your Recipes</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="http://localhost:8090/cookblog">Home</a>
                                 </li>
                                 <li>All Recipes</li>
                             </ul>

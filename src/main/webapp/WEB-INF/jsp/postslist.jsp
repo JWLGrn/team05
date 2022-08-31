@@ -92,7 +92,7 @@
                             <h1>List Blog Page</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="http://localhost:8090/cookblog">Home</a>
                                 </li>
                                 <li>Blog</li>
                             </ul>

@@ -62,7 +62,7 @@
                             <h1>Recipe Categories</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="http://localhost:8090/cookblog">Home</a>
                                 </li>
                                 <li>Categories</li>
                             </ul>

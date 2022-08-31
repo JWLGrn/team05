@@ -144,7 +144,7 @@
                             <h1>Single Recipe</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="http://localhost:8090/cookblog">Home</a>
                                 </li>
                                 <li>Recipe Details</li>
                             </ul>
