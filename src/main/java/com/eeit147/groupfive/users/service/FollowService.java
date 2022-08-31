@@ -48,7 +48,7 @@ public class FollowService {
 			 int recipeCount = 0;
 			 int favoriteCount = 0;
 			 //把我追蹤的人 他追蹤的人 計算出來
-			 for(Follow e1 : element.getTrack().getFollow()) {
+			 for(Follow e1 : element.getTrack().getTrack()) {
 				 followCount ++;
 			 }
 			 //把我追蹤的人 他發布的食譜 計算出來
