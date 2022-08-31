@@ -17,7 +17,9 @@
     width: 150px;
     margin-left:20px;
 }
-
+.nav-action-elements-layout1 ul li .fill-btn {
+    padding: 5px 15px 5px 12px;
+    }
 </style>
 <header class="header-one">
             <div id="header-main-menu" class="header-main-menu header-sticky">
@@ -66,7 +68,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        <div class="col-lg-2 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
+                        <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center">
                             <div class="nav-action-elements-layout1">
                                 <ul>             
                                    <c:if test="${empty loginUser }"> 

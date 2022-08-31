@@ -3,7 +3,7 @@
 <footer class="ranna-bg-dark">
             <div class="container">
                 <div class="footer-logo">
-                    <a href="${contextRoot}"><img src="${contextRoot}/image/img/logo-light.png" class="img-fluid" alt="footer-logo"></a>
+                    <a href="${contextRoot}"><img src="${contextRoot}/image/img/logo-light.png" alt="footer-logo"></a>
                 </div>
             </div>
         </footer>

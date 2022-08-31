@@ -127,6 +127,7 @@ height: 250px;
                             </div>
                             <div class="widget-about">
   								<figure class="author-figure"><img src="${contextRoot}/users/${showUserPage.userPhoto}" alt="about" class="obfit"></figure>
+  								<p>${fn:length(showUserPage.recipe)} 食譜　　<span id="tracknum">${fn:length(showUserPage.track)}</span> 粉絲</p>
 <!--                                 <figure class="author-signature"><img src="img/figure	/signature.png" alt="about"></figure> -->
 <!--                                  <img class="userimg size" style="border-radius: 50%;" alt="about" src="${contextRoot}/users/${loginUser.userPhoto}"> -->
   
@@ -172,7 +173,6 @@ height: 250px;
 		<script src="${contextRoot}/js/main.js">
 </script>
 <script type="text/javascript">
-    
 
     //查詢個人食譜
      function myrecipe(){
@@ -207,9 +207,9 @@ height: 250px;
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
-                            +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
-                            +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
-                            +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span>Likes</a></li>'              
+                            +'<li><a><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
+                            +'<li><a><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
+                            +'<li><a><i class="fas fa-heart"></i><span>'+response[index].favorite.length+'</span> Likes</a></li>'              
                             +'</ul></div></div></div>';
                             count++        
                     if(count % 4 == 0){
@@ -279,9 +279,9 @@ $('#mycollect').click(function(e){
                             +'<h3 class="item-title"><a href="${contextRoot}/recipe/find/'+response[index].recipeId+'">'+response[index].cookTitle+'</a></h3>'      
                             +'<p>'+response[index].cookDescription+'</p>'           
                             +'<ul class="entry-meta">'            
-                            +'<li><a href="#"><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
-                            +'<li><a href="#"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
-                            +'<li><a href="#"><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span>Likes</a></li>'              
+                            +'<li><a><i class="fas fa-clock"></i>'+response[index].cookTime+'</a></li>'          
+                            +'<li><a href="${contextRoot}/user/find/'+response[index].userId+'"><i class="fas fa-user"></i>by <span>'+response[index].userName+'</span></a></li>'            
+                            +'<li><a><i class="fas fa-heart"></i><span>'+response[index].favorCount+'</span> Likes</a></li>'              
                             +'</ul></div></div></div>';
                             count++        
                     if(count % 4 == 0){
@@ -419,6 +419,7 @@ $("#myrecipe").click(function(){
                 }
                 $("#pagesList").html("").append(str2);
         }  
+
 
 </script>
 
