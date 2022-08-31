@@ -39,18 +39,15 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 <style type="text/css">
-<<<<<<< HEAD
     	.inner-page-banner:before {
     		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/updatemember.jpg");
     		background-position: center;
             background-size: cover;
 		}
-=======
 .msg{
 	color:green;
 	margin-left:20px;
 }
->>>>>>> 57adfcdbef99abb367588f421f8f0527f63513de
 </style>
 
 </head>

@@ -49,6 +49,7 @@
                                         <ul class="dropdown-menu-col-1">
                                       <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
                                             <li><a href="${contextRoot}/shownumberuser">　個人頁面</a></li>
+                                            <li><a href="${contextRoot}/websocket" onclick="window.open('${contextRoot}')">　聯繫客服</a></li>
                                         </ul>
                                     </li>
                                     </c:if>
@@ -66,11 +67,11 @@
                                     <li><a href="${contextRoot}/adminIndex">管理頁面</a>
                                     </li>
                                     </c:if>
-                                    <li><a href="${contextRoot}/websocket">ISpoon聊天室</a></li>
+                                    
                                 </ul>
                             </nav>
                         </div>
-                        <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center">
+                        <div  class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center">
                             <div class="nav-action-elements-layout1">
                                 <ul>             
                                    <c:if test="${empty loginUser }"> 
