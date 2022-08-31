@@ -62,7 +62,7 @@ body {
 	height: 100px;
 }
 .eventimg {
-	width: 150px;
+	width: 200px;
 	height: 150px;
 }
 .insertdiv{
@@ -732,7 +732,7 @@ function checkchoice(eventId){
 				$.each(response,function(index,value){
 					replydata+=
 						'<tr><th><div class="author-personal-info">'
-						+'<a href="#" class="item-figure"><img src="${contextRoot}/image/recipe/'+value.cookPhoto+'"alt="Product" class="imgpat"></a>'
+						+'<a href="http://localhost:8090/cookblog/recipe/find/'+value.recipeId+'" class="item-figure"><img src="${contextRoot}/image/recipe/'+value.cookPhoto+'"alt="Product" class="imgpat"></a>'
 						+'<div class="item-content">'
 						+'<div class="item-title">'+value.cookTitle+'</div>'
 						+'<div class="item-designation"><i class="fas fa-user"></i>by '+value.userName+'</div>'
@@ -752,26 +752,39 @@ function imglink(recipeId){
 }
 //取消參加
 function canceljoin(recipeId,eventId){
-	var r = confirm("您確定要取消參加嗎?"+recipeId+"'"+eventId);
-	if (r == true) {
-	let data1=recipeId+","+eventId;
- 	var replyjson=JSON.stringify(data1);
- 	$.ajax({
- 		 url:"${contextRoot}/event/joindelete",
- 		 contentType:'application/json',//送出資料型態
-  		 dataType:'json',//回傳資料型態
- 		 method:'post',
- 		 data:replyjson,
- 		 success:function(result){			
- 				alert('刪除成功');
- 		 },
- 		 error:function(err){
- 		 	console.log(err);
- 		 		}
+	Swal.fire({
+		  title: '您確定要取消參加嗎?',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '確定!',
+		  cancelButtonText: '取消!'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '刪除成功!'
+		    )
+		let data1=recipeId+","+eventId;
+ 		var replyjson=JSON.stringify(data1);
+ 		$.ajax({
+ 		 	url:"${contextRoot}/event/joindelete",
+ 			contentType:'application/json',//送出資料型態
+  		 	dataType:'json',//回傳資料型態
+ 		 	method:'post',
+ 			data:replyjson,
+ 		 	success:function(result){			
+ 				
+ 		 	},
+ 		 	error:function(err){
+ 		 		console.log(err);
+ 		 	}
+ 		 	
  		 	});
- 		}
-	showoneevent(eventId);
-	participatelist(eventId);
+		showoneevent(eventId);
+		participatelist(eventId);
+		}
+	})
 }		
 </script>
 </body>
