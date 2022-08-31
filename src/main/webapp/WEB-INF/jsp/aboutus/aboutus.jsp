@@ -68,7 +68,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Welcome to I Cook ${loginUser.userName}</h1>
+							<h1>Welcome to ISpoon ${loginUser.userName}</h1>
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -92,7 +92,7 @@
                             <div class="about-figure">
                                 <img src="${contextRoot}/image/aboutus.jpg" alt="About">
                             </div>
-                            <h2 class="about-title title-bar bar-center">I Cook</h2>
+                            <h2 class="about-title title-bar bar-center">ISpoon</h2>
                             <div><p class="item-description">每個家裡都有廚房，當爐子的火一開、炊煙一起，家也就溫暖了起來。在許多人的成長經驗中，餐桌上的飯菜香充滿了家的幸福溫度，長大後，回想起媽媽做的菜，是既熟悉又難以忘懷的味道。
 但隨著時代演進，現代很多媽媽都不煮飯了。主婦聯盟董事王南琦在三八婦女節應邀演講，她問現場聽眾「媽媽的味道是什麼？媽媽的拿手菜有哪些？」很多30、40歲以上的女性邊分享媽媽的拿手菜時邊流淚，
 沒說出口的是對媽媽的思念；但年輕一點、20多歲以下的聽眾幾乎都說不出媽媽的味道是什麼。有趣的是，近來趨勢又漸漸走回頭路。食安問題嚴重、加上愈來愈多家庭意識到，全家一起晚餐、假日共食的重要性，家中爐火一個個重新開張。為服務忙碌現代雙薪家庭的各式便利餐食服務也開始進入市場，
