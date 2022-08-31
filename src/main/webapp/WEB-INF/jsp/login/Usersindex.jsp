@@ -65,7 +65,6 @@
 			background-position: center;
 			background-size: cover;
 		}
-    </style
 </style>
 </head>
 
