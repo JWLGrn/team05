@@ -129,8 +129,6 @@ body {
 							</td>
 							<td><button type="submit"
 									class="w3-button w3-red w3-hover-black">更新</button></td>
-							<td><a href="${contextRoot}/deleteUser/${u.userId}"><button
-										type="button" class="w3-button w3-red w3-hover-black" >刪除</button></a></td>
 							<td>
 								<button type="button" class="w3-button w3-red w3-hover-black"
 									onclick="deleteUser(${u.userId})">刪除</button>
