@@ -107,11 +107,20 @@
         color:red;
         margin-left:30px;
         }
+<<<<<<< HEAD
         .inner-page-banner:before {
 		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/srecipebanner.jpg");
 		background-position: center;
 		background-size: cover;
 		}
+=======
+        .a-flex{
+        	display:flex;
+        	align-items: center;
+    		flex-direction: row-reverse;
+    		padding-right:30px;
+        }
+>>>>>>> 251b2da0e5e138f1ed76ff6ae4388809165113a4
     </style>
 </head>
 
@@ -165,18 +174,20 @@
                                     <ul class="entry-meta">
                                         <li class="single-meta"><a href="#"><i class="far fa-calendar-alt"></i><fmt:formatDate
 											pattern="yyyy/MM/dd EEEE" value="${recipe.date}"/></a></li>
-                                        <li class="single-meta"><a href="#"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
+                                        <li class="single-meta"><a href="${contextRoot}/user/find/${recipe.users.userId}"><i class="fas fa-user"></i>by <span>${recipe.users.userName}</span></a></li>
                                         <li class="single-meta"><i class="fas fa-heart cursor_pointer" id="favorite" onclick="addfavorite(${recipe.recipeId})"></i>&nbsp;&nbsp;<a><span id="fanum">${fn:length(recipe.favorite)}</span>
                                                 Likes</a></li>
                                         <li class="single-meta"><i><span class="typcn typcn-flag cursor_pointer" style="font-size:22px;" id="collect" onclick="addcollect(${recipe.recipeId})" ></span></i>&nbsp;&nbsp;<a><span id="conum">${fn:length(recipe.collect)}</span>
                                                 收藏</a></li>
                                     </ul><!--  -->
                                 </div>
-                                <div class="col-xl-3 col-12">
+                                <div class="col-xl-3 col-12 a-flex">
                                     <ul class="action-item">
-                                        <li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button style="font-size:17px">檢舉</button></a></li>
+                                    	<c:if test="${loginUser.userId==recipe.userId}">
                                     	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button style="font-size:17px">修改</button></a></li>
                                     	<li><a><button style="font-size:17px" onclick="deleteRecipe()">刪除</button></a></li>
+                                    	</c:if>
+                                    	<li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button style="font-size:17px">檢舉</button></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -191,7 +202,7 @@
                                         <div class="feature-wrap">
                                             <div class="media">
                                                 <div class="feature-icon">
-                                                    <i class="fas fa-utensils"></i>
+                                                    <i class="fas fa-clock"></i>
                                                 </div>
                                                 <div class="media-body space-sm">
                                                     <div class="feature-title">時間</div>
@@ -237,7 +248,7 @@
                                             <ul class="nutrition-list">
                                                 <li>
                                                     <div class="nutrition-name">卡路里</div>
-                                                    <div class="nutrition-value">${recipe.totalCal/recipe.cookServe}</div>
+                                                    <div class="nutrition-value"><fmt:formatNumber type="number" value="${recipe.totalCal/recipe.cookServe}" maxFractionDigits="2"/></div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -337,9 +348,11 @@
                             </div>
                             <div class="widget-about">
                                 <figure class="author-figure"><img src="${contextRoot}/image/users/${recipe.users.userPhoto}" alt="about" class="authorimg"></figure>
-                                <h3 class="item-title">${recipe.users.userName}</h3>
+                                <a href="${contextRoot}/user/find/${recipe.users.userId}"><h3 class="item-title">${recipe.users.userName}</h3></a>
                                 <p>${fn:length(recipe.users.recipe)} 食譜　　<span id="tracknum">${fn:length(recipe.users.track)}</span> 粉絲</p>
-                                <p><i class="fas fa-star color_gray" id="track"><span id="tratext">追蹤</span></i></p>
+                                <c:if test="${loginUser.userId != recipe.userId}">
+                                <p><i class="fas fa-star color_gray" id="track"><span id="tratext"> 追蹤</span></i></p>
+                                </c:if>
                             </div>
                         </div>
                         <div class="widget">
@@ -416,8 +429,10 @@
     	showReply();
    		if(eval("${!empty loginUser}")){   			
    			favoriteornot(recipeId);
-            followornot(recipeId);
-            collectornot(recipeId);
+   			collectornot(recipeId);
+   			if(eval("${loginUser.userId != recipe.userId}")){
+   				followornot(recipeId);
+   			}
    		}  
     });
     //是否按過讚
@@ -470,7 +485,7 @@ function addfavorite(recipeId){
 		data:replyjson,
 		success:function(result){
 			if(result==true){
-				$("#favorite").css("color","red");
+				$("#favorite").css("color","#ff4a52");
 				str=Number($("#fanum").text())+1;
 				
 			}else{
@@ -498,7 +513,7 @@ function addcollect(recipeId){
 		data:replyjson,
 		success:function(result){
 			if(result==true){
-				$("#collect").css("color","red");
+				$("#collect").css("color","#ff4a52");
 				str=Number($("#conum").text())+1;
 				
 			}else{
@@ -526,11 +541,11 @@ function followornot(recipeId){
  			success:function(result){
  				console.log(result);
  				if(result==true){
-					$("#track").css("color","blue");
-					$("#tratext").text("已追蹤");
+					$("#track").css("color","#ff4a52");
+					$("#tratext").text(" 已追蹤");
 				}else{
 					 $("#track").css("color","gray");
-		  			 $("#tratext").text("追蹤");
+		  			 $("#tratext").text(" 追蹤");
 				}
  			 },error:function(err){
  			 	console.log(err);
@@ -552,7 +567,7 @@ $("#track").click(function(){
   			
   			if(result==true){
   			    $("#track").css("color","gray");
-  			    $("#tratext").text("追蹤");
+  			    $("#tratext").text(" 追蹤");
   			    $("#tracknum").text(Number($("#tracknum").text())-1);
   			 	new Notify ({
     	 		    status: 'error',
@@ -572,8 +587,8 @@ $("#track").click(function(){
     	 		  })
   			  	
   	 			  }else{
-  	 			$("#track").css("color","blue");  	 			
-  	 			$("#tratext").text("已追蹤");
+  	 			$("#track").css("color","#ff4a52");  	 			
+  	 			$("#tratext").text(" 已追蹤");
   	 			$("#tracknum").text(Number($("#tracknum").text())+1);
   	 		  new Notify ({
   	 		    status: 'error',
@@ -625,7 +640,7 @@ $("#track").click(function(){
               	+'<div class="item-content">'
               	+'<div class="item-ctg">'+keywords.trim()+'</div>'
               	+'<h4 class="item-title"><a href="${contextRoot}/recipe/find/'+response[i].recipeId+'">'+response[i].cookTitle+'</a></h4>'
-              	+'<div class="item-post-by"><a href="#"><i class="fas fa-user"></i><span>by </span>'
+              	+'<div class="item-post-by"><a href="${contextRoot}/user/find/'+response[i].userId+'"><i class="fas fa-user"></i><span>by </span>'
               	+response[i].userName+'</a></div></div></li>'
               	count++;
               }
@@ -649,11 +664,13 @@ $("#track").click(function(){
                        +'<div class="media-body actionlist">'
                        +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
                        +'<p>'+response[i].message+'</p>'
-                       +'<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a class="cursor_pointer">'
-                       +'<span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li>'
-                       +'</ul></div></div>'
-                       +'</div></li>'
-                }
+
+             			if("${loginUser.userId}"== response[i].userId){
+            	 			replyList +='<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a class="cursor_pointer">'
+            	 		    		  +'<span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li></ul></div>'
+             			}
+                       	replyList +='</div></div></li>'
+                	}
         $("#showmsg").html("").append(replyList);
 	});
  	}

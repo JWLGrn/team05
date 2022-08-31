@@ -70,10 +70,18 @@
       .cursor_pointer{
 			cursor: pointer; 
 		}
+<<<<<<< HEAD
 		.inner-page-banner:before {
     		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/posts.jpg");
     		background-position: center;
             background-size: cover;
+=======
+		a{
+		color:#646464;
+		}
+		a:hover{
+			color:#ff4a52;
+>>>>>>> 251b2da0e5e138f1ed76ff6ae4388809165113a4
 		}
     </style>
 </head>
@@ -124,8 +132,10 @@
                                     <li><a><i class="fas fa-clock"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss EEEE" value="${posts.time}"/></a></li>
                                     <li><a href="${contextRoot}/user/find/${posts.users.userId}"><i class="fas fa-user"></i>by <span>${posts.users.userName}</span></a></li>
                                     <li><a><i class="fas fa-comments"></i>Comments <span>(${fn:length(posts.reply)})</span></a></li>
+                                    <c:if test="${loginUser.userId==posts.users.userId}">
                                     <li><a onclick="deletePost()" class="cursor_pointer"><span>刪除</span></a></li>
                                     <li><a href="${contextRoot}/posts/update/${posts.postsId}"><span>修改</span></a></li>
+                                    </c:if>
                                 </ul>
                                 <h3 class="item-title">${posts.title}</h3>
                                 <p class="item-details">${posts.context}</p>
@@ -240,7 +250,12 @@
                                     +' <img src="${contextRoot}/users/'+response[i].userPhoto+'" alt="Comment" class="media-img-auto userobfit">'
                                     +'<div class="media-body">'
                                     +'<h4 class="comment-title">'+response[i].userName+'</h4>'+'<span class="post-date">'+response[i].uploadTime+'</span>'
-                                    +'<p>'+response[i].message+'</p>'+'</div></div></li>'
+                                    +'<p>'+response[i].message+'</p>'
+                                    if("${loginUser.userId}" == response[i].userId){
+                        	 			replyList +='<div style="float:right;"><ul class="entry-meta"><li class="single-meta"><a class="cursor_pointer">'
+                        	 		    		  +'<span onclick="deleteReply('+response[i].replyId+')">刪除</span></a></li></ul></div>'
+                         			}
+                                   	replyList +='</div></div></li>'
                     }
                     $("#replyblock").html("").append(replyList);
     	}
@@ -256,7 +271,7 @@
                 type : 'post',
                 data : data,
                 success : function(response) {
-                	replyList(response);
+                	showReply();
                 	$("#message").val("");
                 }
             });
@@ -264,15 +279,18 @@
     	})
     	
     	// 顯示留言
-    	var settings = {
+    	function showReply(){
+    		var settings = {
   			"url": "http://localhost:8090/cookblog/posts/reply/${posts.postsId}",
   			"method": "GET",
   			"timeout": 0,
-		};
+		  };
 
-		$.ajax(settings).done(function (response) {
+		  $.ajax(settings).done(function (response) {
 			replyList(response);
-		});
+		  });
+    	}
+    	showReply();
 		
 		// 最新貼文
 		var settings = {
@@ -415,7 +433,7 @@
 			        });
 			    });
 			    
-			 // 確認刪除
+			 // 確認刪除文章
 			    function deletePost(){
 			    	Swal.fire({
 			        title: '提醒',
@@ -440,6 +458,43 @@
 			    		 })
 			          }
 			      })
+			    }
+			 
+			 // 刪除留言
+			    function deleteReply(id){
+			    		Swal.fire({
+			            title: '提醒',
+			        	text: "確定要刪除此篇回覆？",
+			        	icon: 'warning',
+			            showCancelButton: true,
+			            confirmButtonColor: '#3085d6',
+			            cancelButtonColor: '#d33',
+			            confirmButtonText: '刪除',
+			        	cancelButtonText: '取消',
+			        }).then((result) => {
+			             if (result.isConfirmed) {
+			                 Swal.fire({
+			                    title: '提示',
+			        	    	text: "回覆已刪除！",
+			        	    	icon: 'success',
+			        	    	confirmButtonText: '確認'
+			                }).then((success) => {
+			        	    	 if (success.isConfirmed) {
+			                        let settings = {
+			                            "url": "http://localhost:8090/cookblog/reply/delete/"+id,
+			                            "method": "GET",
+			                            "timeout": 0,
+			                            };
+
+			                            $.ajax(settings).done(function (response) {
+			                                showReply();
+			                            });
+			        	    	 }
+			        		 })
+			              }
+			          })
+			    	
+			    	
 			    }
     </script>
     </body>
