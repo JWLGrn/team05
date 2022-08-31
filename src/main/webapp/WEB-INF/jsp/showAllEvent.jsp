@@ -62,8 +62,8 @@ body {
 	height: 100px;
 }
 .eventimg {
-	width: 300px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 }
 .insertdiv{
  	background-color:#fdf1f1;
@@ -159,7 +159,7 @@ body {
 <!-- 顯示活動	-> 選擇	 -->
 <div id="wrapper" class="wrapper">
 <div  class="w3-main" style="margin-left:220px;">
-<section class="recipe-without-sidebar-wrap">
+<section class="recipe-without-sidebar-wrap" style="padding-top:30px;">
 		<div class="container">
 		    <div class="row" id="showevent"></div>
 		    <div id="neweventbtn"><a onclick="addevent(1)"><i class="submitbtn">新增活動</i></a>
@@ -177,14 +177,14 @@ body {
                                 <input type="hidden" id="eventId" ><br />
                                 <label><i class="fas fa-utensils color_red"></i>活動標題</label>
                                 <input type="text" id="eventTitle" placeholder="Recipe Name" class="form-control insertdiv" name="name"
-                                    data-error="Subject field is required" required>
+                                    data-error="Subject field is required" style="background-color:white;" required>
                                 <span class="check" id="checkTitle"></span>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-comments color_red"></i>活動內容</label>
                                 <textarea placeholder="Type your text" class="textarea form-control insertdiv" name="message" id="eventContext"
-                                    rows="7" cols="20" data-error="Message field is required" required></textarea>
+                                    rows="7" cols="20" data-error="Message field is required" style="background-color:white;" required></textarea>
                                  <span class="check" id="checkContext"></span>
                                 <div class="help-block with-errors"></div>
                             </div>
@@ -194,7 +194,7 @@ body {
                                 <div class="form-group">
                                    <label id="fileload">
                                     <ul class="upload-img">
-                                        <li><img src="img/figure/upload-banner1.jpg" id="imgView" alt="Upload Image" class="eventimg "></li>
+                                        <li><img src="http://localhost:8090/cookblog/recipe/upload.png" id="imgView" alt="Upload Image" class="eventimg "></li>
                                     </ul>
                                       <input type="file" id="eventPhoto" accept=".png, .jpg, .jpeg" style="display: none;" onchange="imgview(event,imgView)" >
                                       <i class="fas fa-cloud-upload-alt color_red"></i>UPLOAD
@@ -438,7 +438,7 @@ function imgview(event,imgid){
 $("#eventTitle").blur(function(){
 	str=eventTitle.value;
 	if(str.length<1||str.length>21){
-		$("#checkTitle").text('自數限定1~20');
+		$("#checkTitle").text('字數限定1~20');
 		$("#eventTitle").val("");
 	}else{
 		$("#checkTitle").text("");
@@ -448,7 +448,7 @@ $("#eventTitle").blur(function(){
 $("#eventContext").blur(function(){
 	str=eventContext.value;
 	if(str.length<1||str.length>200){
-		$("#checkContext").text('自數限定1~200');
+		$("#checkContext").text('字數限定1~200');
 		$("#createbtn").hide();
 	}else{
 		$("#checkContext").text("");

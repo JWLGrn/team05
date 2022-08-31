@@ -2,34 +2,90 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
+<c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="bootstrap.min.css">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" href="${contextRoot}/css/favicon.png">
+    <!-- Normalize Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/normalize.css">
+    <!-- Main Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/main.css">
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/animate.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/fontawesome-all.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/flaticon.css">
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/summernote.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${contextRoot}/css/owl.theme.default.min.css">
+    <!-- simple-notify CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/simple-notify.min.css">
+    <!-- sweetalert2 CSS -->
+    <link rel="stylesheet" href="${contextRoot}/css/sweetalert2.min.css">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="${contextRoot}/css/style.css">
+        <!-- Modernizr Js -->
+    <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+        <style type="text/css">
+    	
+		.cursor_pointer{
+			cursor: pointer; 
+		}
+        .nav{
+        	color:white;
+        }
+        .nav:hover{
+        	color:black;
+        }
+
+        .navl{
+        	padding-bottom:7px;
+        	padding-top:7px;
+        	padding-left:20px;
+        }
+        .navl:hover{
+        	background-color:white;
+        	padding-bottom:7px;
+        	padding-top:7px;
+        	padding-left:20px;
+        }
+
+    </style>
 </head>
 <body>
 	<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
 		style="z-index: 3; width: 200px; font-weight: bold;" id="mySidebar">
-		<br> <a href="javascript:void(0)"
-			class="w3-button w3-hide-large w3-display-topleft"
-			style="width: 100%; font-size: 22px">Close Menu</a>
-		<div class="w3-container">
-			<h3 class="w3-padding-64">
+		<br>
+		<div>
+		 <h3 class="w3-padding-64">
 				<b>系統管理</b>
 			</h3>
-		</div>
-		<div class="w3-bar-block">
-			<a href="${contextRoot}/adminIndex" class="w3-bar-item w3-button w3-hover-white">系統管理首頁</a>
-			<a href="${contextRoot}/addfoods" class="w3-bar-item w3-button w3-hover-white">新增食材</a>
-			<a href="${contextRoot}/showAllFoods" class="w3-bar-item w3-button w3-hover-white">管理食材</a>
-			<a href="${contextRoot}/addkeyword" class="w3-bar-item w3-button w3-hover-white">新增食譜類別</a>
-			<a href="${contextRoot}/showAllKeywords" class="w3-bar-item w3-button w3-hover-white">管理食譜類別</a>
-			<a href="${contextRoot}/showAllUsers" class="w3-bar-item w3-button w3-hover-white">管理使用者</a>
-			<a href="${contextRoot}/showallevent" class="w3-bar-item w3-button w3-hover-white">管理活動</a>
+			</div>
+                    
+		<div><ul>
+				<li class="navl"><a class="nav" href="${contextRoot}/adminIndex">系統管理首頁</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/addfoods">新增食材</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/showAllFoods">管理食材</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/addkeyword">新增食譜類別</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/showAllKeywords">管理食譜類別</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/showAllUsers">管理使用者</a></li>
+				<li class="navl"><a class="nav" href="${contextRoot}/showallevent">管理活動</a></li>
+			</ul>
 		</div>
 	</nav>
 

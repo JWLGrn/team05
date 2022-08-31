@@ -65,6 +65,11 @@ object-fit: cover;
 width: 400px;
 height: 250px;
 }
+.inner-page-banner:before {
+background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/shownumberuser.jpg");
+background-position: center;
+background-size: cover;
+		}
 </style>
 </head>
 <!-- <body onload="Favorite();report()"> -->
@@ -82,8 +87,7 @@ height: 250px;
 		<jsp:include page="../layout/navbar.jsp" />
 		<!-- Header Area End Here -->
 		<!-- Inne Page Banner Area Start Here -->
-		<section class="inner-page-banner bg-common"
-			data-bg-image="/img/figure/inner-page-banner1.jpg">
+		<section class="inner-page-banner bg-common">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">

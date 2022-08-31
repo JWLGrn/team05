@@ -60,6 +60,12 @@
 			margin-left:30px;
 			color:green;
 		}
+		.inner-page-banner:before {
+			background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/register.jpg");
+			background-position: center;
+			background-size: cover;
+		}
+    </style
 </style>
 </head>
 

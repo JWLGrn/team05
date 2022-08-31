@@ -40,6 +40,13 @@
 <link rel="stylesheet" href="${contextRoot}/css/style.css">
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
+<style type="text/css">
+    	.inner-page-banner:before {
+    		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/aboutus.jpg");
+    		background-position: center;
+            background-size: cover;
+		}
+</style>
 </head>
 <body>
 <!-- <body onload="Favorite();report()" > -->
@@ -56,8 +63,7 @@
 		<jsp:include page="../layout/navbar.jsp" />
 		<!-- Header Area End Here -->
 		<!-- Inne Page Banner Area Start Here -->
-		<section class="inner-page-banner bg-common"
-			data-bg-image="/img/figure/inner-page-banner1.jpg">
+		<section class="inner-page-banner bg-common">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">

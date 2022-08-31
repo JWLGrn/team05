@@ -107,6 +107,11 @@
         color:red;
         margin-left:30px;
         }
+        .inner-page-banner:before {
+		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/srecipebanner.jpg");
+		background-position: center;
+		background-size: cover;
+		}
     </style>
 </head>
 
