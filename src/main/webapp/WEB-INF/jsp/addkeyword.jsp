@@ -12,7 +12,7 @@
 <script src="bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -49,10 +49,10 @@ body {font-size:16px;}
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
+<div class="container-fluid">
+<div class="row">
 <jsp:include page="adminMenu.jsp"></jsp:include>
-
-<div class="w3-main" style="margin-left:220px;">
-
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 <h3>新增食譜類別</h3>
 
 
@@ -68,7 +68,7 @@ body {font-size:16px;}
 </table>
 </form>
 
-</div>
+</div></div></div>
 
 <script>
 $("#word").blur(function(){

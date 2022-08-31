@@ -34,7 +34,7 @@ public class FoodsController {
 		Model model){
 		Foods f = fService.insertFoods(fd);
 		model.addAttribute("newFoods", f);
-		return "redirect:/showAllFoods";
+		return "redirect:/show/AllFoods";
 	}
 	//驗證食材是否已存在
 	@PostMapping("/foodname/checkFoodsByName")
@@ -68,7 +68,7 @@ public class FoodsController {
 		model.addAttribute("option", data);
 		
 
-		return "redirect:/showAllFoods";
+		return "redirect:/show/AllFoods";
 		
 	}
 	
@@ -93,7 +93,7 @@ public class FoodsController {
 			model.addAttribute("option", data);
 			
 
-			return "redirect:/showAllFoods";
+			return "redirect:/show/AllFoods";
 			
 		}
 	
@@ -102,7 +102,7 @@ public class FoodsController {
 	@GetMapping("/deleteFood/{foodsId}")
 	public String deleteFood(@PathVariable Integer foodsId) {
 		fService.deleteFood(foodsId);
-		return "redirect:/showAllFoods";
+		return "redirect:/show/AllFoods";
 	}
 		
 	// 取得全部食材
@@ -110,6 +110,13 @@ public class FoodsController {
 	public @ResponseBody List<Foods> findAllFoods() {
 		List<Foods> fList = fService.findAllFoods();
 		return fList;
+	}
+	
+	@GetMapping("/show/AllFoods")
+	public String showAllFoods(Model m) {
+		List<Foods> fList = fService.findAllFoods();
+		m.addAttribute("foods", fList);
+		return "showAllFoods";
 	}
 
 	// 模糊搜尋食物名稱

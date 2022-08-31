@@ -206,18 +206,16 @@ public class UsersController {
 							 @RequestParam("user_name") String user_name,
 							 @RequestParam("email") String email, 
 							 @RequestParam("password") String password,
-							 @RequestParam("permission") Integer permission, 
 							 @RequestParam("user_photo") MultipartFile file,
-							 Model model) {
+							 Model model,RedirectAttributes rAttr) {
 		String photoName = file.getOriginalFilename();
 		String photopath = "";
 		// 註冊會員的email.密碼
-		Users updateUser = new Users();
+		Users updateUser = UService.findOneUserById(user_id);
 		updateUser.setUserId(user_id);
 		updateUser.setUserName(user_name);
 		updateUser.setEmail(email);
 		updateUser.setPassword(password);
-		updateUser.setPermission(permission);
 		updateUser.setUserPhoto(photopath);
 		Users user = UService.insertUser(updateUser);
 		// 取得註冊User的id 將User上傳的圖片命名成
@@ -235,7 +233,8 @@ public class UsersController {
 		System.out.println(updateUser);
 
 		model.addAttribute("loginUser", updateUserResult);
-		return "redirect:/";
+		rAttr.addFlashAttribute("msg", "<span class='icon mu txt-24 mu-pass'></span> 更新成功！");
+		return "redirect:/users/updatemember?user_id="+updateUserResult.getUserId();
 	}
 
 	// 抓取recipe and userid 案讚關聯

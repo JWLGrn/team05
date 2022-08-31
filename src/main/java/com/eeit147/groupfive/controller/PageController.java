@@ -178,15 +178,6 @@ private FoodsService fService;
 		return "showAllEvent";
 	}
 	
-//	@GetMapping("/categories")
-//	public String goCategories() {
-//		return "categories";
-//	}
-	//食譜分類頁面
-//		@GetMapping("/showAllKeywords")
-//		public String showAllKeywords() {
-//			return "showAllKeywords";
-//		}
 		@GetMapping("/aboutus")
 		public String showaboutus () {
 			return "aboutus/aboutus";

@@ -12,7 +12,7 @@
 <script src="bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -49,31 +49,75 @@ body {font-size:16px;}
 background-color: #ff4a52;
 border-radius: 45px;
 }
+h1{
+	margin:auto;
+}
+.nav-link {
+    color: #ff4a52;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #ff4a52;
+}
+
 </style>
 <title>系統管理首頁</title>
 </head>
+
 <body  onload="showDonation()">
 <jsp:include page="layout/navbar.jsp"/>
+
+<div class="container-fluid">
+<div class="row">
 <jsp:include page="adminMenu.jsp"></jsp:include>
-<div class="w3-main" style="margin-left:220px;">
+<div class="col-lg-9" style="height:calc(100vh);margin:auto;padding-top:30px;margin-left:300px">
 <h1>系統管理首頁</h1>
-</div>
-<div class="row justify-content-center w3-main" style="margin-left:220px;">
-<button type="button" onclick="showDonation()" class="aaa">贊助者資料</button>
-<button type="button" onclick="reportReply()" class="aaa">檢舉信件</button>
-<button onclick="chartjstest02()" class="aaa">切換長條圖</button>
-<button onclick="chartjstest()" class="aaa" >切換圓餅圖</button>
+
+<!-- --------------------------------------- -->
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="flex-sm-fill text-sm-center nav-link active aa" onclick="showDonation()" style="background-color: #ff4a52;">贊助者資料</a>
+  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="reportReply()">檢舉信件</a>
+  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest02()">切換長條圖</a>
+  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest()">切換圓餅圖</a>
+</nav>
+
+<!-- --------------------------------------- -->
+<div class="row justify-content-center w3-main" style="margin-top:30px;">
+<!-- <button type="button" onclick="showDonation()" class="aaa">贊助者資料</button> -->
+<!-- <button type="button" onclick="reportReply()" class="aaa">檢舉信件</button> -->
+<!-- <button onclick="chartjstest02()" class="aaa">切換長條圖</button> -->
+<!-- <button onclick="chartjstest()" class="aaa" >切換圓餅圖</button> -->
 <canvas id="myChart" width="200" height="80"  class="float" style="display:none;"></canvas>
 <canvas id="myChart2" width="450" height="100"  class="float" style="display:none;"></canvas>
 </div>
 <!-- <div id="adminReport" style="display:none; width: 20; height: 10" ></div> -->
-<div  id="adminReport" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
-<div  id="SDonation" class="row justify-content-center w3-main" style="margin-left:220px;"></div>
-
+<div  id="adminReport" class="row justify-content-center w3-main"></div>
+<div  id="SDonation" class="row justify-content-center w3-main"></div>
+</div>
+</div>
+</div>
+<!-- Jquery Js -->
+    <script src="${contextRoot}/js/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="${contextRoot}/js/popper.min.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
 <script >
 var content =[];
+$(".nav-link").click(function(e){
+	$(e.target).siblings().removeClass("active");
+	$(e.target).siblings().removeAttr("style");
+	$(e.target).addClass("active");
+	$(e.target).attr("style","background-color: #ff4a52;")
+})
 
 function chartjstest(){
+	
 	var ctx = document.getElementById('myChart');
 	var count=0;
 	var xhr = new XMLHttpRequest();
@@ -132,11 +176,11 @@ function chartjstest(){
 	$("#myChart2").hide();
 	$("#adminReport").hide();
 	$("#SDonation").hide();
+	
 }
 </script>
   <script>
   function chartjstest02(){
-	  
 	  var xhr = new XMLHttpRequest();
 	  xhr.withCredentials = true;
 	  var count = 0;
@@ -179,6 +223,7 @@ function chartjstest(){
   	$("#myChart").hide();
   	$("#adminReport").hide();
   	$("#SDonation").hide();
+  	
   }
   </script>
   <script type="text/javascript">
@@ -199,7 +244,7 @@ xhr.addEventListener("readystatechange", function() {
 		+ "<td >" + reportreply[i].reportType + "</td>" 
 		+ "<td>" + reportreply[i].reportStatus + "</td>"
 		+ "<td >"	+ "<a href='${contextRoot}/adminReplyReportToSendMail?report_id="+reportreply[i].reportId+"'><div >"+'回覆檢舉'+"</div></a>"
-		+ "</td>" + "<td></tr>";
+		+ "</tr>";
 	  
 	    
 	  
@@ -218,6 +263,7 @@ $("#adminReport").show();
 $("#myChart").hide();
 $("#myChart2").hide();
 $("#SDonation").hide();
+
 }
 
 function showDonation(){
@@ -238,7 +284,7 @@ function showDonation(){
 			+ "<td >" +'0'+ showDonation[i].phone + "</td>" 
 			+ "<td>" + showDonation[i].address + "</td>"
 			+ "<td>" + showDonation[i].tradeno + "</td>"
-			+ "</td>" + "<td></tr>";
+			+ "</tr>";
 		  
 		    
 		  
@@ -256,6 +302,7 @@ function showDonation(){
 	$("#myChart").hide();
 	$("#myChart2").hide();
 	$("#SDonation").show();
+	
 }
 
 </script>
