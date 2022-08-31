@@ -210,6 +210,6 @@ private FoodsService fService;
 	
 	@GetMapping("/websocket")
 	public String websocketMessage() {
-		return "socket/index";
+		return "socket/chat";
 	}
 }

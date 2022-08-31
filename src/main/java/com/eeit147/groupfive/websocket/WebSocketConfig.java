@@ -1,4 +1,4 @@
-package springbootwebsocket;
+package com.eeit147.groupfive.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,7 +12,7 @@ public class  WebSocketConfig implements  WebSocketMessageBrokerConfigurer {
 	@Override
     public void registerStompEndpoints(StompEndpointRegistry endpointRegistry) {
         // 註冊一個給Client連至WebSocket Server的節點(websocket endpoint)
-        endpointRegistry.addEndpoint("/").withSockJS(); 
+        endpointRegistry.addEndpoint("/chatroom").withSockJS(); 
     }
 
     @Override
@@ -24,5 +24,4 @@ public class  WebSocketConfig implements  WebSocketMessageBrokerConfigurer {
         // 設定導向至訊息處理器的前綴路徑
         brokerRegister.setApplicationDestinationPrefixes("/app");
     }
-
 }

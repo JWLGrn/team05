@@ -328,7 +328,7 @@ public class UsersController {
 		}
 		System.out.println(report+"============================================================");
 		model.addAttribute("report", report);
-		return "user/SuccessUser";
+		return "redirect:/";
 	}
 	
 	// 追蹤 + 取消追蹤

@@ -4,12 +4,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 
 <style type="text/css">
 @charset "UTF-8";
@@ -22,6 +23,7 @@
 html, body {
     height: 100%;
     overflow: hidden;
+/*     background-image: url("${contextRoot}/image/cook.jpg"); */
 }
 
 body {
@@ -33,13 +35,16 @@ body {
     line-height: 1.58;
     color: #333;
     background-color: #f4f4f4;
+	background-image: url("${contextRoot}/image/cook02.jpg");
+	  background-size: 100% 100%;
+background-overflow:hidden;
     height: 100%;
 }
 
 body:before {
-    height: 50%;
+    height: 100%;
     width: 100%;
-    position: absolute;
+/*     position: absolute; */
     top: 0;
     left: 0;
     background: #008080;
@@ -141,6 +146,7 @@ button.accent {
     right: 0;
     margin: 0 auto;
     margin-top: -160px;
+    border-radius: 20%;
 }
 
 .username-page-container .username-submit {
@@ -353,7 +359,7 @@ button.accent {
 }
 
 </style>
-<title>Spring Boot WebSocket Chat Application</title>
+<title>聊天室</title>
 <!-- <link rel="stylesheet" href="/css/main.css" /> -->
 </head>
 <body>
@@ -364,13 +370,13 @@ button.accent {
     <!-- 進入頁面 -->
     <div id="username-page">
         <div class="username-page-container">
-            <h1 class="title">輸入名稱</h1>
+            <h1 class="title">輸入暱稱</h1>
             
             <form id="usernameForm" name="usernameForm">
                 <div class="form-group popup">
                     <input type="text" id="name" placeholder="輸入名稱..."
                         autocomplete="off" class="form-control popup" />
-                    <span class="popuptext" id="hint">請輸入名稱</span>
+                    <span class="popuptext" id="hint">請輸入姓名</span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="accent username-submit">開始聊天</button>
@@ -383,7 +389,7 @@ button.accent {
     <div id="chat-page" class="hidden">
         <div class="chat-container">
             <div class="chat-header">
-                <h2>Spring Boot WebSocket Chat Demo</h2>
+                <h2>ISpoon聊天室</h2>
             </div>
             <div class="connecting">Connecting...</div>
             <ul id="messageArea">
@@ -439,7 +445,8 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('${contextRoot}/chatroom');
+       
+        var socket = new SockJS("${contextRoot}/chatroom");
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);

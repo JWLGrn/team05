@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${contextRoot}/css/typicons/typicons.css">
+<link rel="icon" href="${contextRoot}/css/favicon.png">
 <style>
 .userimg{
 	object-fit:cover;
@@ -63,6 +64,7 @@
                                     <li><a href="${contextRoot}/adminIndex">管理頁面</a>
                                     </li>
                                     </c:if>
+                                    <li><a href="${contextRoot}/websocket">ISpoon聊天室</a></li>
                                 </ul>
                             </nav>
                         </div>

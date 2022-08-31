@@ -1,4 +1,5 @@
-package springbootwebsocket;
+package com.eeit147.groupfive.websocket;
+
 
 public class ChatMessage {
 
