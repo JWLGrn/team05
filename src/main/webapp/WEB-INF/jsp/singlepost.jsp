@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ranna | Submit Recipes</title>
+    <title>Blog Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
@@ -70,18 +70,15 @@
       .cursor_pointer{
 			cursor: pointer; 
 		}
-<<<<<<< HEAD
 		.inner-page-banner:before {
     		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/posts.jpg");
     		background-position: center;
             background-size: cover;
-=======
 		a{
 		color:#646464;
 		}
 		a:hover{
 			color:#ff4a52;
->>>>>>> 251b2da0e5e138f1ed76ff6ae4388809165113a4
 		}
     </style>
 </head>
@@ -105,12 +102,15 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Standard Blog Page</h1>
+                            <h1>Blog Post</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="${contextRoot}">Home</a>
                                 </li>
-                                <li>Blog</li>
+                                <li>
+                                    <a href="${contextRoot}/posts/find/all">Post List</a>
+                                </li>
+                                <li>Blog Post</li>
                             </ul>
                         </div>
                     </div>

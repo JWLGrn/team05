@@ -37,23 +37,27 @@
                             <nav class="site-nav">
                                 <ul id="site-menu" class="site-menu">
                                     <li><a href="${contextRoot}">首頁</a></li>
-                                    <li>
-                                        <a href="${contextRoot}/categories">分類</a>
-                                    </li>
+<!--                                     <li> -->
+<!--                                         <a href="${contextRoot}/categories">分類</a> -->
+<!--                                     </li> -->
                                     <li><a href="${contextRoot}/showevent">活動</a></li>
                                     <li>
                                         <a href="${contextRoot}/recipe/find/all">食譜</a>
+                                        <ul class="dropdown-menu-col-1">
+                                      		<li> <a href="${contextRoot}/recipe/find/all">　所有食譜</a></li>
+                                            <li><a href="${contextRoot}/categories">　食譜類別</a></li>
+                                        </ul>
                                     </li>
                                     <c:if test="${!empty loginUser }">
                                     <li><a href="#">個人</a>
                                         <ul class="dropdown-menu-col-1">
-                                      <li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
+                                      		<li> <a href="${contextRoot}/users/updatemember?user_id=${loginUser.userId }">　修改會員資料</a></li>
                                             <li><a href="${contextRoot}/shownumberuser">　個人頁面</a></li>
                                             <li><a href="${contextRoot}/websocket" onclick="window.open('${contextRoot}')">　聯繫客服</a></li>
                                         </ul>
                                     </li>
                                     </c:if>
-                                    <li><a href="${contextRoot}/posts/find/all">專欄</a>
+                                    <li><a href="${contextRoot}/posts/find/all">部落格</a>
                                         <ul class="dropdown-menu-col-1">
                                         <c:if test="${!empty loginUser }">
                                             <li><a href="${contextRoot}/posts">　新增文章</a></li>

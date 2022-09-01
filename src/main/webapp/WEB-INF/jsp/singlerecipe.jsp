@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ranna | Single Recipe 1</title>
+    <title>Recipe | ${recipe.cookTitle}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
@@ -141,12 +141,19 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Single Recipe</h1>
+                            <h1>Recipe</h1>
                             <ul>
                                 <li>
+<<<<<<< HEAD
                                     <a href="http://localhost:8090/cookblog">Home</a>
+=======
+                                    <a href="${contextRoot}">Home</a>
+>>>>>>> ff1c045addeaeacf77932bee2a94de15f11d3cd5
                                 </li>
-                                <li>Recipe Details</li>
+                                <li>
+                                    <a href="${contextRoot}/recipe/find/all">Recipe</a>
+                                </li>
+                                <li>${recipe.cookTitle}</li>
                             </ul>
                         </div>
                     </div>
