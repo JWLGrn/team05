@@ -128,9 +128,9 @@ body {
 							</select>
 							</td>
 							<td><button type="button"
-									class="btn btn-danger" onclick="sendfromUpdateData(${u.userId})">更新</button></td>
+									class="btn-fill  btn-danger" onclick="sendfromUpdateData(${u.userId})">更新</button></td>
 							<td>
-								<button type="button" class="btn btn-danger"
+								<button type="button" class="btn-fill  btn-danger"
 									onclick="deleteUser(${u.userId})">刪除</button>
 							</td>
 						</tr>

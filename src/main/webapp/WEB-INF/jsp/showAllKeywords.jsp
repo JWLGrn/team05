@@ -103,9 +103,9 @@ object-fit:cover;
 							</td>
 							<td><input name="keyword" value="${k.keyword}" /></td>
 							<td><button type="submit"
-									class="btn btn-danger">送出</button></td>
+									class="btn-fill  btn-danger">送出</button></td>
 							<td>
-							<button type="button" class="btn btn-danger"
+							<button type="button" class="btn-fill  btn-danger"
 							onclick="deleteKeyword(${k.keywordId})">刪除</button>
 										</td>
 					</tr>

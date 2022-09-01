@@ -107,20 +107,17 @@
         color:red;
         margin-left:30px;
         }
-<<<<<<< HEAD
         .inner-page-banner:before {
 		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/srecipebanner.jpg");
 		background-position: center;
 		background-size: cover;
 		}
-=======
         .a-flex{
         	display:flex;
         	align-items: center;
     		flex-direction: row-reverse;
     		padding-right:30px;
         }
->>>>>>> 251b2da0e5e138f1ed76ff6ae4388809165113a4
     </style>
 </head>
 
