@@ -86,13 +86,14 @@ public class UsersController {
 		HashMap<String, String> msg = new HashMap<String, String>();
 		Users loginUser = UService.findUsersByEmailandPassword(user.getEmail(), user.getPassword());
 		if (loginUser == null) {
-			redirectAttributes.addFlashAttribute("message", "帳號密碼錯誤，請輸入正確的帳號密碼");
+			redirectAttributes.addFlashAttribute("message", "<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>帳號密碼錯誤，請輸入正確的帳號密碼");
 			return "redirect:/user/login";
 		}		
 		//Users userid = UService.findUsersById(loginUser.getUserId());
 		System.out.println(loginUser.getUserId());
 		Integer permission = loginUser.getPermission();
 			if(permission==0) {
+				redirectAttributes.addFlashAttribute("message", "<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>此帳號已停權，請聯繫客服");
 				out.isComplete();
 				return "redirect:/user/login";
 			}
