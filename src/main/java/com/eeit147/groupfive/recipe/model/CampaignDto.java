@@ -84,6 +84,8 @@ public class CampaignDto implements Serializable{
 		this.userPhoto = userPhoto;
 	}
 	
-
+	public int compareTo(CampaignDto cdto) {
+        return this.favoritenum - cdto.getFavoritenum();
+    }
 	
 }

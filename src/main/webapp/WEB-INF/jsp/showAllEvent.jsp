@@ -628,7 +628,8 @@ function updateevent(eventId){
 //刪除
 function del(eventId){
  	Swal.fire({
- 		  title: '您確定要刪除嗎?',
+ 		  title: '提醒',
+ 		  text: '您確定要刪除嗎?',
  		  icon: 'warning',
  		  showCancelButton: true,
  		  confirmButtonColor: '#3085d6',
@@ -637,9 +638,15 @@ function del(eventId){
  		  cancelButtonText: '取消!'
  		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '刪除成功!'
-		    )
+		    Swal.fire({
+		    	title: '提示',
+	    	    text: "活動已刪除！",
+	    	    icon: 'success',
+		    })then((success) => {
+		    	if (success.isConfirmed) {
+		    		
+		    	}
+		    })
 		    var replyjson=JSON.stringify(eventId);
 			$.ajax({
  				url:"${contextRoot}/event/delete",
@@ -655,7 +662,8 @@ function del(eventId){
  				}
  			})
 			 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
-  					}	  
+  					}	  		
+		    )		    
 	}) 
 }
 //--------------------活動選擇-------------------> 
