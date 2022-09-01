@@ -103,6 +103,10 @@
                 </div>
             </div>
         </section>
+        <!-- Recipe Without Sidebar Area End Here -->
+        <!-- Footer Area Start Here -->
+        <jsp:include page="../layout/footer.jsp"/>
+        <!-- Footer Area End Here -->
         
 <!--         ---------------------------------------------------------------------------------- -->
 

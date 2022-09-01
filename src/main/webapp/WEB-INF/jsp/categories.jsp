@@ -62,11 +62,7 @@
                             <h1>Recipe Categories</h1>
                             <ul>
                                 <li>
-<<<<<<< HEAD
-                                    <a href="http://localhost:8090/cookblog">Home</a>
-=======
                                     <a href="${contextRoot}">Home</a>
->>>>>>> ff1c045addeaeacf77932bee2a94de15f11d3cd5
                                 </li>
                                 <li>Categories</li>
                             </ul>

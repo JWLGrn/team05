@@ -154,15 +154,11 @@ a{
 						<div class="breadcrumbs-area">
 							<h1>Campaigns</h1>
 							<ul>
-<<<<<<< HEAD
 							<li>
-                                <a href="http://localhost:8090/cookblog">Home</a>
+                                <a href="${contextRoot}">Home</a>
                                 </li>
                                 <li>Event</li>
-=======
-								<li><a href="${contextRoot}">Home</a></li>
 								<li>Campaigns</li>
->>>>>>> ff1c045addeaeacf77932bee2a94de15f11d3cd5
 							</ul>
 						</div>
 					</div>
@@ -228,8 +224,7 @@ a{
 		<footer class="ranna-bg-dark ">
 			<div class="container ">
 				<div class="footer-logo ">
-					<a href="index.html"><img src="img/logo-light.png"
-						class="img-fluid" alt="footer-logo"></a>
+					<a href="${contextRoot}"><img src="${contextRoot}/image/img/logo-light.png" alt="footer-logo"></a>
 				</div>
 
 			</div>

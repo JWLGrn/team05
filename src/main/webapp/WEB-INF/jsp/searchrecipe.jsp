@@ -69,7 +69,6 @@
                             <h1>Recipe Search</h1>
                             <ul>
                                 <li>
-                                    <a href="http://localhost:8090/cookblog">Home</a>
                                     <a href="${contextRoot}">Home</a>
                                 </li>
                                 <li>All Recipes</li>

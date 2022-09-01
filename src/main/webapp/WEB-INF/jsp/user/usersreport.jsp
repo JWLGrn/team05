@@ -83,6 +83,7 @@ border-radius: 45px;
 <section class="login-page-wrap padding-top-80 padding-bottom-50">
 		<div class="container">
 			<div class="row gutters-60">
+			<div class="col-lg-2"></div>
 				<div class="col-lg-8">
 					<div class="login-box-layout1">
 						<div class="section-heading heading-dark">

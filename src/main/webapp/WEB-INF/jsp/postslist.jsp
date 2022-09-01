@@ -92,7 +92,6 @@
                             <h1>Post List</h1>
                             <ul>
                                 <li>
-                                    <a href="http://localhost:8090/cookblog">Home</a>
                                     <a href="${contextRoot}">Home</a>
                                 </li>
                                 <li>Post List</li>
