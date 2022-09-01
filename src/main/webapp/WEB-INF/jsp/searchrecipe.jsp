@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>All Recipes</title>
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -66,10 +66,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Search Your Recipes</h1>
+                            <h1>Recipe Search</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="${contextRoot}">Home</a>
                                 </li>
                                 <li>All Recipes</li>
                             </ul>

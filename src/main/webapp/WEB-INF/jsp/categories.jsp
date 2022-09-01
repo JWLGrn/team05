@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Recipe Categories</title>
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
@@ -62,7 +62,7 @@
                             <h1>Recipe Categories</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="${contextRoot}">Home</a>
                                 </li>
                                 <li>Categories</li>
                             </ul>

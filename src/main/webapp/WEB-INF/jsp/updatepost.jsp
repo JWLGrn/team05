@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ranna | Submit Recipes</title>
+    <title>Update Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
@@ -72,12 +72,18 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Submit a Recipe</h1>
+                            <h1>Blog Post</h1>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="${contextRoot}">Home</a>
                                 </li>
-                                <li>Recipe Post</li>
+                                <li>
+                                    <a href="${contextRoot}/posts/find/all">Post List</a>
+                                </li>
+                                <li>
+                                    <a href="${contextRoot}/posts/find/${post.postsId}">Blog Post</a>
+                                </li>
+                                <li>Update Post</li>
                             </ul>
                         </div>
                     </div>

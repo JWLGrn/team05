@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Ranna | Submit Recipes</title>
+<title>Campaigns</title>
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -152,9 +152,10 @@ a{
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Welcome to I Cook</h1>
+							<h1>Campaigns</h1>
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="${contextRoot}">Home</a></li>
+								<li>Campaigns</li>
 							</ul>
 						</div>
 					</div>

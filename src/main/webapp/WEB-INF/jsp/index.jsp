@@ -9,7 +9,7 @@
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <head>
 <meta charset="UTF-8">
-<title>Ranna | Submit Recipes</title>
+<title>ISpoon</title>
 <!-- Favicon -->
     <link rel="icon" href="${contextRoot}/css/favicon.png">
     <!-- Normalize Css -->
