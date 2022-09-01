@@ -39,7 +39,7 @@
 <!-- Modernizr Js -->
 <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
 <style type="text/css">
-    	.inner-page-banner:before {
+
 .inner-page-banner:before {
     		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/updatemember.jpg");
     		background-position: center;
