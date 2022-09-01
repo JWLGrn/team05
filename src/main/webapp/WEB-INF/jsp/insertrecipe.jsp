@@ -245,7 +245,7 @@
                 $('.foods').select2({
                     theme: 'classic',
                     dropdownAutoWidth: true,
-                    width: '100%'
+                    width: '100%',
                 });
             }
 
@@ -364,9 +364,19 @@
 						  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
               	        }
               	      }, false);
+            	      
+            	      form.addEventListener('input', function(event) {
+                	        if (form.checkValidity() === true) {
+                	          $("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+  						  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+                	        }
+                	      }, false);
+            	      
             	    });
             	  }, false);
             	})();
+              
+              		
             
             // 驗證數字不可小於零
             $("input[type='number']").change(function(){
@@ -383,18 +393,19 @@
             });
             
             function quickInsert(){
-            	$("input[name='title']").val("123");
-            	$("textarea[name='descript']").val("描述");
-            	$("input[name='time']").val("10");
-            	$("input[name='people']").val("5");
-            	$("#insert").val("1");
-            	$("#insert1").val("2");
-            	$("#insert2").val("3");
-            	$("#insert3").val("4");
-            	$("#insertfood").val("100");
-            	$("#insertfood1").val("200");
-            	$("#insertfood2").val("300");
-            	
+            	$("input[name='title']").val("雞蛋布丁");
+            	$("textarea[name='descript']").val("簡單的雞蛋布丁");
+            	$("input[name='time']").val("30");
+            	$("input[name='people']").val("3");
+            	$("#insertfood").val("150");
+            	$("#insertfood1").val("300");
+            	$("#insertfood2").val("30");
+            	$("#insert").val("雞蛋攪拌均勻備用，鮮奶放鍋中，加入砂糖，小火加熱，攪拌至砂糖融化即可。");
+            	$("#insert1").val("烤盤加入開水，烤箱185度30分鐘。");
+            	$("#insert2").val("微熱鮮奶倒入雞蛋液中，攪拌均勻。過篩倒入模具中。");
+            	$("#insert3").val("完成。");
+            	$("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+            	 $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
             }
     </script>
 </body>

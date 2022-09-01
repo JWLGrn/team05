@@ -73,6 +73,22 @@
 		body{
 			height: 100%;
 		}
+		button{
+		padding: 5px 10px 5px;
+    	background-color: #ff4a52;
+    	border-radius: 0;
+    	border: none;
+    	color: #ffffff;
+    	font-weight: 600;
+    	display: inline-flex;
+    	-webkit-box-align: center;
+    	align-items: center;
+    	-webkit-box-pack: center;
+    	justify-content: center;
+    	cursor: pointer;
+    	box-shadow: none;
+    	transition: all 0.3s ease-out;
+		}
     </style>
 </head>
 <body style="height: 100%;">

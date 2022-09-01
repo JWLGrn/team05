@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Ranna | Submit Recipes</title>
+<title>Report User</title>
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,6 +48,21 @@ border-radius: 45px;
 		background-position: center;
 		background-size: cover;
 		}
+	textarea,select {
+    font-size: 17px;
+    padding: 10px 20px;
+    color: #000000;
+    border: 1px solid #cccccc;
+    background-color: white;
+    border-radius: 0;
+        overflow: auto;
+    resize: vertical;
+}
+select {
+	padding: 3px;
+	margin-bottom:12px;
+}
+
 </style>
 </head>
 <body>
@@ -70,7 +85,7 @@ border-radius: 45px;
 				<div class="row">
 					<div class="col-12">
 						<div class="breadcrumbs-area">
-							<h1>Welcome ${loginUser.userName}</h1>
+							<h1>Report User</h1>
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
 							</ul>
@@ -94,34 +109,35 @@ border-radius: 45px;
 						<div class="section-heading heading-dark">
 							<h2 class="item-heading">REPORT MEMBER</h2>
 						</div>
-						<form action="${contextRoot}/users/reportSuccess" method="get">
+						<div class="form-group">
+						<form action="${contextRoot}/users/reportSuccess" method="get" class="submit-recipe-form">
                         <input name="reportStatus" type="hidden" value="未受理"><br>
-                        <input name="getAuthorUser" type="hidden" value="${getAuthorUser.userId }"><br>
-                        <input name="loginUser" type="hidden" value="${loginUser.userId }"><br>
-                        <input name="reportTime" type="hidden" value=" ${date }"><br>
+                        <input name="getAuthorUser" type="hidden" value="${getAuthorUser.userId }">
+                        <input name="loginUser" type="hidden" value="${loginUser.userId }">
+                        <input name="reportTime" type="hidden" value=" ${date }">
 							<div class="row">
 								<div class="col-md-6">
 									<label class="mb-3">Member Name</label>
-						檢舉類型:<select name="reportType" class="main-input-box" >
+						檢舉類型：<select name="reportType" class="main-input-box">
                                       <option selected="selected" disabled="disabled"  >請選擇</option>
                                       <option value="不實料理">不實料理</option>
                                       <option value="禁止廣告">禁止廣告</option>
                                       <option value="不雅照片">不雅照片</option>
                                 </select><br>		
                                  <label class="mb-3">Email Address</label> 
-										檢舉內容:<div ><textarea rows="5" cols="33" name="reportContext" class="main-input-box" placeholder="請輸入檢舉內容" ></textarea></div><br>
+										檢舉內容：<div ><textarea rows="5" cols="33" name="reportContext" class="main-input-box" placeholder="請輸入檢舉內容"  class="textarea form-control"></textarea></div><br>
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
-										<button type="submit" class=" aaa">送出<i class="flaticon-next"></i>
-										</button>
+										<button type="submit" class="btn-submit">送出<i class="flaticon-next"></i></button>
+										
 										<div class="btn-area">
 											<div class="btn-area"></div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</form>
+						</form></div>
 					</div>
 				</div>
 			</div>
