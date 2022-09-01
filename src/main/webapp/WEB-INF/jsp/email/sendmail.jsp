@@ -38,7 +38,11 @@
     <link rel="stylesheet" href="${contextRoot}/css/style.css">
     <!-- Modernizr Js -->
     <script src="${contextRoot}/js/modernizr-3.6.0.min.js"></script>
-
+    <style type="text/css">
+    #wrongMessage{
+			color:red;
+		}
+    </style>
 </head>
 <body>
  <!-- Preloader Start Here -->
@@ -89,7 +93,7 @@
                                         <label class="mb-3">Email Address</label>
                                         <input required="required" class="main-input-box" type="email" name="email" placeholder="請輸入Email">
                                       <div class="btn-area">
-                                    <button type="submit" class="btn-fill btn-primary">驗證信<i class="flaticon-next"></i></button>
+                                    <button type="submit" class="btn-fill btn-primary">驗證信<i class="flaticon-next"></i></button><p id="wrongMessage">${msg}</p>
                                    <div class="btn-area">
                                    </div>
                                    </div>

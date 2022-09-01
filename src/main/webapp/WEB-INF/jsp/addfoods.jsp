@@ -57,7 +57,7 @@ body {font-size:16px;}
 <h3>新增食材</h3>
 <table  class="table table-striped">
 
-	<form:form action="addfoods" method="Post" modelAttribute="addfoodsAttribute">
+	<form:form action="addfoods" method="Post" modelAttribute="addfoodsAttribute" >
 		<tr><td><form:label path="foodsName" >食材名稱:</form:label></td></tr>
 		<tr><td><form:input path="foodsName" placeholder="請輸入食材名稱" /></td></tr>
 		<tr><td><form:label path="foodsType" >食材類別:</form:label></td></tr>

@@ -44,6 +44,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
+.wrongMessage{
+			margin-left:30px;
+			color:red;
+		}
 </style>
 <title>Insert Type</title>
 </head>
@@ -56,15 +60,15 @@ body {font-size:16px;}
 <h3>新增食譜類別</h3>
 
 
-<form action="${contextRoot}/addkeyword" method="post" enctype="multipart/form-data" class="login-form">
+<form action="${contextRoot}/addkeyword" method="post" enctype="multipart/form-data" class="login-form needs-validation" novalidate>
  	<table  class="table table-striped">
  	<tr><td>類別名稱:</td></tr>
- 	<tr><td><input type="text" name="keyword" id="word"/><span id="titlecheck" 	class="check"></span></td></tr>
+ 	<tr><td><input type="text" name="keyword" id="word" required/><span id="titlecheck" 	class="check"></span></td></tr>
  	<tr><td>類別圖示:</td></tr>
  	<tr><td><label><img id="imgfile" src="http://localhost:8090/cookblog/recipe/upload.png"/>
-      			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,imgfile)" accept=".png, .jpg, .jpeg" style="display:none;"/>
+      			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,imgfile)" accept=".png, .jpg, .jpeg" style="display:none;" />
       		</label></td></tr>
-			<tr><td><button id="submit" class="btn-fill btn-danger">加入</button></td></tr>
+			<tr><td><button id="submit" class="btn-fill btn-danger">加入</button><span id="wrongMessage"></span></td></tr>
 </table>
 	<div class="btn-area">
 		<button type="button" class="btn-fill btn-danger" onclick="keyin()">
@@ -112,6 +116,34 @@ function keyin() {
 	document.getElementById("word").value = "下午茶";
 }
 
+
+//驗證
+(function() {
+	  'use strict';
+	  window.addEventListener('load', function() {
+	    var forms = document.getElementsByClassName('needs-validation');
+	    var validation = Array.prototype.filter.call(forms, function(form) {
+	      // 送出時驗證
+	      form.addEventListener('submit', function(event) {
+	        if (form.checkValidity() === false) {
+	          event.preventDefault();
+	          event.stopPropagation();
+	          $("#wrongMessage").html("").append("<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>資料輸入不完全！")
+			  $("#wrongMessage").removeClass("currectMessage").addClass("wrongMessage")
+	        }
+	        form.classList.add('was-validated');
+	      }, false);
+	      
+	      // 驗證是否填寫完成
+	      form.addEventListener('change', function(event) {
+	        if (form.checkValidity() === true) {
+	          $("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+			  $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+	        }
+	      }, false);
+	    });
+	  }, false);
+	})();
 </script>
 
 </body>

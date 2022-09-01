@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eeit147.groupfive.users.model.Users;
 import com.eeit147.groupfive.users.model.UsersDao;
@@ -32,7 +33,12 @@ private UsersService uService;
 
     //接收使用者信箱，發送信件和驗證碼
     @PostMapping("/users/send/email")
-	public String sendSimpleMail(@RequestParam("email") String email,Model model) throws Exception {
+	public String sendSimpleMail(@RequestParam("email") String email,Model model,RedirectAttributes attr) throws Exception {
+    	boolean isNotRepeat = uService.findByEmailCheckIsNotRepeat(email);
+    	if(isNotRepeat) {
+    		attr.addFlashAttribute("msg", "<span class='typcn typcn-warning-outline' style='font-size:25px;'>&nbsp;</span>查無Email，請重新輸入！");
+    		return "redirect:/setGmail";
+    	}
     	//亂數碼
     	StringBuilder verificationCode= new StringBuilder();
     	Random randomNumber = new Random();
