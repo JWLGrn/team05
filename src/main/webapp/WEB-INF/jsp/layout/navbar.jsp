@@ -71,7 +71,9 @@
                                     <li><a href="${contextRoot}/adminIndex">管理頁面</a>
                                     </li>
                                     </c:if>
-                                    
+                                    <c:if test="${empty loginUser }">
+                                            <li><a href="${contextRoot}/websocket" onclick="window.open('${contextRoot}')">聯繫客服</a></li>
+                                      </c:if>
                                 </ul>
                             </nav>
                         </div>

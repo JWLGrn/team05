@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ranna | Submit Recipes</title>
+    <title>SendMail</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
@@ -43,6 +43,15 @@
 			color:red;
 		}
     </style>
+
+<style type="text/css">
+        .inner-page-banner:before {
+		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/send.jpg");
+		background-position: center;
+		background-size: cover;
+		}
+</style>
+
 </head>
 <body>
  <!-- Preloader Start Here -->
@@ -63,7 +72,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumbs-area">
-                            <h1>Welcome to I Cook</h1>
+                            <h1>Welcome to ISpoon</h1>
                             <ul>
                                 <li>
                                     <a href="index.html">Home</a>
