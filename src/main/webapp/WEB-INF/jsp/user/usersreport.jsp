@@ -43,6 +43,11 @@
 background-color: #ff4a52;
 border-radius: 45px;
 }
+        .inner-page-banner:before {
+		background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .45)),url("${contextRoot}/banner/report.jpg");
+		background-position: center;
+		background-size: cover;
+		}
 </style>
 </head>
 <body>
