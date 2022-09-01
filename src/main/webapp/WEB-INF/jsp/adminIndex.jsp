@@ -82,8 +82,8 @@ h1{
 <nav class="nav nav-pills flex-column flex-sm-row">
   <a class="flex-sm-fill text-sm-center nav-link active aa" onclick="showDonation()" style="background-color: #ff4a52;">贊助者資料</a>
   <a class="flex-sm-fill text-sm-center nav-link aa" onclick="reportReply()">檢舉信件</a>
-  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest02()">切換長條圖</a>
-  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest()">切換圓餅圖</a>
+  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest02()">季報統計</a>
+  <a class="flex-sm-fill text-sm-center nav-link aa" onclick="chartjstest()">食譜類別統計</a>
 </nav>
 
 <!-- --------------------------------------- -->
@@ -202,9 +202,9 @@ function chartjstest(){
   			// 參數設定[註1]
   			type: "bar", // 圖表類型
   			data: {
-  				labels: [ "2022/06", "2022/07", "2022/08" ], // 標題
+  				labels: [ "2022/07", "2022/08", "2022/09" ], // 標題
   				datasets: [{
-  					label: "# of Votes", // 標籤
+  					label: "贊助金額/月份", // 標籤
   					data: [ 58471, 65541, count ], // 資料
   					backgroundColor: [ // 背景色
   					"#ff6384",
