@@ -144,11 +144,8 @@
                             <h1>Recipe</h1>
                             <ul>
                                 <li>
-<<<<<<< HEAD
                                     <a href="http://localhost:8090/cookblog">Home</a>
-=======
                                     <a href="${contextRoot}">Home</a>
->>>>>>> ff1c045addeaeacf77932bee2a94de15f11d3cd5
                                 </li>
                                 <li>
                                     <a href="${contextRoot}/recipe/find/all">Recipe</a>
