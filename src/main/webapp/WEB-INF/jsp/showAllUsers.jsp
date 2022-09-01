@@ -73,7 +73,7 @@ body {
 }
 </style>
 
-<title>管理使用者</title>
+<title>Memeber Manage</title>
 </head>
 <body>
 	<div id="preloader"></div>
@@ -128,9 +128,9 @@ body {
 							</select>
 							</td>
 							<td><button type="button"
-									class="w3-button w3-red w3-hover-black" onclick="sendfromUpdateData(${u.userId})">更新</button></td>
+									class="btn-fill  btn-danger" onclick="sendfromUpdateData(${u.userId})">更新</button></td>
 							<td>
-								<button type="button" class="w3-button w3-red w3-hover-black"
+								<button type="button" class="btn-fill  btn-danger"
 									onclick="deleteUser(${u.userId})">刪除</button>
 							</td>
 						</tr>

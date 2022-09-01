@@ -45,7 +45,7 @@ body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
-<title>新增食材</title>
+<title>Insert Ingredients</title>
 </head>
 <body>
 
@@ -65,13 +65,20 @@ body {font-size:16px;}
 		<tr><td><form:label path="calorie" >卡路里　:</form:label></td></tr>
 		<tr><td><form:input path="calorie" placeholder="請輸入卡路里"/></td></tr>
 		<tr>
-		<td><form:button type="submit" class="w3-button w3-red w3-hover-black item-btn">加入</form:button>
-			<form:button type="reset" class="w3-button w3-red w3-hover-black item-btn">取消</form:button>	</td>
+		<td><form:button type="submit" class="btn-fill  btn-danger">加入</form:button>
+			<form:button type="reset" class="btn-fill  btn-danger">取消</form:button>
+		</td>
 		</tr>	
 	</form:form>
-	
 	</table>
-</div></div></div>
+	<div class="btn-area">
+		<button type="button" class="btn-fill btn-danger" onclick="keyin()">
+			紅豆湯<i class="flaticon-next"></i>
+		</button>
+	</div>
+</div>
+</div>
+</div>
 
 <script>
 $("#foodsName").blur(function(){
@@ -89,7 +96,11 @@ $("#foodsName").blur(function(){
 		}
 	});
 });
-
+function keyin() {
+	document.getElementById("foodsName").value = "紅豆湯";
+	document.getElementById("foodsType").value = "豆類";
+	document.getElementById("calorie").value = "200";
+}
 </script>
 
 </body>
