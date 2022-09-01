@@ -114,7 +114,7 @@ background-size: cover;
                     <div class="col-lg-8">
                         <div class="author-box-layout1">
 								<nav class="nav nav-pills nav-fill">
- 									 <a class="nav-item nav-link active aa" id="myrecipe">個人食譜查詢</a>
+ 									 <a class="nav-item nav-link active aa" id="myrecipe">個人食譜</a>
   									 <a class="nav-item nav-link aa" id="mycollect">收藏食譜</a>
  									 <a class="nav-item nav-link aa" id="myfollow">追蹤作者</a>
 								</nav>
@@ -416,7 +416,7 @@ $('#myfollow').click(function(e){
                             +'<h4 class="item-title">Recipes</h4>'                       
                             +'<span class="item-number">'+response[index].recipeCount+'</span>'                       
                             +'</div></li><li><div>'                           
-                            +'<h4 class="item-title">Track</h4>'                            
+                            +'<h4 class="item-title">Follower</h4>'                            
                             +'<span class="item-number">'+response[index].followCount+'</span>'                        
                             +'</div></li><li><div>'  
                             +'<h4 class="item-title">Favourite</h4>'                      

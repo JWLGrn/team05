@@ -105,7 +105,7 @@
 									<input placeholder="請輸入姓名" type="text" value="${loginUser.userName }" name="user_name" class="main-input-box"><br /> 
 									
 									<label class="mb-3">Email Address</label> 信箱:
-									<input type="email" value="${loginUser.email }" name="email" id="email" class="main-input-box" placeholder="請輸入信箱"><br /> 
+									<input type="email" value="${loginUser.email }" name="email" id="email" class="main-input-box" readonly="readonly" placeholder="請輸入信箱"><br /> 
 									
 									<label class="mb-3">Password</label> 
 									<input type="password" value="${loginUser.password }" name="password" class="main-input-box" placeholder="請輸入密碼"><br /> 
