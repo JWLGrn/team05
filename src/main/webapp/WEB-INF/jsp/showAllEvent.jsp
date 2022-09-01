@@ -143,7 +143,7 @@ body {
    width:200px;
 }
 </style>
-<title>管理活動</title>
+<title>Event Manage</title>
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>

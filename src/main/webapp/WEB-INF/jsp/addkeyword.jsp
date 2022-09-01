@@ -45,7 +45,7 @@ body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
-<title>新增食譜類別</title>
+<title>Insert Type</title>
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
@@ -64,7 +64,7 @@ body {font-size:16px;}
  	<tr><td><label><img id="imgfile" src="http://localhost:8090/cookblog/recipe/upload.png"/>
       			<input type="file" id="keyword" name="keywordphoto" onchange="photochange(event,imgfile)" accept=".png, .jpg, .jpeg" style="display:none;"/>
       		</label></td></tr>
-			<tr><td><button id="submit" class="w3-button w3-red w3-hover-black">加入</button></td></tr>
+			<tr><td><button id="submit" class="btn btn-danger">加入</button></td></tr>
 </table>
 </form>
 

@@ -66,7 +66,7 @@ h1{
 }
 
 </style>
-<title>系統管理首頁</title>
+<title>System Manager</title>
 </head>
 
 <body  onload="showDonation()">

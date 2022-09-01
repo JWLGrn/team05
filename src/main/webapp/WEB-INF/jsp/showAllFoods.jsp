@@ -51,7 +51,7 @@ body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
-<title>管理食材</title>
+<title>Ingredients Manage</title>
 </head>
 <body>
 <jsp:include page="layout/navbar.jsp"/>
@@ -89,10 +89,10 @@ body {font-size:16px;}
 		 <td><input type="hidden" id="foodsType${f.foodsId}" name="foodsType" value="${f.foodsType}" /><label>${f.foodsType}</label></td>
 		 <td><input type="hidden" id="calorie${f.foodsId}" name="calorie" value="${f.calorie}" /><label>${f.calorie}</label></td>
 		 <td>
-		    <button id="changeBtn" type="button" class="w3-button w3-red w3-hover-black changeBtn">修改</button>
-		    <button onclick="sendfromUpdateData(${f.foodsId})" id="formButton" type="button" class="w3-button w3-red w3-hover-black" style="display:none">送出</button>
+		    <button id="changeBtn" type="button" class="btn btn-danger">修改</button>
+		    <button onclick="sendfromUpdateData(${f.foodsId})" id="formButton" type="button" class="btn btn-danger" style="display:none">送出</button>
 		 </td>
-		 <td><button  type="button" class="w3-button w3-red w3-hover-black" onclick="deleteFood(${f.foodsId})">刪除</button></td>						
+		 <td><button  type="button" class="btn btn-danger" onclick="deleteFood(${f.foodsId})">刪除</button></td>						
 		</tr>
 <!-- 		</form>	 -->
 		</c:forEach>

@@ -72,7 +72,7 @@ object-fit:cover;
 
 </style>
 
-<title>管理使用者</title>
+<title>Type Manage</title>
 </head>
 <body>
 	<jsp:include page="layout/navbar.jsp" />
@@ -103,9 +103,9 @@ object-fit:cover;
 							</td>
 							<td><input name="keyword" value="${k.keyword}" /></td>
 							<td><button type="submit"
-									class="w3-button w3-red w3-hover-black">送出</button></td>
+									class="btn btn-danger">送出</button></td>
 							<td>
-							<button type="button" class="w3-button w3-red w3-hover-black"
+							<button type="button" class="btn btn-danger"
 							onclick="deleteKeyword(${k.keywordId})">刪除</button>
 										</td>
 					</tr>
