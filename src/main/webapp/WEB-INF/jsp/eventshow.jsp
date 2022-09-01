@@ -310,6 +310,7 @@ function showAllEvent() {
 					+ '</p><p class="fas fa-clock color_yellow">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
 					+ '</p><ul class="entry-meta">'
 			  	let a=eventend(value.timeEnd);
+					
 				if(a==0){
 					replydata += '<li><a onclick="showoneevent('+ value.eventId+ ')"><i class="fas fa-users">參加活動</i></a></li>';
 				}else{
@@ -322,20 +323,29 @@ function showAllEvent() {
 			});
 }
 function eventend(timeend){
+//console.log(timeend);
 	let result=0;
     let timearry=timeend.split("/");
-
+    
  	let now=new Date();
 	let year=now.getFullYear();
 	let month=now.getMonth()+1;
 	let date=now.getDate();
-
-	if(timearry[0]>year){
+console.log(timearry[0]+"_"+year);
+console.log(timearry[1]+"_"+month);
+console.log(timearry[2]+"_"+date);
+	if(timearry[0]>year){		
 		result=0;
+	}
+	if(timearry[0]<year){		
+		result=1;
 	}else{
 		if(timearry[1]>month){
 			result=0;
-		}else{
+		}
+		if(timearry[1]<month)
+			result=1;
+		else{
 			if(timearry[2]>date){
 				result=0;
 			}else{
@@ -343,6 +353,7 @@ function eventend(timeend){
 			}
 		}
 	}
+	
 	return  result;
 }
 //--------------------活動選擇-------------------> 
@@ -468,7 +479,8 @@ function checkjoin(eventId,recipeId,count){
 //取消參加
 function canceljoin(recipeId,eventId){
 	 Swal.fire({
-		  title: '確定要取消參加嗎?',
+		  title: '提醒',
+		  text: '確定要取消參加嗎?',
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
@@ -477,18 +489,22 @@ function canceljoin(recipeId,eventId){
 		  cancelButtonText: '取消!'
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '刪除成功!'
-		    )
-		    let data1=recipeId+","+eventId;
- 			var replyjson=JSON.stringify(data1);
- 			$.ajax({
- 				 url:"${contextRoot}/event/joindelete",
- 				 contentType:'application/json',//送出資料型態
-  		 		 dataType:'json',//回傳資料型態
- 				 method:'post',
- 		 		 data:replyjson,
- 		 		 success:function(result){			
+		    Swal.fire({
+		    	title: '提示',
+	    	    text: "已取消！",
+	    	    icon: 'success',
+	    	    confirmButtonText: '返回'
+		    }).then((success) => {
+		    	if (success.isConfirmed) {
+		    		let data1=recipeId+","+eventId;
+ 				var replyjson=JSON.stringify(data1);
+ 				$.ajax({
+ 				 	url:"${contextRoot}/event/joindelete",
+ 				 	contentType:'application/json',//送出資料型態
+  		 		 	dataType:'json',//回傳資料型態
+ 				 	method:'post',
+ 		 		 	data:replyjson,
+ 		 		 	success:function(result){			
  				 	
  				 },
  				 	error:function(err){
@@ -498,6 +514,9 @@ function canceljoin(recipeId,eventId){
  			});
  			showoneevent(eventId);
 		  }
+		    	})
+		    }
+		    
 		})
 		 
 }
