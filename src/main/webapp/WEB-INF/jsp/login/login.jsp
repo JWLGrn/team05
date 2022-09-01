@@ -121,7 +121,7 @@
                                 <div class="btn-area">
 												<div class="btn-area">
 													<button type="button" class="btn-fill btn-primary" onclick="keyin1()">
-														蒙其·D·魯夫<i class="flaticon-next"></i>
+														ruthy<i class="flaticon-next"></i>
 													</button>
 													<button type="button" class="btn-fill btn-primary" onclick="keyin2()">
 														joy<i class="flaticon-next"></i>
@@ -183,8 +183,8 @@
     }
     
     function keyin1() {
-		document.getElementById("email").value = "Luffy@gmail.com";
-		document.getElementById("password").value = "qaz123";
+		document.getElementById("email").value = "ruthy@gmail.com";
+		document.getElementById("password").value = "1234";
 	}
 	function keyin2() {
 		document.getElementById("email").value = "joy@gmail.com";
