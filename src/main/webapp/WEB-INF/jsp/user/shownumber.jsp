@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Ranna | Submit Recipes</title>
+<title>Personal</title>
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -95,6 +95,7 @@ background-size: cover;
 							<h1>Welcome ${loginUser.userName}</h1>
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
+								<li>Personal</li>
 							</ul>
 						</div>
 					</div>
