@@ -188,7 +188,9 @@
                                     	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button style="font-size:17px">修改</button></a></li>
                                     	<li><a><button style="font-size:17px" onclick="deleteRecipe()">刪除</button></a></li>
                                     	</c:if>
+                                    	<c:if test="${!empty loginUser}">
                                     	<li><a href="${contextRoot}/users/report?user_id=${recipe.userId}&&user_id=${loginUser.userId }"><button style="font-size:17px">檢舉</button></a></li>
+                                    	</c:if>
                                     </ul>
                                 </div>
                             </div>
