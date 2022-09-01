@@ -512,10 +512,41 @@ function addcollect(recipeId){
 			if(result==true){
 				$("#collect").css("color","#ff4a52");
 				str=Number($("#conum").text())+1;
-				
+			 	new Notify ({
+    	 		    status: 'error',
+    	 		    title: '提示',
+    	 		    text: '已收藏</br>${recipe.cookTitle}',
+    	 		    effect: 'slide',
+    	 		    speed: 400,
+    	 		    customIcon: '<span class="typcn typcn-flag" style="font-size:35px"></span>',
+    	 		    showIcon: true,
+    	 		    showCloseButton: true,
+    	 		    autoclose: true,
+    	 		    autotimeout: 3000,
+    	 		    gap: 20,
+    	 		    distance: 20,
+    	 		    type: 1,
+    	 		    position: 'left bottom'
+    	 		  })
 			}else{
 				$("#collect").css("color","gray");
 				str=$("#conum").text()-1;
+			 	new Notify ({
+    	 		    status: 'error',
+    	 		    title: '提示',
+    	 		    text: '已取消收藏</br>${recipe.cookTitle}',
+    	 		    effect: 'slide',
+    	 		    speed: 400,
+    	 		    customIcon: '<span class="typcn typcn-flag" style="font-size:35px"></span>',
+    	 		    showIcon: true,
+    	 		    showCloseButton: true,
+    	 		    autoclose: true,
+    	 		    autotimeout: 3000,
+    	 		    gap: 20,
+    	 		    distance: 20,
+    	 		    type: 1,
+    	 		    position: 'left bottom'
+    	 		  })
 			}
 			$("#conum").text(str);
 		 },error:function(err){
