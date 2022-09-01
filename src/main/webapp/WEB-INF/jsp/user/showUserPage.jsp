@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Ranna | Submit Recipes</title>
+<title>${showUserPage.userName }</title>
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -92,6 +92,8 @@ height: 250px;
 							 <h1>${showUserPage.userName} Personal Page</h1> 
 							<ul>
 								<li><a href="${contextRoot}">Home</a></li>
+								<li><a href="${contextRoot}/shownumberuser">Personal</a></li>
+								<li>Following</li>
 							</ul>
 						</div>
 					</div>
