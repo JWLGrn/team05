@@ -129,7 +129,7 @@ public class TestController {
 //		
 //	}
 	
-		//符號顯示(確認是否有關聯 → 顯示不同圖片)
+		//按讚符號顯示(確認是否有關聯 → 顯示不同圖片)
 		@GetMapping("/checkfavor/{usersid}/{recipeid}")
 		public @ResponseBody ResponseEntity<byte[]> checkFavor(
 				@PathVariable("usersid")Integer userid,

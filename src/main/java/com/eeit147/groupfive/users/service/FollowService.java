@@ -47,18 +47,19 @@ public class FollowService {
 			 int followCount = 0;
 			 int recipeCount = 0;
 			 int favoriteCount = 0;
-			 //把我追蹤的人 他追蹤的人 計算出來
+			 //先把我追蹤的人 他追蹤的人 計算出來
 			 for(Follow e1 : element.getTrack().getTrack()) {
 				 followCount ++;
 			 }
-			 //把我追蹤的人 他發布的食譜 計算出來
+			 //先把我追蹤人的食譜給抓出來 並統計出來總共有幾筆食譜
 			 for(Recipe e2 : element.getTrack().getRecipe()) {
 				 System.out.println(e2.getRecipeId());
 				 recipeCount ++;
 			 }
-			 //把我追蹤的人 被案讚次數 計算出來
-			 for(Favorite e3 : element.getTrack().getFavorite()) {
-				 favoriteCount ++;
+			 //先把我追蹤人的食譜一個一個抓出來
+			 for(Recipe e3 : element.getTrack().getRecipe()) {
+				 //再將一筆一筆食譜的按讚數給統計出來
+				 favoriteCount += e3.getFavorite().size();
 			 }
 			 list.add(new FollowDto(element.getUserName(), element.getUserPhoto(),followCount, recipeCount, favoriteCount,element.getTrack().getUserId()));
 		 }
