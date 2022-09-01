@@ -160,7 +160,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group additional-input-box icon-right">
-                                                <input type="number" placeholder="份量（公克）" class="form-control" name="gram" min="1" required>
+                                                <input type="number" placeholder="份量（公克）" class="form-control" id="insertfood" name="gram" min="1" required>
                                                 <i class="fas fa-times removeFood"></i>
                                             </div>
                                         </div>
@@ -183,7 +183,7 @@
                                         </div>
                                         <div class="col-9">
                                             <div class="form-group additional-input-box icon-right"  style="height: 150px;">
-                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required></textarea>
+                                                <textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" id="insert" style="height:auto" required></textarea>
                                                 <i class="fas fa-times removeStep"></i>
                                             </div>
                                         </div>
@@ -193,6 +193,7 @@
                                     <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
                             <button type="submit" class="btn-submit">發佈食譜</button><span id="wrongMessage"></span>
+                            <button type="button" class="btn-submit" onclick="quickInsert()">快速輸入</button>
                         </form>
                     </div>
                 </div>
@@ -249,6 +250,7 @@
             }
 
             //增加食材標籤
+            var insertfood = 1;
             $("#addFood").click(function(){
                 var addfoods = '<div class="row no-gutters singlefood">'
                               +'<div class="col-6">'
@@ -258,11 +260,12 @@
                               +'</div></div>'
                               +'<div class="col-6">'
                               +'<div class="form-group additional-input-box icon-right">'
-                              +'<input type="number" placeholder="份量（公克）" class="form-control" name="gram" required>'
+                              +'<input type="number" placeholder="份量（公克）" class="form-control" id="insertfood'+insertfood+'" name="gram" required>'
                               +'<i class="fas fa-times removeFood"></i>'
                               +'</div></div></div>'
                 $(".foodtable").append(addfoods);
                 selectRefresh();
+                insertfood++;
             })
 
             //移除食材
@@ -276,6 +279,7 @@
 
             //增加步驟標籤
             var count = 2;
+            var insert = 1;
             $("#addStep").click(function(){
                 var addsteps = '<div class="row no-gutters singlestep">'
                               +'<div class="col-3">'
@@ -286,12 +290,13 @@
                               +'</div></div>'
                               +'<div class="col-9">'
                               +'<div class="form-group additional-input-box icon-right"  style="height: 150px;">'
-                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" class="textarea form-control" style="height:auto" required></textarea>'
+                              +'<textarea name="stepDescript" cols="30" rows="4" placeholder="輸入步驟說明" id="insert'+insert+'" class="textarea form-control" style="height:auto" required></textarea>'
                               +'<i class="fas fa-times removeStep"></i>'
                               +'</div></div></div>'
 
                 $(".steptable").append(addsteps);
                 count++;
+                insert++;
             })
 
             //移除步驟
@@ -376,6 +381,21 @@
                 handle: '.singlestep',
                 animation: 150
             });
+            
+            function quickInsert(){
+            	$("input[name='title']").val("123");
+            	$("textarea[name='descript']").val("描述");
+            	$("input[name='time']").val("10");
+            	$("input[name='people']").val("5");
+            	$("#insert").val("1");
+            	$("#insert1").val("2");
+            	$("#insert2").val("3");
+            	$("#insert3").val("4");
+            	$("#insertfood").val("100");
+            	$("#insertfood1").val("200");
+            	$("#insertfood2").val("300");
+            	
+            }
     </script>
 </body>
 
