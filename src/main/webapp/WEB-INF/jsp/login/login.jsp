@@ -121,23 +121,21 @@
                                 <div class="btn-area">
 												<div class="btn-area">
 													<button type="button" class="btn-fill btn-primary" onclick="keyin1()">
-														ruthy<i class="flaticon-next"></i>
+														Yang<i class="flaticon-next"></i>
 													</button>
 													<button type="button" class="btn-fill btn-primary" onclick="keyin2()">
 														joy<i class="flaticon-next"></i>
 													</button>
-													<button type="button" class="btn-fill btn-primary" onclick="keyin3()">
-														eason<i class="flaticon-next"></i>
-													</button>
-													<button type="button" class="btn-fill btn-primary" onclick="keyin4()">
-														yang<i class="flaticon-next"></i>
-													</button>
 													<button type="button" class="btn-fill btn-primary" onclick="keyin5()">
 														sf<i class="flaticon-next"></i>
 													</button>
-													<button type="button" class="btn-fill btn-primary" onclick="keyin6()">
-														green<i class="flaticon-next"></i>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin3()">
+														管理者<i class="flaticon-next"></i>
 													</button>
+													<button type="button" class="btn-fill btn-primary" onclick="keyin4()">
+														被檢舉者<i class="flaticon-next"></i>
+													</button>
+
 												</div>
 											</div>
                             </form:form>
@@ -183,8 +181,8 @@
     }
     
     function keyin1() {
-		document.getElementById("email").value = "ruthy@gmail.com";
-		document.getElementById("password").value = "1234";
+		document.getElementById("email").value = "com@gmail.com";
+		document.getElementById("password").value = "12345678";
 	}
 	function keyin2() {
 		document.getElementById("email").value = "joy@gmail.com";
@@ -195,7 +193,7 @@
 		document.getElementById("password").value = "1234";
 	}
 	function keyin4() {
-		document.getElementById("email").value = "yang@gmail.com";
+		document.getElementById("email").value = "eeit14730@gmail.com";
 		document.getElementById("password").value = "1234";
 	}
 	function keyin5() {
@@ -206,6 +204,7 @@
 		document.getElementById("email").value = "green@gmail.com";
 		document.getElementById("password").value = "1234";
 	}
+
 // 	function userDetail(){
 		
 	
