@@ -48,7 +48,7 @@ public class EcpayController {
 		Date current = new Date();
 		AllInOne aio = new AllInOne("");
 		AioCheckOutDevide obj = new AioCheckOutDevide();
-		obj.setMerchantTradeNo("ICook" + orderNumber02);
+		obj.setMerchantTradeNo("ISpoon" + orderNumber02);
 		obj.setMerchantTradeDate(Date.format(current));
 		obj.setTotalAmount(price.toString());
 		obj.setTradeDesc("援助脆弱家庭兒少免於飢餓、健康成長，以及孤、貧、殘、疾之脆弱年長者獲得適需的資源。");
@@ -62,7 +62,7 @@ public class EcpayController {
 		donation.setPhone(phone);
 		donation.setDonateDate(current);
 		donation.setPrice(price);
-		donation.setTradeno("ICook" + orderNumber02);
+		donation.setTradeno("ISpoon" + orderNumber02);
 		dDao.save(donation);
 		model.addAttribute("donation", donation);
 		return form;
