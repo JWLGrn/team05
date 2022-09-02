@@ -573,8 +573,8 @@ $("#createbtn").click(function(){
 					+ '</figure>'
 					+ '<div class="item-content ">'
 					+ '<h3 class="item-title">'
-					+ '<a href="single-recipe1.html">'+ value.eventTitle											
-					+ '</a></h3><p >'+ value.eventContext
+					+ '<a>'+ value.eventTitle											
+					+ '</a></h3><p>'+ value.eventContext
 					+ '</p><p class="fas fa-clock">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
 					+ '</p><ul class="entry-meta">'
 					//if(${userId}==1){
@@ -681,7 +681,7 @@ function participate(eventId){
 			  		'<div class="item-figure">'
 			  		+'<img src="${contextRoot}/image/event/'+result.eventPhoto+'" alt="Product" class="choiceimg"></div>'
 			  		+'<div class="item-content">'
-			  		+'<h3 class="item-title"><a href="single-recipe1.html">'+result.eventTitle+'</a></h3>'
+			  		+'<h3 class="item-title"><a>'+result.eventTitle+'</a></h3>'
 			  		+'<p><i class="fas fa-star color_yellow"></i>'+result.eventContext+'</p>'
 			  		+'<ul class="entry-meta remove-3rd-child-lg">'			  		
 			  		+'<li><i class="fas fa-clock color_red"></i>開始時間:'+result.timeStart+'</li><br/>'
