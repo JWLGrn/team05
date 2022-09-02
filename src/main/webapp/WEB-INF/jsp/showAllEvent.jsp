@@ -173,7 +173,7 @@ body {
             <div class="container insertdiv">
                 <div class="row gutters-60">
                     <div class="col-lg-8"> 
-                       <p class="title_h1">活動新增</p> 
+                       <p class="title_h1">活動管理</p> 
                        
                          <form class="submit-recipe-form">
                             <div class="form-group">
@@ -442,7 +442,7 @@ $("#eventTitle").blur(function(){
 	str=eventTitle.value;
 	if(str.length<1||str.length>21){
 		$("#checkTitle").text('字數限定1~20');
-		$("#eventTitle").val("");
+		//$("#eventTitle").val("");
 	}else{
 		$("#checkTitle").text("");
 	}
@@ -642,7 +642,7 @@ function del(eventId){
 		    	title: '提示',
 	    	    text: "活動已刪除！",
 	    	    icon: 'success',
-		    })then((success) => {
+		    }).then((success) => {
 		    	if (success.isConfirmed) {
 		    		
 		    	}
@@ -663,8 +663,8 @@ function del(eventId){
  			})
 			 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
   					}	  		
-		    )		    
-	}) 
+		}	    
+	)
 }
 //--------------------活動選擇-------------------> 
 //參加活動紐   顯示選擇活動
@@ -690,6 +690,7 @@ function participate(eventId){
 			 	    +'<li><i class="fas fa-long-arrow-alt-right" onclick="rechoice()" class="submitbtn">重新選擇</i></li><br/>'
                     +'</ul></div>'
 			  	 $("#oneevent").html(replydata);
+                 
 			 },error:function(err){
 			 	console.log(err);
 		}
