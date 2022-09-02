@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -300,6 +299,7 @@ public class UsersController {
 									@RequestParam("reportContext") String reportContext,
 									@RequestParam("reportStatus") String reportStatus,
 									Model model) {
+		
 		System.out.println(getAuthorUser + "被檢舉者");
 		System.out.println(loginUser + "檢舉者");
 		// 使用者查詢

@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="col-xl-3 col-12 a-flex">
                                     <ul class="action-item">
-                                    	<c:if test="${loginUser.userId==recipe.userId}">
+                                    	<c:if test="${loginUser.userId==recipe.userId || loginUser.permission == 2}">
                                     	<li><a href="${contextRoot}/recipe/update/${recipe.recipeId}"><button style="font-size:17px">修改</button></a></li>
                                     	<li><a><button style="font-size:17px" onclick="deleteRecipe()">刪除</button></a></li>
                                     	</c:if>

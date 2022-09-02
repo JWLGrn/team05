@@ -122,7 +122,8 @@ object-fit:cover;
             //img預覽
             let fr = new FileReader();
             fr.onload = function (e) {
-                $('#'+imgid.id).attr('src', e.target.result);
+				document.getElementById(imgid.id).setAttribute('src', e.target.result);
+                //$('#'+imgid.id).attr('src', e.target.result);
             };
             fr.readAsDataURL(event.target.files[0]);
         }

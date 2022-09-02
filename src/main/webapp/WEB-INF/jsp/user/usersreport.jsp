@@ -117,20 +117,18 @@ select {
                         <input name="reportTime" type="hidden" value=" ${date }">
 							<div class="row">
 								<div class="col-md-6">
-									<label class="mb-3">Member Name</label>
-						檢舉類型：<select name="reportType" class="main-input-box">
-                                      <option selected="selected" disabled="disabled"  >請選擇</option>
-                                      <option value="不實料理">不實料理</option>
+									<label class="mb-3">檢舉類型：</label>
+						<select name="reportType" class="main-input-box">
+                                      <option selected="selected" value="不實料理">不實料理</option>
                                       <option value="禁止廣告">禁止廣告</option>
                                       <option value="不雅照片">不雅照片</option>
                                 </select><br>		
-                                 <label class="mb-3">Email Address</label> 
-										檢舉內容：<div ><textarea rows="5" cols="33" name="reportContext" class="main-input-box" placeholder="請輸入檢舉內容"  class="textarea form-control"></textarea></div><br>
+                                 <label class="mb-3">檢舉內容：</label> 
+										<div ><textarea rows="5" cols="33" name="reportContext" class="main-input-box" placeholder="請輸入檢舉內容"  class="textarea form-control"></textarea></div><br>
 									<!-- 			<i class="fa fa-check" -->
 									<!-- 			aria-hidden="true"></i> -->
 									<div class="btn-area">
 										<button type="submit" class="btn-submit">送出<i class="flaticon-next"></i></button>
-										
 										<div class="btn-area">
 											<div class="btn-area"></div>
 										</div>

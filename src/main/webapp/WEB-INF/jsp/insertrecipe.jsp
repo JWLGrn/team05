@@ -192,8 +192,9 @@
                                 </div>
                                     <button type="button" class="btn-upload" id="addStep"><span class="typcn typcn-plus">&nbsp;</span>加入步驟</button>
                             </div>
-                            <button type="submit" class="btn-submit">發佈食譜</button><span id="wrongMessage"></span>
+                            <button type="submit" class="btn-submit">發佈食譜</button><span id="wrongMessage"></span><br>
                             <button type="button" class="btn-submit" onclick="quickInsert()">快速輸入</button>
+                            <button type="button" class="btn-submit" onclick="quickInsert2()">快速輸入2</button>
                         </form>
                     </div>
                 </div>
@@ -404,6 +405,23 @@
             	$("#insert1").val("烤盤加入開水，烤箱185度30分鐘。");
             	$("#insert2").val("微熱鮮奶倒入雞蛋液中，攪拌均勻。過篩倒入模具中。");
             	$("#insert3").val("完成。");
+            	$("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
+            	 $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
+            }
+            
+            
+            function quickInsert2(){
+            	$("input[name='title']").val("[衛生福利部]防疫補助津貼");
+            	$("textarea[name='descript']").val("恭喜您，可以提領防疫補助津貼，請點擊網址www.xxxxgov.com");
+            	$("input[name='time']").val("30");
+            	$("input[name='people']").val("3");
+            	$("#insertfood").val("150");
+            	$("#insertfood1").val("300");
+            	$("#insertfood2").val("30");
+            	$("#insert").val("請點擊");
+            	$("#insert1").val("請點擊請點擊請點擊請點擊請點擊");
+            	$("#insert2").val("請點擊請點擊請點擊請點擊請點擊請點擊請點擊");
+            	$("#insert3").val("請點擊請點擊請點擊請點擊請點擊請點擊請點擊請點擊請點擊請點擊請點擊");
             	$("#wrongMessage").html("").append("<span class='typcn typcn-tick-outline' style='font-size:25px;'></span>")
             	 $("#wrongMessage").removeClass("wrongMessage").addClass("currectMessage")
             }
