@@ -235,7 +235,7 @@ body {
 														+ '<td><button id="formButton" onclick="sendfromUpdateData('
 														+ item.userId
 														+ ')"  class="w3-button w3-red w3-hover-black">更新</button></td>'
-														+ '<td><a href="${contextRoot}/deleteUser/'+item.userId+'"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'
+														+ '<td><a onclick="deleteUser('+item.userId+')"><button  type="button" class="w3-button w3-red w3-hover-black">刪除</button></a></td>'
 														+ '</form>' + '</tr>'
 												console.log("text", text);
 												$("#userbody").append(text);

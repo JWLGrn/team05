@@ -89,8 +89,8 @@ body {font-size:16px;}
 		 <td><input type="hidden" id="foodsType${f.foodsId}" name="foodsType" value="${f.foodsType}" /><label>${f.foodsType}</label></td>
 		 <td><input type="hidden" id="calorie${f.foodsId}" name="calorie" value="${f.calorie}" /><label>${f.calorie}</label></td>
 		 <td>
-		    <button id="changeBtn" type="button" class="btn-fill  btn-danger">修改</button>
-		    <button onclick="sendfromUpdateData(${f.foodsId})" id="formButton" type="button" class="btn btn-danger" style="display:none">送出</button>
+		    <button id="changeBtn" type="button" class="btn-fill changeBtn btn-danger">修改</button>
+		    <button onclick="sendfromUpdateData(${f.foodsId})" id="formButton" type="button" class="btn-fill btn-danger" style="display:none">送出</button>
 		 </td>
 		 <td><button  type="button" class="btn-fill  btn-danger" onclick="deleteFood(${f.foodsId})">刪除</button></td>						
 		</tr>

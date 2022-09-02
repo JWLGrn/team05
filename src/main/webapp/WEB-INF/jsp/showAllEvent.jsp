@@ -642,7 +642,7 @@ function del(eventId){
 		    	title: '提示',
 	    	    text: "活動已刪除！",
 	    	    icon: 'success',
-		    })then((success) => {
+		    }).then((success) => {
 		    	if (success.isConfirmed) {
 		    		
 		    	}
@@ -662,10 +662,10 @@ function del(eventId){
  				}
  			})
 			 $(location).prop("href", "http://localhost:8090/cookblog/showallevent");
-  					}	  		
+  					}	}  		
 		    )		    
-	}) 
-}
+	} 
+
 //--------------------活動選擇-------------------> 
 //參加活動紐   顯示選擇活動
 function participate(eventId){
