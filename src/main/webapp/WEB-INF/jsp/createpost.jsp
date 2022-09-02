@@ -120,7 +120,9 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                             <button type="button" class="btn-submit">發表文章</button><span class="msg"></span>
+                            
                         </form>
+                        <i class="fas fa-star color_yellow" onclick="hotkey()">快捷鍵</i>
                     </div>
                 </div>
             </div>
@@ -148,6 +150,10 @@
     <script src="${contextRoot}/js/main.js"></script>
     <script src="${contextRoot}/ckeditor/ckeditor.js"></script>
  	<script type="text/javascript">
+ 	 function hotkey(){
+		 $("#title").val("蔥花冷凍保存時，如何避免結塊或變形？簡單1方法讓冷凍蔥花鬆散又漂亮");
+		 $("p").text("讓冷凍蔥花鬆散又漂亮的方法： 首先，將切好的蔥花全數放入一個可冷凍的食物保鮮盒中。蓋上食物保鮮盒的蓋子前，要先在蔥花上蓋一張廚房紙巾。廚房紙巾要摺成可以完全覆蓋盒中每個角落的大小。鋪好廚房紙巾後，就可以將食物保鮮盒的蓋子蓋上，再把保鮮盒整個「倒過來」，然後就這樣倒著放入冰箱冷凍即可，這麼做就能避免蔥花結塊變形。每次要取用冷凍蔥花時，直接用湯匙去挖就好。");
+	 }
  		ClassicEditor
     	.create(document.querySelector('#editor'))
     	.then(editor => {
