@@ -244,7 +244,7 @@ function report(){
 			$.ajax(settings).done(function (response) {
 			  console.log(response);
               let recipes = '<div class="section-heading heading-dark">'
-                            +' <h2 class="item-heading">RECIPES</h2>'
+                            +' <h2 class="item-heading">PERSONAL RECIPE</h2>'
                             +'</div>'
                             +'<div class="row">';     
                 let count = 0;
@@ -275,7 +275,7 @@ function report(){
                         recipes += '</div>' 
                     	pageList.push(recipes);
                         recipes = '<div class="section-heading heading-dark">'
-                                +' <h2 class="item-heading">RECIPES</h2>'
+                                +' <h2 class="item-heading">COLLECT</h2>'
                                 +'</div>'
                                 +'<div class="row">';   	
                     }
@@ -315,7 +315,7 @@ $('#mycollect').click(function(e){
 			$.ajax(settings).done(function (response) {
 
               let collect = '<div class="section-heading heading-dark">'
-                            +' <h2 class="item-heading">RECIPES</h2>'
+                            +' <h2 class="item-heading">COLLECT</h2>'
                             +'</div>'
                             +'<div class="row">';                               
                 let count = 0;
@@ -387,7 +387,7 @@ $('#myfollow').click(function(e){
             $.ajax(settings).done(function (response) {
 
                  let follow = '<div class="section-heading heading-dark">'
-                            +' <h2 class="item-heading">RECIPES</h2>'
+                            +' <h2 class="item-heading">FOLLOWER</h2>'
                             +'</div>'
                             +'<div class="row">';                               
                 let count = 0;
