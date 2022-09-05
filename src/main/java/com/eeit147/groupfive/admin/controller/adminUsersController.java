@@ -126,7 +126,7 @@ public class adminUsersController {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("stu60406666@gmail.com");
         message.setTo(userId.getEmail());
-        message.setSubject("主旨：I-Cook 通知");
+        message.setSubject("主旨：ISpoon 通知");
         message.setText("由於近期文章有接獲檢舉，會暫時停權三天，還請見諒。");
         mailSender.send(message);
         model.addAttribute("user",user);
