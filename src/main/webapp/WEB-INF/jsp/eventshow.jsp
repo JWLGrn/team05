@@ -309,12 +309,16 @@ function showAllEvent() {
 					+ '</h3><p >'+ value.eventContext
 					+ '</p><p class="fas fa-clock color_yellow">活動時間:'+ value.timeStart+ '~'+ value.timeEnd
 					+ '</p><ul class="entry-meta">'
-			  	let a=eventend(value.timeEnd);
-					
+			  	let a=eventtime(value.timeStart,value.timeEnd);
+				
 				if(a==0){
 					replydata += '<li><a onclick="showoneevent('+ value.eventId+ ')"><i class="fas fa-users">參加活動</i></a></li>';
-				}else{
+				}
+				if(a==1){
 					replydata += '<li><i class="fas fa-users">活動結束</i></li>';
+				}
+				if(a==2){
+					replydata += '<li><i class="fas fa-users">活動尚未開始</i></li>';
 				}
 				replydata += '</ul></div></div></div>';
 				
@@ -322,38 +326,25 @@ function showAllEvent() {
             $("#showevent").html(replydata);
 			});
 }
-function eventend(timeend){
-//console.log(timeend);
-	let result=0;
-    let timearry=timeend.split("/");
-    
- 	let now=new Date();
+function eventtime(timestart,timeend){
+console.log(timestart+"-"+timeend);
+ 	let result=0;
+ //取得今天時間
+  	let now=new Date();
 	let year=now.getFullYear();
 	let month=now.getMonth()+1;
 	let date=now.getDate();
-console.log(timearry[0]+"_"+year);
-console.log(timearry[1]+"_"+month);
-console.log(timearry[2]+"_"+date);
-	if(timearry[0]>year){		
-		result=0;
-	}
-	if(timearry[0]<year){		
-		result=1;
-	}else{
-		if(timearry[1]>month){
-			result=0;
-		}
-		if(timearry[1]<month)
-			result=1;
-		else{
-			if(timearry[2]>date){
-				result=0;
-			}else{
-				result=1;
-			}
-		}
-	}
 	
+ //判斷開始時間
+    let start = new Date(timestart);
+    let end = new Date(timeend);
+    console.log(end<now);
+    if((start>now)==true){
+    	result=2;
+    }
+    if((end<now)==true){
+    	result=1;
+    }
 	return  result;
 }
 //--------------------活動選擇-------------------> 

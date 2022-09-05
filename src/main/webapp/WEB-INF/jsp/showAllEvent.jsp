@@ -528,8 +528,8 @@ $("#timeEnd").blur(function(){
 function hotkey(){
 	$("#eventTitle").val("秋季美食");
 	$("#eventContext").text("募集專屬秋天的美食!");
-	$("#timeStart").val("2022-10-01");
-	$("#timeEnd").val("2022-10-31");
+	$("#timeStart").val("2022-09-07");
+	$("#timeEnd").val("2022-09-30");
 	$("#createbtn").show();
 	$("#checkTitle").text("");
 	$("#checkContext").text("");
